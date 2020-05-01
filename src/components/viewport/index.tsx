@@ -10,7 +10,7 @@ import "./styles.scss";
 
 interface ViewportProps {
   system: SystemState;
-  children: React.ReactElement;
+  children: React.ReactElement[];
 }
 
 const Viewport = (props: ViewportProps) => {
@@ -26,7 +26,7 @@ const Viewport = (props: ViewportProps) => {
   };
 
   return (
-    <div style={styles} className="viewport__container white-border">
+    <div style={styles} className="viewport-container white-border">
       {props.children}
     </div>
   );
