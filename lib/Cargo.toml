@@ -1,0 +1,12 @@
+[package]
+name = "wave"
+version = "0.1.0"
+authors = ["Josh Hill <josh.hill189@gmail.com>"]
+edition = "2018"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "*"
