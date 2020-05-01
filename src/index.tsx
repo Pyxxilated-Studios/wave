@@ -8,7 +8,7 @@ import App from "./App";
 
 import store from "./store";
 
-import "./index.css";
+import "./styles.scss";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 
-import "./App.css";
+import Viewport from "./components/viewport";
+import World from "./components/world";
 
 const App = () => {
-  const [wasm, setWasm] = useState<{
-    compute: (a: BigInt, b: BigInt) => BigInt;
-  }>();
+  const [library, setLibrary] = useState<typeof import("wave")>();
 
-  const loadWasm = async () => {
+  const loadLibrary = async () => {
     try {
-      const wasm = await import("wave");
-      setWasm(wasm);
+      const lib = await import("wave");
+      setLibrary(lib);
     } finally {
     }
   };
 
-  loadWasm();
+  loadLibrary();
+
+  if (!library) {
+    return null;
+  }
 
   return (
     <div className="App">
-      {wasm && <p>{wasm.compute(BigInt(1), BigInt(2)).toString()}</p>}
+      <Viewport>
+        <World library={library} />
+      </Viewport>
     </div>
   );
 };
