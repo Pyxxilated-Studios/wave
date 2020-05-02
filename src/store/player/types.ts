@@ -1,14 +1,4 @@
-export enum Direction {
-  NORTH,
-  SOUTH,
-  EAST,
-  WEST,
-}
-
-export interface Point {
-  x: number;
-  y: number;
-}
+import { Direction, Point } from "../../types";
 
 export interface PlayerState {
   direction: Direction;

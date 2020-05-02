@@ -1,11 +1,6 @@
-import {
-  PlayerTypes,
-  PLAYER_ATTACK,
-  PLAYER_DIED,
-  MOVE_PLAYER,
-  Direction,
-  Point,
-} from "./types";
+import { PlayerTypes, PLAYER_ATTACK, PLAYER_DIED, MOVE_PLAYER } from "./types";
+
+import { Direction, Point } from "../../types";
 
 export const movePlayer = (
   position: Point,

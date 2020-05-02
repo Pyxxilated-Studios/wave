@@ -11,6 +11,27 @@ export const SCREEN_MEDIUM_HEIGHT = 680;
 // Size of each individual sprite
 export const SPRITE_SIZE = 32;
 
+// Number of tiles in the map
+const TILE_HEIGHT = 15;
+const TILE_WIDTH = 20;
+
+// Map size
+export const MAP_DIMENSIONS = { width: TILE_WIDTH, height: TILE_HEIGHT };
+export const MAP_SIZE = {
+  width: SPRITE_SIZE * TILE_WIDTH,
+  height: SPRITE_SIZE * TILE_WIDTH,
+};
+
+// How far the player can 'see' or 'explore'
+export const SIGHT_RADIUS = 3;
+
+// Configuration for random map generation
+export const MAX_TUNNELS = 60;
+export const MAX_TUNNEL_LENGTH = 5;
+
+// Set the number of tiles to pad the map with (so the player cant see edge)
+export const MAP_PADDING_DISTANCE = 5;
+
 // Macros for key codes
 export const UP_KEY = 38;
 export const DOWN_KEY = 40;

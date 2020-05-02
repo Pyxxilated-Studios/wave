@@ -3,8 +3,9 @@ import { connect, useDispatch } from "react-redux";
 
 import { RootState } from "../../store";
 import { PlayerState } from "../../store/player/types";
+import { Direction } from "../../types";
 
-import move, { CardinalDirection } from "./actions/move-player";
+import move from "./actions/move-player";
 
 import {
   LEFT_KEY,
@@ -21,31 +22,29 @@ interface ControlProps {
   player: PlayerState;
 }
 
-const Controls = (props: ControlProps) => {
-  const { player } = props;
-
+const Controls = (_props: ControlProps) => {
   const dispatch = useDispatch();
 
   const handleKeyPress = useCallback(
-    (event: any) => {
+    (event: KeyboardEvent): any => {
       event.preventDefault();
       switch (event.keyCode) {
-        case LEFT_KEY:
-        case A_KEY:
-          return dispatch(move(CardinalDirection.WEST, player));
         case UP_KEY:
         case W_KEY:
-          return dispatch(move(CardinalDirection.NORTH, player));
-        case RIGHT_KEY:
-        case D_KEY:
-          return dispatch(move(CardinalDirection.EAST, player));
+          return dispatch(move(Direction.North));
         case DOWN_KEY:
         case S_KEY:
-          return dispatch(move(CardinalDirection.SOUTH, player));
+          return dispatch(move(Direction.South));
+        case RIGHT_KEY:
+        case D_KEY:
+          return dispatch(move(Direction.East));
+        case LEFT_KEY:
+        case A_KEY:
+          return dispatch(move(Direction.West));
         default:
       }
     },
-    [player, dispatch]
+    [dispatch]
   );
 
   useEffect(() => {

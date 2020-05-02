@@ -4,11 +4,12 @@ import {
   PLAYER_ATTACK,
   MOVE_PLAYER,
   PLAYER_DIED,
-  Direction,
 } from "./types";
 
+import { Direction } from "../../types";
+
 const initialState: PlayerState = {
-  direction: Direction.SOUTH,
+  direction: Direction.South,
   position: { x: 200, y: 200 },
   playerAttacked: false,
   playerMoved: false,

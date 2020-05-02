@@ -1,63 +1,36 @@
 import { RootThunk } from "../../../store";
 import { movePlayer } from "../../../store/player/actions";
-import { Point, Direction, PlayerState } from "../../../store/player/types";
 
 import { SPRITE_SIZE } from "../../../constants";
+import { Direction, Point } from "../../../types";
 
-export enum CardinalDirection {
-  NORTH = "NORTH",
-  SOUTH = "SOUTH",
-  EAST = "EAST",
-  WEST = "WEST,",
-}
+const move = (direction: Direction): RootThunk => async (
+  dispatch,
+  getState
+) => {
+  const { player } = getState();
 
-const move = (
-  direction: CardinalDirection,
-  player: PlayerState
-): RootThunk => async (dispatch) => {
   const oldPosition: Point = player.position;
-  const newPosition = getNewPosition(oldPosition, direction);
+  const newPosition: Point = getNewPosition(oldPosition, direction);
 
-  dispatch(
-    movePlayer(
-      newPosition ? newPosition : oldPosition,
-      directionFromCardinalDirection(direction)
-    )
-  );
-};
-
-const directionFromCardinalDirection = (
-  direction: CardinalDirection
-): Direction => {
-  switch (direction) {
-    case CardinalDirection.NORTH:
-      return Direction.NORTH;
-    case CardinalDirection.SOUTH:
-      return Direction.SOUTH;
-    case CardinalDirection.EAST:
-      return Direction.EAST;
-    case CardinalDirection.WEST:
-      return Direction.WEST;
-    default:
-  }
-
-  return Direction.SOUTH;
+  dispatch(movePlayer(newPosition, direction));
 };
 
 export const getNewPosition = (
   oldPosition: Point,
-  direction: CardinalDirection
-) => {
+  direction: Direction
+): Point => {
   switch (direction) {
-    case CardinalDirection.NORTH:
+    case Direction.North:
       return { x: oldPosition.x, y: oldPosition.y - SPRITE_SIZE };
-    case CardinalDirection.SOUTH:
+    case Direction.South:
       return { x: oldPosition.x, y: oldPosition.y + SPRITE_SIZE };
-    case CardinalDirection.EAST:
+    case Direction.East:
       return { x: oldPosition.x + SPRITE_SIZE, y: oldPosition.y };
-    case CardinalDirection.WEST:
+    case Direction.West:
       return { x: oldPosition.x - SPRITE_SIZE, y: oldPosition.y };
     default:
+      return oldPosition;
   }
 };
 
