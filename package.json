@@ -30,8 +30,8 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired s build",
+    "start": "wasm-pack build lib && react-app-rewired start",
+    "build": "wasm-pack build --release lib && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

@@ -28,7 +28,13 @@ interface PlayerAttackAction {
   type: typeof PLAYER_ATTACK;
 }
 
+export const TAKE_TURN = "TAKE_TURN";
+interface PlayerTurnAction {
+  type: typeof TAKE_TURN;
+}
+
 export type PlayerTypes =
   | MovePlayerAction
   | PlayerDieAction
-  | PlayerAttackAction;
+  | PlayerAttackAction
+  | PlayerTurnAction;

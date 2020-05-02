@@ -1,12 +1,7 @@
 import { MAP_DIMENSIONS, MAP_PADDING_DISTANCE } from "../constants";
-import { Tile } from "../types";
+import { Tile, PaddingTiles } from "../types";
 
-const generatePaddingTiles = (): {
-  top: Tile[][];
-  bottom: Tile[][];
-  left: Tile[][];
-  right: Tile[][];
-} => {
+const generatePaddingTiles = (): PaddingTiles => {
   // we need to add padding tiles so the player cannot see past the edge of the map
   const top: Tile[][] = [];
   const bottom: Tile[][] = [];

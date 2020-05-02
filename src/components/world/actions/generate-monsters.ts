@@ -2,7 +2,6 @@ import generateMonsterType from "./generate-monster-type";
 import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
 import { MAP_DIMENSIONS } from "../../../constants";
 import { GameMap, Point } from "../../../types";
-import arrayContainsArray from "../../../utils/array-contains-array";
 
 // generates random monsters for a random map
 const generateMonsters = (
@@ -29,9 +28,9 @@ const generateMonsters = (
     }
   }
 
-  availableTiles = availableTiles.filter((value) => {
+  availableTiles = availableTiles.filter((pos) => {
     // remove the available tiles that are vision tiles
-    return !arrayContainsArray(vision.tiles, value);
+    return vision.tiles.includes(pos);
   });
 
   // generate number of monsters for the map based on floor number and player level

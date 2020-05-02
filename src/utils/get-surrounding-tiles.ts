@@ -1,13 +1,12 @@
 import { SIGHT_RADIUS, MAP_DIMENSIONS, SPRITE_SIZE } from "../constants";
-import { Point, Tile } from "../types";
+import { Point } from "../types";
 
 export const radiusTiles = (radiusSize = SIGHT_RADIUS) => {
-  let x, y;
-  const radTiles = [];
+  const radTiles: Point[] = [];
   // calculate a tile map with desired radius
   // (results in array = [[-4,-4]...[0,0]...[4,4]] )
-  for (y = -radiusSize; y <= radiusSize; y++) {
-    for (x = -radiusSize; x <= radiusSize; x++) {
+  for (let y = -radiusSize; y <= radiusSize; y++) {
+    for (let x = -radiusSize; x <= radiusSize; x++) {
       if (x * x + y * y <= radiusSize * radiusSize) {
         radTiles.push({ x, y });
       }

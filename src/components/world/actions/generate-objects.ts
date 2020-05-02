@@ -1,10 +1,7 @@
-import { Point, Tile, GameMap } from "../../../types";
+import { Point, GameMap } from "../../../types";
 
-import arrayContainsArray from "../../../utils/array-contains-array";
 import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
 import { MAP_DIMENSIONS } from "../../../constants";
-
-import * as wave from "wave";
 
 // Randomly generates chests, stairs and shops onto an existing random map
 const generateObjects = (
@@ -15,23 +12,20 @@ const generateObjects = (
 ) => {
   const initialTiles: Point[] = [];
 
-  // we need to get the tiles from the surrounding tiles func,
-  // then reverse the coordinates because they come back in normal notation (y, x)
-  // but for the random map gen, we need them in (x, y)
   const vision = getSurroundingTiles(playerPosition);
 
   for (let i = 0; i < MAP_DIMENSIONS.height; i++) {
     for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
       // get a list of floor tiles
       if (map.tiles[i][j].value === 0) {
-        initialTiles.push({ x: i, y: j });
+        initialTiles.push({ x: j, y: i });
       }
     }
   }
 
-  const availableTiles = initialTiles.filter((value) => {
+  const availableTiles = initialTiles.filter((pos) => {
     // remove the available tiles that are vision tiles
-    return !arrayContainsArray(vision.tiles, value);
+    return !vision.tiles.includes(pos);
   });
 
   // show stairs down if floor is greater than 1
@@ -107,7 +101,7 @@ const generateObjects = (
   return map;
 };
 
-function generateShop(map: GameMap, availableWalls: Point[]) {
+const generateShop = (map: GameMap, availableWalls: Point[]) => {
   if (availableWalls.length > 0) {
     const randomIndex = Math.floor(Math.random() * availableWalls.length);
     const tile = availableWalls[randomIndex];
@@ -115,6 +109,6 @@ function generateShop(map: GameMap, availableWalls: Point[]) {
     map.tiles[tile.y][tile.x].value = 9;
   }
   return map;
-}
+};
 
 export default generateObjects;

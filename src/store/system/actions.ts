@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import _debounce from "lodash.debounce";
 
+import store from "../";
 import { SystemTypes, SET_LARGE_VIEW, SET_SIDE_MENU } from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
@@ -32,22 +33,23 @@ interface ViewportScale {
   sideMenu: boolean;
 }
 
+const updateViewportScale = (scale: ViewportScale) => {
+  store.dispatch(setSideMenu(scale.sideMenu));
+  store.dispatch(setLargeView(scale.largeView));
+};
+
+const _updateViewportScale = _debounce(
+  updateViewportScale,
+  VIEWPORT_RESIZE_RATE
+);
+
 export const useViewportScaling = () => {
   const { height, width } = useWindowSize();
-
-  const updateViewportScale = (scale: ViewportScale) => {
-    setSideMenu(scale.sideMenu);
-    setLargeView(scale.largeView);
-  };
-
-  const _updateViewportScale = _debounce(
-    updateViewportScale,
-    VIEWPORT_RESIZE_RATE
-  );
 
   useEffect(() => {
     let largeView = false;
     let sideMenu = false;
+
     // if we have a wide screen size
     if (width > SCREEN_SMALL_WIDTH) {
       largeView = true;
@@ -61,5 +63,5 @@ export const useViewportScaling = () => {
     }
 
     _updateViewportScale({ largeView, sideMenu });
-  }, [height, width, _updateViewportScale]);
+  }, [height, width]);
 };

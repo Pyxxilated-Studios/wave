@@ -1,4 +1,10 @@
-import { PlayerTypes, PLAYER_ATTACK, PLAYER_DIED, MOVE_PLAYER } from "./types";
+import {
+  PlayerTypes,
+  PLAYER_ATTACK,
+  PLAYER_DIED,
+  MOVE_PLAYER,
+  TAKE_TURN,
+} from "./types";
 
 import { Direction, Point } from "../../types";
 
@@ -22,5 +28,11 @@ export const playerAttack = (): PlayerTypes => {
 export const playerDie = (): PlayerTypes => {
   return {
     type: PLAYER_DIED,
+  };
+};
+
+export const playerTakeTurn = (): PlayerTypes => {
+  return {
+    type: TAKE_TURN,
   };
 };

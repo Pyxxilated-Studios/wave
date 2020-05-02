@@ -1,10 +1,10 @@
 // Size of the viewport
-export const GAME_VIEWPORT_SIZE = 350;
-export const GAME_VIEWPORT_SIZE_LARGE = 400;
+export const GAME_VIEWPORT_SIZE = 320;
+export const GAME_VIEWPORT_SIZE_LARGE = 640;
 
 // Sizes for different screens
-export const SCREEN_SMALL_WIDTH = 410;
-export const SCREEN_SMALL_HEIGHT = 410;
+export const SCREEN_SMALL_WIDTH = 330;
+export const SCREEN_SMALL_HEIGHT = 500;
 export const SCREEN_MEDIUM_WIDTH = 600;
 export const SCREEN_MEDIUM_HEIGHT = 680;
 
@@ -12,14 +12,14 @@ export const SCREEN_MEDIUM_HEIGHT = 680;
 export const SPRITE_SIZE = 32;
 
 // Number of tiles in the map
-const TILE_HEIGHT = 15;
-const TILE_WIDTH = 20;
+const TILE_HEIGHT = 32;
+const TILE_WIDTH = 32;
 
 // Map size
 export const MAP_DIMENSIONS = { width: TILE_WIDTH, height: TILE_HEIGHT };
 export const MAP_SIZE = {
   width: SPRITE_SIZE * TILE_WIDTH,
-  height: SPRITE_SIZE * TILE_WIDTH,
+  height: SPRITE_SIZE * TILE_HEIGHT,
 };
 
 // How far the player can 'see' or 'explore'

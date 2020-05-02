@@ -10,7 +10,7 @@ import { Direction } from "../../types";
 
 const initialState: PlayerState = {
   direction: Direction.South,
-  position: { x: 200, y: 200 },
+  position: { x: 0, y: 0 },
   playerAttacked: false,
   playerMoved: false,
   spellCast: false,

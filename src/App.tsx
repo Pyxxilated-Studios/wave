@@ -9,7 +9,6 @@ import { useViewportScaling } from "./store/system/actions";
 import Viewport from "./components/viewport";
 import World from "./components/world";
 import Player from "./components/player";
-import Controls from "./components/controls";
 
 interface AppProps {
   system: SystemState;
@@ -43,7 +42,6 @@ const App = (props: AppProps) => {
       }`}
     >
       <Viewport>
-        <Controls />
         <World library={library} />
 
         <Player />

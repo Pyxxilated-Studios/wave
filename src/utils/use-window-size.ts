@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-export default function useWindowSize() {
+const useWindowSize = () => {
   const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
 
-  function updateWindowDimensions() {
+  const updateWindowDimensions = () => {
     setHeight(window.innerHeight);
     setWidth(window.innerWidth);
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("resize", updateWindowDimensions);
@@ -19,4 +19,6 @@ export default function useWindowSize() {
   }, []);
 
   return { width, height };
-}
+};
+
+export default useWindowSize;

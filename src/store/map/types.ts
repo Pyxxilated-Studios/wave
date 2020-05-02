@@ -6,10 +6,10 @@ export interface MapState {
 }
 
 export const EXPLORE_TILES = "EXPLORE_TILES";
-interface ExploreTiles {
+export interface ExploreTilesAction {
   type: typeof EXPLORE_TILES;
   tiles: Point[];
   paddingTiles: Point[];
 }
 
-export type MapTypes = ExploreTiles;
+export type MapTypes = ExploreTilesAction;

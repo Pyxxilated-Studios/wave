@@ -3,6 +3,7 @@ import {
   MAP_DIMENSIONS,
   MAX_TUNNELS,
   MAX_TUNNEL_LENGTH,
+  SPRITE_SIZE,
 } from "../../../constants";
 import { Point, GameMap } from "../../../types";
 
@@ -30,11 +31,11 @@ const generateMap = (startPosition: Point, floorNumber: number) => {
 
   // our current row - start at a random spot
   let currentRow = startPosition
-    ? startPosition.y
+    ? startPosition.y / SPRITE_SIZE
     : Math.floor(Math.random() * MAP_DIMENSIONS.height);
   // our current column - start at a random spot
   let currentColumn = startPosition
-    ? startPosition.x
+    ? startPosition.x / SPRITE_SIZE
     : Math.floor(Math.random() * MAP_DIMENSIONS.width);
 
   // save the last direction we went
@@ -44,7 +45,7 @@ const generateMap = (startPosition: Point, floorNumber: number) => {
   let randomDirection;
 
   // lets create some tunnels - while maxTunnels, MAP_DIMENSIONS, and MAX_TUNNEL_LENGTH is greater than 0.
-  while (maxTunnels && MAP_DIMENSIONS && MAX_TUNNEL_LENGTH > 0) {
+  while (maxTunnels && MAP_DIMENSIONS && MAX_TUNNEL_LENGTH) {
     // lets get a random direction - until it is a perpendicular to our lastDirection
     // if the last direction = left or right,
     // then our new direction has to be up or down,
@@ -97,7 +98,7 @@ const createMapOfWalls = (wallType: number) => {
   const map: GameMap = {
     tiles: [],
     paddingTiles: { top: [], bottom: [], left: [], right: [] },
-    id: 0,
+    id: "",
   };
 
   for (let i = 0; i < MAP_DIMENSIONS.height; i++) {

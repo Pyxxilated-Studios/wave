@@ -17,13 +17,15 @@ export enum Direction {
   West,
 }
 
+export interface PaddingTiles {
+  top: Tile[][];
+  bottom: Tile[][];
+  left: Tile[][];
+  right: Tile[][];
+}
+
 export interface GameMap {
-  id: number;
+  id: string;
   tiles: Tile[][];
-  paddingTiles: {
-    top: Tile[][];
-    bottom: Tile[][];
-    left: Tile[][];
-    right: Tile[][];
-  };
+  paddingTiles: PaddingTiles;
 }
