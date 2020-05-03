@@ -4,29 +4,22 @@ import { Tile, Point } from "../../types";
 
 // import Flame from "../../components/flame";
 import { SPRITE_SIZE } from "../../constants";
+import { arrayContainsPoint } from "../../utils/array-contains";
 
 interface MapTileProps {
   tile: Tile;
-  index: Point;
+  position: Point;
   sightBox: Point[];
 }
 
 const MapTile = (props: MapTileProps) => {
-  let inSight = false;
   // Load the tile directly from the public folder
-  let tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(
+  const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(
     props.tile.value,
     props.tile.variation
   )}.png`;
 
-  // check the sight box tiles
-  props.sightBox.forEach((sightValue) => {
-    // if the current tile is in range
-    if (sightValue.x === props.index.x && sightValue.y === props.index.y) {
-      // remove the overlay
-      return (inSight = true);
-    }
-  });
+  const inSight = arrayContainsPoint(props.sightBox, props.position);
 
   // case for rendering animated flame tile
   // if (tile.value === 20) {
@@ -91,7 +84,7 @@ interface FogTileProps {
 }
 
 export const FogTile = (props: FogTileProps) => {
-  let opacity = !props.explored ? "1" : !props.inSight ? "0.5" : "0";
+  const opacity = !props.explored ? "1" : !props.inSight ? "0.5" : "0";
 
   return (
     <div

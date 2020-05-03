@@ -5,6 +5,7 @@ import { SPRITE_SIZE } from "../../constants";
 
 import "./styles.scss";
 import { PaddingTiles, Point, Tile } from "../../types";
+import { arrayContainsPoint } from "../../utils/array-contains";
 
 interface MapPaddingProps {
   tileType: number;
@@ -79,24 +80,14 @@ interface BoundaryTileProps {
 }
 
 const BoundaryTile = (props: BoundaryTileProps) => {
-  let inSight = false;
   // Load the tile directly from the public folder
-  let tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(
+  const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(
     props.tileType,
     props.variation
   )}.png`;
 
-  // check the sight box tiles
-  props.sightBox.forEach((sightBoxTile) => {
-    // if the current tile is in range
-    if (
-      sightBoxTile.x === props.location.x &&
-      sightBoxTile.y === props.location.y
-    ) {
-      // remove the overlay
-      return (inSight = true);
-    }
-  });
+  // Check the sight box tiles
+  const inSight = arrayContainsPoint(props.sightBox, props.location);
 
   return (
     <div

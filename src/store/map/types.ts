@@ -12,4 +12,4 @@ export interface ExploreTilesAction {
   paddingTiles: Point[];
 }
 
-export type MapTypes = ExploreTilesAction;
+export type MapActionType = ExploreTilesAction;

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import _debounce from "lodash.debounce";
 
 import store from "../";
-import { SystemTypes, SET_LARGE_VIEW, SET_SIDE_MENU } from "./types";
+import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU } from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
 import {
@@ -12,14 +12,14 @@ import {
   SCREEN_MEDIUM_HEIGHT,
 } from "../../constants";
 
-export const setLargeView = (to: boolean): SystemTypes => {
+export const setLargeView = (to: boolean): SystemActionType => {
   return {
     type: SET_LARGE_VIEW,
     set: to,
   };
 };
 
-export const setSideMenu = (to: boolean): SystemTypes => {
+export const setSideMenu = (to: boolean): SystemActionType => {
   return {
     type: SET_SIDE_MENU,
     set: to,

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 import { MapState } from "../../store/map/types";
 import { WorldState } from "../../store/world/types";
@@ -9,7 +9,6 @@ import { MAP_SIZE, SPRITE_SIZE } from "../../constants";
 
 import MapTile from "./map-tile";
 import MapPadding from "./map-padding";
-import startGame from "../world/actions/start-game";
 
 interface MapProps {
   map: MapState;
@@ -17,26 +16,10 @@ interface MapProps {
 }
 
 const Map = (props: MapProps) => {
-  const { randomMaps, currentMap, floorNumber } = props.world;
-
-  const dispatch = useDispatch();
+  const { randomMaps, floorNumber } = props.world;
 
   const width = MAP_SIZE.width * SPRITE_SIZE;
   const height = MAP_SIZE.height * SPRITE_SIZE;
-
-  if (!currentMap) {
-    dispatch(startGame());
-
-    return (
-      <div
-        style={{
-          width,
-          height,
-          position: "relative",
-        }}
-      />
-    );
-  }
 
   const map = { ...props.map, ...randomMaps[floorNumber - 1] };
 
@@ -83,7 +66,7 @@ const MapRow = (props: MapRowProps) => {
         return (
           <MapTile
             tile={tile}
-            index={{ x: index, y: props.index }}
+            position={{ x: index, y: props.index }}
             sightBox={props.sightBox}
             key={JSON.stringify(tile) + index}
           />

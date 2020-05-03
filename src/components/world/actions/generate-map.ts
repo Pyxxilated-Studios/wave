@@ -9,10 +9,7 @@ import { Point, GameMap } from "../../../types";
 // Generates a random dungeon map
 const generateMap = (startPosition: Point, floorNumber: number) => {
   // Change the walls of the dungeon as the floors get higher
-  let wallType = 5;
-  if (floorNumber >= 30) wallType = 6;
-  if (floorNumber >= 60) wallType = 7;
-  if (floorNumber >= 90) wallType = 8;
+  const wallType = 5 + Math.floor(floorNumber / 30);
 
   // Create a map of walls to carve rooms and hallways from
   const map = createMapOfWalls(wallType);

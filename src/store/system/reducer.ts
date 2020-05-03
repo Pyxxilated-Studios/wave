@@ -1,6 +1,6 @@
 import {
   SystemState,
-  SystemTypes,
+  SystemActionType,
   SET_LARGE_VIEW,
   SET_SIDE_MENU,
 } from "./types";
@@ -12,7 +12,7 @@ const initialState: SystemState = {
 
 const SystemReducer = (
   state = initialState,
-  action: SystemTypes
+  action: SystemActionType
 ): SystemState => {
   switch (action.type) {
     case SET_LARGE_VIEW:

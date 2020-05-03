@@ -1,6 +1,6 @@
-import { StatsType, GAIN_EXPERIENCE } from "./types";
+import { StatsActionType, GAIN_EXPERIENCE } from "./types";
 
-export const gainExpereince = (experience: number): StatsType => {
+export const gainExpereince = (experience: number): StatsActionType => {
   return {
     type: GAIN_EXPERIENCE,
     experience: experience,

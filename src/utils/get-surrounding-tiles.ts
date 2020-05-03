@@ -17,9 +17,9 @@ export const radiusTiles = (radiusSize = SIGHT_RADIUS) => {
 };
 
 // takes an array of relative coordinates to the map size (20 x 15) i.e. [1, 1]
-export default function getSurroundingTiles(
+const getSurroundingTiles = (
   newPosition: Point
-): { tiles: Point[]; paddingTiles: Point[] } {
+): { tiles: Point[]; paddingTiles: Point[] } => {
   // Calculate the surrounding tiles according to the bounds
   const surroundingTiles: Point[] = [];
   const paddingTiles: Point[] = [];
@@ -59,4 +59,6 @@ export default function getSurroundingTiles(
     tiles: surroundingTiles,
     paddingTiles,
   };
-}
+};
+
+export default getSurroundingTiles;

@@ -34,4 +34,4 @@ interface GainExperienceAction {
   experience: number;
 }
 
-export type StatsType = GainExperienceAction;
+export type StatsActionType = GainExperienceAction;

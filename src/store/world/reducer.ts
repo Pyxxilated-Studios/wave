@@ -2,7 +2,7 @@ import cloneDeep from "lodash.clonedeep";
 
 import {
   WorldState,
-  WorldTypes,
+  WorldActionType,
   SET_CURRENT_MAP,
   GENERATE_MAP,
   SET_START_MAP,
@@ -12,6 +12,7 @@ import generatePaddingTiles from "../../utils/generate-padding-tiles";
 import { EXPLORE_TILES } from "../map/types";
 import { Tile, Point } from "../../types";
 import { TAKE_TURN } from "../player/types";
+import { arrayContainsPoint } from "../../utils/array-contains";
 
 const initialState: WorldState = {
   currentMap: "",
@@ -22,7 +23,10 @@ const initialState: WorldState = {
   mapTransition: false,
 };
 
-const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
+const WorldReducer = (
+  state = initialState,
+  action: WorldActionType
+): WorldState => {
   switch (action.type) {
     case SET_CURRENT_MAP:
       return { ...state, currentMap: action.currentMap };
@@ -71,14 +75,13 @@ const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
             currentMapData.paddingTiles,
             direction,
             Reflect.get(currentMapData.paddingTiles, direction).map(
-              (tileRow: Tile[]) => {
-                return tileRow.map((tile) => {
-                  if (paddingTiles.includes(tile.location)) {
-                    tile.explored = true;
-                  }
-                  return tile;
-                });
-              }
+              (tileRow: Tile[]) =>
+                tileRow.map((tile) => ({
+                  ...tile,
+                  explored:
+                    arrayContainsPoint(paddingTiles, tile.location) ||
+                    tile.explored,
+                }))
             )
           );
         });

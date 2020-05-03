@@ -3,8 +3,8 @@ import { revealMonster, hideMonster } from "../../../store/monsters/actions";
 import { Point, Direction } from "../../../types";
 
 import { radiusTiles } from "../../../utils/get-surrounding-tiles";
-import { translateFromSpriteCoordinates } from "../../../utils/translate-point-sprite";
 import { arrayContainsPoint } from "../../../utils/array-contains";
+import { distance } from "../../../utils/distance";
 
 import attackPlayer from "./attack-player";
 import moveMonster from "./move-monster";
@@ -17,6 +17,7 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
   const { entities } = monsters;
   const { sightBox } = map;
   const { currentMap } = world;
+
   // find each monster
   Object.keys(entities[currentMap]).forEach((monsterId) => {
     // Get monster id and position
@@ -37,14 +38,13 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
         // no player in range, time to move!
         // get the monsters actual position in pixels
         // get distance from player on both axis
-        const xDiff = location.x - player.position.x;
-        const yDiff = location.y - player.position.y;
-        const greaterY = Math.abs(yDiff) > Math.abs(xDiff);
+        const { dx, dy } = distance(location, player.position);
+        const greaterY = Math.abs(dy) > Math.abs(dx);
 
         // see if y axis is greater distance from player
         if (greaterY) {
           // if the monster is mostly below the player on the y axis
-          if (yDiff > 0) {
+          if (dy > 0) {
             // move the monster 'up' relatively
             dispatch(
               moveMonster(
@@ -53,10 +53,10 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
                 currentMap,
                 id,
                 0,
-                xDiff >= 0 ? Direction.West : Direction.East
+                dx >= 0 ? Direction.West : Direction.East
               )
             );
-          } else if (yDiff < 0) {
+          } else if (dy < 0) {
             // if the monster is mostly above the player on the y axis
             // move the monster 'down' relatively
             dispatch(
@@ -66,14 +66,14 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
                 currentMap,
                 id,
                 0,
-                xDiff >= 0 ? Direction.West : Direction.East
+                dx >= 0 ? Direction.West : Direction.East
               )
             );
           }
         } else {
           // x axis is greater distance from player
           // if the monster is mostly to the right of the player
-          if (xDiff > 0) {
+          if (dx > 0) {
             // move the monster 'left' relatively
             dispatch(
               moveMonster(
@@ -82,10 +82,10 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
                 currentMap,
                 id,
                 0,
-                yDiff >= 0 ? Direction.North : Direction.South
+                dy >= 0 ? Direction.North : Direction.South
               )
             );
-          } else if (xDiff < 0) {
+          } else if (dx < 0) {
             // if the monster is mostly to the left of the player
             // move the monster 'right' relatively
             dispatch(
@@ -95,7 +95,7 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
                 currentMap,
                 id,
                 0,
-                yDiff >= 0 ? Direction.North : Direction.South
+                dy >= 0 ? Direction.North : Direction.South
               )
             );
           }

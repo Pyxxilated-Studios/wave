@@ -12,7 +12,7 @@ const generateMonsters = (
   playerPosition: Point,
   playerLevel: number
 ): Entity[] => {
-  let availableTiles: Point[] = [];
+  const availableTiles: Point[] = [];
   // we need to get the tiles from the surrounding tiles func,
   // then reverse the coordinates because they come back in normal notation (y, x)
   // but for the random map gen, we need them in (x, y)
@@ -31,7 +31,9 @@ const generateMonsters = (
   }
 
   // Remove the available tiles that are within the players vision
-  availableTiles = availableTiles.filter((pos) => !vision.tiles.includes(pos));
+  const tilesNotInView = availableTiles.filter(
+    (pos) => !vision.tiles.includes(pos)
+  );
 
   // generate number of monsters for the map based on floor number and player level
   const numberMonsters =
@@ -42,10 +44,12 @@ const generateMonsters = (
 
   // get an array of tiles to position the random monsters
   for (let x = 0; x < numberMonsters; x++) {
-    if (availableTiles.length > 0) {
-      const randomIndex = Math.floor(Math.random() * availableTiles.length);
+    if (tilesNotInView.length > 0) {
+      const randomIndex = Math.floor(Math.random() * tilesNotInView.length);
       monsterTiles.push(availableTiles[randomIndex]);
-      availableTiles.splice(randomIndex, 1);
+      tilesNotInView.splice(randomIndex, 1);
+    } else {
+      break;
     }
   }
 

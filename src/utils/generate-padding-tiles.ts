@@ -14,13 +14,13 @@ const generatePaddingTiles = (): PaddingTiles => {
 
     for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
       topRow.push({
-        location: { x: -i + -1, y: j },
+        location: { y: -i + -1, x: j },
         explored: false,
         variation: Math.round(Math.random() * (4 - 1) + 1),
         value: 0,
       });
       bottomRow.push({
-        location: { x: i + MAP_DIMENSIONS.height, y: j },
+        location: { y: i + MAP_DIMENSIONS.height, x: j },
         explored: false,
         variation: Math.round(Math.random() * (4 - 1) + 1),
         value: 0,
@@ -37,13 +37,13 @@ const generatePaddingTiles = (): PaddingTiles => {
 
     for (let j = 0; j < MAP_PADDING_DISTANCE; j++) {
       leftRow.push({
-        location: { x: i - MAP_PADDING_DISTANCE, y: j - MAP_PADDING_DISTANCE },
+        location: { y: i - MAP_PADDING_DISTANCE, x: j - MAP_PADDING_DISTANCE },
         explored: false,
         variation: Math.round(Math.random() * (4 - 1) + 1),
         value: 0,
       });
       rightRow.push({
-        location: { x: i - MAP_PADDING_DISTANCE, y: j + MAP_DIMENSIONS.width },
+        location: { y: i - MAP_PADDING_DISTANCE, x: j + MAP_DIMENSIONS.width },
         explored: false,
         variation: Math.round(Math.random() * (4 - 1) + 1),
         value: 0,

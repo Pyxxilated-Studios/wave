@@ -1,6 +1,6 @@
 import {
   PlayerState,
-  PlayerTypes,
+  PlayerActionType,
   PLAYER_ATTACK,
   MOVE_PLAYER,
   PLAYER_DIED,
@@ -21,7 +21,7 @@ const initialState: PlayerState = {
 
 const PlayerReducer = (
   state = initialState,
-  action: PlayerTypes
+  action: PlayerActionType
 ): PlayerState => {
   switch (action.type) {
     case PLAYER_ATTACK:

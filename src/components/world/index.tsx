@@ -6,12 +6,17 @@ import { WorldState } from "../../store/world/types";
 import { PlayerState } from "../../store/player/types";
 import { SystemState } from "../../store/system/types";
 
+import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
+
 import Map from "../map";
 import Controls from "../controls";
 import Monsters from "../monsters";
 import Player from "../player";
 
+import startGame from "./actions/start-game";
 import takeMonstersTurn from "../monsters/actions/take-monsters-turn";
+
+import "./styles.scss";
 
 interface WorldProps {
   library: typeof import("wave");
@@ -24,8 +29,13 @@ const World = (props: WorldProps) => {
   const dispatch = useDispatch();
 
   const mapOffset = props.system.largeView ? 180 : 155;
-  const worldTop = mapOffset - props.player.position.y;
-  const worldLeft = mapOffset - props.player.position.x;
+
+  const playerSpriteCoordinates = translateToSpriteCoordinates(
+    props.player.position
+  );
+
+  const worldTop = mapOffset - playerSpriteCoordinates.y;
+  const worldLeft = mapOffset - playerSpriteCoordinates.x;
 
   const { world } = props;
 
@@ -37,9 +47,15 @@ const World = (props: WorldProps) => {
     monstersTakeTurns();
   }, [world.turn, monstersTakeTurns]);
 
+  if (!props.world.currentMap) {
+    dispatch(startGame());
+
+    return null;
+  }
+
   return (
     <div
-      className="world__container"
+      className="world-container"
       style={{
         top: worldTop,
         left: worldLeft,
@@ -52,6 +68,8 @@ const World = (props: WorldProps) => {
       <Player />
 
       <Monsters />
+
+      {/* <div className="world-map-transition" style={{ opacity }} /> */}
     </div>
   );
 };

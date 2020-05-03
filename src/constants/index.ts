@@ -1,6 +1,6 @@
 // Size of the viewport
-export const GAME_VIEWPORT_SIZE = 320;
-export const GAME_VIEWPORT_SIZE_LARGE = 640;
+export const GAME_VIEWPORT_SIZE = 350;
+export const GAME_VIEWPORT_SIZE_LARGE = 400;
 
 // Sizes for different screens
 export const SCREEN_SMALL_WIDTH = 330;
@@ -51,3 +51,7 @@ export const B_KEY = 66;
 export const SPACE_KEY = 32;
 export const ENTER_KEY = 13;
 export const ESC_KEY = 27;
+
+// Ability score related starting values
+export const STARTING_ABILITY_SCORE_VALUE = 8;
+export const STARTING_ABILITY_POINTS = 12;

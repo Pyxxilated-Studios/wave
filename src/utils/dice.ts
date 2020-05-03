@@ -78,12 +78,14 @@ const ops = {
   d: {
     precedence: 4,
     op: (left: any, right: any, die: any) => {
-      let mul = parseInt(left);
-      let sides = parseInt(right);
-      let rolls = [];
+      const mul = parseInt(left);
+      const sides = parseInt(right);
+      const rolls = [];
+
       for (let i = 0; i < mul; i++) {
         rolls.push(die(sides));
       }
+
       return rolls;
     },
   },
@@ -135,7 +137,7 @@ const lex = (expression: string) => {
 
 // Djikstra's shunting yard algorithm to convert infix notation to postfix notation
 const yard = (infix: string) => {
-  let stack: string[] = [];
+  const stack: string[] = [];
 
   return infix
     .split(" ")
@@ -159,7 +161,7 @@ const yard = (infix: string) => {
         output.push(token);
       } else if (token.includes("d")) {
         // We have a dice throw
-        let tokens = token.split("d");
+        const tokens = token.split("d");
 
         // This is the multiplier, so push it to the output
         output.push(tokens[0]);
@@ -173,7 +175,7 @@ const yard = (infix: string) => {
           : null;
 
         if (selector !== null) {
-          let selected = tokens[1].split(selector);
+          const selected = tokens[1].split(selector);
           // Push the sides of the dice regardless
           output.push(selected[0]);
 
@@ -198,8 +200,8 @@ const rpn = (postfix: string, die: typeof unbiased) => {
     .split(" ")
     .reduce((stack: string[], token: string) => {
       if (token in ops) {
-        let right = stack.pop();
-        let left = stack.pop();
+        const right = stack.pop();
+        const left = stack.pop();
         stack.push(Reflect.get(ops, token).op(left, right, die));
       } else {
         stack.push(token);

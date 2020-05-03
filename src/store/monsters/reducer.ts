@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import {
   MonstersState,
-  MonstersTypes,
+  MonstersActionType,
   ADD_MONSTERS,
   REVEAL_MONSTER,
   HIDE_MONSTER,
@@ -17,7 +17,7 @@ const initialState: MonstersState = {
 
 const MonstersReducer = (
   state = initialState,
-  action: MonstersTypes
+  action: MonstersActionType
 ): MonstersState => {
   switch (action.type) {
     case REVEAL_MONSTER: {

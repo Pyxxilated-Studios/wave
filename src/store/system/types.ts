@@ -15,4 +15,4 @@ interface SetSideMenuAction {
   set: boolean;
 }
 
-export type SystemTypes = SetLargeViewAction | SetSideMenuAction;
+export type SystemActionType = SetLargeViewAction | SetSideMenuAction;

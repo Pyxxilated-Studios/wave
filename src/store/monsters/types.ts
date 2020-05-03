@@ -33,7 +33,7 @@ interface MonsterMoveAction {
   position: Point;
 }
 
-export type MonstersTypes =
+export type MonstersActionType =
   | AddMonstersAction
   | RevealMonsterAction
   | HideMonsterAction

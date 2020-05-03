@@ -13,6 +13,7 @@ import PlayerReducer from "./player/reducer";
 import MapReducer from "./map/reducer";
 import StatsReducer from "./stats/reducer";
 import MonstersReducer from "./monsters/reducer";
+import DialogReducer from "./dialog/reducer";
 
 const rootReducer = combineReducers({
   world: WorldReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   map: MapReducer,
   stats: StatsReducer,
   monsters: MonstersReducer,
+  dialog: DialogReducer,
 });
 
 const store = createStore(

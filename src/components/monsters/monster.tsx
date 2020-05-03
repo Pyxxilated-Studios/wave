@@ -3,7 +3,7 @@ import React from "react";
 import { Entity } from "../../types";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
-import { SPRITE_SIZE, SPRITE_PIXELS } from "../../constants";
+import { SPRITE_PIXELS } from "../../constants";
 
 // import HealthBar from '../../components/health-bar';
 

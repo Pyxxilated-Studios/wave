@@ -1,4 +1,4 @@
-import { StatsState, StatsType, GAIN_EXPERIENCE } from "./types";
+import { StatsState, StatsActionType, GAIN_EXPERIENCE } from "./types";
 
 const initialState: StatsState = {
   abilities: {
@@ -30,7 +30,10 @@ const initialState: StatsState = {
   levelUp: { level: 0, hp: 0 },
 };
 
-const StatsReducer = (state = initialState, action: StatsType): StatsState => {
+const StatsReducer = (
+  state = initialState,
+  action: StatsActionType
+): StatsState => {
   switch (action.type) {
     case GAIN_EXPERIENCE:
       return state;

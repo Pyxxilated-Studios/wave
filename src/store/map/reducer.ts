@@ -1,4 +1,4 @@
-import { MapState, EXPLORE_TILES, MapTypes } from "./types";
+import { MapState, EXPLORE_TILES, MapActionType } from "./types";
 
 const initialState: MapState = {
   sightBox: [],
@@ -7,7 +7,7 @@ const initialState: MapState = {
 
 export const MapReducer = (
   state = initialState,
-  action: MapTypes
+  action: MapActionType
 ): MapState => {
   switch (action.type) {
     case EXPLORE_TILES:

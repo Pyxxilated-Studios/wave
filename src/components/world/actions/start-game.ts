@@ -4,26 +4,22 @@ import { RootThunk } from "../../../store";
 import { exploreTiles } from "../../../store/map/actions";
 import { loadMap, setStartMap } from "../../../store/world/actions";
 import { addMonsters } from "../../../store/monsters/actions";
+import { pause } from "../../../store/dialog/actions";
+
+import { defaultPause } from "../../../types";
 
 import generateMap from "./generate-map";
 import generateMonsters from "./generate-monsters";
-// import generateMonsters from "./generate-monsters";
 
 const startGame = (): RootThunk => async (dispatch, getState) => {
-  const { player } = getState();
+  const { player, stats } = getState();
   const floorNumber = 1;
 
   // generate a random map and id
   const randomMap = generateMap(player.position, floorNumber);
   const mapId = uuidv4();
 
-  // dispatch(pause({ reason: "characterCreation" }));
-  //   type: "PAUSE",
-  //   payload: {
-  //     pause: true,
-  //     characterCreation: true,
-  //   },
-  // });
+  dispatch(pause(true, { ...defaultPause, characterCreation: true }));
 
   dispatch(loadMap(randomMap.tiles, mapId));
 
@@ -34,22 +30,9 @@ const startGame = (): RootThunk => async (dispatch, getState) => {
   dispatch(
     addMonsters(
       mapId,
-      generateMonsters(floorNumber, randomMap, player.position, 1)
+      generateMonsters(floorNumber, randomMap, player.position, stats.level)
     )
   );
-
-  // dispatch({
-  //   type: "ADD_MONSTERS",
-  //   payload: {
-  //     monsters: generateMonsters(
-  //       floorNum,
-  //       randomMap,
-  //       player.position,
-  //       stats.level
-  //     ),
-  //     map: mapId,
-  //   },
-  // });
 
   // dispatch({
   //   type: "GET_ITEM",

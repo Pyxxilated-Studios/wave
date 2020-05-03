@@ -19,7 +19,7 @@ const Player = (props: PlayerProps) => {
 
   return (
     <div
-      className="player-container"
+      className="player-animation"
       style={{ top: spriteCoordinates.y, left: spriteCoordinates.x }}
     >
       <div

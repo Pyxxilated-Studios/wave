@@ -8,9 +8,13 @@ import { useViewportScaling } from "./store/system/actions";
 
 import Viewport from "./components/viewport";
 import World from "./components/world";
+import DialogManager from "./components/dialog-manager";
+import FloorCounter from "./components/floor-counter";
+import { WorldState } from "./store/world/types";
 
 interface AppProps {
   system: SystemState;
+  world: WorldState;
 }
 
 const App = (props: AppProps) => {
@@ -42,6 +46,8 @@ const App = (props: AppProps) => {
     >
       <Viewport>
         <World library={library} />
+        <DialogManager />
+        <FloorCounter floorNumber={props.world.floorNumber} />
       </Viewport>
     </div>
   );
@@ -49,6 +55,7 @@ const App = (props: AppProps) => {
 
 const mapStateToProps = (state: RootState) => ({
   system: state.system,
+  world: state.world,
 });
 
 export default connect(mapStateToProps)(App);

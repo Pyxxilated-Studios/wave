@@ -1,5 +1,5 @@
 import {
-  PlayerTypes,
+  PlayerActionType,
   PLAYER_ATTACK,
   PLAYER_DIED,
   MOVE_PLAYER,
@@ -11,7 +11,7 @@ import { Direction, Point } from "../../types";
 export const movePlayer = (
   position: Point,
   direction: Direction
-): PlayerTypes => {
+): PlayerActionType => {
   return {
     type: MOVE_PLAYER,
     position: position,
@@ -19,19 +19,19 @@ export const movePlayer = (
   };
 };
 
-export const playerAttack = (): PlayerTypes => {
+export const playerAttack = (): PlayerActionType => {
   return {
     type: PLAYER_ATTACK,
   };
 };
 
-export const playerDie = (): PlayerTypes => {
+export const playerDie = (): PlayerActionType => {
   return {
     type: PLAYER_DIED,
   };
 };
 
-export const playerTakeTurn = (): PlayerTypes => {
+export const playerTakeTurn = (): PlayerActionType => {
   return {
     type: TAKE_TURN,
   };

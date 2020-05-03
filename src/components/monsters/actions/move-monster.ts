@@ -2,7 +2,6 @@ import { RootThunk } from "../../../store";
 import { Point, Direction, Entity } from "../../../types";
 
 import getNextTile from "../../../utils/get-next-tile";
-import { translateFromSpriteCoordinates } from "../../../utils/translate-point-sprite";
 import { arrayContainsPoint } from "../../../utils/array-contains";
 import { WorldState } from "../../../store/world/types";
 import {

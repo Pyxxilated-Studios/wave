@@ -33,7 +33,7 @@ export interface PlayerTurnAction {
   type: typeof TAKE_TURN;
 }
 
-export type PlayerTypes =
+export type PlayerActionType =
   | MovePlayerAction
   | PlayerDieAction
   | PlayerAttackAction

@@ -31,7 +31,7 @@ interface SetStartMapAction {
   floorNumber: number;
 }
 
-export type WorldTypes =
+export type WorldActionType =
   | SetCurrentMapAction
   | GenerateMapAction
   | SetStartMapAction
