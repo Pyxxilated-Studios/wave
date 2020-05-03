@@ -29,7 +29,7 @@ interface PlayerAttackAction {
 }
 
 export const TAKE_TURN = "TAKE_TURN";
-interface PlayerTurnAction {
+export interface PlayerTurnAction {
   type: typeof TAKE_TURN;
 }
 

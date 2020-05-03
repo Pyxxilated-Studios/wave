@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useCallback } from "react";
+import { connect, useDispatch } from "react-redux";
 
 import { RootState } from "../../store";
 import { WorldState } from "../../store/world/types";
@@ -8,6 +8,10 @@ import { SystemState } from "../../store/system/types";
 
 import Map from "../map";
 import Controls from "../controls";
+import Monsters from "../monsters";
+import Player from "../player";
+
+import takeMonstersTurn from "../monsters/actions/take-monsters-turn";
 
 interface WorldProps {
   library: typeof import("wave");
@@ -17,9 +21,21 @@ interface WorldProps {
 }
 
 const World = (props: WorldProps) => {
+  const dispatch = useDispatch();
+
   const mapOffset = props.system.largeView ? 180 : 155;
   const worldTop = mapOffset - props.player.position.y;
   const worldLeft = mapOffset - props.player.position.x;
+
+  const { world } = props;
+
+  const monstersTakeTurns = useCallback(() => {
+    dispatch(takeMonstersTurn());
+  }, [dispatch]);
+
+  useEffect(() => {
+    monstersTakeTurns();
+  }, [world.turn, monstersTakeTurns]);
 
   return (
     <div
@@ -30,7 +46,12 @@ const World = (props: WorldProps) => {
       }}
     >
       <Controls />
+
       <Map />
+
+      <Player />
+
+      <Monsters />
     </div>
   );
 };

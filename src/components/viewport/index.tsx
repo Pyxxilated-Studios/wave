@@ -10,7 +10,7 @@ import "./styles.scss";
 
 interface ViewportProps {
   system: SystemState;
-  children: React.ReactElement[];
+  children: React.ReactElement[] | React.ReactElement;
 }
 
 const Viewport = (props: ViewportProps) => {

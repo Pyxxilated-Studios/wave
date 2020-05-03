@@ -1,7 +1,9 @@
 import generateMonsterType from "./generate-monster-type";
 import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
 import { MAP_DIMENSIONS } from "../../../constants";
-import { GameMap, Point } from "../../../types";
+import { GameMap, Point, Entity } from "../../../types";
+
+import monsterData from "../../../data/monsters";
 
 // generates random monsters for a random map
 const generateMonsters = (
@@ -9,7 +11,7 @@ const generateMonsters = (
   map: GameMap,
   playerPosition: Point,
   playerLevel: number
-) => {
+): Entity[] => {
   let availableTiles: Point[] = [];
   // we need to get the tiles from the surrounding tiles func,
   // then reverse the coordinates because they come back in normal notation (y, x)
@@ -28,16 +30,16 @@ const generateMonsters = (
     }
   }
 
-  availableTiles = availableTiles.filter((pos) => {
-    // remove the available tiles that are vision tiles
-    return vision.tiles.includes(pos);
-  });
+  // Remove the available tiles that are within the players vision
+  availableTiles = availableTiles.filter((pos) => !vision.tiles.includes(pos));
 
   // generate number of monsters for the map based on floor number and player level
   const numberMonsters =
     Math.ceil(floorNumber / playerLevel) *
     Math.round(Math.random() * (4 - 2) + 2);
-  const monsterTiles = [];
+
+  const monsterTiles: Point[] = [];
+
   // get an array of tiles to position the random monsters
   for (let x = 0; x < numberMonsters; x++) {
     if (availableTiles.length > 0) {
@@ -48,12 +50,13 @@ const generateMonsters = (
   }
 
   // generate the monster type and create an array of monster objects
-  return monsterTiles.map((position) => {
-    // reverse the position from the generated map,
-    // as it is in [y, x], and now we need to change to [x, y] (normal notation)
+  return monsterTiles.map((location) => {
     const type = generateMonsterType(playerLevel);
-
-    return { position, type };
+    return {
+      location,
+      type,
+      ...Reflect.get(monsterData, type),
+    };
   });
 };
 

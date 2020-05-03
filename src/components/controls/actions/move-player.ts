@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { movePlayer, playerTakeTurn } from "../../../store/player/actions";
 
 import { exploreTiles } from "../../../store/map/actions";
-import { SPRITE_SIZE, MAP_SIZE } from "../../../constants";
+import { MAP_SIZE } from "../../../constants";
 import { Direction, Point } from "../../../types";
 
 import getNextTile from "../../../utils/get-next-tile";
@@ -62,13 +62,13 @@ export const getNewPosition = (
 ): Point => {
   switch (direction) {
     case Direction.North:
-      return { x: oldPosition.x, y: oldPosition.y - SPRITE_SIZE };
+      return { x: oldPosition.x, y: oldPosition.y - 1 };
     case Direction.South:
-      return { x: oldPosition.x, y: oldPosition.y + SPRITE_SIZE };
+      return { x: oldPosition.x, y: oldPosition.y + 1 };
     case Direction.East:
-      return { x: oldPosition.x + SPRITE_SIZE, y: oldPosition.y };
+      return { x: oldPosition.x + 1, y: oldPosition.y };
     case Direction.West:
-      return { x: oldPosition.x - SPRITE_SIZE, y: oldPosition.y };
+      return { x: oldPosition.x - 1, y: oldPosition.y };
     default:
       return oldPosition;
   }
@@ -77,9 +77,9 @@ export const getNewPosition = (
 const observeBoundaries = (newPos: Point) => {
   return (
     newPos.x >= 0 &&
-    newPos.x <= MAP_SIZE.width - SPRITE_SIZE &&
+    newPos.x <= MAP_SIZE.width - 1 &&
     newPos.y >= 0 &&
-    newPos.y <= MAP_SIZE.height - SPRITE_SIZE
+    newPos.y <= MAP_SIZE.height - 1
   );
 };
 

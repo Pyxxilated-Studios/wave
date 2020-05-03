@@ -1,8 +1,9 @@
 import { GameMap, Tile, Point } from "../../types";
 import { ExploreTilesAction } from "../map/types";
+import { PlayerTurnAction } from "../player/types";
 
 export interface WorldState {
-  currentMap: string | null;
+  currentMap: string;
   turn: number;
   randomMaps: GameMap[];
   chests: Record<string, Point>;
@@ -34,4 +35,5 @@ export type WorldTypes =
   | SetCurrentMapAction
   | GenerateMapAction
   | SetStartMapAction
-  | ExploreTilesAction;
+  | ExploreTilesAction
+  | PlayerTurnAction;

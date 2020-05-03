@@ -1,4 +1,4 @@
-import { SIGHT_RADIUS, MAP_DIMENSIONS, SPRITE_SIZE } from "../constants";
+import { SIGHT_RADIUS, MAP_DIMENSIONS } from "../constants";
 import { Point } from "../types";
 
 export const radiusTiles = (radiusSize = SIGHT_RADIUS) => {
@@ -20,28 +20,16 @@ export const radiusTiles = (radiusSize = SIGHT_RADIUS) => {
 export default function getSurroundingTiles(
   newPosition: Point
 ): { tiles: Point[]; paddingTiles: Point[] } {
-  // make sure the new position is in relative map tile size
-  const x =
-    newPosition.x % SPRITE_SIZE === 0
-      ? newPosition.x / SPRITE_SIZE
-      : newPosition.x;
-  const y =
-    newPosition.y % SPRITE_SIZE === 0
-      ? newPosition.y / SPRITE_SIZE
-      : newPosition.y;
-  // set tile to relative tile position
-  const startPosition: Point = { x, y };
-
-  // then calculate the surrounding tiles according to the bounds
+  // Calculate the surrounding tiles according to the bounds
   const surroundingTiles: Point[] = [];
   const paddingTiles: Point[] = [];
 
   // make sure the start position is within the bounds
   if (
-    startPosition.x >= MAP_DIMENSIONS.width ||
-    startPosition.x < 0 ||
-    startPosition.y >= MAP_DIMENSIONS.height ||
-    startPosition.y < 0
+    newPosition.x >= MAP_DIMENSIONS.width ||
+    newPosition.x < 0 ||
+    newPosition.y >= MAP_DIMENSIONS.height ||
+    newPosition.y < 0
   ) {
     return { tiles: surroundingTiles, paddingTiles };
   }
@@ -49,8 +37,8 @@ export default function getSurroundingTiles(
   // add position as offset to each radius tile
   radiusTiles().forEach(({ x, y }) => {
     // get radius with location as offset
-    const offsetX = x + startPosition.x;
-    const offsetY = y + startPosition.y;
+    const offsetX = x + newPosition.x;
+    const offsetY = y + newPosition.y;
 
     // if it is inside the bounds
     if (

@@ -8,16 +8,20 @@ import PlayerSprite from "./assets/knight_m_idle_anim_f0.png";
 
 import "./styles.scss";
 import { SPRITE_SIZE } from "../../constants";
+import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
 interface PlayerProps {
   player: PlayerState;
 }
 
 const Player = (props: PlayerProps) => {
-  const { x, y } = props.player.position;
+  const spriteCoordinates = translateToSpriteCoordinates(props.player.position);
 
   return (
-    <div className="player-container" style={{ top: y, left: x }}>
+    <div
+      className="player-container"
+      style={{ top: spriteCoordinates.y, left: spriteCoordinates.x }}
+    >
       <div
         style={{
           backgroundImage: `url('${PlayerSprite}')`,

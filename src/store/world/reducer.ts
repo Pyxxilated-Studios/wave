@@ -10,10 +10,11 @@ import {
 import attachMetaToTiles from "../../utils/attach-meta-to-tiles";
 import generatePaddingTiles from "../../utils/generate-padding-tiles";
 import { EXPLORE_TILES } from "../map/types";
-import { Tile } from "../../types";
+import { Tile, Point } from "../../types";
+import { TAKE_TURN } from "../player/types";
 
 const initialState: WorldState = {
-  currentMap: null,
+  currentMap: "",
   turn: 0,
   randomMaps: [],
   chests: {},
@@ -26,7 +27,10 @@ const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
     case SET_CURRENT_MAP:
       return { ...state, currentMap: action.currentMap };
 
-    case GENERATE_MAP:
+    case TAKE_TURN:
+      return { ...state, turn: state.turn + 1 };
+
+    case GENERATE_MAP: {
       const _randomMaps = cloneDeep(state.randomMaps);
 
       const randomTiles = attachMetaToTiles(action.tiles);
@@ -39,6 +43,7 @@ const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
       });
 
       return { ...state, randomMaps: _randomMaps };
+    }
 
     case SET_START_MAP:
       return {
@@ -54,7 +59,7 @@ const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
 
       const currentMapData = newState.randomMaps[newState.floorNumber - 1];
       // get each tile
-      tiles.forEach((tile) => {
+      tiles.forEach((tile: Point) => {
         currentMapData.tiles[tile.y][tile.x].explored = true;
       });
 
@@ -78,8 +83,6 @@ const WorldReducer = (state = initialState, action: WorldTypes): WorldState => {
           );
         });
       }
-
-      console.log(currentMapData.tiles);
 
       return newState;
     }

@@ -3,7 +3,6 @@ import {
   MAP_DIMENSIONS,
   MAX_TUNNELS,
   MAX_TUNNEL_LENGTH,
-  SPRITE_SIZE,
 } from "../../../constants";
 import { Point, GameMap } from "../../../types";
 
@@ -31,11 +30,11 @@ const generateMap = (startPosition: Point, floorNumber: number) => {
 
   // our current row - start at a random spot
   let currentRow = startPosition
-    ? startPosition.y / SPRITE_SIZE
+    ? startPosition.y
     : Math.floor(Math.random() * MAP_DIMENSIONS.height);
   // our current column - start at a random spot
   let currentColumn = startPosition
-    ? startPosition.x / SPRITE_SIZE
+    ? startPosition.x
     : Math.floor(Math.random() * MAP_DIMENSIONS.width);
 
   // save the last direction we went

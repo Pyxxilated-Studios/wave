@@ -29,3 +29,20 @@ export interface GameMap {
   tiles: Tile[][];
   paddingTiles: PaddingTiles;
 }
+
+export interface Monster {
+  type: string;
+  hp: number;
+  maxHp: number;
+  attackValue: number;
+  defence: number;
+  dice: string;
+  exp: number;
+  sprite: string;
+}
+
+export type Entity = Monster & {
+  id: string;
+  location: Point;
+  visible: boolean;
+};

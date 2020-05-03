@@ -16,8 +16,8 @@ export const setCurrentMap = (map: string): WorldTypes => {
 export const loadMap = (tiles: Tile[][], id: string): WorldTypes => {
   return {
     type: GENERATE_MAP,
-    tiles: tiles,
-    id: id,
+    tiles,
+    id,
   };
 };
 

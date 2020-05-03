@@ -21,14 +21,17 @@ const Map = (props: MapProps) => {
 
   const dispatch = useDispatch();
 
+  const width = MAP_SIZE.width * SPRITE_SIZE;
+  const height = MAP_SIZE.height * SPRITE_SIZE;
+
   if (!currentMap) {
     dispatch(startGame());
 
     return (
       <div
         style={{
-          width: MAP_SIZE.width,
-          height: MAP_SIZE.height,
+          width,
+          height,
           position: "relative",
         }}
       />
@@ -42,8 +45,8 @@ const Map = (props: MapProps) => {
   return (
     <div
       style={{
-        width: MAP_SIZE.width,
-        height: MAP_SIZE.height,
+        width,
+        height,
         position: "relative",
       }}
     >
