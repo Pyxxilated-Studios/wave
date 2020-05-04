@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { ENTER_KEY, ESC_KEY } from '../../constants';
+import { ENTER_KEY, ESC_KEY } from "../../constants";
 
-import './styles.scss';
+import "./styles.scss";
+import Button from "../button";
 
 interface DialogProps {
     className?: string;
@@ -30,22 +31,23 @@ const Dialog = (props: DialogProps) => {
 
     useEffect(() => {
         if (props.onKeyPress || props.goBack) {
-            window.addEventListener('keydown', handleKeyPress);
+            window.addEventListener("keydown", handleKeyPress);
         }
 
         return () => {
             if (props.onKeyPress || props.goBack) {
-                window.removeEventListener('keydown', handleKeyPress);
+                window.removeEventListener("keydown", handleKeyPress);
             }
         };
     });
 
     return (
-        <div className={props.className || 'dialog-container white-border'} style={props.style}>
+        <div className={props.className || "dialog-container white-border"} style={props.style}>
             {props.goBack && (
-                <button onClick={props.goBack} className="dialog__back-button">
-                    <i className={`fa fa-arrow-left`} />
-                </button>
+                <Button icon="arrow-left" onClick={props.goBack} extraClass="dialog-back-button" />
+                // <button onClick={props.goBack} className="dialog__back-button">
+                //     <i className={`fa fa-arrow-left`} />
+                // </button>
             )}
             {props.children}
         </div>

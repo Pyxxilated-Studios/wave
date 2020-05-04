@@ -1,5 +1,5 @@
-import { StatsState, StatsActionType, GAIN_EXPERIENCE } from './types';
-import { RESET } from '../system/types';
+import { StatsState, StatsActionType, GAIN_EXPERIENCE, SET_ABILITY_SCORES } from "./types";
+import { RESET } from "../system/types";
 
 const initialState: StatsState = {
     abilities: {
@@ -12,9 +12,9 @@ const initialState: StatsState = {
         points: 0,
     },
     character: {
-        characterName: '',
-        characterRace: '',
-        characterClass: '',
+        characterName: "",
+        characterRace: "",
+        characterClass: "",
     },
     hp: 0,
     abilityModifierHp: 0,
@@ -28,7 +28,7 @@ const initialState: StatsState = {
     expToLevel: 20,
     gold: 0,
     equippedItems: {},
-    levelUp: { level: 0, hp: 0 },
+    levelUp: { level: 0, hp: 0, mana: 0 },
 };
 
 const StatsReducer = (state = initialState, action: StatsActionType): StatsState => {
@@ -38,6 +38,9 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
         case RESET:
             return { ...initialState };
+
+        case SET_ABILITY_SCORES:
+            return { ...state, abilities: { ...action.abilities, points: action.points } };
 
         default:
             return state;

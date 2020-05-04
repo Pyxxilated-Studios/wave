@@ -10,7 +10,7 @@ export const SCREEN_MEDIUM_HEIGHT = 680;
 
 // Size of each individual sprite
 export const SPRITE_SIZE = 32;
-export const SPRITE_PIXELS = SPRITE_SIZE.toString() + 'px';
+export const SPRITE_PIXELS = SPRITE_SIZE.toString() + "px";
 
 // Number of tiles in the map
 const TILE_HEIGHT = 32;
@@ -58,3 +58,4 @@ export const ESC_KEY = 27;
 // Ability score related starting values
 export const STARTING_ABILITY_SCORE_VALUE = 8;
 export const STARTING_ABILITY_POINTS = 12;
+export const MAX_ABILITY_SCORE = 20;

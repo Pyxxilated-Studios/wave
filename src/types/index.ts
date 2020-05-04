@@ -56,6 +56,8 @@ export interface Abilities {
     charisma: number;
 }
 
+export type Ability = keyof Abilities;
+
 export interface PauseReason {
     gameText?: boolean;
     gameOver?: boolean;
@@ -72,21 +74,12 @@ export interface PauseReason {
     levelUp?: boolean;
     fromLevelUp?: boolean;
     abilityDialog?: boolean;
-    characterCustomisation?: boolean;
     playerOpenedAbilityDialog?: boolean;
     characterCreation?: boolean;
 }
 
-export interface Appearance {
-    hairColour: number;
-    skinColour: number;
-    eyeColour: number;
-    armourColour: number;
-    clothesColour: number;
-}
-
 export interface Character {
-    characterName: string | null;
+    characterName: string;
     characterRace: string;
     characterClass: string;
 }

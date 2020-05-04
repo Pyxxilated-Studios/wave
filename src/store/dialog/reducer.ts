@@ -1,6 +1,15 @@
-import { DialogState, DialogActionType, PAUSE } from './types';
-import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS } from '../../constants';
-import { RESET } from '../system/types';
+import {
+    DialogState,
+    DialogActionType,
+    PAUSE,
+    CREATE_CHARACTER,
+    SET_CLASS,
+    SET_RACE,
+    INCREMENT_ABILITY,
+    DECREMENT_ABILITY,
+} from "./types";
+import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
+import { RESET } from "../system/types";
 
 const initialState: DialogState = {
     paused: true,
@@ -21,7 +30,6 @@ const initialState: DialogState = {
         fromLevelUp: false,
         abilityDialog: false,
         playerOpenedAbilityDialog: false,
-        characterCustomisation: false,
         characterCreation: false,
     },
     abilities: {
@@ -33,7 +41,7 @@ const initialState: DialogState = {
         charisma: STARTING_ABILITY_SCORE_VALUE,
         points: STARTING_ABILITY_POINTS,
     },
-    abilities_minimum: {
+    abilitiesMinimum: {
         constitution: 0,
         dexterity: 0,
         strength: 0,
@@ -41,17 +49,10 @@ const initialState: DialogState = {
         intelligence: 0,
         charisma: 0,
     },
-    appearance: {
-        hairColour: 0,
-        skinColour: 0,
-        eyeColour: 0,
-        armourColour: 0,
-        clothesColour: 0,
-    },
     character: {
-        characterName: null,
-        characterRace: 'Human',
-        characterClass: 'Fighter',
+        characterName: "",
+        characterRace: "Human",
+        characterClass: "Fighter",
     },
 };
 
@@ -62,6 +63,52 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
 
         case RESET:
             return { ...initialState };
+
+        case CREATE_CHARACTER:
+            return {
+                ...state,
+                character: { characterName: action.name, characterClass: action.cls, characterRace: action.race },
+            };
+
+        case SET_RACE:
+            return {
+                ...state,
+                character: {
+                    ...state.character,
+                    characterRace: action.race,
+                },
+            };
+
+        case SET_CLASS:
+            return {
+                ...state,
+                character: {
+                    ...state.character,
+                    characterClass: action.cls,
+                },
+            };
+
+        case INCREMENT_ABILITY: {
+            const ability = state.abilities[action.ability];
+            if (ability >= MAX_ABILITY_SCORE || state.abilities.points <= 0) {
+                return state;
+            }
+            return {
+                ...state,
+                abilities: { ...state.abilities, [action.ability]: ability + 1, points: state.abilities.points - 1 },
+            };
+        }
+
+        case DECREMENT_ABILITY: {
+            const ability = state.abilities[action.ability];
+            if (ability <= 0) {
+                return state;
+            }
+            return {
+                ...state,
+                abilities: { ...state.abilities, [action.ability]: ability - 1, points: state.abilities.points + 1 },
+            };
+        }
 
         default:
             return state;

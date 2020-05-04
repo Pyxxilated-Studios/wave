@@ -16,7 +16,8 @@
     cursor: default;
     user-select: none;
 
-    .dialog__back-button {
+    .dialog-back-button {
+        margin: 5px;
         position: absolute;
         left: 0;
         top: 0;

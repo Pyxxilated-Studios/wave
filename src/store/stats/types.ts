@@ -1,20 +1,11 @@
-import { ResetAction } from '../system/types';
+import { ResetAction } from "../system/types";
+import { Abilities, Character } from "../../types";
 
 export interface StatsState {
-    abilities: {
-        constitution: number;
-        dexterity: number;
-        strength: number;
-        wisdom: number;
-        intelligence: number;
-        charisma: number;
+    abilities: Abilities & {
         points: number;
     };
-    character: {
-        characterName: string;
-        characterRace: string;
-        characterClass: string;
-    };
+    character: Character;
     hp: number;
     abilityModifierHp: number;
     maxHp: number;
@@ -27,13 +18,20 @@ export interface StatsState {
     expToLevel: number;
     gold: number;
     equippedItems: {};
-    levelUp: { level: number; hp: number };
+    levelUp: { level: number; hp: number; mana: number };
 }
 
-export const GAIN_EXPERIENCE = 'GAIN_EXPERIENCE';
+export const GAIN_EXPERIENCE = "GAIN_EXPERIENCE";
 interface GainExperienceAction {
     type: typeof GAIN_EXPERIENCE;
     experience: number;
 }
 
-export type StatsActionType = GainExperienceAction | ResetAction;
+export const SET_ABILITY_SCORES = "SET_ABILITY_SCORES";
+interface SetAbilityScoresAction {
+    type: typeof SET_ABILITY_SCORES;
+    abilities: Abilities;
+    points: number;
+}
+
+export type StatsActionType = GainExperienceAction | ResetAction | SetAbilityScoresAction;

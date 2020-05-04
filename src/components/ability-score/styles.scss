@@ -1,0 +1,35 @@
+.ability-score-container {
+    flex: 1;
+    justify-content: space-between;
+}
+
+.ability-score-text {
+    font-family: Montserrat;
+    font-size: 12px;
+    text-transform: none;
+
+    letter-spacing: 2px;
+    line-height: 1.5;
+
+    text-align: left;
+    display: inline-block;
+}
+
+.ability-score-button {
+    justify-content: center;
+    float: right;
+}
+
+.ability-score-score-text {
+    font-family: Montserrat;
+    font-size: 12px;
+    text-transform: none;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    margin-right: 8px;
+    margin-top: 2px;
+    width: 20px;
+    float: right;
+    text-align: right;
+    vertical-align: auto;
+}

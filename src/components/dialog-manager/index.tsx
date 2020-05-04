@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { DialogState } from '../../store/dialog/types';
-import { RootState } from '../../store';
-import GameStartDialog from './dialogs/game-start-dialog';
+import React from "react";
+import { connect } from "react-redux";
+import { DialogState } from "../../store/dialog/types";
+import { RootState } from "../../store";
+import GameStartDialog from "./dialogs/game-start-dialog";
 
 // import ChestLoot from './dialogs/chest-loot';
 // import EndlessGameStart from './dialogs/endless-game-start';
 // import InventoryDialog from './dialogs/inventory-dialog';
 // import GameInstructions from './dialogs/game-instructions';
-// import CharacterCreation from './dialogs/character-creation';
+import CharacterCreation from "./dialogs/character-creation";
 // import GameTextDialog from './dialogs/game-text-dialog';
 // import GameSelect from './dialogs/game-select';
 // import GameWin from './dialogs/game-win';
@@ -17,7 +17,7 @@ import GameStartDialog from './dialogs/game-start-dialog';
 // import SettingsDialog from './dialogs/settings-dialog';
 // import ShopDialog from './dialogs/shop-dialog';
 // import LevelUp from './dialogs/level-up';
-// import AbilityScores from './dialogs/ability-dialog';
+import AbilityScores from "./dialogs/ability-dialog";
 // import CharacterCustomisation from './dialogs/character-customisation';
 // import JournalDialog from './dialogs/journal-dialog';
 // import SpellbookDialog from './dialogs/spellbook-dialog';
@@ -42,14 +42,13 @@ const DialogManager = (props: DialogProps) => {
         shop,
         levelUp,
         abilityDialog,
-        characterCustomisation,
         journalDialog,
         spellbookDialog,
     } = reason;
 
     let PauseComp: React.ReactElement | null = null;
-    let SettingsComp: React.ReactElement | null = null;
-    let LevelUpComp: React.ReactElement | null = null;
+    const SettingsComp: React.ReactElement | null = null;
+    const LevelUpComp: React.ReactElement | null = null;
 
     if (paused) {
         //     if (chest) PauseComp = <ChestLoot />;
@@ -64,9 +63,8 @@ const DialogManager = (props: DialogProps) => {
         //           text2={gameText.body.replace(/<>/g, character.characterName)}
         //         />
         //       );
-        //     if (abilityDialog) PauseComp = <AbilityScores />;
-        //     if (characterCreation) PauseComp = <CharacterCreation />;
-        //     if (characterCustomisation) PauseComp = <CharacterCustomisation />;
+        if (abilityDialog) PauseComp = <AbilityScores />;
+        if (characterCreation) PauseComp = <CharacterCreation />;
         //     if (gameInstructions) PauseComp = <GameInstructions />;
         //     if (gameOver) PauseComp = <GameOver />;
         if (gameStart) PauseComp = <GameStartDialog />;

@@ -1,39 +1,48 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import Button from '../../../button';
-import Dialog from '../../../dialog';
-// import Flame from "../../../../components/flame";
+import startGame from "../../actions/start-game";
+
+import Button from "../../../button";
+import Dialog from "../../../dialog";
+import Flame from "../../../flames";
 // import loadGame from "../../actions/load-game";
 
-import './styles.scss';
+import "./styles.scss";
 
-interface GameStartDialogProps {
-    gameDialog?: any;
-    loadGame?: any;
+interface DispatchProps {
+    // loadGame: () => void;
+    startGame: () => void;
 }
 
-const GameStartDialog = ({ gameDialog, loadGame }: GameStartDialogProps) => {
+type GameStartDialogProps = DispatchProps;
+
+const GameStartDialog = (props: GameStartDialogProps): React.ReactElement => {
     return (
         <Dialog>
-            <span className="flex-row game-start-title">{'Roll For Reaction'}</span>
+            <span className="flex-row game-start-title">{"Roll For Reaction"}</span>
 
             <span className="flex-column game-start-text">
-                {'Greetings, Traveler. Please, explore our dungeons...'}
+                {"Greetings, Traveler. Please, explore our dungeons..."}
             </span>
 
-            {/* <div className="game-select__flame--1">
-        <Flame />
-      </div>
-      <div className="game-select__flame--2">
-        <Flame />
-      </div>
-      <div className="game-select__flame--3">
-        <Flame />
-      </div> */}
+            <div className="game-start-flame-1">
+                <Flame />
+            </div>
+            {/* <div className="game-start-flame-2">
+                <Flame />
+            </div>
+            <div className="game-start-flame-3">
+                <Flame />
+            </div> */}
 
             <div className="flex-column game-start-button">
-                <Button style={{ marginBottom: 16 }} onClick={gameDialog} icon="torah" title={'Start Game'} />
+                <Button
+                    style={{ marginBottom: 16 }}
+                    onClick={props.startGame}
+                    icon="play-circle"
+                    title={"Start Game"}
+                />
 
                 {/* <Button
           onClick={() => {
@@ -55,6 +64,9 @@ const GameStartDialog = ({ gameDialog, loadGame }: GameStartDialogProps) => {
     );
 };
 
-// const actions = { gameDialog, loadGame };
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+    // loadGame: (): void => ,
+    startGame: (): void => dispatch(startGame()),
+});
 
-export default connect()(GameStartDialog);
+export default connect(null, mapDispatchToProps)(GameStartDialog);

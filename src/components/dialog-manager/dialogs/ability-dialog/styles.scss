@@ -1,0 +1,56 @@
+.ability-score-title {
+    font-size: 26px;
+    text-align: center;
+
+    padding: 12px 0;
+
+    margin-left: 50px;
+}
+
+.game-text-dialog-text {
+    text-align: center;
+}
+
+.ability-score-dialog-container {
+    flex: 1;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.ability-score-dialog-text {
+    font-family: Montserrat;
+    font-size: 12px;
+    text-transform: none;
+
+    letter-spacing: 2px;
+    line-height: 1.5;
+
+    text-align: left;
+    display: inline-block;
+
+    margin-top: 6px;
+    margin-bottom: -6px;
+    height: 34px;
+}
+
+.ability-score-dialog-button {
+    justify-content: center;
+    float: right;
+}
+
+.ability-score-dialog-score-text {
+    font-family: Roboto, monospace;
+    font-size: 12px;
+    text-transform: none;
+
+    letter-spacing: 2px;
+    line-height: 1.5;
+
+    margin: 20px;
+}
+
+.ability-score-dialog-points {
+    width: max-content;
+    float: right;
+    margin-right: 47px;
+}

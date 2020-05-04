@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-import EmptySlot from '../empty-slot';
+import EmptySlot from "../empty-slot";
 
-import { SPRITE_PIXELS } from '../../constants';
+import { SPRITE_PIXELS } from "../../constants";
 
-import './styles.scss';
+import "./styles.scss";
 
 interface ButtonProps {
-    icon?: string;
+    icon?: IconProp;
     title?: string;
     iconStyle?: React.CSSProperties;
     style?: React.CSSProperties;
@@ -20,23 +22,28 @@ interface ButtonProps {
     extraClass?: string;
 }
 
-const Button = (props: ButtonProps) => {
-    function handleClick() {
+const Button: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
+    function handleClick(): void {
         props.onClick && props.onClick();
     }
 
+    const iconClassName = `button-icon ${props.indicator ? "button-indicator" : ""}`;
+
     return (
         <button
-            className={`button-container ${props.noBorder ? '' : 'white-border'} ${
-                props.small ? 'button-container-small' : props.tiny ? 'button-container-tiny' : ''
-            } ${props.extraClass ? props.extraClass : ''}`}
+            className={`button-container ${props.noBorder ? "" : "white-border"} ${
+                props.small ? "button-container-small" : props.tiny ? "button-container-tiny" : ""
+            } ${props.extraClass ? props.extraClass : ""}`}
             style={props.style || {}}
             onClick={handleClick}
         >
             {props.icon && (
-                <i className={`fa fa-${props.icon} button-icon`} style={props.iconStyle || {}}>
-                    {props.indicator && <div className="button-indicator" />}
-                </i>
+                // <FontAwesomeIcon icon= />
+                <FontAwesomeIcon
+                    className={iconClassName}
+                    icon={props.icon}
+                    style={props.iconStyle ? props.iconStyle : {}}
+                />
             )}
             {props.image && (
                 <EmptySlot className="white-border button-image">
@@ -50,7 +57,7 @@ const Button = (props: ButtonProps) => {
                 </EmptySlot>
             )}
 
-            {props.title && <span>{props.title}</span>}
+            {props.title && <span style={props.icon ? { paddingLeft: "10px" } : {}}>{props.title}</span>}
         </button>
     );
 };
