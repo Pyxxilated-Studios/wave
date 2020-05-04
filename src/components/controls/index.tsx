@@ -1,64 +1,72 @@
-import { useEffect, useCallback } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
 
-import { RootState } from "../../store";
-import { PlayerState } from "../../store/player/types";
-import { Direction } from "../../types";
+import { RootState } from '../../store';
+import { DialogState } from '../../store/dialog/types';
+import { PlayerState } from '../../store/player/types';
+import { Direction } from '../../types';
 
-import move from "./actions/move-player";
+import move from './actions/move-player';
 
-import {
-  LEFT_KEY,
-  A_KEY,
-  UP_KEY,
-  W_KEY,
-  RIGHT_KEY,
-  D_KEY,
-  DOWN_KEY,
-  S_KEY,
-} from "../../constants";
+import { LEFT_KEY, A_KEY, UP_KEY, W_KEY, RIGHT_KEY, D_KEY, DOWN_KEY, S_KEY } from '../../constants';
 
-interface ControlProps {
-  player: PlayerState;
+interface DispatchProps {
+    movePlayer: (direction: Direction) => void;
 }
 
-const Controls = (_props: ControlProps) => {
-  const dispatch = useDispatch();
+interface StateProps {
+    player: PlayerState;
+    dialog: DialogState;
+}
 
-  const handleKeyPress = useCallback(
-    (event: KeyboardEvent): any => {
-      event.preventDefault();
-      switch (event.keyCode) {
-        case UP_KEY:
-        case W_KEY:
-          return dispatch(move(Direction.North));
-        case DOWN_KEY:
-        case S_KEY:
-          return dispatch(move(Direction.South));
-        case RIGHT_KEY:
-        case D_KEY:
-          return dispatch(move(Direction.East));
-        case LEFT_KEY:
-        case A_KEY:
-          return dispatch(move(Direction.West));
-        default:
-      }
-    },
-    [dispatch]
-  );
+type ControlProps = StateProps & DispatchProps;
 
-  useEffect(() => {
-    // Enable keyboard for player controls
-    window.addEventListener("keydown", handleKeyPress);
+const Controls = (props: ControlProps) => {
+    const { dialog, movePlayer } = props;
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [handleKeyPress]);
+    const handleKeyPress = useCallback(
+        (event: KeyboardEvent): any => {
+            event.preventDefault();
+            if (!dialog.paused) {
+                switch (event.keyCode) {
+                    case UP_KEY:
+                    case W_KEY:
+                        return movePlayer(Direction.North);
+                    case DOWN_KEY:
+                    case S_KEY:
+                        return movePlayer(Direction.South);
+                    case RIGHT_KEY:
+                    case D_KEY:
+                        return movePlayer(Direction.East);
+                    case LEFT_KEY:
+                    case A_KEY:
+                        return movePlayer(Direction.West);
+                    default:
+                }
+            }
+        },
+        [dialog.paused, movePlayer],
+    );
 
-  return null;
+    useEffect(() => {
+        // Enable keyboard for player controls
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleKeyPress]);
+
+    return null;
 };
 
-const mapStateToProps = (state: RootState) => ({ player: state.player });
+const mapStateToProps = (state: RootState) => ({
+    player: state.player,
+    dialog: state.dialog,
+});
 
-export default connect(mapStateToProps)(Controls);
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+    movePlayer: (direction: Direction) => dispatch(move(direction)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Controls);

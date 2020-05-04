@@ -1,40 +1,42 @@
-import { Entity, Point } from "../../types";
+import { Entity, Point } from '../../types';
+import { ResetAction } from '../system/types';
 
 export interface MonstersState {
-  entities: Record<string, Record<string, Entity>>;
+    entities: Record<string, Record<string, Entity>>;
 }
 
-export const ADD_MONSTERS = "ADD_MONSTERS";
+export const ADD_MONSTERS = 'ADD_MONSTERS';
 interface AddMonstersAction {
-  type: typeof ADD_MONSTERS;
-  currentMap: string;
-  monsters: Entity[];
+    type: typeof ADD_MONSTERS;
+    currentMap: string;
+    monsters: Entity[];
 }
 
-export const REVEAL_MONSTER = "REVEAL_MONSTER";
+export const REVEAL_MONSTER = 'REVEAL_MONSTER';
 interface RevealMonsterAction {
-  type: typeof REVEAL_MONSTER;
-  id: string;
-  currentMap: string;
+    type: typeof REVEAL_MONSTER;
+    id: string;
+    currentMap: string;
 }
 
-export const HIDE_MONSTER = "HIDE_MONSTER";
+export const HIDE_MONSTER = 'HIDE_MONSTER';
 interface HideMonsterAction {
-  type: typeof HIDE_MONSTER;
-  id: string;
-  currentMap: string;
+    type: typeof HIDE_MONSTER;
+    id: string;
+    currentMap: string;
 }
 
-export const MONSTER_MOVE = "MONSTER_MOVE";
+export const MONSTER_MOVE = 'MONSTER_MOVE';
 interface MonsterMoveAction {
-  type: typeof MONSTER_MOVE;
-  id: string;
-  currentMap: string;
-  position: Point;
+    type: typeof MONSTER_MOVE;
+    id: string;
+    currentMap: string;
+    position: Point;
 }
 
 export type MonstersActionType =
-  | AddMonstersAction
-  | RevealMonsterAction
-  | HideMonsterAction
-  | MonsterMoveAction;
+    | AddMonstersAction
+    | RevealMonsterAction
+    | HideMonsterAction
+    | MonsterMoveAction
+    | ResetAction;

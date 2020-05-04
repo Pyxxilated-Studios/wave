@@ -1,0 +1,67 @@
+.button-container {
+    padding: 15px;
+
+    user-select: none;
+
+    .button-image {
+        position: relative;
+        float: left;
+    }
+
+    .button-icon {
+        position: relative;
+
+        padding-right: 10px;
+
+        font-size: 22px;
+    }
+
+    .button-indicator {
+        position: absolute;
+        bottom: -5px;
+        right: 7px;
+
+        border-radius: 10px;
+
+        width: 15px;
+        height: 15px;
+
+        background: var(--light-red);
+
+        animation: fade 4s ease-in-out infinite;
+        opacity: 1;
+    }
+}
+
+.button-container-small {
+    font-size: 18px;
+    padding: 12px;
+}
+
+.button-container-tiny {
+    font-size: 12px;
+    padding: 0px;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.select-button {
+    font-size: medium;
+    padding: 0.5em;
+    width: 6em;
+    float: left !important;
+}
+
+.selected {
+    background-color: #383838 !important;
+}

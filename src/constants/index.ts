@@ -10,7 +10,7 @@ export const SCREEN_MEDIUM_HEIGHT = 680;
 
 // Size of each individual sprite
 export const SPRITE_SIZE = 32;
-export const SPRITE_PIXELS = SPRITE_SIZE.toString() + "px";
+export const SPRITE_PIXELS = SPRITE_SIZE.toString() + 'px';
 
 // Number of tiles in the map
 const TILE_HEIGHT = 32;
@@ -19,9 +19,12 @@ const TILE_WIDTH = 32;
 // Map size
 export const MAP_DIMENSIONS = { width: TILE_WIDTH, height: TILE_HEIGHT };
 export const MAP_SIZE = {
-  width: TILE_WIDTH,
-  height: TILE_HEIGHT,
+    width: TILE_WIDTH,
+    height: TILE_HEIGHT,
 };
+
+// Time for the map to transition in/out
+export const MAP_TRANSITION_DELAY = 500;
 
 // How far the player can 'see' or 'explore'
 export const SIGHT_RADIUS = 3;
