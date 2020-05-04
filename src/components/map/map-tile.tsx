@@ -1,126 +1,123 @@
-import React from "react";
+import React from 'react';
 
-import { Tile, Point } from "../../types";
+import { Tile, Point } from '../../types';
 
 // import Flame from "../../components/flame";
-import { SPRITE_SIZE } from "../../constants";
-import { arrayContainsPoint } from "../../utils/array-contains";
+import { SPRITE_SIZE } from '../../constants';
+import { arrayContainsPoint } from '../../utils/array-contains';
 
 interface MapTileProps {
-  tile: Tile;
-  position: Point;
-  sightBox: Point[];
+    tile: Tile;
+    position: Point;
+    sightBox: Point[];
 }
 
 const MapTile = (props: MapTileProps) => {
-  // Load the tile directly from the public folder
-  const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(
-    props.tile.value,
-    props.tile.variation
-  )}.png`;
+    // Load the tile directly from the public folder
+    const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tile.value, props.tile.variation)}.png`;
 
-  const inSight = arrayContainsPoint(props.sightBox, props.position);
+    const inSight = arrayContainsPoint(props.sightBox, props.position);
 
-  // case for rendering animated flame tile
-  // if (tile.value === 20) {
-  //   return (
-  //     <GroundTile variation={tile.variation}>
-  //       <Flame position={index}>
-  //         <FogTile explored={tile.explored} inSight={inSight} />
-  //       </Flame>
-  //     </GroundTile>
-  //   );
-  // }
-  // case for rendering normal tiles
-  return (
-    <GroundTile variation={props.tile.variation}>
-      <div
-        style={{
-          backgroundImage: `url(${tilesrc})`,
-          height: SPRITE_SIZE,
-          width: SPRITE_SIZE,
-        }}
-      >
-        <FogTile explored={props.tile.explored} inSight={inSight} />
-      </div>
-    </GroundTile>
-  );
+    // case for rendering animated flame tile
+    // if (tile.value === 20) {
+    //   return (
+    //     <GroundTile variation={tile.variation}>
+    //       <Flame position={index}>
+    //         <FogTile explored={tile.explored} inSight={inSight} />
+    //       </Flame>
+    //     </GroundTile>
+    //   );
+    // }
+    // case for rendering normal tiles
+    return (
+        <GroundTile variation={props.tile.variation}>
+            <div
+                style={{
+                    backgroundImage: `url(${tilesrc})`,
+                    height: SPRITE_SIZE,
+                    width: SPRITE_SIZE,
+                }}
+            >
+                <FogTile explored={props.tile.explored} inSight={inSight} />
+            </div>
+        </GroundTile>
+    );
 };
 
 export const getTileSprite = (type: number, variation: number): string => {
-  switch (type) {
-    case -2:
-      return "chest-open";
-    case -1:
-      return "blood-splatter";
-    case 0:
-      return `floor_${variation}`;
-    case 2:
-      return "stairs-down";
-    case 3:
-      return "stairs-up";
-    case 4:
-      return "chest";
-    case 5:
-      return `brick-wall-${variation}`;
-    case 6:
-      return `ornate-wall-${variation}`;
-    case 7:
-      return `blue-wall-${variation}`;
-    case 8:
-      return `skull-wall-${variation}`;
-    case 9:
-      return "shop";
-    case 10:
-      return "shrine";
-    default:
-      return "";
-  }
+    switch (type) {
+        case -2:
+            return 'chest-open';
+        case -1:
+            return 'blood-splatter';
+        case 0:
+            return `floor_${variation}`;
+        case 2:
+            return 'stairs-down';
+        case 3:
+            return 'stairs-up';
+        case 4:
+            return 'chest';
+        case 5:
+            return `brick-wall-${variation}`;
+        case 6:
+            return `ornate-wall-${variation}`;
+        case 7:
+            return `blue-wall-${variation}`;
+        case 8:
+            return `skull-wall-${variation}`;
+        case 9:
+            return 'shop';
+        case 10:
+            return 'shrine';
+        default:
+            return '';
+    }
 };
 
 interface FogTileProps {
-  inSight: boolean;
-  explored: boolean;
+    inSight: boolean;
+    explored: boolean;
 }
 
 export const FogTile = (props: FogTileProps) => {
-  const opacity = !props.explored ? "1" : !props.inSight ? "0.5" : "0";
+    const opacity = !props.explored ? '1' : !props.inSight ? '0.5' : '0';
 
-  return (
-    <div
-      style={{
-        backgroundColor: "#000",
-        opacity,
-        display: "inline-flex",
-        height: SPRITE_SIZE,
-        width: SPRITE_SIZE,
-        transition: "opacity .5s linear",
-      }}
-    />
-  );
+    return (
+        <div
+            style={{
+                backgroundColor: '#000',
+                opacity,
+                display: 'inline-flex',
+                height: SPRITE_SIZE,
+                width: SPRITE_SIZE,
+                transition: 'opacity .5s linear',
+            }}
+        />
+    );
 };
 
 interface GroundTileProps {
-  variation: number;
-  children: React.ReactElement[] | React.ReactElement;
+    variation: number;
+    children: React.ReactElement[] | React.ReactElement;
 }
 
 const GroundTile = (props: GroundTileProps) => {
-  // Load the tile directly from the public folder
-  const tilesrc = `${process.env.PUBLIC_URL}/tiles/floor_${props.variation}.png`;
+    // Load the tile directly from the public folder
+    const tilesrc = `${process.env.PUBLIC_URL}/tiles/floor_${props.variation}.png`;
 
-  return (
-    <div
-      style={{
-        backgroundImage: `url(${tilesrc})`,
-        display: "inline-flex",
-        height: SPRITE_SIZE,
-        width: SPRITE_SIZE,
-      }}
-    >
-      {props.children}
-    </div>
-  );
+    return (
+        <div
+            style={{
+                backgroundImage: `url(${tilesrc})`,
+                display: 'inline-flex',
+                height: SPRITE_SIZE,
+                width: SPRITE_SIZE,
+            }}
+        >
+            {props.children}
+        </div>
+    );
 };
 
 export default MapTile;

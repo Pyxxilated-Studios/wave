@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import "./styles.scss";
+import './styles.scss';
 
 const FloorCounter = ({ floorNumber }: { floorNumber: number }) => {
-  return (
-    <div className="floor-counter__container">
-      <span>{"FLOOR"}</span>
+    return (
+        <div className="floor-counter__container">
+            <span>{'FLOOR'}</span>
 
-      <span className="floor-counter__value">{floorNumber}</span>
-    </div>
-  );
+            <span className="floor-counter__value">{floorNumber}</span>
+        </div>
+    );
 };
 
 export default FloorCounter;

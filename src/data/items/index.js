@@ -52,15 +52,7 @@ const items = {
     },
 };
 
-export const randomItemsT1 = [
-    SteelSword,
-    LeatherArmor,
-    LeatherBoots,
-    LeatherCap,
-    LeatherGloves,
-    LeatherPants,
-    OldRing,
-];
+export const randomItemsT1 = [SteelSword, LeatherArmor, LeatherBoots, LeatherCap, LeatherGloves, LeatherPants, OldRing];
 
 export const randomItemsT2 = [
     ...randomItemsT1,
