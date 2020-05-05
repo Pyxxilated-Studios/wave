@@ -26,6 +26,9 @@ export const MAP_SIZE = {
 // Time for the map to transition in/out
 export const MAP_TRANSITION_DELAY = 500;
 
+// How fast the player move animation plays (ms)
+export const ANIMATION_SPEED = 350;
+
 // How far the player can 'see' or 'explore'
 export const SIGHT_RADIUS = 3;
 

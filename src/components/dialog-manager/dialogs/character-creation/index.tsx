@@ -43,16 +43,14 @@ const CharacterCreation: React.FunctionComponent<CharacterCreationProps> = ({
     const [characterName, setCharacterName] = useState(dialog.character.characterName);
 
     function handleContinue(): void {
-        // if (characterName) {
-        createCharacter(characterName ? characterName : "");
-        // } else {
-        //     errorMessage("Please enter a name");
-        // }
+        if (characterName) {
+            createCharacter(characterName);
+        } else {
+            errorMessage("Please enter a name");
+        }
     }
 
     const continueRef = useRef<HTMLButtonElement>(null);
-
-    console.log(characterName);
 
     return (
         <Dialog
@@ -79,10 +77,9 @@ const CharacterCreation: React.FunctionComponent<CharacterCreationProps> = ({
                     maxLength={512}
                     className="white-border character-creation-input"
                     value={characterName}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                        console.log(event);
-                        setCharacterName(event.currentTarget.value.trim());
-                    }}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
+                        setCharacterName(event.currentTarget.value.trim())
+                    }
                 />
 
                 <span style={{ paddingTop: 12 }}>{`Your Race`}</span>

@@ -1,5 +1,5 @@
-import { MAP_DIMENSIONS, MAP_PADDING_DISTANCE } from '../constants';
-import { Tile, PaddingTiles } from '../types';
+import { MAP_DIMENSIONS, MAP_PADDING_DISTANCE } from "../constants";
+import { Tile, PaddingTiles } from "../types";
 
 const generatePaddingTiles = (): PaddingTiles => {
     // we need to add padding tiles so the player cannot see past the edge of the map
@@ -14,7 +14,7 @@ const generatePaddingTiles = (): PaddingTiles => {
 
         for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
             topRow.push({
-                location: { y: -i + -1, x: j },
+                location: { y: -i - 1, x: j },
                 explored: false,
                 variation: Math.round(Math.random() * (4 - 1) + 1),
                 value: 0,
