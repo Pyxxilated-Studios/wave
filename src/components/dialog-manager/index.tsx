@@ -7,9 +7,9 @@ import GameStartDialog from "./dialogs/game-start-dialog";
 // import ChestLoot from './dialogs/chest-loot';
 // import EndlessGameStart from './dialogs/endless-game-start';
 // import InventoryDialog from './dialogs/inventory-dialog';
-// import GameInstructions from './dialogs/game-instructions';
+import GameInstructions from "./dialogs/game-instructions";
 import CharacterCreation from "./dialogs/character-creation";
-// import GameTextDialog from './dialogs/game-text-dialog';
+import GameTextDialog from "./dialogs/game-text-dialog";
 // import GameSelect from './dialogs/game-select';
 // import GameWin from './dialogs/game-win';
 // import GameOver from './dialogs/game-over';
@@ -27,7 +27,7 @@ interface DialogProps {
     journal: boolean;
 }
 
-const DialogManager = (props: DialogProps) => {
+const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps) => {
     const { character, paused, reason } = props.dialog;
     const {
         chest,
@@ -56,16 +56,16 @@ const DialogManager = (props: DialogProps) => {
         //     if (inventory) PauseComp = <InventoryDialog />;
         //     if (journalDialog) PauseComp = <JournalDialog entries={journal.entries} />;
         //     if (spellbookDialog) PauseComp = <SpellbookDialog />;
-        //     if (gameText)
-        //       PauseComp = (
-        //         <GameTextDialog
-        //           text1={gameText.title.replace(/<>/g, character.characterName)}
-        //           text2={gameText.body.replace(/<>/g, character.characterName)}
-        //         />
-        //       );
+        if (gameText)
+            PauseComp = (
+                <GameTextDialog
+                    title={gameText.title.replace(/<>/g, character.characterName)}
+                    body={gameText.body.replace(/<>/g, character.characterName)}
+                />
+            );
         if (abilityDialog) PauseComp = <AbilityScores />;
         if (characterCreation) PauseComp = <CharacterCreation />;
-        //     if (gameInstructions) PauseComp = <GameInstructions />;
+        if (gameInstructions) PauseComp = <GameInstructions />;
         //     if (gameOver) PauseComp = <GameOver />;
         if (gameStart) PauseComp = <GameStartDialog />;
         //     if (gameWin) PauseComp = <GameWin />;
@@ -87,7 +87,7 @@ const DialogManager = (props: DialogProps) => {
     );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): DialogProps => ({
     dialog: state.dialog,
     journal: false,
 });

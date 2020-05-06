@@ -1,3 +1,5 @@
+import { ResetAction } from "../system/types";
+
 export interface SnackbarState {
     notEnoughGold?: string;
     tooManyItems?: string;
@@ -15,4 +17,4 @@ interface NotifyPlayerAction {
     message: string;
 }
 
-export type SnackbarActionType = NotifyPlayerAction;
+export type SnackbarActionType = NotifyPlayerAction | ResetAction;

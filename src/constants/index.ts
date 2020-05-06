@@ -58,6 +58,10 @@ export const SPACE_KEY = 32;
 export const ENTER_KEY = 13;
 export const ESC_KEY = 27;
 
+// Max number of inventory items
+export const MAX_ITEMS = 8;
+export const MAX_ITEMS_UPGRADE = 12;
+
 // Ability score related starting values
 export const STARTING_ABILITY_SCORE_VALUE = 8;
 export const STARTING_ABILITY_POINTS = 12;

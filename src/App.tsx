@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import * as fontawesome from "@fortawesome/fontawesome-svg-core";
-import { faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import {
+    faPlayCircle,
+    faArrowLeft,
+    faCaretLeft,
+    faCaretRight,
+    faTimes,
+    faBriefcase,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
 import { SystemState } from "./store/system/types";
@@ -14,7 +21,7 @@ import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import { WorldState } from "./store/world/types";
 
-fontawesome.library.add(faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight);
+fontawesome.library.add(faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight, faTimes, faBriefcase);
 
 interface AppProps {
     system: SystemState;

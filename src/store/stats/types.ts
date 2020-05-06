@@ -1,5 +1,5 @@
 import { ResetAction } from "../system/types";
-import { Abilities, Character } from "../../types";
+import { Abilities, Character, ItemType, Armour } from "../../types";
 
 export interface StatsState {
     abilities: Abilities & {
@@ -17,7 +17,15 @@ export interface StatsState {
     exp: number;
     expToLevel: number;
     gold: number;
-    equippedItems: {};
+    equippedItems: {
+        weapon?: Armour;
+        ring?: Armour;
+        helmet?: Armour;
+        body?: Armour;
+        legs?: Armour;
+        boots?: Armour;
+        gloves?: Armour;
+    };
     levelUp: { level: number; hp: number; mana: number };
 }
 
@@ -34,4 +42,21 @@ interface SetAbilityScoresAction {
     points: number;
 }
 
-export type StatsActionType = GainExperienceAction | ResetAction | SetAbilityScoresAction;
+export const EQUIP_ITEM = "EQUIP_ITEM";
+interface EquipItemAction {
+    type: typeof EQUIP_ITEM;
+    item: ItemType;
+}
+
+export const GET_GOLD = "GET_GOLD";
+interface GetGoldAction {
+    type: typeof GET_GOLD;
+    amount: number;
+}
+
+export type StatsActionType =
+    | GainExperienceAction
+    | SetAbilityScoresAction
+    | EquipItemAction
+    | GetGoldAction
+    | ResetAction;

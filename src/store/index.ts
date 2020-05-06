@@ -11,6 +11,7 @@ import StatsReducer from "./stats/reducer";
 import MonstersReducer from "./monsters/reducer";
 import DialogReducer from "./dialog/reducer";
 import SnackbarReducer from "./snackbar/reducer";
+import InventoryReducer from "./inventory/reducer";
 
 const rootReducer = combineReducers({
     world: WorldReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     monsters: MonstersReducer,
     dialog: DialogReducer,
     snackbar: SnackbarReducer,
+    inventory: InventoryReducer,
 });
 
 const persistConfig = {

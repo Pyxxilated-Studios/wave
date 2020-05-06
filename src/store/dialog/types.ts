@@ -50,9 +50,9 @@ interface DecrementAbilityAction {
 
 export type DialogActionType =
     | PauseAction
-    | ResetAction
     | CreateCharacterAction
     | SetClassAction
     | SetRaceAction
     | IncrementAbilityAction
-    | DecrementAbilityAction;
+    | DecrementAbilityAction
+    | ResetAction;

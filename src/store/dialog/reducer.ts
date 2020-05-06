@@ -14,7 +14,7 @@ import { RESET } from "../system/types";
 const initialState: DialogState = {
     paused: true,
     reason: {
-        gameText: false,
+        gameText: { title: "", body: "" },
         gameOver: false,
         gameStart: true,
         gameInstructions: false,
