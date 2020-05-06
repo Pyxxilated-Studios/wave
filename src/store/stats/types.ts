@@ -43,7 +43,7 @@ interface SetAbilityScoresAction {
 }
 
 export const EQUIP_ITEM = "EQUIP_ITEM";
-interface EquipItemAction {
+export interface EquipItemAction {
     type: typeof EQUIP_ITEM;
     item: ItemType;
 }

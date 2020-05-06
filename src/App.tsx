@@ -9,19 +9,21 @@ import {
     faCaretRight,
     faTimes,
     faBriefcase,
+    faHandPaper,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
 import { SystemState } from "./store/system/types";
 import { useViewportScaling } from "./store/system/actions";
+import { WorldState } from "./store/world/types";
 
 import Viewport from "./components/viewport";
 import World from "./components/world";
 import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
-import { WorldState } from "./store/world/types";
+import GameMenus from "./components/game-menus";
 
-fontawesome.library.add(faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight, faTimes, faBriefcase);
+fontawesome.library.add(faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight, faTimes, faBriefcase, faHandPaper);
 
 interface AppProps {
     system: SystemState;
@@ -56,11 +58,13 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
                 <DialogManager />
                 <FloorCounter floorNumber={props.world.floorNumber} />
             </Viewport>
+
+            <GameMenus />
         </div>
     );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): AppProps => ({
     system: state.system,
     world: state.world,
 });

@@ -29,6 +29,9 @@ export const MAP_TRANSITION_DELAY = 500;
 // How fast the player move animation plays (ms)
 export const ANIMATION_SPEED = 350;
 
+// Set the duration for showing the snackbar (ms)
+export const SNACK_DURATION = 2500;
+
 // How far the player can 'see' or 'explore'
 export const SIGHT_RADIUS = 3;
 

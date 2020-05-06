@@ -1,4 +1,7 @@
 import { ResetAction } from "../system/types";
+import { ItemType } from "../../types";
+import { EquipItemAction } from "../stats/types";
+import { GetItemAction, SellItemAction, DropItemAction, UseItemAction } from "../inventory/types";
 
 export interface SnackbarState {
     notEnoughGold?: string;
@@ -6,8 +9,8 @@ export interface SnackbarState {
     itemDropped?: string;
     itemUsed?: string;
     itemReceived?: string;
-    item?: null;
-    errorMessage?: string;
+    item?: ItemType;
+    message?: string;
     itemSold?: string;
 }
 
@@ -17,4 +20,17 @@ interface NotifyPlayerAction {
     message: string;
 }
 
-export type SnackbarActionType = NotifyPlayerAction | ResetAction;
+export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
+interface ClearNotificationAction {
+    type: typeof CLEAR_NOTIFICATION;
+}
+
+export type SnackbarActionType =
+    | NotifyPlayerAction
+    | ClearNotificationAction
+    | EquipItemAction
+    | GetItemAction
+    | SellItemAction
+    | DropItemAction
+    | UseItemAction
+    | ResetAction;

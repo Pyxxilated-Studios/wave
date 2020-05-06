@@ -18,20 +18,23 @@ interface DispatchProps {
 interface StateProps {
     dialog: DialogState;
     snackbar: SnackbarState;
+}
+
+interface OwnProps {
     disabled: boolean;
     sideMenu: boolean;
 }
 
-type InventoryProps = DispatchProps & StateProps;
+type InventoryProps = DispatchProps & StateProps & OwnProps;
 
-type InventoryState = { newItemIndicator: boolean };
+type State = { newItemIndicator: boolean };
 
 class Inventory extends Component<InventoryProps> {
-    state: InventoryState = {
+    state: State = {
         newItemIndicator: false,
     };
 
-    componentDidUpdate(prevProps: StateProps, prevState: InventoryState): void {
+    componentDidUpdate(prevProps: StateProps, prevState: State): void {
         const { inventory } = this.props.dialog.reason;
         const { itemReceived, itemDropped } = this.props.snackbar;
         const lastItemReceived = prevProps.snackbar.itemReceived;
@@ -86,7 +89,7 @@ class Inventory extends Component<InventoryProps> {
     }
 }
 
-const mapStateToProps = (state: RootState): any => ({ snackbar: state.snackbar, dialog: state.dialog });
+const mapStateToProps = (state: RootState): StateProps => ({ snackbar: state.snackbar, dialog: state.dialog });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
     toggleInventory: (): void => dispatch(toggleInventory()),
