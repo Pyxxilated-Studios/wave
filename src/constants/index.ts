@@ -69,3 +69,8 @@ export const MAX_ITEMS_UPGRADE = 12;
 export const STARTING_ABILITY_SCORE_VALUE = 8;
 export const STARTING_ABILITY_POINTS = 12;
 export const MAX_ABILITY_SCORE = 20;
+
+// For calculating buy/sell prices
+export const MIN_PRICE_PERCENT = 0.1;
+export const MID_PRICE_PERCENT = 0.75;
+export const MAX_PRICE_PERCENT = 1.25;

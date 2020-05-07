@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import InventorySlot from './inventory-slot.png';
-import { SPRITE_PIXELS } from '../../constants';
+import InventorySlot from "./inventory-slot.png";
+import { SPRITE_PIXELS } from "../../constants";
 
 interface EmptySlotProps {
     margin?: string;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactElement | React.ReactElement[];
+    children?: React.ReactNode;
 }
 
-const EmptySlot = (props: EmptySlotProps) => {
+const EmptySlot: React.FunctionComponent<EmptySlotProps> = (props: EmptySlotProps) => {
     const styles = {
         ...props.style,
         backgroundImage: `url('${InventorySlot}')`,
@@ -20,17 +20,17 @@ const EmptySlot = (props: EmptySlotProps) => {
     };
 
     return (
-        <div className={props.className || ''} style={styles}>
+        <div className={props.className || ""} style={styles}>
             {props.children}
         </div>
     );
 };
 
-export const DarkenSlot = () => {
+export const DarkenSlot: React.FunctionComponent = () => {
     return (
         <div
             style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.25)',
+                backgroundColor: "rgba(0, 0, 0, 0.25)",
                 width: 40,
                 height: 40,
             }}

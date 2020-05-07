@@ -25,6 +25,18 @@ interface ClearNotificationAction {
     type: typeof CLEAR_NOTIFICATION;
 }
 
+export const TOO_MANY_ITEMS = "TOO_MANY_ITEMS";
+interface TooManyItemsAction {
+    type: typeof TOO_MANY_ITEMS;
+    item: ItemType;
+}
+
+export const NOT_ENOUGH_GOLD = "NOT_ENOUGH_GOLD";
+interface NotEnoughGoldAction {
+    type: typeof NOT_ENOUGH_GOLD;
+    item: ItemType;
+}
+
 export type SnackbarActionType =
     | NotifyPlayerAction
     | ClearNotificationAction
@@ -33,4 +45,6 @@ export type SnackbarActionType =
     | SellItemAction
     | DropItemAction
     | UseItemAction
+    | TooManyItemsAction
+    | NotEnoughGoldAction
     | ResetAction;

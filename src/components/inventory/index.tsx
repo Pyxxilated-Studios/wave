@@ -72,7 +72,7 @@ class Inventory extends Component<InventoryProps> {
                     <Button
                         small={sideMenu}
                         indicator={newItemIndicator}
-                        onClick={this._toggleInventory.bind(this)}
+                        onClick={(): void => this._toggleInventory()}
                         icon={open ? "times" : "briefcase"}
                         title={open ? "Close" : "Inventory"}
                         style={{

@@ -8,14 +8,14 @@ import Button from "../button";
 interface DialogProps {
     className?: string;
     style?: React.CSSProperties;
-    children: React.ReactElement | React.ReactElement[];
-    goBack?: (_?: any) => void;
+    goBack?: (_?: KeyboardEvent) => void;
     onKeyPress?: (key: number) => void;
     keys?: number[];
+    children: React.ReactNode;
 }
 
-const Dialog = (props: DialogProps) => {
-    const handleKeyPress = (event: KeyboardEvent) => {
+const Dialog: React.FunctionComponent<DialogProps> = (props: DialogProps) => {
+    const handleKeyPress = (event: KeyboardEvent): void => {
         if (props.onKeyPress) {
             if (props.keys ? props.keys.includes(event.keyCode) : event.keyCode === ENTER_KEY) {
                 props.onKeyPress(event.keyCode);
@@ -34,7 +34,7 @@ const Dialog = (props: DialogProps) => {
             window.addEventListener("keydown", handleKeyPress);
         }
 
-        return () => {
+        return (): void => {
             if (props.onKeyPress || props.goBack) {
                 window.removeEventListener("keydown", handleKeyPress);
             }

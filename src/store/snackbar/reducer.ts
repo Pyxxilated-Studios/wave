@@ -1,4 +1,11 @@
-import { SnackbarState, SnackbarActionType, NOTIFY_PLAYER, CLEAR_NOTIFICATION } from "./types";
+import {
+    SnackbarState,
+    SnackbarActionType,
+    NOTIFY_PLAYER,
+    CLEAR_NOTIFICATION,
+    TOO_MANY_ITEMS,
+    NOT_ENOUGH_GOLD,
+} from "./types";
 import { RESET } from "../system/types";
 import { GET_ITEM, SELL_ITEM, DROP_ITEM, USE_ITEM } from "../inventory/types";
 
@@ -43,6 +50,20 @@ const SnackbarReducer = (state = initialState, action: SnackbarActionType): Snac
             return {
                 ...state,
                 itemUsed: `${action.item.name}-${new Date().getTime()}`,
+                item: action.item,
+            };
+
+        case NOT_ENOUGH_GOLD:
+            return {
+                ...state,
+                notEnoughGold: `${action.item.name}-${new Date().getTime()}`,
+                item: action.item,
+            };
+
+        case TOO_MANY_ITEMS:
+            return {
+                ...state,
+                tooManyItems: `${action.item.name}-${new Date().getTime()}`,
                 item: action.item,
             };
 

@@ -8,7 +8,7 @@ import Flames from "./flames.png";
 import "./styles.scss";
 
 interface FlameProps {
-    children?: React.ReactElement | React.ReactElement[];
+    children?: React.ReactNode;
     position?: Point;
 }
 

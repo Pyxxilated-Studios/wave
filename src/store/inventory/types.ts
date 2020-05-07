@@ -30,4 +30,16 @@ export interface UseItemAction {
     item: ItemType;
 }
 
-export type InventoryActionType = GetItemAction | SellItemAction | DropItemAction | UseItemAction | ResetAction;
+export const UPGRADE_BACKPACK = "UPGRADE_BACKPACK";
+interface UpgradeBackpackAction {
+    type: typeof UPGRADE_BACKPACK;
+    slots: number;
+}
+
+export type InventoryActionType =
+    | GetItemAction
+    | SellItemAction
+    | DropItemAction
+    | UseItemAction
+    | UpgradeBackpackAction
+    | ResetAction;

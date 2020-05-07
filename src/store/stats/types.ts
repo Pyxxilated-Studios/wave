@@ -1,14 +1,14 @@
 import { ResetAction } from "../system/types";
-import { Abilities, Character, ItemType, Armour } from "../../types";
+import { Abilities, Character, ItemType, Armour, Weapon } from "../../types";
 
 export interface StatsState {
     abilities: Abilities & {
         points: number;
     };
     character: Character;
-    hp: number;
+    health: number;
     abilityModifierHp: number;
-    maxHp: number;
+    maxHealth: number;
     mana: number;
     abilityModifierMana: number;
     maxMana: number;
@@ -18,7 +18,7 @@ export interface StatsState {
     expToLevel: number;
     gold: number;
     equippedItems: {
-        weapon?: Armour;
+        weapon?: Weapon;
         ring?: Armour;
         helmet?: Armour;
         body?: Armour;
@@ -48,9 +48,35 @@ export interface EquipItemAction {
     item: ItemType;
 }
 
+export const UNEQUIP_ITEM = "UNEQUIP_ITEM";
+export interface UnequipItemAction {
+    type: typeof UNEQUIP_ITEM;
+    item: ItemType;
+}
+
 export const GET_GOLD = "GET_GOLD";
 interface GetGoldAction {
     type: typeof GET_GOLD;
+    amount: number;
+}
+
+export const LOSE_GOLD = "LOSE_GOLD";
+interface LoseGoldAction {
+    type: typeof LOSE_GOLD;
+    amount: number;
+}
+
+export const HEAL = "HEAL";
+interface HealAction {
+    type: typeof HEAL;
+    kind: string;
+    amount: number;
+}
+
+export const RESTORE = "RESTORE";
+interface RestoreAction {
+    type: typeof RESTORE;
+    kind: string;
     amount: number;
 }
 
@@ -58,5 +84,9 @@ export type StatsActionType =
     | GainExperienceAction
     | SetAbilityScoresAction
     | EquipItemAction
+    | UnequipItemAction
     | GetGoldAction
+    | LoseGoldAction
+    | HealAction
+    | RestoreAction
     | ResetAction;

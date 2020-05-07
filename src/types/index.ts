@@ -91,13 +91,13 @@ export interface ItemEffect {
 }
 
 export interface EquippedItems {
-    weapon?: Item;
-    ring?: Item;
-    helmet?: Item;
-    body?: Item;
-    legs?: Item;
-    boots?: Item;
-    gloves?: Item;
+    weapon?: Weapon;
+    ring?: Armour;
+    helmet?: Armour;
+    body?: Armour;
+    legs?: Armour;
+    boots?: Armour;
+    gloves?: Armour;
 }
 
 export type ConsumableItems = "potion";

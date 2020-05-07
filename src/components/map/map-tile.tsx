@@ -1,10 +1,41 @@
-import React from 'react';
+import React from "react";
 
-import { Tile, Point } from '../../types';
+import { Tile, Point } from "../../types";
 
 // import Flame from "../../components/flame";
-import { SPRITE_SIZE } from '../../constants';
-import { arrayContainsPoint } from '../../utils/array-contains';
+import { SPRITE_SIZE } from "../../constants";
+import { arrayContainsPoint } from "../../utils/array-contains";
+
+export const getTileSprite = (type: number, variation: number): string => {
+    switch (type) {
+        case -2:
+            return "chest-open";
+        case -1:
+            return "blood-splatter";
+        case 0:
+            return `floor_${variation}`;
+        case 2:
+            return "stairs-down";
+        case 3:
+            return "stairs-up";
+        case 4:
+            return "chest";
+        case 5:
+            return `brick-wall-${variation}`;
+        case 6:
+            return `ornate-wall-${variation}`;
+        case 7:
+            return `blue-wall-${variation}`;
+        case 8:
+            return `skull-wall-${variation}`;
+        case 9:
+            return "shop";
+        case 10:
+            return "shrine";
+        default:
+            return "";
+    }
+};
 
 interface MapTileProps {
     tile: Tile;
@@ -12,7 +43,7 @@ interface MapTileProps {
     sightBox: Point[];
 }
 
-const MapTile = (props: MapTileProps) => {
+const MapTile: React.FunctionComponent<MapTileProps> = (props: MapTileProps) => {
     // Load the tile directly from the public folder
     const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tile.value, props.tile.variation)}.png`;
 
@@ -44,54 +75,23 @@ const MapTile = (props: MapTileProps) => {
     );
 };
 
-export const getTileSprite = (type: number, variation: number): string => {
-    switch (type) {
-        case -2:
-            return 'chest-open';
-        case -1:
-            return 'blood-splatter';
-        case 0:
-            return `floor_${variation}`;
-        case 2:
-            return 'stairs-down';
-        case 3:
-            return 'stairs-up';
-        case 4:
-            return 'chest';
-        case 5:
-            return `brick-wall-${variation}`;
-        case 6:
-            return `ornate-wall-${variation}`;
-        case 7:
-            return `blue-wall-${variation}`;
-        case 8:
-            return `skull-wall-${variation}`;
-        case 9:
-            return 'shop';
-        case 10:
-            return 'shrine';
-        default:
-            return '';
-    }
-};
-
 interface FogTileProps {
     inSight: boolean;
     explored: boolean;
 }
 
-export const FogTile = (props: FogTileProps) => {
-    const opacity = !props.explored ? '1' : !props.inSight ? '0.5' : '0';
+export const FogTile: React.FunctionComponent<FogTileProps> = (props: FogTileProps) => {
+    const opacity = !props.explored ? "1" : !props.inSight ? "0.5" : "0";
 
     return (
         <div
             style={{
-                backgroundColor: '#000',
+                backgroundColor: "#000",
                 opacity,
-                display: 'inline-flex',
+                display: "inline-flex",
                 height: SPRITE_SIZE,
                 width: SPRITE_SIZE,
-                transition: 'opacity .5s linear',
+                transition: "opacity .5s linear",
             }}
         />
     );
@@ -99,10 +99,10 @@ export const FogTile = (props: FogTileProps) => {
 
 interface GroundTileProps {
     variation: number;
-    children: React.ReactElement[] | React.ReactElement;
+    children: React.ReactNode;
 }
 
-const GroundTile = (props: GroundTileProps) => {
+const GroundTile: React.FunctionComponent<GroundTileProps> = (props: GroundTileProps) => {
     // Load the tile directly from the public folder
     const tilesrc = `${process.env.PUBLIC_URL}/tiles/floor_${props.variation}.png`;
 
@@ -110,7 +110,7 @@ const GroundTile = (props: GroundTileProps) => {
         <div
             style={{
                 backgroundImage: `url(${tilesrc})`,
-                display: 'inline-flex',
+                display: "inline-flex",
                 height: SPRITE_SIZE,
                 width: SPRITE_SIZE,
             }}

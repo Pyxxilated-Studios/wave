@@ -10,6 +10,9 @@ import {
     faTimes,
     faBriefcase,
     faHandPaper,
+    faCheck,
+    faTrash,
+    faArchive,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
@@ -23,7 +26,18 @@ import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import GameMenus from "./components/game-menus";
 
-fontawesome.library.add(faPlayCircle, faArrowLeft, faCaretLeft, faCaretRight, faTimes, faBriefcase, faHandPaper);
+fontawesome.library.add(
+    faPlayCircle,
+    faArrowLeft,
+    faCaretLeft,
+    faCaretRight,
+    faTimes,
+    faBriefcase,
+    faHandPaper,
+    faCheck,
+    faTrash,
+    faArchive,
+);
 
 interface AppProps {
     system: SystemState;

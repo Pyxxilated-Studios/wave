@@ -7,12 +7,25 @@ import { DialogState } from "../../store/dialog/types";
 import { PlayerState } from "../../store/player/types";
 import { Direction } from "../../types";
 
+import toggleInventory from "../dialog-manager/actions/toggle-inventory";
 import move from "./actions/move-player";
 
-import { LEFT_KEY, A_KEY, UP_KEY, W_KEY, RIGHT_KEY, D_KEY, DOWN_KEY, S_KEY, ANIMATION_SPEED } from "../../constants";
+import {
+    LEFT_KEY,
+    A_KEY,
+    UP_KEY,
+    W_KEY,
+    RIGHT_KEY,
+    D_KEY,
+    DOWN_KEY,
+    S_KEY,
+    ANIMATION_SPEED,
+    I_KEY,
+} from "../../constants";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
+    toggleInventory: () => void;
 }
 
 interface StateProps {
@@ -25,10 +38,10 @@ type ControlProps = StateProps & DispatchProps;
 const ANIMATION_WITH_PADDING = ANIMATION_SPEED * 1.25;
 
 const Controls: React.FunctionComponent<ControlProps> = (props: ControlProps) => {
-    const { dialog, movePlayer } = props;
+    const { dialog, movePlayer, toggleInventory } = props;
 
     const handleKeyPress = useCallback(
-        (event: KeyboardEvent): any => {
+        (event: KeyboardEvent): void => {
             event.preventDefault();
             switch (event.keyCode) {
                 case UP_KEY:
@@ -43,6 +56,8 @@ const Controls: React.FunctionComponent<ControlProps> = (props: ControlProps) =>
                 case LEFT_KEY:
                 case A_KEY:
                     return movePlayer(Direction.West);
+                case I_KEY:
+                    return toggleInventory();
                 default:
             }
         },
@@ -79,6 +94,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
     movePlayer: (direction: Direction): void => dispatch(move(direction)),
+    toggleInventory: (): void => dispatch(toggleInventory()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

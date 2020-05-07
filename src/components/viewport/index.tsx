@@ -1,23 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import { GAME_VIEWPORT_SIZE, GAME_VIEWPORT_SIZE_LARGE } from '../../constants';
+import { GAME_VIEWPORT_SIZE, GAME_VIEWPORT_SIZE_LARGE } from "../../constants";
 
-import { RootState } from '../../store';
-import { SystemState } from '../../store/system/types';
+import { RootState } from "../../store";
+import { SystemState } from "../../store/system/types";
 
-import './styles.scss';
+import "./styles.scss";
 
-interface ViewportProps {
+interface StateProps {
     system: SystemState;
-    children: React.ReactElement[] | React.ReactElement;
 }
 
-const Viewport = (props: ViewportProps) => {
+interface OwnProps {
+    children: React.ReactNode;
+}
+
+type ViewportProps = StateProps & OwnProps;
+
+const Viewport: React.FunctionComponent<ViewportProps> = (props: ViewportProps) => {
     const { largeView, sideMenu } = props.system;
 
     const gameSize = largeView ? GAME_VIEWPORT_SIZE_LARGE : GAME_VIEWPORT_SIZE;
-    const margin = sideMenu ? '8px 0 0' : '8px auto 0';
+    const margin = sideMenu ? "8px 0 0" : "8px auto 0";
 
     const styles = {
         width: gameSize,
@@ -32,6 +37,6 @@ const Viewport = (props: ViewportProps) => {
     );
 };
 
-const mapStateToProps = (state: RootState) => ({ system: state.system });
+const mapStateToProps = (state: RootState): StateProps => ({ system: state.system });
 
 export default connect(mapStateToProps)(Viewport);
