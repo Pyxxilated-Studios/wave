@@ -1,5 +1,6 @@
-import { Abilities, PauseReason, Character, Ability } from "../../types";
+import { Abilities, PauseReason, Character, Ability, ChestContents } from "../../types";
 import { ResetAction } from "../system/types";
+import { SetChestDataAction } from "../world/types";
 
 export interface DialogState {
     paused: boolean;
@@ -7,6 +8,7 @@ export interface DialogState {
     abilities: Abilities & { points: number };
     abilitiesMinimum: Abilities;
     character: Character;
+    chestOpen?: ChestContents;
 }
 
 export const PAUSE = "PAUSE";
@@ -55,4 +57,5 @@ export type DialogActionType =
     | SetRaceAction
     | IncrementAbilityAction
     | DecrementAbilityAction
+    | SetChestDataAction
     | ResetAction;

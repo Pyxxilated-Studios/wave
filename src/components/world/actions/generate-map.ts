@@ -1,9 +1,32 @@
-import generateObjects from './generate-objects';
-import { MAP_DIMENSIONS, MAX_TUNNELS, MAX_TUNNEL_LENGTH } from '../../../constants';
-import { Point, GameMap } from '../../../types';
+import generateObjects from "./generate-objects";
+import { MAP_DIMENSIONS, MAX_TUNNELS, MAX_TUNNEL_LENGTH } from "../../../constants";
+import { Point, GameMap } from "../../../types";
+
+// generate a map filled with wall tiles
+const createMapOfWalls = (wallType: number): GameMap => {
+    const map: GameMap = {
+        tiles: [],
+        paddingTiles: { top: [], bottom: [], left: [], right: [] },
+        id: "",
+    };
+
+    for (let i = 0; i < MAP_DIMENSIONS.height; i++) {
+        map.tiles.push([]);
+        for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
+            map.tiles[i].push({
+                location: { x: j, y: i },
+                explored: false,
+                value: wallType,
+                variation: 0,
+            });
+        }
+    }
+
+    return map;
+};
 
 // Generates a random dungeon map
-const generateMap = (startPosition: Point, floorNumber: number) => {
+const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     // Change the walls of the dungeon as the floors get higher
     const wallType = 5 + Math.floor(floorNumber / 30);
 
@@ -76,29 +99,6 @@ const generateMap = (startPosition: Point, floorNumber: number) => {
     // all our tunnels have been created and now we run placeObjects(),
     // which will complete our map, so lets return it to our render()
     return generateObjects(map, floorNumber, startPosition, wallType);
-};
-
-// generate a map filled with wall tiles
-const createMapOfWalls = (wallType: number) => {
-    const map: GameMap = {
-        tiles: [],
-        paddingTiles: { top: [], bottom: [], left: [], right: [] },
-        id: '',
-    };
-
-    for (let i = 0; i < MAP_DIMENSIONS.height; i++) {
-        map.tiles.push([]);
-        for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
-            map.tiles[i].push({
-                location: { x: j, y: i },
-                explored: false,
-                value: wallType,
-                variation: 0,
-            });
-        }
-    }
-
-    return map;
 };
 
 export default generateMap;

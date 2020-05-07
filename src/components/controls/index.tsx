@@ -61,7 +61,7 @@ const Controls: React.FunctionComponent<ControlProps> = (props: ControlProps) =>
                 default:
             }
         },
-        [movePlayer],
+        [movePlayer, toggleInventory],
     );
 
     const _handleKeyPress = debounce(

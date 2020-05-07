@@ -7,15 +7,15 @@ export interface StatsState {
     };
     character: Character;
     health: number;
-    abilityModifierHp: number;
+    abilityModifierHealth: number;
     maxHealth: number;
     mana: number;
     abilityModifierMana: number;
     maxMana: number;
     defence: number;
     level: number;
-    exp: number;
-    expToLevel: number;
+    experience: number;
+    experienceToLevel: number;
     gold: number;
     equippedItems: {
         weapon?: Weapon;
@@ -26,7 +26,7 @@ export interface StatsState {
         boots?: Armour;
         gloves?: Armour;
     };
-    levelUp: { level: number; hp: number; mana: number };
+    levelUp: { level: number; health: number; mana: number };
 }
 
 export const GAIN_EXPERIENCE = "GAIN_EXPERIENCE";
@@ -60,6 +60,12 @@ interface GetGoldAction {
     amount: number;
 }
 
+export const GET_EXPERIENCE = "GET_EXPERIENCE";
+interface GetExperienceAction {
+    type: typeof GET_EXPERIENCE;
+    amount: number;
+}
+
 export const LOSE_GOLD = "LOSE_GOLD";
 interface LoseGoldAction {
     type: typeof LOSE_GOLD;
@@ -86,6 +92,7 @@ export type StatsActionType =
     | EquipItemAction
     | UnequipItemAction
     | GetGoldAction
+    | GetExperienceAction
     | LoseGoldAction
     | HealAction
     | RestoreAction

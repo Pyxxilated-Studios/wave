@@ -10,6 +10,7 @@ import {
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
 import { RESET } from "../system/types";
+import { SET_CHEST_DATA } from "../world/types";
 
 const initialState: DialogState = {
     paused: true,
@@ -20,7 +21,6 @@ const initialState: DialogState = {
         gameInstructions: false,
         gameWin: false,
         chest: false,
-        chestOpen: false,
         shop: false,
         settings: false,
         inventory: false,
@@ -109,6 +109,16 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
                 abilities: { ...state.abilities, [action.ability]: ability - 1, points: state.abilities.points + 1 },
             };
         }
+
+        case SET_CHEST_DATA:
+            if (action.data) {
+                return {
+                    ...state,
+                    chestOpen: { ...action.data },
+                };
+            }
+
+            return { ...state, reason: {} };
 
         default:
             return state;

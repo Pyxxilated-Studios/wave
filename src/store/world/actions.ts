@@ -1,10 +1,19 @@
-import { WorldActionType, SET_CURRENT_MAP, GENERATE_MAP, SET_START_MAP } from './types';
-import { Tile } from '../../types';
+import {
+    WorldActionType,
+    SET_CURRENT_MAP,
+    GENERATE_MAP,
+    SET_START_MAP,
+    MAP_TRANSITION,
+    SET_CHEST_DATA,
+    OPEN_CHEST,
+} from "./types";
+import { Tile, ChestContents, Point } from "../../types";
 
-export const setCurrentMap = (map: string): WorldActionType => {
+export const setCurrentMap = (map: string, floorNumber: number): WorldActionType => {
     return {
         type: SET_CURRENT_MAP,
         currentMap: map,
+        floorNumber,
     };
 };
 
@@ -22,4 +31,16 @@ export const setStartMap = (startingMap: string, floorNumber: number): WorldActi
         startingMap,
         floorNumber,
     };
+};
+
+export const transitionMap = (): WorldActionType => {
+    return { type: MAP_TRANSITION };
+};
+
+export const setChestData = (data?: ChestContents): WorldActionType => {
+    return { type: SET_CHEST_DATA, data };
+};
+
+export const openChest = (position: Point): WorldActionType => {
+    return { type: OPEN_CHEST, position };
 };

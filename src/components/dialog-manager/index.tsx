@@ -4,7 +4,7 @@ import { DialogState } from "../../store/dialog/types";
 import { RootState } from "../../store";
 import GameStartDialog from "./dialogs/game-start-dialog";
 
-// import ChestLoot from './dialogs/chest-loot';
+import ChestLoot from "./dialogs/chest-loot";
 import InventoryDialog from "./dialogs/inventory-dialog";
 import GameInstructions from "./dialogs/game-instructions";
 import CharacterCreation from "./dialogs/character-creation";
@@ -50,7 +50,7 @@ const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps)
     const LevelUpComp: React.ReactElement | null = null;
 
     if (paused) {
-        //     if (chest) PauseComp = <ChestLoot />;
+        if (chest) PauseComp = <ChestLoot />;
         //     if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
         //     if (journalDialog) PauseComp = <JournalDialog entries={journal.entries} />;

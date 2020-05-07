@@ -70,7 +70,20 @@ export const STARTING_ABILITY_SCORE_VALUE = 8;
 export const STARTING_ABILITY_POINTS = 12;
 export const MAX_ABILITY_SCORE = 20;
 
+// Base player health/mana values
+export const BASE_HEALTH = 10;
+export const BASE_MANA = 5;
+
+// Base health/mana level up values
+export const MIN_HEALTH_BONUS = 1;
+export const MIN_MANA_BONUS = 5;
+
 // For calculating buy/sell prices
 export const MIN_PRICE_PERCENT = 0.1;
 export const MID_PRICE_PERCENT = 0.75;
 export const MAX_PRICE_PERCENT = 1.25;
+
+// Set the minimum level for tier X items
+export const TIER_2 = 10;
+export const TIER_3 = 20;
+export const TIER_4 = 30;

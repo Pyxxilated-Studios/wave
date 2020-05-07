@@ -1,10 +1,21 @@
-import { Point, GameMap } from '../../../types';
+import { Point, GameMap } from "../../../types";
 
-import getSurroundingTiles from '../../../utils/get-surrounding-tiles';
-import { MAP_DIMENSIONS } from '../../../constants';
+import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
+import { MAP_DIMENSIONS } from "../../../constants";
+
+const generateShop = (map: GameMap, availableWalls: Point[]): GameMap => {
+    if (availableWalls.length > 0) {
+        const randomIndex = Math.floor(Math.random() * availableWalls.length);
+        const tile = availableWalls[randomIndex];
+
+        map.tiles[tile.y][tile.x].value = 9;
+    }
+
+    return map;
+};
 
 // Randomly generates chests, stairs and shops onto an existing random map
-const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Point, wallType: number) => {
+const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Point, wallType: number): GameMap => {
     const initialTiles: Point[] = [];
 
     const vision = getSurroundingTiles(playerPosition);
@@ -92,16 +103,6 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
         map = generateShop(map, availableWalls);
     }
 
-    return map;
-};
-
-const generateShop = (map: GameMap, availableWalls: Point[]) => {
-    if (availableWalls.length > 0) {
-        const randomIndex = Math.floor(Math.random() * availableWalls.length);
-        const tile = availableWalls[randomIndex];
-
-        map.tiles[tile.y][tile.x].value = 9;
-    }
     return map;
 };
 

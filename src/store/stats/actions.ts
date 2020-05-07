@@ -8,6 +8,7 @@ import {
     RESTORE,
     LOSE_GOLD,
     UNEQUIP_ITEM,
+    GET_EXPERIENCE,
 } from "./types";
 import { Abilities, ItemType } from "../../types";
 
@@ -40,6 +41,13 @@ export const unequipItem = (item: ItemType): StatsActionType => {
 export const getGold = (amount: number): StatsActionType => {
     return {
         type: GET_GOLD,
+        amount,
+    };
+};
+
+export const getExperience = (amount: number): StatsActionType => {
+    return {
+        type: GET_EXPERIENCE,
         amount,
     };
 };

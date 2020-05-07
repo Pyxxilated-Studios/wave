@@ -11,9 +11,13 @@ import {
     HEAL,
     RESTORE,
     UNEQUIP_ITEM,
+    GET_EXPERIENCE,
 } from "./types";
 import { RESET } from "../system/types";
 import { Armour, Weapon } from "../../types";
+
+import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
+import calculateModifier from "../../utils/calculate-modifier";
 
 const initialState: StatsState = {
     abilities: {
@@ -31,18 +35,18 @@ const initialState: StatsState = {
         characterClass: "",
     },
     health: 0,
-    abilityModifierHp: 0,
+    abilityModifierHealth: 0,
     maxHealth: 0,
     mana: 0,
     abilityModifierMana: 0,
     maxMana: 0,
     defence: 0,
     level: 1,
-    exp: 0,
-    expToLevel: 20,
+    experience: 0,
+    experienceToLevel: 20,
     gold: 0,
     equippedItems: {},
-    levelUp: { level: 0, hp: 0, mana: 0 },
+    levelUp: { level: 0, health: 0, mana: 0 },
 };
 
 const StatsReducer = (state = initialState, action: StatsActionType): StatsState => {
@@ -58,6 +62,59 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
         case GET_GOLD:
             return { ...state, gold: state.gold + action.amount };
+
+        case GET_EXPERIENCE: {
+            const newState = cloneDeep(state);
+
+            const newTotalExp = state.experience + action.amount;
+            const { experienceToLevel: expToLevel } = state;
+            // if they are leveling up
+            if (newTotalExp >= expToLevel) {
+                // increment level
+                newState.level += 1;
+
+                // calculate leftover exp if it isn't exactly enough
+                if (!(newState.experience === expToLevel)) {
+                    const leftoverExp = newTotalExp % expToLevel;
+                    newState.experience = leftoverExp;
+                }
+
+                // set next exp goal to be 1.5 times as much if player is 5 or less
+                if (newState.level < 6) {
+                    newState.experienceToLevel = Math.floor(state.experienceToLevel * 1.5);
+                } // otherwise set it to be 1.25 times as much
+                else if (newState.level < 20) {
+                    newState.experienceToLevel = Math.floor(state.experienceToLevel * 1.25);
+                }
+
+                // calculate new hp
+                const newAbilityModifierHp = calculateMaxHealthPool(
+                    newState.level,
+                    calculateModifier(state.abilities.constitution),
+                );
+                newState.levelUp.health = newAbilityModifierHp - state.abilityModifierHealth;
+                newState.health += newState.levelUp.health;
+                newState.maxHealth += newState.levelUp.health;
+                newState.abilityModifierHealth = newAbilityModifierHp;
+
+                // calculate new mana
+                const newAbilityModifierMana = calculateMaxManaPool(
+                    newState.level,
+                    calculateModifier(state.abilities.intelligence),
+                );
+                newState.levelUp.mana = newAbilityModifierMana - state.abilityModifierMana;
+                newState.mana += newState.levelUp.mana;
+                newState.maxMana += newState.levelUp.mana;
+                newState.abilityModifierMana = newAbilityModifierMana;
+
+                newState.levelUp.level = newState.level;
+            } else {
+                // they aren't leveling up
+                newState.experience += action.amount;
+            }
+
+            return newState;
+        }
 
         case LOSE_GOLD:
             return { ...state, gold: state.gold - action.amount };

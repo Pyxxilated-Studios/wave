@@ -65,7 +65,6 @@ export interface PauseReason {
     gameInstructions?: boolean;
     gameWin?: boolean;
     chest?: boolean;
-    chestOpen?: boolean;
     shop?: boolean;
     settings?: boolean;
     inventory?: boolean;
@@ -147,3 +146,10 @@ export type Backpack = MiscellaneousItem & {
 };
 
 export type ItemType = ConsumableItem | MiscellaneousItem | Armour;
+
+export interface ChestContents {
+    gold?: number;
+    experience?: number;
+    item?: ItemType;
+    position: Point;
+}
