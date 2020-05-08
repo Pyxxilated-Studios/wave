@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 import { setAbilityScores } from "../../../store/stats/actions";
 
-const confirmAbilityScoreDialog = (): RootThunk => async (dispatch, getState) => {
+const confirmAbilityScoreDialog = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { abilities } = getState().dialog;
 
     dispatch(setAbilityScores(abilities, abilities.points));

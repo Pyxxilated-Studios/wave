@@ -12,6 +12,13 @@ import walkStairs from "../../world/actions/walk-stairs";
 import getNextTile from "../../../utils/get-next-tile";
 import exploreChest from "../../world/actions/explore-chest";
 
+/**
+ * Get a new position for the entity based on the position they are currently in,
+ * as well as the direction they are heading.
+ *
+ * @param oldPosition The position the entity is coming from
+ * @param direction  The direction they are moving in
+ */
 export const getNewPosition = (oldPosition: Point, direction: Direction): Point => {
     switch (direction) {
         case Direction.North:
@@ -27,32 +34,57 @@ export const getNewPosition = (oldPosition: Point, direction: Direction): Point 
     }
 };
 
-const observeBoundaries = (newPos: Point): boolean => {
-    return newPos.x >= 0 && newPos.x <= MAP_SIZE.width - 1 && newPos.y >= 0 && newPos.y <= MAP_SIZE.height - 1;
-};
+/**
+ * Ensure the entity doesn't leave the map
+ *
+ * @param newPosition The position in which the entity would like to move to
+ */
+const observeBoundaries = (newPosition: Point): boolean =>
+    newPosition.x >= 0 &&
+    newPosition.x <= MAP_SIZE.width - 1 &&
+    newPosition.y >= 0 &&
+    newPosition.y <= MAP_SIZE.height - 1;
 
-const handleInteractWithTile = (nextTile: number, newPosition: Point): RootThunk => async (dispatch): Promise<void> => {
-    if (nextTile === 2 || nextTile === 3) {
-        // the player wants to use the stairs
+/**
+ * Handle any interactions the player can have with tiles.
+ *
+ * @param tile The tile type that the player is looking to interact with
+ * @param position The position at which they would like to interact with the tile
+ */
+const handleInteractWithTile = (tile: number, position: Point): RootThunk => async (dispatch): Promise<void> => {
+    if (tile === 2 || tile === 3) {
+        // The player has found some stairs, so lets make them use them
         dispatch(transitionMap());
-        dispatch(walkStairs(nextTile, newPosition));
-    } else if (nextTile === 4) {
-        // open the chest
-        dispatch(exploreChest(newPosition));
+        dispatch(walkStairs(tile, position));
+    } else if (tile === 4) {
+        // Open the chest at this position
+        dispatch(exploreChest(position));
     } else {
+        // If there is no interaction with this tile, then make them take a turn
         dispatch(playerTakeTurn());
     }
 };
 
-const checkForMonster = (position: Point, monsterList: Record<string, Entity>): string | undefined =>
-    Object.keys(monsterList)
-        .map((monsterId) => ({
-            location: monsterList[monsterId].location,
-            monsterId,
-        }))
-        .filter((ent) => ent.location.x === position.x && ent.location.y === position.y)
-        .pop()?.monsterId;
+/**
+ * Determine if the tile the player is trying to move to contains a monster
+ *
+ * @param position The position the player is trying to move to
+ * @param monsterList The list of monsters in the current map
+ */
+const monsterAtPosition = (position: Point, monsterList: Record<string, Entity>): boolean =>
+    Object.entries(monsterList).some(
+        ([, monster]) => monster.location.x === position.x && monster.location.y === position.y,
+    );
 
+/**
+ * Attempt to move the player. If there is something blocking their way (wall, monster, etc).
+ * then don't move them.
+ *
+ * If the tile they are moving to is something they can interact with (shop, chest, etc),
+ * then deal with that as well.
+ *
+ * @param direction The direction the player wants to move in
+ */
 const move = (direction: Direction): RootThunk => async (dispatch, getState): Promise<void> => {
     const { player, world, monsters } = getState();
 
@@ -64,7 +96,7 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
     if (
         nextTile < 5 &&
         observeBoundaries(newPosition) &&
-        !checkForMonster(newPosition, monsters.entities[world.currentMap])
+        !monsterAtPosition(newPosition, monsters.entities[world.currentMap])
     ) {
         // explore new tiles
         dispatch(exploreTiles(newPosition));

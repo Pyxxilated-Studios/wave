@@ -1,4 +1,4 @@
-import { SystemState, SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, RESET, SET_SOUND } from "./types";
+import { SystemState, SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, SET_SOUND } from "./types";
 
 const initialState: SystemState = {
     largeView: false,
@@ -16,9 +16,6 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
 
         case SET_SOUND:
             return { ...state, sound: action.set };
-
-        case RESET:
-            return { ...initialState };
 
         default:
             return state;

@@ -13,6 +13,9 @@ import {
     faCheck,
     faTrash,
     faArchive,
+    faCog,
+    faCaretSquareLeft,
+    faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
@@ -37,6 +40,9 @@ fontawesome.library.add(
     faCheck,
     faTrash,
     faArchive,
+    faCog,
+    faCaretSquareLeft,
+    faSave,
 );
 
 interface AppProps {

@@ -51,9 +51,9 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props: ConfirmDial
             <span className="confirm-dialog-text">{props.text}</span>
 
             <div className="flex-row confirm-dialog-buttons">
-                <Button onClick={props.onClose} icon={props.cancelIcon || "times"} title={props.cancelText || "No"} />
+                <Button onClick={props.onClose} icon={props.cancelIcon} title={props.cancelText} />
 
-                <Button onClick={props.confirm} icon={props.acceptIcon || "check"} title={props.acceptText || "Yes"} />
+                <Button onClick={props.confirm} icon={props.acceptIcon} title={props.acceptText} />
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
-import { MapState, EXPLORE_TILES, MapActionType } from './types';
-import { RESET } from '../system/types';
+import { MapState, EXPLORE_TILES, MapActionType } from "./types";
+import { RESET } from "../system/types";
 
 const initialState: MapState = {
     sightBox: [],
@@ -16,7 +16,7 @@ export const MapReducer = (state = initialState, action: MapActionType): MapStat
             };
 
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         default:
             return state;

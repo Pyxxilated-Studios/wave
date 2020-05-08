@@ -1,0 +1,21 @@
+.health-bar-container {
+    height: 7px;
+
+    border-radius: 3px;
+
+    background: var(--red);
+
+    position: relative;
+}
+
+.health-bar-value {
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 2px 0px 0px 2px;
+
+    position: absolute;
+
+    transition: width 1s ease-in-out;
+}

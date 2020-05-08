@@ -5,9 +5,9 @@ import { equipItem, getGold } from "../../../store/stats/actions";
 import items from "../../../data/items";
 
 const loadStartingItems = (): RootThunk => async (dispatch, getState): Promise<void> => {
-    const { characterRace, characterClass } = getState().dialog.character;
+    const { race, cclass } = getState().dialog.character;
 
-    switch (characterClass) {
+    switch (cclass) {
         case "Fighter":
             dispatch(getStartingItem(items.weapons.swords.RustySword));
             break;
@@ -24,7 +24,7 @@ const loadStartingItems = (): RootThunk => async (dispatch, getState): Promise<v
 
     dispatch(equipItem(getState().inventory.items[0]));
 
-    switch (characterRace) {
+    switch (race) {
         case "Human":
             dispatch(getStartingItem(items.clothes.armour.LeatherBoots));
             dispatch(equipItem(getState().inventory.items[1]));

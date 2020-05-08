@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect, FunctionComponent, ReactNode } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -12,27 +12,23 @@ interface MonstersProps {
     world: WorldState;
 }
 
-const Monsters = (props: MonstersProps) => {
+const Monsters: FunctionComponent<MonstersProps> = (props: MonstersProps) => {
     const { currentMap } = props.world;
 
-    const [monstersToRender, setMonstersToRender] = useState<any | null>(null);
+    const [monstersToRender, setMonstersToRender] = useState<ReactNode>();
 
     useEffect(() => {
-        const monsterArray: ReactElement[] = [];
-        // don't try to load if no maps
-        if (JSON.stringify(props.monsters.entities) === JSON.stringify({})) {
-            setMonstersToRender(null);
-        } else if (props.monsters.entities[currentMap]) {
-            // find each monster on the current map
-            Object.keys(props.monsters.entities[currentMap]).forEach((uuid) => {
-                monsterArray.push(<Monster key={uuid} monster={props.monsters.entities[currentMap][uuid]} />);
-            });
-
-            setMonstersToRender(monsterArray);
+        // Don't bother to render any of the monsters if there aren't any
+        if (props.monsters.entities[currentMap] && Object.entries(props.monsters.entities).length > 0) {
+            setMonstersToRender(
+                Object.entries(props.monsters.entities[currentMap]).map(([uuid, monster]) => (
+                    <Monster key={uuid} monster={monster} />
+                )),
+            );
         }
     }, [props.monsters, currentMap]);
 
-    return monstersToRender;
+    return <>{monstersToRender}</>;
 };
 
 const mapStateToProps = ({ monsters, world }: RootState): MonstersProps => ({

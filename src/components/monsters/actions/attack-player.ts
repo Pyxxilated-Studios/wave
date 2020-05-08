@@ -1,7 +1,10 @@
-import { calculateDamage } from '../../../utils/dice';
-import { RootThunk } from '../../../store';
+import { calculateDamage } from "../../../utils/dice";
+import { RootThunk } from "../../../store";
 
-const attackPlayer = (attackValue: number, dice: string, type: string): RootThunk => async (dispatch, getState) => {
+const attackPlayer = (attackValue: number, dice: string, type: string): RootThunk => async (
+    dispatch,
+    getState,
+): Promise<void> => {
     /*
   const { stats } = getState();
 

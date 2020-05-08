@@ -9,11 +9,9 @@ import InventoryDialog from "./dialogs/inventory-dialog";
 import GameInstructions from "./dialogs/game-instructions";
 import CharacterCreation from "./dialogs/character-creation";
 import GameTextDialog from "./dialogs/game-text-dialog";
-// import GameSelect from './dialogs/game-select';
 // import GameWin from './dialogs/game-win';
 // import GameOver from './dialogs/game-over';
-// import MainGameStart from './dialogs/main-game-start';
-// import SettingsDialog from './dialogs/settings-dialog';
+import SettingsDialog from "./dialogs/settings-dialog";
 // import ShopDialog from './dialogs/shop-dialog';
 import LevelUpDialog from "./dialogs/level-up-dialog";
 import AbilityScores from "./dialogs/ability-dialog";
@@ -47,7 +45,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
     } = reason;
 
     let PauseComp: ReactNode = null;
-    const SettingsComp: ReactNode = null;
+    let SettingsComp: ReactNode = null;
     let LevelUpComp: ReactNode = null;
 
     if (paused) {
@@ -59,8 +57,8 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (gameText)
             PauseComp = (
                 <GameTextDialog
-                    title={gameText.title.replace(/<>/g, character.characterName)}
-                    body={gameText.body.replace(/<>/g, character.characterName)}
+                    title={gameText.title.replace(/<>/g, character.name)}
+                    body={gameText.body.replace(/<>/g, character.name)}
                 />
             );
         if (abilityDialog) PauseComp = <AbilityScores />;
@@ -70,7 +68,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (gameStart) PauseComp = <GameStartDialog />;
         //     if (gameWin) PauseComp = <GameWin />;
     }
-    //   if (settings) SettingsComp = <SettingsDialog />;
+    if (settings) SettingsComp = <SettingsDialog />;
     if (levelUp) LevelUpComp = <LevelUpDialog />;
 
     return (

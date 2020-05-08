@@ -1,0 +1,26 @@
+.game-settings-button {
+    height: 45px;
+    width: 45px;
+
+    padding: 8px;
+
+    background-color: var(--dark-gray);
+
+    margin-top: 12px;
+
+    user-select: none;
+
+    position: relative;
+
+    z-index: 100;
+
+    .game-settings-icon {
+        font-size: 26px;
+
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

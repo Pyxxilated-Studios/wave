@@ -1,10 +1,20 @@
-import { RootThunk } from '../../../store';
-import { Point, Direction, Entity } from '../../../types';
+import { RootThunk } from "../../../store";
+import { Point, Direction, Entity } from "../../../types";
 
-import getNextTile from '../../../utils/get-next-tile';
-import { arrayContainsPoint } from '../../../utils/array-contains';
-import { WorldState } from '../../../store/world/types';
-import { revealMonster, hideMonster, monsterMove } from '../../../store/monsters/actions';
+import getNextTile from "../../../utils/get-next-tile";
+import { arrayContainsPoint } from "../../../utils/array-contains";
+import { WorldState } from "../../../store/world/types";
+import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters/actions";
+
+const checkForOtherMonster = (id: string, position: Point, monsterList: Record<string, Entity>): boolean =>
+    Object.entries(monsterList).some(
+        ([, monster]) => id !== monster.id && monster.location.x === position.x && monster.location.y === position.y,
+    );
+
+const observeImpassable = (newPos: Point, world: WorldState): Point | undefined => {
+    const nextTile = getNextTile(world, newPos);
+    return nextTile < 5 ? newPos : undefined;
+};
 
 // recursive function for moving the monster to the next available tile
 // will try to go towards the player if possible
@@ -14,8 +24,8 @@ const moveMonster = (
     currentMap: string,
     id: string,
     count: number,
-    preference: Direction | null = null,
-): RootThunk => async (dispatch, getState) => {
+    preference?: Direction,
+): RootThunk => async (dispatch, getState): Promise<void> => {
     count++;
     // dont allow for infinite loops when monster can't move
     if (count >= 5) return;
@@ -119,20 +129,6 @@ const moveMonster = (
 
     // move the monster
     dispatch(monsterMove(id, currentMap, position));
-};
-
-const checkForOtherMonster = (id: string, position: Point, monsterList: Record<string, Entity>): boolean =>
-    Object.keys(monsterList)
-        .map((monsterId) => ({
-            location: monsterList[monsterId].location,
-            monsterId,
-        }))
-        .filter((ent) => id !== ent.monsterId && ent.location.x === position.x && ent.location.y === position.y)
-        .length > 0;
-
-const observeImpassable = (newPos: Point, world: WorldState) => {
-    const nextTile = getNextTile(world, newPos);
-    return nextTile < 5 ? newPos : false;
 };
 
 export default moveMonster;

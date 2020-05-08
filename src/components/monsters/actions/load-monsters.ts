@@ -1,9 +1,9 @@
-import { RootThunk } from '../../../store';
-import { addMonsters } from '../../../store/monsters/actions';
+import { RootThunk } from "../../../store";
+import { addMonsters } from "../../../store/monsters/actions";
 
-import generateMonsters from '../../world/actions/generate-monsters';
+import generateMonsters from "../../world/actions/generate-monsters";
 
-const loadMonsters = (): RootThunk => async (dispatch, getState) => {
+const loadMonsters = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { world, monsters, player, stats } = getState();
     const { currentMap, randomMaps, floorNumber } = world;
 

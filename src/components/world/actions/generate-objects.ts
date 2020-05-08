@@ -17,6 +17,7 @@ const generateShop = (map: GameMap, availableWalls: Point[]): GameMap => {
 // Randomly generates chests, stairs and shops onto an existing random map
 const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Point, wallType: number): GameMap => {
     const initialTiles: Point[] = [];
+    const availableTiles: Point[] = [];
 
     const vision = getSurroundingTiles(playerPosition);
 
@@ -24,15 +25,15 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
         for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
             // get a list of floor tiles
             if (map.tiles[i][j].value === 0) {
-                initialTiles.push({ x: j, y: i });
+                const tile: Point = { x: j, y: i };
+                initialTiles.push(tile);
+
+                if (!vision.tiles.includes(tile)) {
+                    availableTiles.push(tile);
+                }
             }
         }
     }
-
-    const availableTiles = initialTiles.filter((pos) => {
-        // remove the available tiles that are vision tiles
-        return !vision.tiles.includes(pos);
-    });
 
     // show stairs down if floor is greater than 1
     if (floorNumber > 1) {
@@ -46,8 +47,8 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
 
         map.tiles[tile.y][tile.x].value = 3;
         availableTiles.splice(randomIndex, 1);
-    } // if we don't have room outside player sight, place stairs on any floor tile
-    else {
+    } else {
+        // if we don't have room outside player sight, place stairs on any floor tile
         const randomIndex = Math.floor(Math.random() * initialTiles.length);
         const tile = initialTiles[randomIndex];
         // if the tile is occupied by the player
@@ -59,8 +60,8 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
             const newTile = initialTiles[newRandomIndex];
 
             map.tiles[newTile.y][newTile.x].value = 3;
-        } // safely place the stairs
-        else {
+        } else {
+            // safely place the stairs
             map.tiles[tile.y][tile.x].value = 3;
         }
     }
@@ -69,6 +70,7 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
     const max = 5;
     const min = 0;
     const randomChests = Math.round(Math.random() * (max - min) + min);
+
     // place the chests on empty tiles
     for (let x = 0; x < randomChests; x++) {
         if (availableTiles.length > 0) {

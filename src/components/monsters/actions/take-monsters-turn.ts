@@ -1,17 +1,34 @@
-import { RootThunk } from '../../../store';
-import { revealMonster, hideMonster } from '../../../store/monsters/actions';
-import { Point, Direction } from '../../../types';
+import { RootThunk } from "../../../store";
+import { revealMonster, hideMonster } from "../../../store/monsters/actions";
+import { Point, Direction } from "../../../types";
 
-import { radiusTiles } from '../../../utils/get-surrounding-tiles';
-import { arrayContainsPoint } from '../../../utils/array-contains';
-import { distance } from '../../../utils/distance';
+import { radiusTiles } from "../../../utils/get-surrounding-tiles";
+import { arrayContainsPoint } from "../../../utils/array-contains";
+import { distance } from "../../../utils/distance";
 
-import attackPlayer from './attack-player';
-import moveMonster from './move-monster';
+import attackPlayer from "./attack-player";
+import moveMonster from "./move-monster";
 
 const MONSTER_ATTACK_RADIUS = 1;
 
-const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
+const playerInRange = (playerPosition: Point, monsterPosition: Point): boolean => {
+    const inRange = radiusTiles(MONSTER_ATTACK_RADIUS).some((tile) => {
+        const offsetX = tile.x + monsterPosition.x;
+        const offsetY = tile.y + monsterPosition.y;
+
+        return offsetX === playerPosition.x && offsetY === playerPosition.y;
+    });
+
+    return inRange;
+};
+
+const directions = [Direction.North, Direction.South, Direction.East, Direction.West];
+const getRandomDirection = (): Direction => {
+    const randomNumber = Math.floor(Math.random() * directions.length);
+    return directions[randomNumber];
+};
+
+const takeMonstersTurn = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { monsters, map, world } = getState();
     // get the current monsters
     const { entities } = monsters;
@@ -19,9 +36,9 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
     const { currentMap } = world;
 
     // find each monster
-    Object.keys(entities[currentMap]).forEach((monsterId) => {
+    Object.entries(entities[currentMap]).forEach(([, monster]) => {
         // Get monster id and position
-        const { id, location, attackValue, dice, type } = entities[currentMap][monsterId];
+        const { id, location, attackValue, dice, type } = monster;
 
         const monsterVisible = arrayContainsPoint(sightBox, location);
 
@@ -111,23 +128,6 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState) => {
             }
         }
     });
-};
-
-const playerInRange = (playerPosition: Point, monsterPosition: Point): boolean => {
-    const inRange = radiusTiles(MONSTER_ATTACK_RADIUS).some((tile) => {
-        const offsetX = tile.x + monsterPosition.x;
-        const offsetY = tile.y + monsterPosition.y;
-
-        return offsetX === playerPosition.x && offsetY === playerPosition.y;
-    });
-
-    return inRange;
-};
-
-const directions = [Direction.North, Direction.South, Direction.East, Direction.West];
-const getRandomDirection = (): Direction => {
-    const randomNumber = Math.floor(Math.random() * directions.length);
-    return directions[randomNumber];
 };
 
 export default takeMonstersTurn;

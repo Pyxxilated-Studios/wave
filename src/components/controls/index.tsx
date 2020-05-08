@@ -7,6 +7,8 @@ import { DialogState } from "../../store/dialog/types";
 import { PlayerState } from "../../store/player/types";
 import { Direction } from "../../types";
 
+import { toggleSettings } from "../../store/dialog/actions";
+
 import toggleInventory from "../dialog-manager/actions/toggle-inventory";
 import move from "./actions/move-player";
 
@@ -21,11 +23,13 @@ import {
     S_KEY,
     ANIMATION_SPEED,
     I_KEY,
+    ESC_KEY,
 } from "../../constants";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
     toggleInventory: () => void;
+    toggleSettings: () => void;
 }
 
 interface StateProps {
@@ -38,12 +42,14 @@ type ControlProps = StateProps & DispatchProps;
 const ANIMATION_WITH_PADDING = ANIMATION_SPEED * 1.25;
 
 const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
-    const { dialog, movePlayer, toggleInventory } = props;
+    const { dialog, movePlayer, toggleInventory, toggleSettings } = props;
 
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
             event.preventDefault();
             switch (event.keyCode) {
+                case ESC_KEY:
+                    return toggleSettings();
                 case UP_KEY:
                 case W_KEY:
                     return movePlayer(Direction.North);
@@ -61,7 +67,7 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                 default:
             }
         },
-        [movePlayer, toggleInventory],
+        [movePlayer, toggleInventory, toggleSettings],
     );
 
     const _handleKeyPress = debounce(
@@ -95,6 +101,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
     movePlayer: (direction: Direction): void => dispatch(move(direction)),
     toggleInventory: (): void => dispatch(toggleInventory()),
+    toggleSettings: (): void => dispatch(toggleSettings()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

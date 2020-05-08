@@ -6,7 +6,7 @@ import { SystemState } from "../../store/system/types";
 import { DialogState } from "../../store/dialog/types";
 
 // import GameMusic from "./game-music";
-// import GameSettings from "./game-settings";
+import GameSettings from "./settings";
 import Inventory from "../inventory";
 import Snackbar from "../snackbar";
 // import Stats from "../stats";
@@ -52,7 +52,7 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
 
                 <div className="flex-column">
                     {/* <GameMusic sideMenu={sideMenu} /> */}
-                    {/* <GameSettings /> */}
+                    <GameSettings />
                 </div>
             </div>
         </div>

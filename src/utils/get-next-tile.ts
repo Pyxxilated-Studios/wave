@@ -1,8 +1,8 @@
-import { WorldState } from '../store/world/types';
-import { Point } from '../types';
-import { MAP_SIZE } from '../constants';
+import { WorldState } from "../store/world/types";
+import { Point } from "../types";
+import { MAP_SIZE } from "../constants";
 
-const getNextTile = (world: WorldState, newPosition: Point) => {
+const getNextTile = (world: WorldState, newPosition: Point): number => {
     const { randomMaps, floorNumber } = world;
 
     const currentMapData = randomMaps[floorNumber - 1];

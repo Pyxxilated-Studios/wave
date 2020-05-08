@@ -78,9 +78,9 @@ export interface PauseReason {
 }
 
 export interface Character {
-    characterName: string;
-    characterRace: string;
-    characterClass: string;
+    name: string;
+    race: string;
+    cclass: string;
 }
 
 export interface ItemEffect {

@@ -8,6 +8,8 @@ import {
     INCREMENT_ABILITY,
     DECREMENT_ABILITY,
     SET_LEVEL_UP_ABILITIES,
+    TOGGLE_SETTINGS,
+    CLOSE_SETTINGS,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
 import { RESET } from "../system/types";
@@ -51,9 +53,9 @@ const initialState: DialogState = {
         charisma: 0,
     },
     character: {
-        characterName: "",
-        characterRace: "Human",
-        characterClass: "Fighter",
+        name: "",
+        race: "Human",
+        cclass: "Fighter",
     },
 };
 
@@ -68,7 +70,7 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
         case CREATE_CHARACTER:
             return {
                 ...state,
-                character: { characterName: action.name, characterClass: action.cls, characterRace: action.race },
+                character: { name: action.name, cclass: action.cls, race: action.race },
             };
 
         case SET_RACE:
@@ -76,7 +78,7 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
                 ...state,
                 character: {
                     ...state.character,
-                    characterRace: action.race,
+                    race: action.race,
                 },
             };
 
@@ -85,7 +87,7 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
                 ...state,
                 character: {
                     ...state.character,
-                    characterClass: action.cls,
+                    cclass: action.cls,
                 },
             };
 
@@ -127,6 +129,12 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             }
 
             return { ...state, reason: {} };
+
+        case TOGGLE_SETTINGS:
+            return { ...state, reason: { settings: !state.reason.settings } };
+
+        case CLOSE_SETTINGS:
+            return { ...state, reason: { settings: false } };
 
         default:
             return state;

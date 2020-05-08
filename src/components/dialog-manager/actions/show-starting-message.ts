@@ -1,7 +1,7 @@
 import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 
-const showStartingMessage = (): RootThunk => async (dispatch) => {
+const showStartingMessage = (): RootThunk => async (dispatch): Promise<void> => {
     dispatch(
         pause(true, {
             gameText: {

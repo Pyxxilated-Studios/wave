@@ -40,10 +40,10 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
     setRace,
     mainGameDialog,
 }: CharacterCreationProps) => {
-    const [characterName, setCharacterName] = useState(dialog.character.characterName);
+    const [characterName, setCharacterName] = useState(dialog.character.name);
 
     function handleContinue(): void {
-        if (characterName) {
+        if (characterName.trim().length > 0) {
             createCharacter(characterName);
         } else {
             errorMessage("Please enter a name");
@@ -78,7 +78,7 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                     className="white-border character-creation-input"
                     value={characterName}
                     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-                        setCharacterName(event.currentTarget.value.trim())
+                        setCharacterName(event.currentTarget.value)
                     }
                 />
 
@@ -87,7 +87,7 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                     <SelectButtonGroup
                         key=""
                         values={["Human", "Elf", "Dwarf"]}
-                        select={(value: string): boolean => value === dialog.character.characterRace}
+                        select={(value: string): boolean => value === dialog.character.race}
                         onClick={setRace}
                     />
                 </div>
@@ -96,7 +96,7 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                 <div className="container space-around">
                     <SelectButtonGroup
                         values={["Fighter", "Wizard", "Ranger"]}
-                        select={(value: string): boolean => value === dialog.character.characterClass}
+                        select={(value: string): boolean => value === dialog.character.cclass}
                         onClick={setClass}
                     />
                 </div>

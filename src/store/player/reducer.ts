@@ -1,7 +1,7 @@
-import { PlayerState, PlayerActionType, PLAYER_ATTACK, MOVE_PLAYER, PLAYER_DIED } from './types';
+import { PlayerState, PlayerActionType, PLAYER_ATTACK, MOVE_PLAYER, PLAYER_DIED } from "./types";
 
-import { Direction } from '../../types';
-import { RESET } from '../system/types';
+import { Direction } from "../../types";
+import { RESET } from "../system/types";
 
 const initialState: PlayerState = {
     direction: Direction.South,
@@ -30,7 +30,7 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
             return { ...state, playerDied: true };
 
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         default:
             return state;

@@ -1,8 +1,8 @@
-import { SIGHT_RADIUS, MAP_DIMENSIONS } from '../constants';
-import { Point } from '../types';
+import { SIGHT_RADIUS, MAP_DIMENSIONS } from "../constants";
+import { Point } from "../types";
 
-export const radiusTiles = (radiusSize = SIGHT_RADIUS) => {
-    const radTiles: Point[] = [];
+export const radiusTiles = (radiusSize = SIGHT_RADIUS): Point[] => {
+    const radTiles = [];
     // calculate a tile map with desired radius
     // (results in array = [[-4,-4]...[0,0]...[4,4]] )
     for (let y = -radiusSize; y <= radiusSize; y++) {

@@ -7,6 +7,8 @@ import {
     INCREMENT_ABILITY,
     DECREMENT_ABILITY,
     SET_LEVEL_UP_ABILITIES,
+    TOGGLE_SETTINGS,
+    CLOSE_SETTINGS,
 } from "./types";
 import { PauseReason, Ability, Abilities } from "../../types";
 
@@ -57,4 +59,12 @@ export const decrementAbility = (ability: Ability): DialogActionType => {
 
 export const setLevelUpAbilities = (abilities: Abilities): DialogActionType => {
     return { type: SET_LEVEL_UP_ABILITIES, abilities };
+};
+
+export const toggleSettings = (): DialogActionType => {
+    return { type: TOGGLE_SETTINGS };
+};
+
+export const closeSettings = (): DialogActionType => {
+    return { type: CLOSE_SETTINGS };
 };

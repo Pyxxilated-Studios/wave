@@ -30,9 +30,9 @@ const initialState: StatsState = {
         points: 0,
     },
     character: {
-        characterName: "",
-        characterRace: "",
-        characterClass: "",
+        name: "",
+        race: "",
+        cclass: "",
     },
     health: 0,
     abilityModifierHealth: 0,
@@ -55,7 +55,7 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
             return state;
 
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         case SET_ABILITY_SCORES:
             return { ...state, abilities: { ...action.abilities, points: action.points } };

@@ -56,6 +56,16 @@ interface SetLevelUpAbilitiesAction {
     abilities: Abilities;
 }
 
+export const TOGGLE_SETTINGS = "TOGGLE_SETTINGS";
+interface ToggleSettingsAction {
+    type: typeof TOGGLE_SETTINGS;
+}
+
+export const CLOSE_SETTINGS = "CLOSE_SETTINGS";
+interface CloseSettingsAction {
+    type: typeof CLOSE_SETTINGS;
+}
+
 export type DialogActionType =
     | PauseAction
     | CreateCharacterAction
@@ -65,4 +75,6 @@ export type DialogActionType =
     | DecrementAbilityAction
     | SetChestDataAction
     | SetLevelUpAbilitiesAction
+    | ToggleSettingsAction
+    | CloseSettingsAction
     | ResetAction;
