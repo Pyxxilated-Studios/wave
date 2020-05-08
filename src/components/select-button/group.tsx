@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import SelectButton from "./index";
@@ -8,8 +8,8 @@ interface SelectButtonGroupProps {
     select: (_: string) => boolean;
     icon?: IconProp;
     title?: string;
-    iconStyle?: React.CSSProperties;
-    style?: React.CSSProperties;
+    iconStyle?: CSSProperties;
+    style?: CSSProperties;
     indicator?: boolean;
     onClick?: (_: string) => void;
     small?: boolean;
@@ -19,7 +19,7 @@ interface SelectButtonGroupProps {
     extraClass?: string;
 }
 
-const SelectButtonGroup: React.FunctionComponent<SelectButtonGroupProps> = (props: SelectButtonGroupProps) => {
+const SelectButtonGroup: FunctionComponent<SelectButtonGroupProps> = (props: SelectButtonGroupProps) => {
     return (
         <>
             {props.values.map((value) => (

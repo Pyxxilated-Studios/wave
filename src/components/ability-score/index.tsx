@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import Button from "../button";
 import { MAX_ABILITY_SCORE } from "../../constants";
@@ -14,7 +14,7 @@ interface AbilityScoreProps {
     points: number;
 }
 
-const AbilityScore: React.FunctionComponent<AbilityScoreProps> = ({
+const AbilityScore: FunctionComponent<AbilityScoreProps> = ({
     name,
     value,
     minValue,

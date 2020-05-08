@@ -1,21 +1,33 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { CSSProperties, FunctionComponent } from "react";
+import { connect } from "react-redux";
 
-import { MapState } from '../../store/map/types';
-import { WorldState } from '../../store/world/types';
-import { RootState } from '../../store';
-import { Tile, Point } from '../../types';
-import { MAP_SIZE, SPRITE_SIZE } from '../../constants';
+import { MapState } from "../../store/map/types";
+import { WorldState } from "../../store/world/types";
+import { RootState } from "../../store";
+import { Tile, Point } from "../../types";
+import { MAP_SIZE, SPRITE_SIZE } from "../../constants";
 
-import MapTile from './map-tile';
-import MapPadding from './map-padding';
+import MapTile from "./map-tile";
+import MapPadding from "./map-padding";
 
 interface MapProps {
     map: MapState;
     world: WorldState;
 }
 
-const Map = (props: MapProps) => {
+const getWallType = (tiles: Tile[][]): number => {
+    for (let i = 0; i < tiles.length; i++) {
+        for (let j = 0; j < tiles[i].length; j++) {
+            if (tiles[i][j].value >= 5 && tiles[i][j].value <= 8) {
+                return tiles[i][j].value;
+            }
+        }
+    }
+
+    return 0;
+};
+
+const Map: FunctionComponent<MapProps> = (props: MapProps) => {
     const { randomMaps, currentMap, floorNumber } = props.world;
 
     const width = MAP_SIZE.width * SPRITE_SIZE;
@@ -23,7 +35,7 @@ const Map = (props: MapProps) => {
 
     const map = { ...props.map, ...randomMaps[floorNumber - 1] };
 
-    const mapStyle: React.CSSProperties = { width, height, position: 'relative' };
+    const mapStyle: CSSProperties = { width, height, position: "relative" };
 
     if (!currentMap) return <div style={mapStyle} />;
 
@@ -46,7 +58,7 @@ interface MapRowProps {
     sightBox: Point[];
 }
 
-const MapRow = (props: MapRowProps) => {
+const MapRow: FunctionComponent<MapRowProps> = (props: MapRowProps) => {
     return (
         <div className="row" style={{ height: SPRITE_SIZE }}>
             {props.tiles.map((tile, index) => {
@@ -63,17 +75,7 @@ const MapRow = (props: MapRowProps) => {
     );
 };
 
-const getWallType = (tiles: Tile[][]): number => {
-    for (let i = 0; i < tiles.length; i++) {
-        for (let j = 0; j < tiles[i].length; j++) {
-            if (tiles[i][j].value >= 5 && tiles[i][j].value <= 8) return tiles[i][j].value;
-        }
-    }
-
-    return 0;
-};
-
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): MapProps => ({
     map: state.map,
     world: state.world,
 });

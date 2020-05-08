@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../../../store";
@@ -25,7 +25,7 @@ interface StateProps {
 
 type ChestLootProps = DispatchProps & StateProps;
 
-const ChestLoot: React.FunctionComponent<ChestLootProps> = (props: ChestLootProps) => {
+const ChestLoot: FunctionComponent<ChestLootProps> = (props: ChestLootProps) => {
     const { chestOpen } = props.dialog;
     const { openChest } = props;
 
@@ -55,14 +55,14 @@ const ChestLoot: React.FunctionComponent<ChestLootProps> = (props: ChestLootProp
                 {gold !== 0 && (
                     <div className="flex-row chest-loot-value-spacing">
                         <span>{"Gold: "}</span>
-                        <span>{gold}</span>
+                        <span className="gold">{gold}</span>
                     </div>
                 )}
 
                 {experience !== 0 && (
                     <div className="flex-row chest-loot-value-spacing">
                         <span>{"Experience: "}</span>
-                        <span>{experience}</span>
+                        <span className="experience">{experience}</span>
                     </div>
                 )}
 

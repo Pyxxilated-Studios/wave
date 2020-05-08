@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
@@ -11,8 +11,8 @@ import "./styles.scss";
 interface ButtonProps {
     icon?: IconProp;
     title?: string;
-    iconStyle?: React.CSSProperties;
-    style?: React.CSSProperties;
+    iconStyle?: CSSProperties;
+    style?: CSSProperties;
     indicator?: boolean;
     onClick?: () => void;
     small?: boolean;
@@ -22,7 +22,7 @@ interface ButtonProps {
     extraClass?: string;
 }
 
-const Button: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
+const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
     function handleClick(): void {
         props.onClick && props.onClick();
     }

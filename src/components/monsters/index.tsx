@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, ReactElement } from "react";
+import { connect } from "react-redux";
 
-import { RootState } from '../../store';
-import { MonstersState } from '../../store/monsters/types';
-import { WorldState } from '../../store/world/types';
+import { RootState } from "../../store";
+import { MonstersState } from "../../store/monsters/types";
+import { WorldState } from "../../store/world/types";
 
-import Monster from './monster';
+import Monster from "./monster";
 
 interface MonstersProps {
     monsters: MonstersState;
@@ -18,7 +18,7 @@ const Monsters = (props: MonstersProps) => {
     const [monstersToRender, setMonstersToRender] = useState<any | null>(null);
 
     useEffect(() => {
-        const monsterArray: React.ReactElement[] = [];
+        const monsterArray: ReactElement[] = [];
         // don't try to load if no maps
         if (JSON.stringify(props.monsters.entities) === JSON.stringify({})) {
             setMonstersToRender(null);
@@ -35,7 +35,7 @@ const Monsters = (props: MonstersProps) => {
     return monstersToRender;
 };
 
-const mapStateToProps = ({ monsters, world }: RootState) => ({
+const mapStateToProps = ({ monsters, world }: RootState): MonstersProps => ({
     monsters,
     world,
 });

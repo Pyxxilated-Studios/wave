@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent, ReactElement } from "react";
 
-import { getTileSprite, FogTile } from './map-tile';
-import { SPRITE_SIZE } from '../../constants';
+import { getTileSprite, FogTile } from "./map-tile";
+import { SPRITE_SIZE } from "../../constants";
 
-import './styles.scss';
-import { PaddingTiles, Point, Tile } from '../../types';
-import { arrayContainsPoint } from '../../utils/array-contains';
+import "./styles.scss";
+import { PaddingTiles, Point, Tile } from "../../types";
+import { arrayContainsPoint } from "../../utils/array-contains";
 
 interface MapPaddingProps {
     tileType: number;
@@ -14,13 +14,13 @@ interface MapPaddingProps {
 }
 
 type Padding = {
-    top: React.ReactElement[];
-    bottom: React.ReactElement[];
-    left: React.ReactElement[];
-    right: React.ReactElement[];
+    top: ReactElement[];
+    bottom: ReactElement[];
+    left: ReactElement[];
+    right: ReactElement[];
 };
 
-const MapPadding = (props: MapPaddingProps) => {
+const MapPadding: FunctionComponent<MapPaddingProps> = (props: MapPaddingProps) => {
     const paddingTiles: Padding = {
         top: [],
         bottom: [],
@@ -75,7 +75,7 @@ interface BoundaryTileProps {
     location: Point;
 }
 
-const BoundaryTile = (props: BoundaryTileProps) => {
+const BoundaryTile: FunctionComponent<BoundaryTileProps> = (props: BoundaryTileProps) => {
     // Load the tile directly from the public folder
     const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tileType, props.variation)}.png`;
 
@@ -86,7 +86,7 @@ const BoundaryTile = (props: BoundaryTileProps) => {
         <div
             style={{
                 backgroundImage: `url(${tilesrc})`,
-                display: 'inline-flex',
+                display: "inline-flex",
                 height: SPRITE_SIZE,
                 width: SPRITE_SIZE,
             }}

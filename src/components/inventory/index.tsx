@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -60,7 +60,7 @@ class Inventory extends Component<InventoryProps> {
         this.props.toggleInventory();
     }
 
-    render(): React.ReactElement {
+    render(): ReactNode {
         const { newItemIndicator } = this.state;
         const { disabled, dialog, sideMenu } = this.props;
 

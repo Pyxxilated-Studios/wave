@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -21,7 +21,7 @@ interface StateProps {
 
 type GameMenusProps = StateProps;
 
-const GameMenus: React.FunctionComponent<GameMenusProps> = (props: GameMenusProps) => {
+const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => {
     const { sideMenu, largeView } = props.system;
     const { paused, reason } = props.dialog;
     const { gameOver, gameStart, inventory, journalDialog, settings } = reason;

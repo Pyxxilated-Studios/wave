@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import * as fontawesome from "@fortawesome/fontawesome-svg-core";
@@ -44,7 +44,7 @@ interface AppProps {
     world: WorldState;
 }
 
-const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
+const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const [library, setLibrary] = useState<typeof import("wave")>();
     useViewportScaling();
 

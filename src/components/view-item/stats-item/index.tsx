@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
 import "./styles.scss";
 
@@ -6,7 +6,7 @@ interface StatsItemProps {
     stats: { name: string; value: string | number };
 }
 
-const StatsItem: React.FunctionComponent<StatsItemProps> = (props: StatsItemProps) => {
+const StatsItem: FunctionComponent<StatsItemProps> = (props: StatsItemProps) => {
     const { name, value } = props.stats;
 
     const getColor = (name: string): string => {

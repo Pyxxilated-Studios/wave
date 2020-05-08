@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import debounce from "lodash.debounce";
 
@@ -37,7 +37,7 @@ type ControlProps = StateProps & DispatchProps;
 
 const ANIMATION_WITH_PADDING = ANIMATION_SPEED * 1.25;
 
-const Controls: React.FunctionComponent<ControlProps> = (props: ControlProps) => {
+const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
     const { dialog, movePlayer, toggleInventory } = props;
 
     const handleKeyPress = useCallback(

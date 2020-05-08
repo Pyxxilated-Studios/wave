@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../button";
@@ -19,7 +19,7 @@ interface ConfirmDialogProps {
     acceptKeys?: boolean;
 }
 
-const ConfirmDialog: React.FunctionComponent<ConfirmDialogProps> = (props: ConfirmDialogProps) => {
+const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props: ConfirmDialogProps) => {
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
             // check if a key is pressed and bound to an action

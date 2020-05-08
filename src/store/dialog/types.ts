@@ -50,6 +50,12 @@ interface DecrementAbilityAction {
     ability: Ability;
 }
 
+export const SET_LEVEL_UP_ABILITIES = "SET_LEVEL_UP_ABILITIES";
+interface SetLevelUpAbilitiesAction {
+    type: typeof SET_LEVEL_UP_ABILITIES;
+    abilities: Abilities;
+}
+
 export type DialogActionType =
     | PauseAction
     | CreateCharacterAction
@@ -58,4 +64,5 @@ export type DialogActionType =
     | IncrementAbilityAction
     | DecrementAbilityAction
     | SetChestDataAction
+    | SetLevelUpAbilitiesAction
     | ResetAction;

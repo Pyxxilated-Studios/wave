@@ -7,6 +7,7 @@ import {
     SET_RACE,
     INCREMENT_ABILITY,
     DECREMENT_ABILITY,
+    SET_LEVEL_UP_ABILITIES,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
 import { RESET } from "../system/types";
@@ -109,6 +110,13 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
                 abilities: { ...state.abilities, [action.ability]: ability - 1, points: state.abilities.points + 1 },
             };
         }
+
+        case SET_LEVEL_UP_ABILITIES:
+            return {
+                ...state,
+                abilities: { ...action.abilities, points: 0 },
+                abilitiesMinimum: action.abilities,
+            };
 
         case SET_CHEST_DATA:
             if (action.data) {

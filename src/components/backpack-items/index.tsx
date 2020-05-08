@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -24,7 +24,7 @@ interface OwnProps {
 
 type BackpackItemsProps = StateProps & OwnProps;
 
-const BackpackItems: React.FunctionComponent<BackpackItemsProps> = (props: BackpackItemsProps) => {
+const BackpackItems: FunctionComponent<BackpackItemsProps> = (props: BackpackItemsProps) => {
     const { items, maxItems } = props.inventory;
 
     const itemSlots = new Array(maxItems).fill(null);

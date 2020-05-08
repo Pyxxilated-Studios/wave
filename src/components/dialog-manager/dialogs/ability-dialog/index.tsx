@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { DialogState } from "../../../../store/dialog/types";
@@ -32,7 +32,7 @@ interface StateProps {
 
 type AbilityDialogProps = DispatchProps & StateProps;
 
-const AbilityDialog: React.FunctionComponent<AbilityDialogProps> = ({
+const AbilityDialog: FunctionComponent<AbilityDialogProps> = ({
     dialog,
     increment,
     decrement,

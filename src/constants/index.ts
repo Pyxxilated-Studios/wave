@@ -69,6 +69,7 @@ export const MAX_ITEMS_UPGRADE = 12;
 export const STARTING_ABILITY_SCORE_VALUE = 8;
 export const STARTING_ABILITY_POINTS = 12;
 export const MAX_ABILITY_SCORE = 20;
+export const LEVEL_UP_ABILITY_POINTS = 2;
 
 // Base player health/mana values
 export const BASE_HEALTH = 10;

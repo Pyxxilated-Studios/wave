@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { ItemType } from "../../../../types";
@@ -21,7 +21,7 @@ interface DispatchProps {
 
 type InventoryDialogProps = DispatchProps;
 
-const InventoryDialog: React.FunctionComponent<InventoryDialogProps> = (props: InventoryDialogProps) => {
+const InventoryDialog: FunctionComponent<InventoryDialogProps> = (props: InventoryDialogProps) => {
     const [viewItem, setViewItem] = useState<ItemType | undefined>(undefined);
 
     return (

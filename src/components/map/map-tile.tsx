@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 
 import { Tile, Point } from "../../types";
 
-// import Flame from "../../components/flame";
+import Flame from "../../components/flames";
 import { SPRITE_SIZE } from "../../constants";
 import { arrayContainsPoint } from "../../utils/array-contains";
 
@@ -43,22 +43,23 @@ interface MapTileProps {
     sightBox: Point[];
 }
 
-const MapTile: React.FunctionComponent<MapTileProps> = (props: MapTileProps) => {
+const MapTile: FunctionComponent<MapTileProps> = (props: MapTileProps) => {
     // Load the tile directly from the public folder
     const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tile.value, props.tile.variation)}.png`;
 
     const inSight = arrayContainsPoint(props.sightBox, props.position);
 
     // case for rendering animated flame tile
-    // if (tile.value === 20) {
-    //   return (
-    //     <GroundTile variation={tile.variation}>
-    //       <Flame position={index}>
-    //         <FogTile explored={tile.explored} inSight={inSight} />
-    //       </Flame>
-    //     </GroundTile>
-    //   );
-    // }
+    if (props.tile.value === 20) {
+        return (
+            <GroundTile variation={props.tile.variation}>
+                <Flame position={props.position}>
+                    <FogTile explored={props.tile.explored} inSight={inSight} />
+                </Flame>
+            </GroundTile>
+        );
+    }
+
     // case for rendering normal tiles
     return (
         <GroundTile variation={props.tile.variation}>
@@ -80,7 +81,7 @@ interface FogTileProps {
     explored: boolean;
 }
 
-export const FogTile: React.FunctionComponent<FogTileProps> = (props: FogTileProps) => {
+export const FogTile: FunctionComponent<FogTileProps> = (props: FogTileProps) => {
     const opacity = !props.explored ? "1" : !props.inSight ? "0.5" : "0";
 
     return (
@@ -99,10 +100,10 @@ export const FogTile: React.FunctionComponent<FogTileProps> = (props: FogTilePro
 
 interface GroundTileProps {
     variation: number;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-const GroundTile: React.FunctionComponent<GroundTileProps> = (props: GroundTileProps) => {
+const GroundTile: FunctionComponent<GroundTileProps> = (props: GroundTileProps) => {
     // Load the tile directly from the public folder
     const tilesrc = `${process.env.PUBLIC_URL}/tiles/floor_${props.variation}.png`;
 

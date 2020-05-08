@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import Button from "../../../../components/button";
@@ -18,7 +18,7 @@ interface OwnProps {
 
 type GameTextDialogProps = DispatchProps & OwnProps;
 
-const GameTextDialog: React.FunctionComponent<GameTextDialogProps> = (props: GameTextDialogProps) => {
+const GameTextDialog: FunctionComponent<GameTextDialogProps> = (props: GameTextDialogProps) => {
     return (
         <Dialog onKeyPress={props.closeDialog}>
             <div className="flex-column game-text-dialog-container">
@@ -27,7 +27,7 @@ const GameTextDialog: React.FunctionComponent<GameTextDialogProps> = (props: Gam
                 <span className="game-text-dialog-text">{props.body || ""}</span>
 
                 <div className="game-text-dialog-button">
-                    <Button onClick={closeDialog} title="Continue" />
+                    <Button onClick={props.closeDialog} title="Continue" />
                 </div>
             </div>
         </Dialog>

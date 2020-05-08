@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FunctionComponent, ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../../../store";
@@ -32,7 +32,7 @@ interface StateProps {
 
 type CharacterCreationProps = StateProps & DispatchProps;
 
-const CharacterCreation: React.FunctionComponent<CharacterCreationProps> = ({
+const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
     dialog,
     createCharacter,
     errorMessage,
@@ -77,7 +77,7 @@ const CharacterCreation: React.FunctionComponent<CharacterCreationProps> = ({
                     maxLength={512}
                     className="white-border character-creation-input"
                     value={characterName}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
+                    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
                         setCharacterName(event.currentTarget.value.trim())
                     }
                 />

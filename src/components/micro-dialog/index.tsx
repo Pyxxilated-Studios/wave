@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
 
 import { ENTER_KEY, ESC_KEY } from "../../constants";
 
@@ -11,10 +11,10 @@ interface MicroDialogProps {
     onKeyPress?: () => void;
     className?: string;
     fullsize?: boolean;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
 
-const MicroDialog: React.FunctionComponent<MicroDialogProps> = (props: MicroDialogProps) => {
+const MicroDialog: FunctionComponent<MicroDialogProps> = (props: MicroDialogProps) => {
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
             if (event.keyCode === ENTER_KEY) {

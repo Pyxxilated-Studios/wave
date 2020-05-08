@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { GAME_VIEWPORT_SIZE, GAME_VIEWPORT_SIZE_LARGE } from "../../constants";
@@ -13,12 +13,12 @@ interface StateProps {
 }
 
 interface OwnProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 type ViewportProps = StateProps & OwnProps;
 
-const Viewport: React.FunctionComponent<ViewportProps> = (props: ViewportProps) => {
+const Viewport: FunctionComponent<ViewportProps> = (props: ViewportProps) => {
     const { largeView, sideMenu } = props.system;
 
     const gameSize = largeView ? GAME_VIEWPORT_SIZE_LARGE : GAME_VIEWPORT_SIZE;

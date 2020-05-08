@@ -6,8 +6,9 @@ import {
     SET_RACE,
     INCREMENT_ABILITY,
     DECREMENT_ABILITY,
+    SET_LEVEL_UP_ABILITIES,
 } from "./types";
-import { PauseReason, Ability } from "../../types";
+import { PauseReason, Ability, Abilities } from "../../types";
 
 export const pause = (paused: boolean, reason: PauseReason): DialogActionType => {
     return {
@@ -52,4 +53,8 @@ export const decrementAbility = (ability: Ability): DialogActionType => {
         type: DECREMENT_ABILITY,
         ability,
     };
+};
+
+export const setLevelUpAbilities = (abilities: Abilities): DialogActionType => {
+    return { type: SET_LEVEL_UP_ABILITIES, abilities };
 };

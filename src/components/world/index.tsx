@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component, ReactNode } from "react";
 import { connect } from "react-redux";
-import ReactTimeout from "react-timeout";
+import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 
 import { RootState } from "../../store";
 import { WorldState } from "../../store/world/types";
@@ -41,7 +41,7 @@ interface StateProps {
     dialog: DialogState;
 }
 
-type WorldProps = OwnProps & DispatchProps & StateProps & ReactTimeout.ReactTimeoutProps;
+type WorldProps = OwnProps & DispatchProps & StateProps & ReactTimeoutProps;
 
 // animation time is 500(ms), adding +100 makes it smoother
 const MAP_TRANSITION = MAP_TRANSITION_DELAY + 100;
@@ -50,7 +50,7 @@ type State = {
     opacity: number;
 };
 
-class World extends React.Component<WorldProps> {
+class World extends Component<WorldProps> {
     state: State = {
         opacity: 0,
     };
@@ -91,7 +91,7 @@ class World extends React.Component<WorldProps> {
         });
     }
 
-    render(): React.ReactElement {
+    render(): ReactNode {
         const { opacity } = this.state;
         const { system, player } = this.props;
         const { largeView } = system;

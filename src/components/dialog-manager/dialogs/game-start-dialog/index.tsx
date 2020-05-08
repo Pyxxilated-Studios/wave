@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import startGame from "../../actions/start-game";
@@ -17,7 +17,7 @@ interface DispatchProps {
 
 type GameStartDialogProps = DispatchProps;
 
-const GameStartDialog = (props: GameStartDialogProps): React.ReactElement => {
+const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameStartDialogProps) => {
     return (
         <Dialog>
             <span className="flex-row game-start-title">{"Roll For Reaction"}</span>

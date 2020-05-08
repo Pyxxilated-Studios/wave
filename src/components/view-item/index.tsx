@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,7 +50,7 @@ interface OwnProps {
 
 type ViewItemProps = DispatchProps & StateProps & OwnProps;
 
-const ViewItem: React.FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
+const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     const [confirmPotion, setConfirmPotion] = useState(false);
     const [confirmDrop, setConfirmDrop] = useState(false);
     const [confirmSell, setConfirmSell] = useState(false);

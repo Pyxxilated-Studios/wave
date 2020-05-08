@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../button";
@@ -8,8 +8,8 @@ import Button from "../button";
 interface SelectButtonProps {
     icon?: IconProp;
     title: string;
-    iconStyle?: React.CSSProperties;
-    style?: React.CSSProperties;
+    iconStyle?: CSSProperties;
+    style?: CSSProperties;
     indicator?: boolean;
     onClick?: (_: string) => void;
     small?: boolean;
@@ -20,7 +20,7 @@ interface SelectButtonProps {
     selected: boolean;
 }
 
-const SelectButton: React.FunctionComponent<SelectButtonProps> = (props: SelectButtonProps) => {
+const SelectButton: FunctionComponent<SelectButtonProps> = (props: SelectButtonProps) => {
     function handleClick(): void {
         if (props.onClick) {
             props.onClick(props.title);

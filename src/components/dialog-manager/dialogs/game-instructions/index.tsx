@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 // import { isMobile } from "react-device-detect";
 
@@ -24,7 +24,7 @@ interface DispatchProps {
 
 type GameInstructionsProps = DispatchProps;
 
-const GameInstructions: React.FunctionComponent<GameInstructionsProps> = (props: GameInstructionsProps) => {
+const GameInstructions: FunctionComponent<GameInstructionsProps> = (props: GameInstructionsProps) => {
     const { loadStartingItems, showStartingMessage } = props;
 
     const mobileVersion = false;

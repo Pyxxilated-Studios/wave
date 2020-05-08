@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FunctionComponent, CSSProperties, ReactNode } from "react";
 
 import { ENTER_KEY, ESC_KEY } from "../../constants";
 
@@ -7,14 +7,14 @@ import Button from "../button";
 
 interface DialogProps {
     className?: string;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
     goBack?: (_?: KeyboardEvent) => void;
     onKeyPress?: (key: number) => void;
     keys?: number[];
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-const Dialog: React.FunctionComponent<DialogProps> = (props: DialogProps) => {
+const Dialog: FunctionComponent<DialogProps> = (props: DialogProps) => {
     const handleKeyPress = (event: KeyboardEvent): void => {
         if (props.onKeyPress) {
             if (props.keys ? props.keys.includes(event.keyCode) : event.keyCode === ENTER_KEY) {
@@ -43,12 +43,7 @@ const Dialog: React.FunctionComponent<DialogProps> = (props: DialogProps) => {
 
     return (
         <div className={props.className || "dialog-container white-border"} style={props.style}>
-            {props.goBack && (
-                <Button icon="arrow-left" onClick={props.goBack} extraClass="dialog-back-button" />
-                // <button onClick={props.goBack} className="dialog__back-button">
-                //     <i className={`fa fa-arrow-left`} />
-                // </button>
-            )}
+            {props.goBack && <Button icon="arrow-left" onClick={props.goBack} extraClass="dialog-back-button" />}
             {props.children}
         </div>
     );

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import ReactTimeout from "react-timeout";
+import React, { Component, ReactNode } from "react";
+import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -32,7 +32,7 @@ interface OwnProps {
     largeView: boolean;
 }
 
-type SnackbarProps = DispatchProps & StateProps & OwnProps & ReactTimeout.ReactTimeoutProps;
+type SnackbarProps = DispatchProps & StateProps & OwnProps & ReactTimeoutProps;
 type State = { show: string; item?: ItemType; equip: boolean };
 
 class Snackbar extends Component<SnackbarProps> {
@@ -128,7 +128,7 @@ class Snackbar extends Component<SnackbarProps> {
         this.handleHideSnack();
     }
 
-    render(): React.ReactElement | null {
+    render(): ReactNode | null {
         const { sideMenu, largeView } = this.props;
         const { show, equip } = this.state;
 

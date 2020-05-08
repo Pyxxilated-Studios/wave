@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -30,7 +30,7 @@ interface StateProps {
 
 type EquippedItemsProps = DispatchProps & StateProps;
 
-const EquippedItems: React.FunctionComponent<EquippedItemsProps> = (props: EquippedItemsProps) => {
+const EquippedItems: FunctionComponent<EquippedItemsProps> = (props: EquippedItemsProps) => {
     const { weapon, ring, helmet, boots, body, gloves, legs } = props.stats.equippedItems;
 
     return (

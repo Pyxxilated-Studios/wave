@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import { connect } from "react-redux";
 import { DialogState } from "../../store/dialog/types";
 import { RootState } from "../../store";
@@ -15,18 +15,19 @@ import GameTextDialog from "./dialogs/game-text-dialog";
 // import MainGameStart from './dialogs/main-game-start';
 // import SettingsDialog from './dialogs/settings-dialog';
 // import ShopDialog from './dialogs/shop-dialog';
-// import LevelUp from './dialogs/level-up';
+import LevelUpDialog from "./dialogs/level-up-dialog";
 import AbilityScores from "./dialogs/ability-dialog";
 // import CharacterCustomisation from './dialogs/character-customisation';
 // import JournalDialog from './dialogs/journal-dialog';
 // import SpellbookDialog from './dialogs/spellbook-dialog';
 
-interface DialogProps {
+interface StateProps {
     dialog: DialogState;
-    journal: boolean;
 }
 
-const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps) => {
+type DialogManagerProps = StateProps;
+
+const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManagerProps) => {
     const { character, paused, reason } = props.dialog;
     const {
         chest,
@@ -45,9 +46,9 @@ const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps)
         spellbookDialog,
     } = reason;
 
-    let PauseComp: React.ReactElement | null = null;
-    const SettingsComp: React.ReactElement | null = null;
-    const LevelUpComp: React.ReactElement | null = null;
+    let PauseComp: ReactNode = null;
+    const SettingsComp: ReactNode = null;
+    let LevelUpComp: ReactNode = null;
 
     if (paused) {
         if (chest) PauseComp = <ChestLoot />;
@@ -70,7 +71,7 @@ const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps)
         //     if (gameWin) PauseComp = <GameWin />;
     }
     //   if (settings) SettingsComp = <SettingsDialog />;
-    //   if (levelUp) LevelUpComp = <LevelUp />;
+    if (levelUp) LevelUpComp = <LevelUpDialog />;
 
     return (
         <>
@@ -86,9 +87,8 @@ const DialogManager: React.FunctionComponent<DialogProps> = (props: DialogProps)
     );
 };
 
-const mapStateToProps = (state: RootState): DialogProps => ({
+const mapStateToProps = (state: RootState): StateProps => ({
     dialog: state.dialog,
-    journal: false,
 });
 
 export default connect(mapStateToProps)(DialogManager);
