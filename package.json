@@ -21,6 +21,7 @@
         "redux-thunk": "^2.3.0",
         "typeface-montserrat": "^0.0.75",
         "typeface-roboto": "^0.0.75",
+        "typeface-roboto-mono": "^0.0.75",
         "uuid": "^8.0.0"
     },
     "resolutions": {

@@ -59,10 +59,10 @@ const MapPadding: FunctionComponent<MapPaddingProps> = (props: MapPaddingProps) 
 
     return (
         <>
-            <div className="map__padding--top">{paddingTiles.top}</div>
-            <div className="map__padding--bottom">{paddingTiles.bottom}</div>
-            <div className="map__padding--left">{paddingTiles.left}</div>
-            <div className="map__padding--right">{paddingTiles.right}</div>
+            <div className="map-padding-top">{paddingTiles.top}</div>
+            <div className="map-padding-bottom">{paddingTiles.bottom}</div>
+            <div className="map-padding-left">{paddingTiles.left}</div>
+            <div className="map-padding-right">{paddingTiles.right}</div>
         </>
     );
 };

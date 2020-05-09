@@ -9,8 +9,10 @@ import { Direction } from "../../types";
 
 import { toggleSettings } from "../../store/dialog/actions";
 
-import toggleInventory from "../dialog-manager/actions/toggle-inventory";
 import move from "./actions/move-player";
+
+import toggleInventory from "../dialog-manager/actions/toggle-inventory";
+import abilityScoreDialog from "../dialog-manager/actions/ability-score-dialog";
 
 import {
     LEFT_KEY,
@@ -24,12 +26,14 @@ import {
     ANIMATION_SPEED,
     I_KEY,
     ESC_KEY,
+    U_KEY,
 } from "../../constants";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
     toggleInventory: () => void;
     toggleSettings: () => void;
+    openAbilityScoreDialog: () => void;
 }
 
 interface StateProps {
@@ -42,7 +46,7 @@ type ControlProps = StateProps & DispatchProps;
 const ANIMATION_WITH_PADDING = ANIMATION_SPEED * 1.25;
 
 const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
-    const { dialog, movePlayer, toggleInventory, toggleSettings } = props;
+    const { dialog, movePlayer, toggleInventory, toggleSettings, openAbilityScoreDialog } = props;
 
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
@@ -64,10 +68,12 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                     return movePlayer(Direction.West);
                 case I_KEY:
                     return toggleInventory();
+                case U_KEY:
+                    return openAbilityScoreDialog();
                 default:
             }
         },
-        [movePlayer, toggleInventory, toggleSettings],
+        [movePlayer, toggleInventory, toggleSettings, openAbilityScoreDialog],
     );
 
     const _handleKeyPress = debounce(
@@ -102,6 +108,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
     movePlayer: (direction: Direction): void => dispatch(move(direction)),
     toggleInventory: (): void => dispatch(toggleInventory()),
     toggleSettings: (): void => dispatch(toggleSettings()),
+    openAbilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

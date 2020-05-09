@@ -9,7 +9,7 @@ import { DialogState } from "../../store/dialog/types";
 import GameSettings from "./settings";
 import Inventory from "../inventory";
 import Snackbar from "../snackbar";
-// import Stats from "../stats";
+import Stats from "../stats";
 // import Journal from "../journal";
 
 import "./styles.scss";
@@ -43,7 +43,7 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                     justifyContent: disableInventory ? "flex-end" : "center",
                 }}
             >
-                {/* <Stats largeView={largeView} sideMenu={sideMenu} disabled={disableStats} /> */}
+                <Stats largeView={largeView} sideMenu={sideMenu} disabled={disableStats || false} />
 
                 <Inventory sideMenu={sideMenu} disabled={disableInventory} />
                 {/* <Journal sideMenu={sideMenu} disabled={disableInventory} /> */}

@@ -10,6 +10,8 @@ import App from "./App";
 import { store, persistor } from "./store";
 
 import "typeface-roboto";
+import "typeface-roboto-mono";
+import "typeface-montserrat";
 
 import "./styles.scss";
 
