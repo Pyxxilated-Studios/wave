@@ -1,5 +1,6 @@
-import { Direction, Point } from '../../types';
-import { ResetAction } from '../system/types';
+import { Direction, Point, Projectile } from "../../types";
+import { ResetAction } from "../system/types";
+import { MonsterDiedAction } from "../monsters/types";
 
 export interface PlayerState {
     direction: Direction;
@@ -10,28 +11,45 @@ export interface PlayerState {
     playerDied: boolean;
     targetPosition: Point;
     spell: null;
+    turnsOutOfCombat: number;
+    monsterAttacked: boolean;
+    monsterDied: boolean;
 }
 
-export const MOVE_PLAYER = 'MOVE_PLAYER';
+export const MOVE_PLAYER = "MOVE_PLAYER";
 interface MovePlayerAction {
     type: typeof MOVE_PLAYER;
     position: Point;
     direction: Direction;
 }
 
-export const PLAYER_DIED = 'PLAYER_DIED';
+export const PLAYER_DIED = "PLAYER_DIED";
 interface PlayerDieAction {
     type: typeof PLAYER_DIED;
 }
 
-export const PLAYER_ATTACK = 'PLAYER_ATTACK';
+export const PLAYER_ATTACK = "PLAYER_ATTACK";
 interface PlayerAttackAction {
     type: typeof PLAYER_ATTACK;
 }
 
-export const TAKE_TURN = 'TAKE_TURN';
+export const TAKE_TURN = "TAKE_TURN";
 export interface PlayerTurnAction {
     type: typeof TAKE_TURN;
 }
 
-export type PlayerActionType = MovePlayerAction | PlayerDieAction | PlayerAttackAction | PlayerTurnAction | ResetAction;
+export const USE_PROJECTILE = "USE_PROJECTILE";
+export interface UseProjectileAction {
+    type: typeof USE_PROJECTILE;
+    target: Point;
+    projectile: Projectile;
+}
+
+export type PlayerActionType =
+    | MovePlayerAction
+    | PlayerDieAction
+    | PlayerAttackAction
+    | PlayerTurnAction
+    | UseProjectileAction
+    | MonsterDiedAction
+    | ResetAction;

@@ -71,6 +71,9 @@ export const STARTING_ABILITY_POINTS = 12;
 export const MAX_ABILITY_SCORE = 20;
 export const LEVEL_UP_ABILITY_POINTS = 2;
 
+// If the player is unarmed, we need them to still be able to attack
+export const UNARMED_DAMAGE = "1d4";
+
 // Base player health/mana values
 export const BASE_HEALTH = 10;
 export const BASE_MANA = 5;

@@ -1,20 +1,12 @@
 import { RootThunk } from "../../../store";
+import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters/actions";
 import { Point, Direction, Entity } from "../../../types";
 
-import getNextTile from "../../../utils/get-next-tile";
 import { arrayContainsPoint } from "../../../utils/array-contains";
-import { WorldState } from "../../../store/world/types";
-import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters/actions";
+import { traversableTile, monsterAtPosition } from "../../../utils/movement";
 
 const checkForOtherMonster = (id: string, position: Point, monsterList: Record<string, Entity>): boolean =>
-    Object.entries(monsterList).some(
-        ([, monster]) => id !== monster.id && monster.location.x === position.x && monster.location.y === position.y,
-    );
-
-const observeImpassable = (newPos: Point, world: WorldState): Point | undefined => {
-    const nextTile = getNextTile(world, newPos);
-    return nextTile < 5 ? newPos : undefined;
-};
+    monsterAtPosition(position, monsterList)?.some((monsterID) => monsterID !== id) || false;
 
 // recursive function for moving the monster to the next available tile
 // will try to go towards the player if possible
@@ -32,11 +24,13 @@ const moveMonster = (
 
     let nextPosition: Point = { x: 0, y: 0 };
 
+    const { maps, floorNumber } = getState().world;
+
     switch (direction) {
         case Direction.North:
             nextPosition = { x: position.x, y: position.y - 1 };
             // see if the monster can move to the next location
-            if (observeImpassable(nextPosition, getState().world)) {
+            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
                 // if we found a monster
                 if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
                     // move in a circle, but the opposite direction
@@ -55,7 +49,7 @@ const moveMonster = (
         case Direction.South:
             nextPosition = { x: position.x, y: position.y + 1 };
             // see if the monster can move to the next location
-            if (observeImpassable(nextPosition, getState().world)) {
+            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
                 // if we found a monster
                 if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
                     // move in a circle, but the opposite direction
@@ -74,7 +68,7 @@ const moveMonster = (
         case Direction.West:
             nextPosition = { x: position.x - 1, y: position.y };
             // see if the monster can move to the next location
-            if (observeImpassable(nextPosition, getState().world)) {
+            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
                 // if we found a monster
                 if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
                     // move in a circle, but the opposite direction
@@ -95,7 +89,7 @@ const moveMonster = (
         case Direction.East:
             nextPosition = { x: position.x + 1, y: position.y };
             // see if the monster can move to the next location
-            if (observeImpassable(nextPosition, getState().world)) {
+            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
                 // if we found a monster
                 if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
                     // move in a circle, but the opposite direction

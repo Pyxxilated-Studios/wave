@@ -1,20 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FunctionComponent } from "react";
+import { connect } from "react-redux";
 
-import { PlayerState } from '../../store/player/types';
-import { RootState } from '../../store';
+import { PlayerState } from "../../store/player/types";
+import { RootState } from "../../store";
 
-import PlayerSprite from './assets/knight_m_idle_anim_f0.png';
+import PlayerSprite from "./assets/knight_m_idle_anim_f0.png";
 
-import './styles.scss';
-import { SPRITE_SIZE } from '../../constants';
-import { translateToSpriteCoordinates } from '../../utils/translate-point-sprite';
+import "./styles.scss";
+import { SPRITE_SIZE } from "../../constants";
+import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
 interface PlayerProps {
     player: PlayerState;
 }
 
-const Player = (props: PlayerProps) => {
+const Player: FunctionComponent<PlayerProps> = (props: PlayerProps) => {
     const spriteCoordinates = translateToSpriteCoordinates(props.player.position);
 
     return (
@@ -31,7 +31,7 @@ const Player = (props: PlayerProps) => {
     );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): PlayerProps => ({
     player: state.player,
 });
 

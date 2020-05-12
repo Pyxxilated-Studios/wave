@@ -1,9 +1,18 @@
-import cloneDeep from 'lodash.clonedeep';
-import { v4 as uuidv4 } from 'uuid';
+import cloneDeep from "lodash.clonedeep";
+import { v4 as uuidv4 } from "uuid";
 
-import { MonstersState, MonstersActionType, ADD_MONSTERS, REVEAL_MONSTER, HIDE_MONSTER, MONSTER_MOVE } from './types';
-import { translateToSpriteCoordinates } from '../../utils/translate-point-sprite';
-import { RESET } from '../system/types';
+import {
+    MonstersState,
+    MonstersActionType,
+    ADD_MONSTERS,
+    REVEAL_MONSTER,
+    HIDE_MONSTER,
+    MONSTER_MOVE,
+    DAMAGE_TO_MONSTER,
+} from "./types";
+import { RESET } from "../system/types";
+
+import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
 const initialState: MonstersState = {
     entities: {},
@@ -26,6 +35,18 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
         case MONSTER_MOVE: {
             const newState = cloneDeep(state);
             newState.entities[action.currentMap][action.id].location = action.position;
+            return newState;
+        }
+
+        case DAMAGE_TO_MONSTER: {
+            const newState = cloneDeep(state);
+            // subtract the damage from monster hp
+            newState.entities[action.map][action.monsterId].hp -= action.amount;
+            // if monster has 0 or less hp, kill it
+            if (newState.entities[action.map][action.monsterId].hp <= 0) {
+                delete newState.entities[action.map][action.monsterId];
+            }
+
             return newState;
         }
 

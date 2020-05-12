@@ -28,12 +28,12 @@ const getWallType = (tiles: Tile[][]): number => {
 };
 
 const Map: FunctionComponent<MapProps> = (props: MapProps) => {
-    const { randomMaps, currentMap, floorNumber } = props.world;
+    const { maps, currentMap, floorNumber } = props.world;
 
     const width = MAP_SIZE.width * SPRITE_SIZE;
     const height = MAP_SIZE.height * SPRITE_SIZE;
 
-    const map = { ...props.map, ...randomMaps[floorNumber - 1] };
+    const map = { ...props.map, ...maps[floorNumber - 1] };
 
     const mapStyle: CSSProperties = { width, height, position: "relative" };
 

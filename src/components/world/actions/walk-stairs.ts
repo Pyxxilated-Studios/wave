@@ -12,7 +12,7 @@ import { setCurrentMap, loadMap } from "../../../store/world/actions";
 
 const walkStairs = (nextTile: number, playerPosition: Point): RootThunk =>
     debounce(async (dispatch, getState) => {
-        const { randomMaps, floorNumber } = getState().world;
+        const { maps: randomMaps, floorNumber } = getState().world;
 
         const direction = nextTile === 2 ? "down" : "up";
 

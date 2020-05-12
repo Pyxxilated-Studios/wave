@@ -18,6 +18,7 @@ import { Armour, Weapon } from "../../types";
 
 import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
 import calculateModifier from "../../utils/calculate-modifier";
+import { calculateDefenceBonus } from "../../utils/calculate-defence-bonus";
 
 const initialState: StatsState = {
     abilities: {
@@ -57,8 +58,38 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
         case RESET:
             return initialState;
 
-        case SET_ABILITY_SCORES:
+        case SET_ABILITY_SCORES: {
+            const newAbilityModifierMana = calculateMaxManaPool(
+                state.level,
+                calculateModifier(action.abilities.intelligence),
+            );
+            const manaDifference = newAbilityModifierMana - state.abilityModifierMana;
+
+            state.mana += manaDifference;
+            state.maxMana += manaDifference;
+            state.abilityModifierMana = newAbilityModifierMana;
+
+            // calculate new hp
+            const newAbilityModifierHp = calculateMaxHealthPool(
+                state.level,
+                calculateModifier(action.abilities.constitution),
+            );
+            const hpDifference = newAbilityModifierHp - state.abilityModifierHealth;
+
+            state.health += hpDifference;
+            state.maxHealth += hpDifference;
+            state.abilityModifierHealth = newAbilityModifierHp;
+
+            const previousDex = calculateModifier(state.abilities.dexterity);
+            const currentDex = calculateModifier(action.abilities.dexterity);
+
+            const prevDefenceBonus = calculateDefenceBonus(previousDex);
+            const currDefenceBonus = calculateDefenceBonus(currentDex);
+
+            state.defence = state.defence - prevDefenceBonus + currDefenceBonus;
+
             return { ...state, abilities: { ...action.abilities, points: action.points } };
+        }
 
         case GET_GOLD:
             return { ...state, gold: state.gold + action.amount };

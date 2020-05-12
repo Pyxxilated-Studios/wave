@@ -9,6 +9,7 @@ import {
     MAP_TRANSITION,
     SET_CHEST_DATA,
     OPEN_CHEST,
+    ADD_BLOOD_SPILL,
 } from "./types";
 import { EXPLORE_TILES } from "../map/types";
 import { Tile, Point } from "../../types";
@@ -23,7 +24,7 @@ import { getChestName } from "../../utils/get-chest-name";
 const initialState: WorldState = {
     currentMap: "",
     turn: 0,
-    randomMaps: [],
+    maps: [],
     chests: {},
     floorNumber: 0,
     mapTransition: false,
@@ -40,8 +41,20 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
         case TAKE_TURN:
             return { ...state, turn: state.turn + 1 };
 
+        case ADD_BLOOD_SPILL: {
+            const newState = cloneDeep(state);
+            // we need this check to not override chests, stairs, etc.
+            // check if the next tile is an empty one
+            if (newState.maps[newState.floorNumber - 1].tiles[action.position.y][action.position.x].value === 0) {
+                // set current tile to blood spill tile
+                newState.maps[newState.floorNumber - 1].tiles[action.position.y][action.position.x].value = -1;
+            }
+
+            return newState;
+        }
+
         case GENERATE_MAP: {
-            const _randomMaps = cloneDeep(state.randomMaps);
+            const _randomMaps = cloneDeep(state.maps);
 
             const randomTiles = attachMetaToTiles(action.tiles);
             const randomPaddTiles = generatePaddingTiles();
@@ -52,12 +65,12 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
                 paddingTiles: randomPaddTiles,
             });
 
-            return { ...state, randomMaps: _randomMaps };
+            return { ...state, maps: _randomMaps };
         }
 
         case SET_CHEST_DATA: {
             const newState = cloneDeep(state);
-            const currentMapData = newState.randomMaps[newState.floorNumber - 1];
+            const currentMapData = newState.maps[newState.floorNumber - 1];
 
             if (action.data) {
                 // We pass 'false' around if we're setting up a new chest, so here we've got an existing chest
@@ -108,7 +121,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
 
             const { tiles, paddingTiles } = action;
 
-            const currentMapData = newState.randomMaps[newState.floorNumber - 1];
+            const currentMapData = newState.maps[newState.floorNumber - 1];
             // get each tile
             tiles.forEach((tile: Point) => {
                 currentMapData.tiles[tile.y][tile.x].explored = true;

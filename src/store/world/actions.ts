@@ -6,6 +6,7 @@ import {
     MAP_TRANSITION,
     SET_CHEST_DATA,
     OPEN_CHEST,
+    ADD_BLOOD_SPILL,
 } from "./types";
 import { Tile, ChestContents, Point } from "../../types";
 
@@ -43,4 +44,8 @@ export const setChestData = (data?: ChestContents): WorldActionType => {
 
 export const openChest = (position: Point): WorldActionType => {
     return { type: OPEN_CHEST, position };
+};
+
+export const addBloodSpill = (position: Point): WorldActionType => {
+    return { type: ADD_BLOOD_SPILL, position };
 };

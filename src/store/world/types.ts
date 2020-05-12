@@ -6,7 +6,7 @@ import { ResetAction } from "../system/types";
 export interface WorldState {
     currentMap: string;
     turn: number;
-    randomMaps: GameMap[];
+    maps: GameMap[];
     chests: Record<string, { position: Point; item?: ItemType }>;
     floorNumber: number;
     mapTransition: boolean;
@@ -50,6 +50,12 @@ interface OpenChestAction {
     position: Point;
 }
 
+export const ADD_BLOOD_SPILL = "ADD_BLOOD_SPILL";
+interface AddBloodSpillAction {
+    type: typeof ADD_BLOOD_SPILL;
+    position: Point;
+}
+
 export type WorldActionType =
     | SetCurrentMapAction
     | GenerateMapAction
@@ -59,4 +65,5 @@ export type WorldActionType =
     | MapTransitionAction
     | SetChestDataAction
     | OpenChestAction
+    | AddBloodSpillAction
     | ResetAction;

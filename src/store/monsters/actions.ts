@@ -1,5 +1,13 @@
-import { MonstersActionType, ADD_MONSTERS, REVEAL_MONSTER, HIDE_MONSTER, MONSTER_MOVE } from './types';
-import { Entity, Point } from '../../types';
+import {
+    MonstersActionType,
+    ADD_MONSTERS,
+    REVEAL_MONSTER,
+    HIDE_MONSTER,
+    MONSTER_MOVE,
+    DAMAGE_TO_MONSTER,
+    MONSTER_DIED,
+} from "./types";
+import { Entity, Point } from "../../types";
 
 export const addMonsters = (currentMap: string, monsters: Entity[]): MonstersActionType => {
     return {
@@ -32,4 +40,12 @@ export const monsterMove = (id: string, currentMap: string, position: Point): Mo
         currentMap,
         position,
     };
+};
+
+export const damageToMonster = (amount: number, monsterId: string, map: string, entity: string): MonstersActionType => {
+    return { type: DAMAGE_TO_MONSTER, amount, monsterId, map, entity };
+};
+
+export const monsterDied = (entity: string): MonstersActionType => {
+    return { type: MONSTER_DIED, entity };
 };

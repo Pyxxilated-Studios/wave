@@ -5,15 +5,12 @@ import generateMonsters from "../../world/actions/generate-monsters";
 
 const loadMonsters = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { world, monsters, player, stats } = getState();
-    const { currentMap, randomMaps, floorNumber } = world;
+    const { currentMap, maps, floorNumber } = world;
 
     if (!monsters.entities[currentMap]) {
-        // let's generate some monsters and set them!
+        // If no monsters exist in this map, generate some
         dispatch(
-            addMonsters(
-                currentMap,
-                generateMonsters(floorNumber, randomMaps[floorNumber - 1], player.position, stats.level),
-            ),
+            addMonsters(currentMap, generateMonsters(floorNumber, maps[floorNumber - 1], player.position, stats.level)),
         );
     }
 };
