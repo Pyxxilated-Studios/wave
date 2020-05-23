@@ -31,4 +31,7 @@ pages:
     key: ${CI_PROJECT_ID}
     paths:
       - node_modules
+        except:
+  changes:
+    - "*.md"
 
