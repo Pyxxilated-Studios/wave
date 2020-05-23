@@ -11,7 +11,7 @@ before_script:
 
 wave:
   services:
-    - yarn:1
+    - yarn:1.22
   script:
     - yarn install
     - yarn build
