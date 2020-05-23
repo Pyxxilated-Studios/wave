@@ -2,6 +2,7 @@
     "name": "wave",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://pyxxil.gitlab.io/wave",
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.28",

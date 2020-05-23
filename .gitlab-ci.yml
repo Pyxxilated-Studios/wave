@@ -23,5 +23,4 @@ wave:
     key: ${CI_PROJECT_ID}
     paths:
       - node_modules
-      - .yarn
 
