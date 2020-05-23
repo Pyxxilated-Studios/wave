@@ -1,6 +1,4 @@
-
-stages:
-- build
+image: rustlang/rust:nightly
 
 cache:
   key: ${CI_PROJECT_ID}
@@ -16,14 +14,6 @@ before_script:
   - yarn install
   - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-wave:
-  stage: build
-  image: rustlang/rust:nightly
-  script:
-    - yarn build
-  artifacts:
-    paths:
-    - public
-  only: 
-  - master
+script:
+  - yarn build
 
