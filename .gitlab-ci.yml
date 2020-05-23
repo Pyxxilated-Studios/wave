@@ -1,3 +1,9 @@
+variables:
+  PUBLIC_URL: /wave
+
+stages:
+- deploy
+
 before_script:
   # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
   #- curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -9,10 +15,12 @@ before_script:
 
 wave:
   image: node:latest
+  stage: deploy
   script:
     - yarn install
     - yarn build
-    - rm -rf public
+    - cp public/index.html public/404.html
+    - mv public _public
     - mv build public
   artifacts:
     paths:
