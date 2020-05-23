@@ -3,7 +3,7 @@ before_script:
   #- curl -o- -L https://yarnpkg.com/install.sh | bash
   # Make available in the current terminal
   # - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 wave:
