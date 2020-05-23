@@ -10,6 +10,7 @@ before_script:
 wave:
   image: node:latest
   script:
+    - cd lib/pkg && yarn link && cd ../.. && yarn link wave
     - yarn install
     - yarn build
   cache:
