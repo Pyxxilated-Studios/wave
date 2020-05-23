@@ -8,8 +8,7 @@ before_script:
 wave:
   image: rustlang/rust:nightly
   services:
-    #- node:latest
-    - yarn:latest
+    - node:latest
   script:
     - yarn install
     - yarn build
