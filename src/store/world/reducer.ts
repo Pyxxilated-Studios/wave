@@ -73,7 +73,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             const currentMapData = newState.maps[newState.floorNumber - 1];
 
             if (action.data) {
-                // We pass 'false' around if we're setting up a new chest, so here we've got an existing chest
+                // We pass 'undefined' around if we're setting up a new chest, so here we've got an existing chest
                 const { item } = action.data;
 
                 if (!item) {

@@ -1,9 +1,10 @@
 // Create an 'unbiased' roll
 const unbiased = (sides: number): number => Math.floor(Math.random() * sides) + 1;
-type diceType = typeof unbiased;
+type DiceType = typeof unbiased;
 
+type BiasedDice = "min" | "max";
 // Create a 'biased' dice roll, either to the maximum or the minimum value, if not specified, return an unbiased roll
-const biased = (to: string): diceType => {
+const biased = (to: BiasedDice): DiceType => {
     if (to === "max") {
         return (sides: number): number => sides;
     } else if (to === "min") {
@@ -67,7 +68,7 @@ const ops = {
     },
     d: {
         precedence: 4,
-        op: (left: string, right: string, die: diceType): number[] => {
+        op: (left: string, right: string, die: DiceType): number[] => {
             const mul = parseInt(left);
             const sides = parseInt(right);
             const rolls = [];
@@ -184,7 +185,7 @@ const yard = (infix: string): string => {
 };
 
 // Evaluate a reverse polish notation (postfix) expression
-const rpn = (postfix: string, die: diceType): number => {
+const rpn = (postfix: string, die: DiceType): number => {
     const evaluated: string[] | string[][] = postfix.split(" ").reduce((stack: string[], token: string) => {
         if (token in ops) {
             const right = stack.pop();
@@ -197,15 +198,14 @@ const rpn = (postfix: string, die: diceType): number => {
         return stack;
     }, []);
 
-    const ev = evaluated.pop();
-    const out = ev ? ev : "";
+    const ev = evaluated.pop() || "0";
 
-    return Array.isArray(out) // We can either get a value here, or an array (indicating the last item is a dice roll)
-        ? out.reduce((sum, value) => sum + value, 0)
-        : out;
+    return Array.isArray(ev) // We can either get a value here, or an array (indicating the last item is a dice roll)
+        ? ev.reduce((sum, value) => sum + value, 0)
+        : parseInt(ev, 10);
 };
 
-const parse = (notation: string, dice: diceType): number => rpn(yard(lex(notation)), dice);
+const parse = (notation: string, dice: DiceType): number => rpn(yard(lex(notation)), dice);
 
 export const calculateDamageRange = (notation: string): [number, number] => {
     const min = parse(notation, biased("min"));
