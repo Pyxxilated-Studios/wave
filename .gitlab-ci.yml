@@ -6,8 +6,13 @@ cache:
   key: ${CI_PROJECT_ID}
   paths:
   - node_modules
+  - .yarn
 
 before_script:
+  # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  # Make available in the current terminal
+  - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
   - yarn install
   - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
