@@ -31,17 +31,17 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         chest,
         inventory,
         gameText,
-        gameOver,
+        //gameOver,
         gameStart,
-        gameWin,
+        //gameWin,
         gameInstructions,
         characterCreation,
         settings,
-        shop,
+        //shop,
         levelUp,
         abilityDialog,
-        journalDialog,
-        spellbookDialog,
+        //journalDialog,
+        //spellbookDialog,
     } = reason;
 
     let PauseComp: ReactNode = null;

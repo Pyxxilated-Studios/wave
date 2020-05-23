@@ -12,9 +12,16 @@ wave:
   script:
     - yarn install
     - yarn build
+    - rm -rf public
+    - mv build public
+  artifacts:
+    paths:
+      - public # mandatory, other folder won't work
+  only:
+    - master
   cache:
     key: ${CI_PROJECT_ID}
     paths:
-    - node_modules
-    - .yarn
+      - node_modules
+      - .yarn
 

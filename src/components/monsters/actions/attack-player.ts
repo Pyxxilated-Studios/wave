@@ -1,4 +1,4 @@
-import { calculateDamage } from "../../../utils/dice";
+//import { calculateDamage } from "../../../utils/dice";
 import { RootThunk } from "../../../store";
 
 const attackPlayer = (attackValue: number, dice: string, type: string): RootThunk => async (
