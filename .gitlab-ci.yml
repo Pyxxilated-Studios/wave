@@ -13,7 +13,7 @@ before_script:
   - source $HOME/.cargo/env
   - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-wave:
+pages:
   image: node:latest
   stage: deploy
   script:
