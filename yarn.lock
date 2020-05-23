@@ -2962,8 +2962,6 @@ chokidar@^2.1.8, chokidar@^3.0.0, chokidar@^3.3.0:
     is-glob "~4.0.1"
     normalize-path "~3.0.0"
     readdirp "~3.4.0"
-  optionalDependencies:
-    fsevents "~2.1.2"
 
 chownr@^1.1.1, chownr@^1.1.2:
   version "1.1.4"
@@ -6286,8 +6284,6 @@ jest-haste-map@^24.9.0:
     micromatch "^3.1.10"
     sane "^4.0.3"
     walker "^1.0.7"
-  optionalDependencies:
-    fsevents "^1.2.7"
 
 jest-jasmine2@^24.9.0:
   version "24.9.0"
@@ -9407,8 +9403,6 @@ react-scripts@3.4.1:
     webpack-dev-server "3.10.3"
     webpack-manifest-plugin "2.2.0"
     workbox-webpack-plugin "4.3.1"
-  optionalDependencies:
-    fsevents "2.1.2"
 
 react-timeout@^1.2.0:
   version "1.2.0"
