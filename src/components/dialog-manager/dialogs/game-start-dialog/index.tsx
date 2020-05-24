@@ -20,7 +20,7 @@ type GameStartDialogProps = DispatchProps;
 const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameStartDialogProps) => {
     return (
         <Dialog>
-            <span className="flex-row game-start-title">{"Roll For Reaction"}</span>
+            <span className="flex-row game-start-title">{"Wave"}</span>
 
             <span className="flex-column game-start-text">
                 {"Greetings, Traveler. Please, explore our dungeons..."}
