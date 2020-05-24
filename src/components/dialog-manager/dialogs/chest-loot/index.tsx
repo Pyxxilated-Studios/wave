@@ -30,7 +30,7 @@ const ChestLoot: FunctionComponent<ChestLootProps> = (props: ChestLootProps) => 
     const { openChest } = props;
 
     useEffect(() => {
-        if (!chestOpen) openChest();
+        if (!chestOpen?.populated) openChest();
     }, [chestOpen, openChest]);
 
     if (!chestOpen) {

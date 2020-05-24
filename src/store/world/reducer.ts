@@ -101,6 +101,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
 
             const chestName = getChestName(newState.currentMap, action.position);
             const chest = newState.chests[chestName];
+
             if (!chest) {
                 // This chest hasn't been opened before, so let's generate one
                 newState.chests[chestName] = { position: action.position };

@@ -152,4 +152,5 @@ export interface ChestContents {
     experience?: number;
     item?: ItemType;
     position: Point;
+    populated: boolean;
 }

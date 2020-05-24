@@ -21,10 +21,11 @@ const exploreChest = (position: Point): RootThunk => async (dispatch, getState):
                 experience: 0,
                 item: chest.item,
                 position,
+                populated: true,
             }),
         );
     } else {
-        dispatch(setChestData());
+        dispatch(setChestData({ position, populated: false }));
     }
 
     dispatch(openChest(position));

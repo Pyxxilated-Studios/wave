@@ -14,11 +14,11 @@ const pickupItem = (): RootThunk => async (dispatch, getState): Promise<void> =>
 
     if (items.length < maxItems) {
         // The item has now been taken, so make sure it gets deleted
-        dispatch(setChestData({ experience: 0, gold: 0, position: player.position }));
+        dispatch(setChestData({ experience: 0, gold: 0, position: player.position, populated: true }));
         dispatch(getItem(item));
     } else {
         // The item now needs to stay in the chest, so put it there
-        dispatch(setChestData({ experience: 0, gold: 0, item, position: player.position }));
+        dispatch(setChestData({ experience: 0, gold: 0, item, position: player.position, populated: true }));
         dispatch(tooManyItems(item));
     }
 };

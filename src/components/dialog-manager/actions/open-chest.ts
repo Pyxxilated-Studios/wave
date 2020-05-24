@@ -36,6 +36,7 @@ const openChest = (): RootThunk => async (dispatch, getState): Promise<void> => 
             gold,
             item: itemDrop,
             position: player.position,
+            populated: true,
         }),
     );
 };
