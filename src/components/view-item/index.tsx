@@ -44,7 +44,7 @@ interface OwnProps {
     sell?: boolean;
     buy?: boolean;
     open: boolean;
-    data: ItemType;
+    data?: ItemType;
     onClose: () => void;
 }
 
@@ -56,7 +56,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     const [confirmSell, setConfirmSell] = useState(false);
     const [confirmBuy, setConfirmBuy] = useState(false);
 
-    if (!props.open) return null;
+    if (!props.open || !props.data) return null;
 
     const itemStats = [];
     let itemIsEquipped = false;
@@ -185,7 +185,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     if (props.data.effects) {
         // find each effect
         Reflect.ownKeys(props.data.effects).forEach((effect) => {
-            if (props.data.effects) {
+            if (props.data?.effects) {
                 const value = props.data.effects[effect as keyof ItemEffect];
                 if (value) {
                     itemStats.push(<StatsItem stats={{ name: effect.toString(), value }} key={uuidv4()} />);
@@ -217,13 +217,17 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         ViewItemButtons = <Button onClick={(): void => setConfirmSell(true)} icon="coins" title={"Sell Item"} />;
     } else if (itemIsEquipped) {
         onKeyPress = (): void => {
-            props.unequipItem(props.data);
+            if (props.data) {
+                props.unequipItem(props.data);
+            }
             props.onClose();
         };
         ViewItemButtons = (
             <Button
                 onClick={(): void => {
-                    props.unequipItem(props.data);
+                    if (props.data) {
+                        props.unequipItem(props.data);
+                    }
                     props.onClose();
                 }}
                 icon="archive"
@@ -243,10 +247,12 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         //     );
     } else {
         onKeyPress = (): void => {
-            if (props.data.type === "potion") {
+            if (props.data?.type === "potion") {
                 setConfirmPotion(true);
             } else {
-                props.equipItem(props.data);
+                if (props.data) {
+                    props.equipItem(props.data);
+                }
                 props.onClose();
             }
         };
@@ -264,7 +270,9 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 ) : (
                     <Button
                         onClick={(): void => {
-                            props.equipItem(props.data);
+                            if (props.data) {
+                                props.equipItem(props.data);
+                            }
                             props.onClose();
                         }}
                         icon="hand-paper"
@@ -314,7 +322,9 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Drop"
                 acceptIcon="trash"
                 confirm={(): void => {
-                    props.dropItem(props.data);
+                    if (props.data) {
+                        props.dropItem(props.data);
+                    }
                     setConfirmDrop(false);
                     props.onClose();
                 }}
@@ -330,7 +340,9 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Sell"
                 acceptIcon="coins"
                 confirm={(): void => {
-                    sellItem(props.data);
+                    if (props.data) {
+                        sellItem(props.data);
+                    }
                     setConfirmSell(false);
                     props.onClose();
                 }}
@@ -346,7 +358,9 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Buy"
                 acceptIcon="coins"
                 confirm={(): void => {
-                    buyItem(props.data);
+                    if (props.data) {
+                        buyItem(props.data);
+                    }
                     setConfirmBuy(false);
                     props.onClose();
                 }}
@@ -362,7 +376,9 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText={(props.data as ConsumableItem).kind === "health" ? "Heal" : "Restore"}
                 acceptIcon="medkit"
                 confirm={(): void => {
-                    props.consumePotion(props.data);
+                    if (props.data) {
+                        props.consumePotion(props.data);
+                    }
                     setConfirmPotion(false);
                     props.onClose();
                 }}

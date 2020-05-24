@@ -1,0 +1,12 @@
+.shop-inventory-container {
+    flex: 1;
+    justify-content: space-evenly;
+
+    width: 96%;
+
+    padding-top: 4px;
+
+    .shop-inventory-button {
+        padding: 4px 16px;
+    }
+}

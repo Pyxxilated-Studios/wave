@@ -119,6 +119,7 @@ export interface Projectile {
     target: string;
     animationFrames: number;
     sprite: string;
+    useText: string;
 }
 
 export type WeaponKind = "melee" | "ranged" | "magic";

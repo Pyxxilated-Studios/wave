@@ -1,8 +1,9 @@
 import { Weapon } from "../../../../../types";
+import { SIGHT_RADIUS } from "../../../../../constants";
 
 // Credit: https://shikashiassets.itch.io/shikashis-fantasy-icons-pack
 import SlingshotImg from "./slingshot.png";
-import { SIGHT_RADIUS } from "../../../../../constants";
+import Stone from "../../ammo/stone";
 
 const Slingshot: Weapon = {
     name: "Slingshot",
@@ -11,12 +12,7 @@ const Slingshot: Weapon = {
     range: SIGHT_RADIUS,
     damage: "2d8",
     image: SlingshotImg,
-    projectile: {
-        name: "stone",
-        target: "enemy",
-        animationFrames: 560 / 40,
-        sprite: "",
-    },
+    projectile: Stone,
     value: 110,
 };
 

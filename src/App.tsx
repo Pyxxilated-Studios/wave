@@ -16,6 +16,10 @@ import {
     faCog,
     faCaretSquareLeft,
     faSave,
+    faCoins,
+    faWalking,
+    faAngleDoubleRight,
+    faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
@@ -43,6 +47,10 @@ fontawesome.library.add(
     faCog,
     faCaretSquareLeft,
     faSave,
+    faCoins,
+    faWalking,
+    faAngleDoubleRight,
+    faArrowRight,
 );
 
 interface AppProps {

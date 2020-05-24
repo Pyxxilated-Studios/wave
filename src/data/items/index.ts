@@ -26,9 +26,10 @@ import BrownRobes from "./clothes/robes/brown-robes";
 import RedRobes from "./clothes/robes/red-robes";
 import TealRobes from "./clothes/robes/teal-robes";
 import SkullRobes from "./clothes/robes/skull-robes";
+import OldRing from "./jewellery/rings/old-ring";
 import DiamondRing from "./jewellery/rings/diamond-ring";
 import AmethystRing from "./jewellery/rings/amethyst-ring";
-import OldRing from "./jewellery/rings/old-ring";
+import SapphireRing from "./jewellery/rings/sapphire-ring";
 import BroadSword from "./weapons/swords/broad-sword";
 import RustySword from "./weapons/swords/rusty-sword";
 import SteelSword from "./weapons/swords/steel-sword";
@@ -41,8 +42,9 @@ import TealStaff from "./weapons/staffs/teal-staff";
 import SkullStaff from "./weapons/staffs/skull-staff";
 import Boomerang from "./weapons/ranged/boomerang";
 import Slingshot from "./weapons/ranged/slingshot";
-import Bow from "./weapons/ranged/bow";
-import Crossbow from "./weapons/ranged/crossbow";
+import HellsPhoenix from "./weapons/ranged/hells-phoenix";
+import PhantasmCrossbow from "./weapons/ranged/phantasm";
+import MidnightsFury from "./weapons/ranged/midnights-fury";
 import HealthPotion from "./miscellaneous/potions/health-potion";
 import GreatHealthPotion from "./miscellaneous/potions/great-health-potion";
 import MightyHealthPotion from "./miscellaneous/potions/mighty-health-potion";
@@ -73,8 +75,9 @@ const items: {
         ranged: {
             Boomerang,
             Slingshot,
-            Bow,
-            Crossbow,
+            HellsPhoenix,
+            PhantasmCrossbow,
+            MidnightsFury,
         },
         staffs: {
             BlackStaff,
@@ -120,6 +123,7 @@ const items: {
             AmethystRing,
             DiamondRing,
             OldRing,
+            SapphireRing,
         },
     },
     miscellaneous: {
@@ -139,61 +143,31 @@ const items: {
     },
 };
 
-export const randomItemsT1 = [
-    SteelSword,
-    LeatherArmour,
-    LeatherBoots,
-    LeatherCap,
-    LeatherGloves,
-    LeatherPants,
-    OldRing,
-    BlackRobes,
-    BlackStaff,
-    Boomerang,
-];
+export const leatherEquipment = [LeatherCap, LeatherArmour, LeatherGloves, LeatherPants, LeatherBoots];
 
-export const randomItemsT2 = [
-    ...randomItemsT1,
-    BroadSword,
-    IronArmour,
-    IronBoots,
-    IronHelm,
-    IronGloves,
-    IronPants,
-    BroadSword,
-    AmethystRing,
-    BrownRobes,
-    BrownStaff,
-    Slingshot,
-];
+export const ironEquipment = [IronHelm, IronArmour, IronGloves, IronPants, IronBoots];
+
+export const steelEquipment = [SteelHelm, SteelArmour, SteelGloves, SteelPants, SteelBoots];
+
+export const mithrilEquipment = [MithrilHelm, MithrilArmour, MithrilGloves, MithrilPants, MithrilBoots];
+
+export const randomItemsT1 = [...leatherEquipment, BlackRobes, BrownRobes, SteelSword, Slingshot, BrownStaff, OldRing];
+
+export const randomItemsT2 = [...ironEquipment, RedRobes, BroadSword, HellsPhoenix, RedStaff, AmethystRing];
 
 export const randomItemsT3 = [
-    ...randomItemsT2,
-    DragonsBane,
-    SteelArmour,
-    SteelBoots,
-    SteelHelm,
-    SteelGloves,
-    SteelPants,
+    ...steelEquipment,
     RedRobes,
     TealRobes,
+    BroadSword,
+    DragonsBane,
+    HellsPhoenix,
+    PhantasmCrossbow,
     RedStaff,
     TealStaff,
-    Bow,
-    DiamondRing,
+    SapphireRing,
 ];
 
-export const randomItemsT4 = [
-    ...randomItemsT3,
-    LichBane,
-    MithrilArmour,
-    MithrilBoots,
-    MithrilHelm,
-    MithrilGloves,
-    MithrilPants,
-    SkullRobes,
-    SkullStaff,
-    Crossbow,
-];
+export const randomItemsT4 = [...mithrilEquipment, SkullRobes, LichBane, MidnightsFury, SkullStaff, DiamondRing];
 
 export default items;

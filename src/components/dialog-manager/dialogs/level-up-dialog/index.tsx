@@ -55,7 +55,7 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
                 {mana !== 0 && (
                     <div className="level-up-value-spacing">
                         Gained
-                        <span className="level-up__mana">{` +${mana} `}</span>
+                        <span className="level-up-mana">{` +${mana} `}</span>
                         Mana
                     </div>
                 )}

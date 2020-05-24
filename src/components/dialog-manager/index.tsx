@@ -12,7 +12,7 @@ import GameTextDialog from "./dialogs/game-text-dialog";
 // import GameWin from './dialogs/game-win';
 // import GameOver from './dialogs/game-over';
 import SettingsDialog from "./dialogs/settings-dialog";
-// import ShopDialog from './dialogs/shop-dialog';
+import ShopDialog from "./dialogs/shop-dialog";
 import LevelUpDialog from "./dialogs/level-up-dialog";
 import AbilityScores from "./dialogs/ability-dialog";
 // import CharacterCustomisation from './dialogs/character-customisation';
@@ -37,7 +37,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         gameInstructions,
         characterCreation,
         settings,
-        //shop,
+        shop,
         levelUp,
         abilityDialog,
         //journalDialog,
@@ -50,7 +50,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
 
     if (paused) {
         if (chest) PauseComp = <ChestLoot />;
-        //     if (shop) PauseComp = <ShopDialog />;
+        if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
         //     if (journalDialog) PauseComp = <JournalDialog entries={journal.entries} />;
         //     if (spellbookDialog) PauseComp = <SpellbookDialog />;

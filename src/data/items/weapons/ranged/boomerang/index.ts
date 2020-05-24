@@ -1,9 +1,9 @@
 import { Weapon } from "../../../../../types";
+import { SIGHT_RADIUS } from "../../../../../constants";
 
 // Credit: https://shikashiassets.itch.io/shikashis-fantasy-icons-pack
 import BoomerangImg from "./boomerang.png";
-import BoomerangAnimated from "./boomerang-animated.png";
-import { SIGHT_RADIUS } from "../../../../../constants";
+import BoomerangAmmo from "../../ammo/boomerang";
 
 const Boomerang: Weapon = {
     name: "Boomerang",
@@ -12,12 +12,7 @@ const Boomerang: Weapon = {
     range: SIGHT_RADIUS,
     damage: "1d8 + 2",
     image: BoomerangImg,
-    projectile: {
-        name: "boomerang",
-        target: "enemy",
-        animationFrames: 560 / 40,
-        sprite: BoomerangAnimated,
-    },
+    projectile: BoomerangAmmo,
     value: 35,
 };
 

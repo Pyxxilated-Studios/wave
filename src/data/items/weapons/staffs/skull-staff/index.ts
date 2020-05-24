@@ -4,7 +4,7 @@ import { Weapon } from "../../../../../types";
 import SkullStaffImg from "./skull-staff.png";
 
 const SkullStaff: Weapon = {
-    name: "Steel Staff",
+    name: "Skull Staff",
     type: "weapon",
     kind: "magic",
     effects: {

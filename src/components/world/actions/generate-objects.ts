@@ -97,7 +97,7 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
                         (j - 1 > 0 && map.tiles[i][j - 1].value === 0) ||
                         (j + 1 < MAP_DIMENSIONS.width && map.tiles[i][j + 1].value === 0))
                 ) {
-                    availableWalls.push({ x: i, y: j });
+                    availableWalls.push({ x: j, y: i });
                 }
             }
         }

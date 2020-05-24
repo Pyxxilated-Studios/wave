@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { FunctionComponent } from "react";
 
-import './styles.scss';
+import "./styles.scss";
 
-const FloorCounter = ({ floorNumber }: { floorNumber: number }) => {
+interface FloorCounterProps {
+    floorNumber: number;
+}
+
+const FloorCounter: FunctionComponent<FloorCounterProps> = (props: FloorCounterProps) => {
     return (
-        <div className="floor-counter__container">
-            <span>{'FLOOR'}</span>
+        <div className="floor-counter-container">
+            <span>{"FLOOR"}</span>
 
-            <span className="floor-counter__value">{floorNumber}</span>
+            <span className="floor-counter-value">{props.floorNumber}</span>
         </div>
     );
 };

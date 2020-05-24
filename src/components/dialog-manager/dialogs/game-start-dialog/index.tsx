@@ -22,9 +22,7 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
         <Dialog>
             <span className="flex-row game-start-title">{"Wave"}</span>
 
-            <span className="flex-column game-start-text">
-                {"Greetings, Traveler. Please, explore our dungeons..."}
-            </span>
+            <span className="flex-column game-start-text">{"Greetings, Traveler. Please, explore our dungeon..."}</span>
 
             <div className="game-start-flame-1">
                 <Flame />
