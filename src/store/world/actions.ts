@@ -38,7 +38,7 @@ export const transitionMap = (): WorldActionType => {
     return { type: MAP_TRANSITION };
 };
 
-export const setChestData = (data?: ChestContents): WorldActionType => {
+export const setChestData = (data: ChestContents): WorldActionType => {
     return { type: SET_CHEST_DATA, data };
 };
 
