@@ -52,8 +52,8 @@ pages:
         - yarn build
         - mv public _public
         - mv build public
-        - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public/* gitlab@pyxxilated.studio:/var/www/wave/
-        - cp _public/index.html _public/404.html
+        - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/wave/
+        - cp public/index.html public/404.html
     artifacts:
         paths:
             - public # mandatory, other folder won't work
