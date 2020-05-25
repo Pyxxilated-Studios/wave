@@ -12,6 +12,7 @@ import openChest from "../../actions/open-chest";
 import closeChestDialog from "../../actions/close-chest-dialog";
 
 import "./styles.scss";
+import { SPRITE_PIXELS } from "../../../../constants";
 
 interface DispatchProps {
     pickupItem: () => void;
@@ -71,8 +72,8 @@ const ChestLoot: FunctionComponent<ChestLootProps> = (props: ChestLootProps) => 
                         <div
                             style={{
                                 backgroundImage: `url('${item.image}')`,
-                                width: "40px",
-                                height: "40px",
+                                width: SPRITE_PIXELS,
+                                height: SPRITE_PIXELS,
                             }}
                         />
                         <span className="flex-column chest-loot-item-name">{item.name}</span>

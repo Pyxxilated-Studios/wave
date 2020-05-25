@@ -1,37 +1,39 @@
+include:
+    - template: SAST.gitlab-ci.yml
+
 variables:
-  PUBLIC_URL: /wave
+    PUBLIC_URL: /wave
 
 stages:
-- deploy
+    - deploy
 
 before_script:
-  # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
-  #- curl -o- -L https://yarnpkg.com/install.sh | bash
-  # Make available in the current terminal
-  # - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
-  - source $HOME/.cargo/env
-  - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
+    #- curl -o- -L https://yarnpkg.com/install.sh | bash
+    # Make available in the current terminal
+    # - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+    - source $HOME/.cargo/env
+    - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 pages:
-  image: node:latest
-  stage: deploy
-  script:
-    - yarn install
-    - yarn build
-    - cp public/index.html public/404.html
-    - mv public _public
-    - mv build public
-  artifacts:
-    paths:
-      - public # mandatory, other folder won't work
-  only:
-    - master
-  cache:
-    key: ${CI_PROJECT_ID}
-    paths:
-      - node_modules
-  except:
-    changes:
-      - "*.md"
-
+    image: node:latest
+    stage: deploy
+    script:
+        - yarn install
+        - yarn build
+        - cp public/index.html public/404.html
+        - mv public _public
+        - mv build public
+    artifacts:
+        paths:
+            - public # mandatory, other folder won't work
+    only:
+        - master
+    cache:
+        key: ${CI_PROJECT_ID}
+        paths:
+            - node_modules
+    except:
+        changes:
+            - "*.md"

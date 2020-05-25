@@ -25,6 +25,7 @@ import calculatePrices from "../../utils/calculate-price";
 import { calculateDamageRange } from "../../utils/dice";
 
 import "./styles.scss";
+import { SPRITE_PIXELS } from "../../constants";
 
 interface DispatchProps {
     buyItem: (item: ItemType) => void;
@@ -299,8 +300,8 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                     <div
                         style={{
                             backgroundImage: `url('${props.data.image}')`,
-                            width: "40px",
-                            height: "40px",
+                            width: SPRITE_PIXELS,
+                            height: SPRITE_PIXELS,
                         }}
                     />
                 </EmptySlot>

@@ -7,7 +7,7 @@ import { InventoryState } from "../../store/inventory/types";
 import { ItemType } from "../../types";
 
 import EmptySlot from "../empty-slot";
-import { MAX_ITEMS_UPGRADE } from "../../constants";
+import { MAX_ITEMS_UPGRADE, SPRITE_PIXELS } from "../../constants";
 
 import "./styles.scss";
 
@@ -35,8 +35,8 @@ const BackpackItems: FunctionComponent<BackpackItemsProps> = (props: BackpackIte
                 onClick={(): void => props.viewItem(items[i])}
                 style={{
                     backgroundImage: `url('${items[i].image}')`,
-                    width: "40px",
-                    height: "40px",
+                    width: SPRITE_PIXELS,
+                    height: SPRITE_PIXELS,
                     cursor: "pointer",
                 }}
             />
