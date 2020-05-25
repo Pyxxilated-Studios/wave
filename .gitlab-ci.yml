@@ -1,5 +1,6 @@
 include:
     - template: SAST.gitlab-ci.yml
+    - template: Dependency-Scanning.gitlab-ci.yml
 
 variables:
     PUBLIC_URL: /wave
