@@ -5,19 +5,15 @@ include:
 variables:
     PUBLIC_URL: /wave
 
-install:
-    stage: build
-    script:
-        - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
-        - source $HOME/.cargo/env
-        - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        - yarn install
-
 pages:
     image: node:latest
     stage: deploy
     needs: install
     script:
+        - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+        - source $HOME/.cargo/env
+        - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        - yarn install
         - yarn build
         - mv public _public
         - mv build public
