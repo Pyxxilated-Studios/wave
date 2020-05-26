@@ -1,3 +1,5 @@
+image: node:latest
+
 include:
     - template: SAST.gitlab-ci.yml
     - template: Dependency-Scanning.gitlab-ci.yml
@@ -11,7 +13,6 @@ variables:
     PUBLIC_URL: /wave
 
 build:
-    image: node:latest
     stage: build
     script:
         - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
@@ -32,16 +33,17 @@ build:
             - "*.md"
 
 test:
-    image: node:latest
     stage: test
     script:
+        - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+        - source $HOME/.cargo/env
+        - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
         - yarn test
     except:
         changes:
             - "*.md"
 
 pages:
-    image: node:latest
     stage: deploy
     script:
         ##
