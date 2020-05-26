@@ -84,7 +84,7 @@ pages:
         - ssh-keyscan pyxxilated.studio >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
         - mv public _public
-        - cp build public
+        - mv build public
         - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/wave/
         - cp public/index.html public/404.html
     artifacts:
