@@ -17,12 +17,6 @@ pages:
         - mv public _public
         - mv build public
         - cp public/index.html public/404.html
-        - git config --global user.email "gitlab@pyxxilated.studio"
-        - git config --global user.name "Gitlab"
-        - git checkout --track origin/deployment
-        - git rm -r *
-        - mv build/* ./
-        - git add *
     artifacts:
         paths:
             - public # mandatory, other folder won't work
