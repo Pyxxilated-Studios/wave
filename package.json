@@ -33,7 +33,7 @@
     "scripts": {
         "start": "wasm-pack build lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired start",
         "build": "wasm-pack build --release lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired build",
-        "test": "react-app-rewired test"
+        "test": "wasm-pack build lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired test"
     },
     "lint-staged": {
         "./**/*.{js,jsx,ts,tsx,json}": [
