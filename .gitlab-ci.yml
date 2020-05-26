@@ -23,6 +23,7 @@ build:
     artifacts:
         paths:
             - build
+            - node_modules
         expire_in: 1h
     cache:
         key: ${CI_PROJECT_ID}
