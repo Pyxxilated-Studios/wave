@@ -9,9 +9,6 @@ stages:
     - test
     - deploy
 
-before_script:
-    - "[ -d build ] && chmod 644 build"
-
 variables:
     PUBLIC_URL: /wave
 
