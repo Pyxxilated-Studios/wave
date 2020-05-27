@@ -9,6 +9,9 @@ stages:
     - test
     - deploy
 
+before_script:
+    - "[ -d build ] && chmod 755 build"
+
 variables:
     PUBLIC_URL: /wave
 
@@ -77,12 +80,14 @@ pages:
         - chmod 700 ~/.ssh
 
         ##
-        ## Use ssh-keyscan to scan the keys of your private server. Replace gitlab.com
-        ## with your own domain name. You can copy and repeat that command if you have
-        ## more than one server to connect to.
+        ## Scan the keys of the server.
         ##
         - ssh-keyscan pyxxilated.studio >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
+
+        ##
+        ## Deploy to gitlab and to the server
+        ##
         - mv public _public
         - mv build public
         - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/wave/
