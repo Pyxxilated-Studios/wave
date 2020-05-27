@@ -42,6 +42,7 @@ export interface DamageToMonsterAction {
     monsterId: string;
     map: string;
     entity: string;
+    from: string;
 }
 
 export const MONSTER_DIED = "MONSTER_DIED";

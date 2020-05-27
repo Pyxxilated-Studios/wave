@@ -26,6 +26,7 @@ interface MovePlayerAction {
 export const PLAYER_DIED = "PLAYER_DIED";
 interface PlayerDieAction {
     type: typeof PLAYER_DIED;
+    from: string;
 }
 
 export const PLAYER_ATTACK = "PLAYER_ATTACK";

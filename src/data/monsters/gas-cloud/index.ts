@@ -13,7 +13,7 @@ const GasCloud: Monster = {
     attackValue: "2d10 + 5",
     defence: 1,
     dice: "1d4",
-    exp: 35,
+    experience: 35,
     type: "gas cloud",
     sprite: { [Direction.West]: GasCloudSprite, [Direction.East]: GasCloudSprite },
     ai: "suicidal",

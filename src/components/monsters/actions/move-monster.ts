@@ -1,128 +1,62 @@
 import { RootThunk } from "../../../store";
-import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters/actions";
-import { Point, Direction, Entity } from "../../../types";
+import { Point, Entity } from "../../../types";
 
+import { monsterAtPosition, traversableTile, withinBoundary } from "../../../utils/movement";
+import { radiusTiles } from "../../../utils/get-surrounding-tiles";
 import { arrayContainsPoint } from "../../../utils/array-contains";
-import { traversableTile, monsterAtPosition } from "../../../utils/movement";
 
-const checkForOtherMonster = (id: string, position: Point, monsterList: Record<string, Entity>): boolean =>
-    monsterAtPosition(position, monsterList)?.some((monsterID) => monsterID !== id) || false;
+const MONSTER_ATTACK_RADIUS = 1;
 
-// recursive function for moving the monster to the next available tile
-// will try to go towards the player if possible
-const moveMonster = (
-    direction: Direction,
-    position: Point,
-    currentMap: string,
+/**
+ * Check to see if any other monster is at the position this monster is trying to move to
+ *
+ * @param id The id of the monster that's trying to move
+ * @param position The position its moving to
+ * @param currentMap THe map that the monsrer is in
+ */
+export const checkForOtherMonster = (
     id: string,
-    count: number,
-    preference?: Direction,
-): RootThunk => async (dispatch, getState): Promise<void> => {
-    count++;
-    // dont allow for infinite loops when monster can't move
-    if (count >= 5) return;
+    position: Point,
+    monsterList: Record<string, Entity>,
+): string | undefined =>
+    monsterAtPosition(position, monsterList)
+        ?.filter((monsterID) => monsterID !== id)
+        .pop();
 
-    let nextPosition: Point = { x: 0, y: 0 };
+/**
+ * Determine whether or not a monster can move to a position
+ *
+ * @param position The position the monster is looking to move to
+ * @param id The id of the monster
+ * @param currentMap The current map
+ */
+export const monsterCanMoveTo = (position: Point, id: string, currentMap: string): RootThunk => async (
+    _,
+    getState,
+): Promise<boolean> => {
+    const { player, monsters, world } = getState();
 
-    const { maps, floorNumber } = getState().world;
-
-    switch (direction) {
-        case Direction.North:
-            nextPosition = { x: position.x, y: position.y - 1 };
-            // see if the monster can move to the next location
-            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
-                // if we found a monster
-                if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
-                    // move in a circle, but the opposite direction
-                    return dispatch(
-                        moveMonster(preference ? preference : Direction.West, position, currentMap, id, count),
-                    );
-                } else {
-                    // otherwise just move to the next spot
-                    position.y -= 1;
-                }
-                break;
-            } else {
-                // otherwise move them to another spot
-                return dispatch(moveMonster(preference ? preference : Direction.East, position, currentMap, id, count));
-            }
-        case Direction.South:
-            nextPosition = { x: position.x, y: position.y + 1 };
-            // see if the monster can move to the next location
-            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
-                // if we found a monster
-                if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
-                    // move in a circle, but the opposite direction
-                    return dispatch(
-                        moveMonster(preference ? preference : Direction.East, position, currentMap, id, count),
-                    );
-                } else {
-                    // otherwise just move to the next spot
-                    position.y += 1;
-                }
-                break;
-            } else {
-                // otherwise move them to another spot
-                return dispatch(moveMonster(preference ? preference : Direction.West, position, currentMap, id, count));
-            }
-        case Direction.West:
-            nextPosition = { x: position.x - 1, y: position.y };
-            // see if the monster can move to the next location
-            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
-                // if we found a monster
-                if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
-                    // move in a circle, but the opposite direction
-                    return dispatch(
-                        moveMonster(preference ? preference : Direction.South, position, currentMap, id, count),
-                    );
-                } else {
-                    // otherwise just move to the next spot
-                    position.x -= 1;
-                }
-                break;
-            } else {
-                // otherwise move them to another spot
-                return dispatch(
-                    moveMonster(preference ? preference : Direction.North, position, currentMap, id, count),
-                );
-            }
-        case Direction.East:
-            nextPosition = { x: position.x + 1, y: position.y };
-            // see if the monster can move to the next location
-            if (traversableTile(nextPosition, maps[floorNumber - 1].tiles)) {
-                // if we found a monster
-                if (checkForOtherMonster(id, nextPosition, getState().monsters.entities[currentMap])) {
-                    // move in a circle, but the opposite direction
-                    return dispatch(
-                        moveMonster(preference ? preference : Direction.North, position, currentMap, id, count),
-                    );
-                } else {
-                    // otherwise just move to the next spot
-                    position.x += 1;
-                }
-                break;
-            } else {
-                // otherwise move them to another spot
-                return dispatch(
-                    moveMonster(preference ? preference : Direction.South, position, currentMap, id, count),
-                );
-            }
-        default:
-    }
-
-    // look through each current sight box tile
-    const inSight = arrayContainsPoint(getState().map.sightBox, nextPosition);
-
-    if (inSight) {
-        // if the monster is now in sight
-        dispatch(revealMonster(id, currentMap));
-    } else {
-        // if the monster is now out of sight
-        dispatch(hideMonster(id, currentMap));
-    }
-
-    // move the monster
-    dispatch(monsterMove(id, currentMap, position, direction));
+    return (
+        player.position.x !== position.x &&
+        player.position.y !== position.y &&
+        withinBoundary(position) &&
+        !checkForOtherMonster(id, position, monsters.entities[currentMap]) &&
+        traversableTile(position, world.maps[world.floorNumber - 1].tiles)
+    );
 };
 
-export default moveMonster;
+export const playerInRange = (
+    playerPosition: Point,
+    monsterPosition: Point,
+    range = MONSTER_ATTACK_RADIUS,
+): boolean => {
+    // for each tile around the monster
+    return radiusTiles(range).some((tile) => {
+        // add the monsters location
+        const offset = { x: tile.x + monsterPosition.x, y: tile.y + monsterPosition.y };
+        // see if the player is in range
+        return offset.x === playerPosition.x && offset.y === playerPosition.y;
+    });
+};
+
+export const isInFieldOfView = (sightbox: Point[], position: Point): boolean => arrayContainsPoint(sightbox, position);

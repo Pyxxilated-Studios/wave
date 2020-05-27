@@ -20,4 +20,19 @@ interface AbilityCheckAction {
     againstAbility: string;
 }
 
-export type JournalActionType = AbilityCheckAction | DamageToMonsterAction | MonsterDiedAction | ResetAction;
+export const MONSTER_ABILITY_CHECK = "MONSTER_ABILITY_CHECK";
+export interface MonsterAbilityCheckAction {
+    type: typeof MONSTER_ABILITY_CHECK;
+    attackValue: number;
+    check: number;
+    against: string;
+    entity: string;
+    defender: string;
+}
+
+export type JournalActionType =
+    | AbilityCheckAction
+    | MonsterAbilityCheckAction
+    | DamageToMonsterAction
+    | MonsterDiedAction
+    | ResetAction;

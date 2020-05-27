@@ -14,7 +14,7 @@ const WaterSpirit: Monster = {
     attackValue: "2d4 + 6",
     defence: 1,
     dice: "1d4",
-    exp: 28,
+    experience: 28,
     type: "water spirit",
     sprite: { [Direction.West]: WaterSpiritSprite, [Direction.East]: WaterSpiritSprite },
     ai: "magical",

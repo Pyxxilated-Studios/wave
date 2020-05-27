@@ -14,7 +14,7 @@ const Medusa: Monster = {
     attackValue: "5d6 + 25",
     defence: 5,
     dice: "1d20 + 4",
-    exp: 350,
+    experience: 350,
     type: "medusa",
     sprite: { [Direction.West]: MedusaFloppedSprite, [Direction.East]: MedusaSprite },
     ai: "normal",

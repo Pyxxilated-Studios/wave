@@ -18,7 +18,7 @@ import Controls from "../controls";
 import Monsters from "../monsters";
 import Player from "../player";
 
-import takeMonstersTurn from "../monsters/actions/take-monsters-turn";
+import { takeMonstersTurn } from "../monsters/actions/take-monsters-turn";
 import { exploreTiles } from "../../store/map/actions";
 import loadMonsters from "../monsters/actions/load-monsters";
 

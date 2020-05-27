@@ -13,7 +13,7 @@ const Bat: Monster = {
     attackValue: "1d4 + 4",
     defence: 0,
     dice: "1d4",
-    exp: 14,
+    experience: 14,
     type: "bat",
     sprite: { [Direction.West]: BatSprite, [Direction.East]: BatSprite },
     ai: "normal",

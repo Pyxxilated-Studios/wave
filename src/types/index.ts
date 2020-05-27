@@ -58,7 +58,7 @@ export interface Monster extends Entity {
     attackValue: string;
     defence: number;
     dice: string;
-    exp: number;
+    experience: number;
     sprite: { [Direction.West]: string; [Direction.East]: string };
     ai: MonsterAI;
     originalAI: MonsterAI;

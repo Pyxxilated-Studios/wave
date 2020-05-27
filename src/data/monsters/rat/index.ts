@@ -14,7 +14,7 @@ const Rat: Monster = {
     attackValue: "1d4",
     defence: 0,
     dice: "1d4",
-    exp: 8,
+    experience: 8,
     type: "rat",
     sprite: { [Direction.West]: RatSprite, [Direction.East]: RatFloppedSprite },
     ai: "normal",

@@ -14,7 +14,7 @@ const Ghost: Monster = {
     attackValue: "3d6 + 5",
     defence: 4,
     dice: "1d8",
-    exp: 80,
+    experience: 80,
     type: "ghost",
     sprite: { [Direction.West]: GhostSprite, [Direction.East]: GhostSprite },
     ai: "magical",

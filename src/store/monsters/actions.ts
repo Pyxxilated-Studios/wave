@@ -48,8 +48,14 @@ export const monsterMove = (
     };
 };
 
-export const damageToMonster = (amount: number, monsterId: string, map: string, entity: string): MonstersActionType => {
-    return { type: DAMAGE_TO_MONSTER, amount, monsterId, map, entity };
+export const damageToMonster = (
+    amount: number,
+    monsterId: string,
+    map: string,
+    entity: string,
+    from: string,
+): MonstersActionType => {
+    return { type: DAMAGE_TO_MONSTER, amount, monsterId, map, entity, from };
 };
 
 export const monsterDied = (entity: string): MonstersActionType => {

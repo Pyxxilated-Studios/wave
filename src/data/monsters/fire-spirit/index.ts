@@ -13,7 +13,7 @@ const FireSpirit: Monster = {
     attackValue: "1d20 + 24",
     defence: 2,
     dice: "3d4",
-    exp: 180,
+    experience: 180,
     type: "fire spirit",
     sprite: { [Direction.West]: FireSpiritSprite, [Direction.East]: FireSpiritSprite },
     ai: "magical",

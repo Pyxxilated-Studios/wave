@@ -12,7 +12,7 @@ const StoneGolem: Monster = {
     attackValue: "2d10 + 5",
     defence: 5,
     dice: "2d8",
-    exp: 200,
+    experience: 200,
     type: "stone golem",
     sprite: { [Direction.West]: GolemSprite, [Direction.East]: GolemSprite },
     ai: "normal",

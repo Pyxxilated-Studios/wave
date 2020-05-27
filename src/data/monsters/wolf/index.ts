@@ -14,7 +14,7 @@ const Wolf: Monster = {
     attackValue: "2d4 + 3",
     defence: 1,
     dice: "1d4 + 1",
-    exp: 22,
+    experience: 22,
     type: "wolf",
     sprite: { [Direction.West]: WolfSprite, [Direction.East]: WolfFloppedSprite },
     ai: "normal",

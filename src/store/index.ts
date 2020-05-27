@@ -52,4 +52,4 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, {}, AnyAction>;
-export type RootThunk = ThunkAction<void, RootState, unknown, AnyAction>;
+export type RootThunk = ThunkAction<any, RootState, unknown, AnyAction>;

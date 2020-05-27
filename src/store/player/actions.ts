@@ -16,9 +16,10 @@ export const attackMonster = (): PlayerActionType => {
     };
 };
 
-export const playerDie = (): PlayerActionType => {
+export const playerDie = (from: string): PlayerActionType => {
     return {
         type: PLAYER_DIED,
+        from,
     };
 };
 

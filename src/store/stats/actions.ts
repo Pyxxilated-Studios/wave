@@ -9,6 +9,7 @@ import {
     LOSE_GOLD,
     UNEQUIP_ITEM,
     GET_EXPERIENCE,
+    DAMAGE_TO_PLAYER,
 } from "./types";
 import { Abilities, ItemType } from "../../types";
 
@@ -73,4 +74,8 @@ export const restore = (kind: string, amount: number): StatsActionType => {
         kind,
         amount,
     };
+};
+
+export const damageToPlayer = (damage: number, from: string): StatsActionType => {
+    return { type: DAMAGE_TO_PLAYER, damage, from };
 };

@@ -15,7 +15,7 @@ const Dragon: Monster = {
     attackValue: "3d10 + 35",
     defence: 8,
     dice: "2d20",
-    exp: 400,
+    experience: 400,
     type: "dragon",
     sprite: { [Direction.West]: DragonSprite, [Direction.East]: DragonFloppedSprite },
     ai: "healer",

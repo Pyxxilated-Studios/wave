@@ -13,7 +13,7 @@ const Lich: Monster = {
     attackValue: "2d20+10",
     defence: 12,
     dice: "2d8 + 10",
-    exp: 1000,
+    experience: 1000,
     type: "lich",
     sprite: { [Direction.West]: LichSprite, [Direction.East]: LichFloppedSprite },
     ai: "boss",

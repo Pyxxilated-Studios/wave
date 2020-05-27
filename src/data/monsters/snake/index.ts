@@ -14,7 +14,7 @@ const Snake: Monster = {
     attackValue: "1d6 + 3",
     defence: 0,
     dice: "1d4",
-    exp: 18,
+    experience: 18,
     type: "snake",
     sprite: { [Direction.West]: SnakeSprite, [Direction.East]: SnakeSprite },
     ai: "magical",

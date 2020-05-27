@@ -14,7 +14,7 @@ const PumpkinGhost: Monster = {
     attackValue: "4d10 + 25",
     defence: 5,
     dice: "1d20+8",
-    exp: 370,
+    experience: 370,
     type: "pumpkin ghost",
     sprite: { [Direction.West]: PumpkinGhostSprite, [Direction.East]: PumpkinGhostSprite },
     ai: "ranged",

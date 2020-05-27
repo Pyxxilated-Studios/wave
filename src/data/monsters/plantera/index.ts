@@ -14,7 +14,7 @@ const Plantera: Monster = {
     attackValue: "3d20 + 21",
     defence: 4,
     dice: "3d8+2",
-    exp: 330,
+    experience: 330,
     type: "Plantera",
     sprite: { [Direction.West]: PlanteraSprite, [Direction.East]: PlanteraSprite },
     ai: "ranged",

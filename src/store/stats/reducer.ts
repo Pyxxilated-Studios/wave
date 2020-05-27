@@ -12,6 +12,7 @@ import {
     RESTORE,
     UNEQUIP_ITEM,
     GET_EXPERIENCE,
+    DAMAGE_TO_PLAYER,
 } from "./types";
 import { RESET } from "../system/types";
 
@@ -145,6 +146,9 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             return newState;
         }
+
+        case DAMAGE_TO_PLAYER:
+            return { ...state, health: state.health - action.damage };
 
         case LOSE_GOLD:
             return { ...state, gold: state.gold - action.amount };

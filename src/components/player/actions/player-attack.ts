@@ -127,14 +127,14 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
             }
 
             // deal damage to monster
-            dispatch(damageToMonster(damage, targetMonster.id, currentMap, targetMonster.type));
+            dispatch(damageToMonster(damage, targetMonster.id, currentMap, targetMonster.type, "player"));
 
             // check if monster died
             if (targetMonster.health - damage <= 0) {
                 // and get some exp
-                dispatch(getExperience(targetMonster.exp));
+                dispatch(getExperience(targetMonster.experience));
 
-                if (stats.experience + targetMonster.exp >= stats.experienceToLevel) {
+                if (stats.experience + targetMonster.experience >= stats.experienceToLevel) {
                     dispatch(pause(true, { levelUp: true }));
                 }
 

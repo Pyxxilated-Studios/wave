@@ -13,7 +13,7 @@ const BlackOrc: Monster = {
     attackValue: "5d4 + 35",
     defence: 5,
     dice: "3d8",
-    exp: 280,
+    experience: 280,
     type: "black orc",
     sprite: { [Direction.West]: BlackOrcSprite, [Direction.East]: BlackOrcSprite },
     ai: "normal",

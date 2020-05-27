@@ -12,7 +12,7 @@ const Goblin: Monster = {
     attackValue: "3d4 + 4",
     defence: 3,
     dice: "1d6",
-    exp: 30,
+    experience: 30,
     type: "goblin",
     sprite: { [Direction.West]: GoblinSprite, [Direction.East]: GoblinSprite },
     ai: "normal",

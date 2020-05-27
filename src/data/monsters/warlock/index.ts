@@ -14,7 +14,7 @@ const Warlock: Monster = {
     attackValue: "2d20 + 20",
     defence: 2,
     dice: "3d6+4",
-    exp: 320,
+    experience: 320,
     type: "warlock",
     sprite: { [Direction.West]: WarlockSprite, [Direction.East]: WarlockSprite },
     ai: "magical",

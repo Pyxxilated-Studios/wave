@@ -14,7 +14,7 @@ const PoisonCloud: Monster = {
     attackValue: "2d20 + 10",
     defence: 2,
     dice: "3d4+2",
-    exp: 230,
+    experience: 230,
     type: "poison cloud",
     sprite: { [Direction.West]: PoisonCloudSprite, [Direction.East]: PoisonCloudSprite },
     ai: "magical",

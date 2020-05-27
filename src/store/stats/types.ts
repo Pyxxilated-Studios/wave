@@ -86,6 +86,13 @@ interface RestoreAction {
     amount: number;
 }
 
+export const DAMAGE_TO_PLAYER = "DAMAGE_TO_PLAYER";
+interface DamageToPlayerAction {
+    type: typeof DAMAGE_TO_PLAYER;
+    damage: number;
+    from: string;
+}
+
 export type StatsActionType =
     | GainExperienceAction
     | SetAbilityScoresAction
@@ -96,4 +103,5 @@ export type StatsActionType =
     | LoseGoldAction
     | HealAction
     | RestoreAction
+    | DamageToPlayerAction
     | ResetAction;

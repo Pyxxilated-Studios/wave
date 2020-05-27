@@ -13,7 +13,7 @@ const Salamander: Monster = {
     attackValue: "1d10 + 5",
     defence: 1,
     dice: "1d4 + 1",
-    exp: 25,
+    experience: 25,
     type: "salamander",
     sprite: { [Direction.West]: SalamanderSprite, [Direction.East]: SalamanderSprite },
     ai: "ranged",

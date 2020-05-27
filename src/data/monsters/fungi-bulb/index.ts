@@ -13,7 +13,7 @@ const FungiBulb: Monster = {
     attackValue: "2d10 + 7",
     defence: 2,
     dice: "1d6",
-    exp: 38,
+    experience: 38,
     type: "fungi bulb",
     sprite: { [Direction.West]: FungiBulbSprite, [Direction.East]: FungiBulbSprite },
     ai: "suicidal",
