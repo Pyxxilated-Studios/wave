@@ -5,33 +5,11 @@ include:
     - template: Dependency-Scanning.gitlab-ci.yml
 
 stages:
-    - build
     - test
     - deploy
 
 variables:
     PUBLIC_URL: /wave
-
-build:
-    stage: build
-    script:
-        - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
-        - source $HOME/.cargo/env
-        - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        - yarn install
-        - yarn build
-    artifacts:
-        paths:
-            - build
-            - node_modules
-        expire_in: 1h
-    cache:
-        key: ${CI_PROJECT_ID}
-        paths:
-            - node_modules
-    except:
-        changes:
-            - "*.md"
 
 test:
     stage: test
@@ -85,6 +63,11 @@ pages:
         ##
         ## Deploy to gitlab and to the server
         ##
+        - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+        - source $HOME/.cargo/env
+        - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        - yarn install
+        - yarn build
         - mv public _public
         - mv build public
         - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/wave/
@@ -92,6 +75,10 @@ pages:
     artifacts:
         paths:
             - public # mandatory, other folder won't work
+    cache:
+        key: ${CI_PROJECT_ID}
+        paths:
+            - node_modules
     only:
         - master
     except:
