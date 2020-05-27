@@ -116,7 +116,7 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
         case SET_LEVEL_UP_ABILITIES:
             return {
                 ...state,
-                abilities: { ...action.abilities, points: 0 },
+                abilities: { ...state.abilities, ...action.abilities },
                 abilitiesMinimum: action.abilities,
             };
 
