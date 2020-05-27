@@ -10,7 +10,7 @@ stages:
     - deploy
 
 before_script:
-    - "[ -d build ] && chmod 755 build"
+    - "[ -d build ] && chmod 644 build"
 
 variables:
     PUBLIC_URL: /wave
