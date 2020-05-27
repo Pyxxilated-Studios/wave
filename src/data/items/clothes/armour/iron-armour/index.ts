@@ -4,12 +4,13 @@ import IronArmourImg from "./iron-armour.png";
 
 const IronArmor: Armour = {
     name: "Iron Armour",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        defenceBonus: 10,
+        "defence bonus": 10,
     },
     image: IronArmourImg,
-    value: 90,
+    price: 90,
 };
 
 export default IronArmor;

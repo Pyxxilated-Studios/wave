@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { DialogState } from "../../store/dialog/types";
 import { SnackbarState } from "../../store/snackbar/types";
 
@@ -73,7 +73,9 @@ class Inventory extends Component<InventoryProps> {
                         small={sideMenu}
                         indicator={newItemIndicator}
                         onClick={(): void => this._toggleInventory()}
-                        icon={open ? "times" : "briefcase"}
+                        icon={"briefcase"}
+                        iconRight={open ? "times" : undefined}
+                        floatIcons={true}
                         title={open ? "Close" : "Inventory"}
                         style={{
                             width: 180,
@@ -91,7 +93,7 @@ class Inventory extends Component<InventoryProps> {
 
 const mapStateToProps = (state: RootState): StateProps => ({ snackbar: state.snackbar, dialog: state.dialog });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     toggleInventory: (): void => dispatch(toggleInventory()),
 });
 

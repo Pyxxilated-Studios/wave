@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../../../store";
+import { RootState, RootDispatch } from "../../../../store";
 import { StatsState } from "../../../../store/stats/types";
 
 import Button from "../../../../components/button";
@@ -45,8 +45,8 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
             <div className="flex-column level-up-contents">
                 {health !== 0 && (
                     <div className="level-up-value--spacing">
-                        Gained<span className="level-up-hp">{` +${health} `}</span>
-                        Hp
+                        Gained<span className="level-up-health">{` +${health} `}</span>
+                        Health
                     </div>
                 )}
             </div>
@@ -70,7 +70,7 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
 
 const mapStateToProps = (state: RootState): StateProps => ({ stats: state.stats });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     closeLevelUpDialog: (): void => dispatch(closeLevelUpDialog()),
     abilityScoreDialog: (): void => dispatch(abilityScoreDialog(true)),
     logLevelUp: (): void => dispatch(logLevelUp()),

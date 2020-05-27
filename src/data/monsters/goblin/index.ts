@@ -1,14 +1,24 @@
-import GoblinSprite from './goblin.png';
+import { Monster, Direction } from "../../../types";
 
-const Goblin = {
-    hp: 12,
-    maxHp: 12,
-    attackValue: 4,
+import GoblinSprite from "./goblin.png";
+
+const Goblin: Monster = {
+    kind: "monster",
+    id: "0",
+    location: { x: 0, y: 0 },
+    visible: false,
+    health: 14,
+    maxHealth: 14,
+    attackValue: "3d4 + 4",
     defence: 3,
-    dice: '1d6',
-    exp: 25,
-    type: 'goblin',
-    sprite: GoblinSprite,
+    dice: "1d6",
+    exp: 30,
+    type: "goblin",
+    sprite: { [Direction.West]: GoblinSprite, [Direction.East]: GoblinSprite },
+    ai: "normal",
+    originalAI: "normal",
+    direction: Direction.West,
+    aiTurns: 0,
 };
 
 export default Goblin;

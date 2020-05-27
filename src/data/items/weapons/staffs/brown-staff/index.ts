@@ -8,12 +8,12 @@ const BrownStaff: Weapon = {
     type: "weapon",
     kind: "magic",
     effects: {
-        manaBonus: 3,
+        "mana bonus": 3,
     },
     range: 1,
     damage: "1d4 + 1",
     image: BrownStaffImg,
-    value: 35,
+    price: 35,
 };
 
 export default BrownStaff;

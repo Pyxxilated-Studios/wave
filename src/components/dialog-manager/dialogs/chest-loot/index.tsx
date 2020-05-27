@@ -1,7 +1,7 @@
 import React, { useEffect, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../../../store";
+import { RootState, RootDispatch } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
 
 import Button from "../../../../components/button";
@@ -94,7 +94,7 @@ const ChestLoot: FunctionComponent<ChestLootProps> = (props: ChestLootProps) => 
 
 const mapStateToProps = (state: RootState): StateProps => ({ dialog: state.dialog });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     pickupItem: (): void => dispatch(pickupItem()),
     openChest: (): void => dispatch(openChest()),
     closeChestDialog: (): void => dispatch(closeChestDialog()),

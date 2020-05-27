@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { StatsState } from "../../store/stats/types";
 
 import { ItemType } from "../../types";
@@ -200,7 +200,7 @@ const EquippedItems: FunctionComponent<EquippedItemsProps> = (props: EquippedIte
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({ stats: state.stats });
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     unequipItem: (item: ItemType): void => dispatch(unequipItem(item)),
 });
 

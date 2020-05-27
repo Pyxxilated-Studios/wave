@@ -8,16 +8,16 @@ interface HealthBarProps {
 }
 
 const HealthBar: FunctionComponent<HealthBarProps> = (props: HealthBarProps) => {
-    // hide hp bars on full health units
-    const fullHp = props.value === props.max;
+    // hide health bars on full health units
+    const hasFullHealth = props.value === props.max;
 
     return (
         <span className="flex-row">
             <span
                 className="health-bar-container"
                 style={{
-                    width: fullHp ? 0 : 38,
-                    border: fullHp ? "none" : "1px solid var(--green)",
+                    width: hasFullHealth ? 0 : 38,
+                    border: hasFullHealth ? "none" : "1px solid var(--green)",
                 }}
             >
                 <span className="health-bar-value" style={{ width: `${(props.value / props.max) * 100}%` }} />

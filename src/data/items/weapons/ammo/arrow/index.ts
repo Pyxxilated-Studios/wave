@@ -1,10 +1,13 @@
-import ArrowImg from "./arrow.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const Arrow: Projectile = {
+import ArrowImage from "./arrow.png";
+
+const Arrow: Ammo = {
     name: "arrow",
+    kind: "ammo",
     target: "enemy",
-    sprite: ArrowImg,
+    image: ArrowImage,
+    sprite: ArrowImage,
     animationFrames: 14,
     useText: "fired an",
 };

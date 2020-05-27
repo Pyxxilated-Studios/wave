@@ -1,7 +1,7 @@
 import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../../../store";
+import { RootState, RootDispatch } from "../../../../store";
 import { ENTER_KEY, ESC_KEY } from "../../../../constants";
 import { closeSettings } from "../../../../store/dialog/actions";
 import resetGameState from "../../../world/actions/reset-game";
@@ -94,7 +94,7 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
 const mapStateToProps = (state: RootState): StateProps => ({
     state,
 });
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     resetGameState: (): void => dispatch(resetGameState()),
     closeSettings: (): void => dispatch(closeSettings()),
 });

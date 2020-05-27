@@ -122,7 +122,7 @@ const moveMonster = (
     }
 
     // move the monster
-    dispatch(monsterMove(id, currentMap, position));
+    dispatch(monsterMove(id, currentMap, position, direction));
 };
 
 export default moveMonster;

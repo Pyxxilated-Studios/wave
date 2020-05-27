@@ -91,3 +91,13 @@ export const MAX_PRICE_PERCENT = 1.25;
 export const TIER_2 = 10;
 export const TIER_3 = 20;
 export const TIER_4 = 30;
+
+// The number of turns an AI change stays in effect
+export const AI_CHANGE_TURNS = 3;
+// Damage inflicted by poison every time it hits
+export const POISON_DAMAGE = "1d4";
+export const TURNS_FOR_POISON = 3;
+export const SHOCK_DAMAGE = "1d4";
+
+// The maximum amount of journal entries. If this is too large it can slow the game down
+export const MAX_JOURNAL_ENTRIES = 100;

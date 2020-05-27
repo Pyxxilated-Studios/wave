@@ -4,13 +4,14 @@ import OldRingImg from "./old-ring.png";
 
 const OldRing: Armour = {
     name: "Old Ring",
-    type: "ring",
+    type: "armour",
+    kind: "ring",
     effects: {
-        defenceBonus: 1,
-        healthBonus: 4,
+        "defence bonus": 1,
+        "health bonus": 4,
     },
     image: OldRingImg,
-    value: 25,
+    price: 25,
 };
 
 export default OldRing;

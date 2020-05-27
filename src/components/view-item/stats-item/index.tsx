@@ -14,9 +14,9 @@ const StatsItem: FunctionComponent<StatsItemProps> = (props: StatsItemProps) => 
             case "damage":
                 return "light-red";
             case "range":
-            case "defence":
+            case "defence bonus":
                 return "purple";
-            case "hp":
+            case "health":
             case "heal":
                 return "green";
             case "mana":
@@ -24,7 +24,7 @@ const StatsItem: FunctionComponent<StatsItemProps> = (props: StatsItemProps) => 
             case "slots":
             case "VS. dragon":
             case "VS. lich":
-            case "value":
+            case "price":
                 return "orange";
             default:
                 return "";

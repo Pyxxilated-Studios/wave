@@ -1,4 +1,4 @@
-import { Entity, Point } from "../../types";
+import { Entity, Point, Monster, Direction } from "../../types";
 import { ResetAction } from "../system/types";
 
 export interface MonstersState {
@@ -9,7 +9,7 @@ export const ADD_MONSTERS = "ADD_MONSTERS";
 interface AddMonstersAction {
     type: typeof ADD_MONSTERS;
     currentMap: string;
-    monsters: Entity[];
+    monsters: Monster[];
 }
 
 export const REVEAL_MONSTER = "REVEAL_MONSTER";
@@ -32,6 +32,7 @@ interface MonsterMoveAction {
     id: string;
     currentMap: string;
     position: Point;
+    direction: Direction;
 }
 
 export const DAMAGE_TO_MONSTER = "DAMAGE_TO_MONSTER";

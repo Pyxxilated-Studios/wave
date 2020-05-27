@@ -1,10 +1,13 @@
-import StoneImg from "./stone.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const Stone: Projectile = {
+import StoneImage from "./stone.png";
+
+const Stone: Ammo = {
     name: "stone",
+    kind: "ammo",
     target: "enemy",
-    sprite: StoneImg,
+    image: StoneImage,
+    sprite: StoneImage,
     animationFrames: 14,
     useText: "shot a",
 };

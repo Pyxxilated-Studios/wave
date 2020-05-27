@@ -72,18 +72,18 @@ class Stats extends Component<StatsProps> {
         let height = disabled ? 96 : 150;
         if (sideMenu) height = disabled ? 130 : 140;
 
-        const hpPercent = Math.min((health / maxHealth) * 100, 100);
+        const healthPercentageRemaining = Math.min((health / maxHealth) * 100, 100);
 
         let healthBorder;
-        if (hpPercent >= 99) healthBorder = "5px";
-        else if (hpPercent >= 97) healthBorder = "5px 3px 3px 5px";
+        if (healthPercentageRemaining >= 99) healthBorder = "5px";
+        else if (healthPercentageRemaining >= 97) healthBorder = "5px 3px 3px 5px";
         else healthBorder = "5px 0 0 5px";
 
-        const manaPercent = Math.min((mana / maxMana) * 100, 100);
+        const manaPercentageRemaining = Math.min((mana / maxMana) * 100, 100);
 
         let manaBorder;
-        if (manaPercent >= 99) manaBorder = "5px";
-        else if (manaPercent >= 97) manaBorder = "5px 3px 3px 5px";
+        if (manaPercentageRemaining >= 99) manaBorder = "5px";
+        else if (manaPercentageRemaining >= 97) manaBorder = "5px 3px 3px 5px";
         else manaBorder = "5px 0 0 5px";
 
         let columnStyle = "stats-column-spacing";
@@ -146,14 +146,14 @@ class Stats extends Component<StatsProps> {
                                     paddingTop: sideMenu ? 10 : 0,
                                 }}
                             >
-                                <span className="stats-bar-container stats-hp-bar-container">
+                                <span className="stats-bar-container stats-health-bar-container">
                                     <span className="stats-bar-text flex-row stats-health-bar-text">
                                         {health + "/" + maxHealth}
                                     </span>
                                     <span
-                                        className="stats-bar-value stats-hp-bar-value"
+                                        className="stats-bar-value stats-health-bar-value"
                                         style={{
-                                            width: `${hpPercent}%`,
+                                            width: `${healthPercentageRemaining}%`,
                                             borderRadius: healthBorder,
                                         }}
                                     ></span>
@@ -217,7 +217,7 @@ class Stats extends Component<StatsProps> {
                                         <span
                                             className="stats-bar-value stats-mana-bar-value"
                                             style={{
-                                                width: `${manaPercent}%`,
+                                                width: `${manaPercentageRemaining}%`,
                                                 borderRadius: manaBorder,
                                             }}
                                         ></span>

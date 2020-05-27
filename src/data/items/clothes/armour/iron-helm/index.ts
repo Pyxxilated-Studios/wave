@@ -4,12 +4,13 @@ import IronHelmImg from "./iron-helm.png";
 
 const IronHelm: Armour = {
     name: "Iron Helm",
-    type: "helmet",
+    type: "armour",
+    kind: "helmet",
     effects: {
-        defenceBonus: 9,
+        "defence bonus": 9,
     },
     image: IronHelmImg,
-    value: 90,
+    price: 90,
 };
 
 export default IronHelm;

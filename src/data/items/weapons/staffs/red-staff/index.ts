@@ -8,12 +8,12 @@ const RedStaff: Weapon = {
     type: "weapon",
     kind: "magic",
     effects: {
-        manaBonus: 5,
+        "mana bonus": 5,
     },
     range: 1,
     damage: "1d4 + 2",
     image: RedStaffImg,
-    value: 45,
+    price: 45,
 };
 
 export default RedStaff;

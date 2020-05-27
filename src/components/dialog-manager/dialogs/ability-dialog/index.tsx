@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { DialogState } from "../../../../store/dialog/types";
-import { RootState } from "../../../../store";
+import { RootState, RootDispatch } from "../../../../store";
 
 import { Ability } from "../../../../types";
 import { U_KEY, ENTER_KEY, ESC_KEY } from "../../../../constants";
@@ -140,7 +140,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = ({
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({ dialog: state.dialog });
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     increment: (ability: Ability): void => dispatch(increment(ability)),
     decrement: (ability: Ability): void => dispatch(decrement(ability)),
     confirmAbilityScoreDialog: (): void => dispatch(confirmAbilityScoreDialog()),

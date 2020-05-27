@@ -9,7 +9,7 @@ const DivineHealthPotion: ConsumableItem = {
     kind: "health",
     consumeEffect: { healthRestore: 100 },
     image: DivineHealthPotionImage,
-    value: 180,
+    price: 180,
 };
 
 export default DivineHealthPotion;

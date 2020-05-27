@@ -13,7 +13,7 @@ const Slingshot: Weapon = {
     damage: "2d8",
     image: SlingshotImg,
     projectile: Stone,
-    value: 110,
+    price: 110,
 };
 
 export default Slingshot;

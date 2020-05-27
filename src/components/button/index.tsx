@@ -20,6 +20,8 @@ interface ButtonProps {
     image?: string;
     noBorder?: boolean;
     extraClass?: string;
+    iconRight?: IconProp;
+    floatIcons?: boolean;
 }
 
 const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
@@ -38,11 +40,10 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
             onClick={handleClick}
         >
             {props.icon && (
-                // <FontAwesomeIcon icon= />
                 <FontAwesomeIcon
-                    className={iconClassName}
+                    className={`${iconClassName} ${props.floatIcons ? "button__float-icon" : "button__icon"}`}
                     icon={props.icon}
-                    style={props.iconStyle ? props.iconStyle : {}}
+                    style={props.iconStyle || {}}
                 />
             )}
             {props.image && (
@@ -58,6 +59,14 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
             )}
 
             {props.title && <span style={props.icon ? { paddingLeft: "10px" } : {}}>{props.title}</span>}
+
+            {props.iconRight && (
+                <FontAwesomeIcon
+                    className={props.floatIcons ? "button__float-icon-right" : "button__icon-right"}
+                    style={props.iconStyle || {}}
+                    icon={props.iconRight}
+                />
+            )}
         </button>
     );
 };

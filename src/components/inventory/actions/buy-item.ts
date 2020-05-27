@@ -13,7 +13,7 @@ const buyItem = (item: ItemType): RootThunk => async (dispatch, getState): Promi
     const { gold } = stats;
     const { items, maxItems } = inventory;
 
-    const { buyPrice } = calculatePrices(item.value, calculateModifier(stats.abilities.charisma));
+    const { buyPrice } = calculatePrices(item.price, calculateModifier(stats.abilities.charisma));
 
     // make sure player has enough gold
     if (gold >= buyPrice) {

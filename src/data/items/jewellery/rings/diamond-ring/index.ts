@@ -4,12 +4,13 @@ import DiamondRingImg from "./diamond-ring.png";
 
 const DiamondRing: Armour = {
     name: "Diamond Ring",
-    type: "ring",
+    type: "armour",
+    kind: "ring",
     effects: {
-        defenceBonus: 10,
+        "defence bonus": 10,
     },
     image: DiamondRingImg,
-    value: 150,
+    price: 150,
 };
 
 export default DiamondRing;

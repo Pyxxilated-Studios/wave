@@ -16,6 +16,7 @@ import Swipe from "./assets/swipe.png";
 import WASDKeys from "./assets/wasd-keys.png";
 
 import "./styles.scss";
+import { RootDispatch } from "../../../../store";
 
 interface DispatchProps {
     loadStartingItems: () => void;
@@ -85,7 +86,7 @@ const GameInstructions: FunctionComponent<GameInstructionsProps> = (props: GameI
     );
 };
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     loadStartingItems: (): void => dispatch(loadStartingItems()),
     showStartingMessage: (): void => dispatch(showStartingMessage()),
 });

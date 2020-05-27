@@ -1,10 +1,13 @@
-import BoltImg from "./bolt.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const Bolt: Projectile = {
+import BoltImage from "./bolt.png";
+
+const Bolt: Ammo = {
     name: "bolt",
+    kind: "ammo",
     target: "enemy",
-    sprite: BoltImg,
+    image: BoltImage,
+    sprite: BoltImage,
     animationFrames: 14,
     useText: "discharged a",
 };

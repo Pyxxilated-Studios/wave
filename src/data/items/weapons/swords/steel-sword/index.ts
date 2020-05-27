@@ -9,7 +9,7 @@ const SteelSword: Weapon = {
     range: 1,
     damage: "1d8 + 2",
     image: SteelSwordImg,
-    value: 35,
+    price: 35,
 };
 
 export default SteelSword;

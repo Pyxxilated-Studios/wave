@@ -3,14 +3,15 @@ import { Armour } from "../../../../../types";
 
 const SaphireRing: Armour = {
     name: "Saphire Ring",
-    type: "ring",
+    type: "armour",
+    kind: "ring",
     effects: {
-        defenceBonus: 10,
-        healthBonus: 15,
-        manaBonus: 10,
+        "defence bonus": 10,
+        "health bonus": 15,
+        "mana bonus": 10,
     },
     image: SaphireRingImg,
-    value: 150,
+    price: 150,
 };
 
 export default SaphireRing;

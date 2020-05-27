@@ -5,12 +5,13 @@ import BrownRobesImg from "./brown-robes.png";
 
 const BrownRobes: Armour = {
     name: "Brown Robes",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        manaBonus: 3,
+        "mana bonus": 3,
     },
     image: BrownRobesImg,
-    value: 35,
+    price: 35,
 };
 
 export default BrownRobes;

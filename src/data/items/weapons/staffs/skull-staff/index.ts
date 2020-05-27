@@ -8,12 +8,12 @@ const SkullStaff: Weapon = {
     type: "weapon",
     kind: "magic",
     effects: {
-        manaBonus: 9,
+        "mana bonus": 9,
     },
     range: 1,
     damage: "1d4 + 4",
     image: SkullStaffImg,
-    value: 55,
+    price: 55,
 };
 
 export default SkullStaff;

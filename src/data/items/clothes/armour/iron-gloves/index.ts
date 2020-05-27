@@ -4,12 +4,13 @@ import IronGlovesImg from "./iron-gloves.png";
 
 const IronGloves: Armour = {
     name: "Iron Gloves",
-    type: "gloves",
+    type: "armour",
+    kind: "gloves",
     effects: {
-        defenceBonus: 5,
+        "defence bonus": 5,
     },
     image: IronGlovesImg,
-    value: 50,
+    price: 50,
 };
 
 export default IronGloves;

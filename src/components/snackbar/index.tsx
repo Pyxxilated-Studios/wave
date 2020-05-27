@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { SnackbarState } from "../../store/snackbar/types";
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { InventoryState } from "../../store/inventory/types";
 import { equipItem } from "../../store/stats/actions";
 import { clearNotification } from "../../store/snackbar/actions";
@@ -89,7 +89,7 @@ class Snackbar extends Component<SnackbarProps> {
             this.setState({
                 show: `NEW ITEM: ${itemReceived.split("-")[0]}`,
                 item: item,
-                equip: item?.type !== "potion",
+                equip: item?.type === "weapon" || item?.type === "armour",
             });
             this.props.setTimeout && this.props.setTimeout(() => this.handleHideSnack(), SNACK_DURATION);
         } else if (lastNotEnoughGold !== notEnoughGold && notEnoughGold) {
@@ -182,7 +182,7 @@ class Snackbar extends Component<SnackbarProps> {
 
 const mapStateToProps = (state: RootState): StateProps => ({ snackbar: state.snackbar, inventory: state.inventory });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     equipItem: (item: ItemType): void => dispatch(equipItem(item)),
     clearNotification: (): void => dispatch(clearNotification()),
 });

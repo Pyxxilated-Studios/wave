@@ -1,7 +1,7 @@
 import React, { useState, useRef, FunctionComponent, ChangeEvent } from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../../../../store";
+import { RootState, RootDispatch } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
 
 import { ESC_KEY, ENTER_KEY } from "../../../../constants";
@@ -111,7 +111,7 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({ dialog: state.dialog });
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     createCharacter: (name: string): void => dispatch(createCharacter(name)),
     errorMessage: (message: string): void => dispatch(errorMessage(message)),
     setClass: (cls: string): void => dispatch(setClass(cls)),

@@ -9,7 +9,7 @@ const BroadSword: Weapon = {
     range: 1,
     damage: "2d8",
     image: BroadSwordImg,
-    value: 110,
+    price: 110,
 };
 
 export default BroadSword;

@@ -5,12 +5,13 @@ import BlackRobesImg from "./black-robes.png";
 
 const BlackRobes: Armour = {
     name: "Black Robes",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        manaBonus: 1,
+        "mana bonus": 1,
     },
     image: BlackRobesImg,
-    value: 25,
+    price: 25,
 };
 
 export default BlackRobes;

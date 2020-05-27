@@ -5,12 +5,13 @@ import SkullRobesImg from "./skull-robes.png";
 
 const SkullRobes: Armour = {
     name: "Skull Robes",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        manaBonus: 9,
+        "mana bonus": 9,
     },
     image: SkullRobesImg,
-    value: 65,
+    price: 65,
 };
 
 export default SkullRobes;

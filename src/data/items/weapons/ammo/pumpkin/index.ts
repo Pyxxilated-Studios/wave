@@ -1,9 +1,12 @@
-import PumpkinImage from "./pumpkin-image.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const Pumpkin: Projectile = {
+import PumpkinImage from "./pumpkin-image.png";
+
+const Pumpkin: Ammo = {
     name: "pumpkin",
+    kind: "ammo",
     target: "enemy",
+    image: PumpkinImage,
     sprite: PumpkinImage,
     animationFrames: 14,
     useText: "threw a",

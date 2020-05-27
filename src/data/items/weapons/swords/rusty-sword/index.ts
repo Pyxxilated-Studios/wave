@@ -9,7 +9,7 @@ const RustySword: Weapon = {
     range: 1,
     damage: "1d4 + 2",
     image: RustySwordImg,
-    value: 10,
+    price: 10,
 };
 
 export default RustySword;

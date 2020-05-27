@@ -9,7 +9,7 @@ const DivineManaPotion: ConsumableItem = {
     kind: "mana",
     consumeEffect: { manaRestore: 100 },
     image: DivineManaPotionImage,
-    value: 200,
+    price: 200,
 };
 
 export default DivineManaPotion;

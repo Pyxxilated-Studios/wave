@@ -14,6 +14,7 @@ import toggleInventory from "../../actions/toggle-inventory";
 import Backpack from "./backpack.png";
 
 import "./styles.scss";
+import { RootDispatch } from "../../../../store";
 
 interface DispatchProps {
     toggleInventory: () => void;
@@ -45,7 +46,7 @@ const InventoryDialog: FunctionComponent<InventoryDialogProps> = (props: Invento
     );
 };
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     toggleInventory: (): void => dispatch(toggleInventory()),
 });
 export default connect(null, mapDispatchToProps)(InventoryDialog);

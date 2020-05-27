@@ -10,7 +10,7 @@ const DragonsBane: Weapon = {
     damage: "2d10 + 2",
     bonus: "dragon::2.5",
     image: DragonsBaneImg,
-    value: 300,
+    price: 300,
 };
 
 export default DragonsBane;

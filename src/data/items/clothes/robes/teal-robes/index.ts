@@ -5,12 +5,13 @@ import TealRobesImg from "./teal-robes.png";
 
 const TealRobes: Armour = {
     name: "Teal Robes",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        manaBonus: 7,
+        "mana bonus": 7,
     },
     image: TealRobesImg,
-    value: 55,
+    price: 55,
 };
 
 export default TealRobes;

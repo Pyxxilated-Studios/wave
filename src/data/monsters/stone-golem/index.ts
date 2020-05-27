@@ -1,15 +1,24 @@
-import GolemSprite from './stone-golem.png';
-import { Monster } from '../../../types';
+import { Monster, Direction } from "../../../types";
+
+import GolemSprite from "./stone-golem.png";
 
 const StoneGolem: Monster = {
-    hp: 30,
-    maxHp: 30,
-    attackValue: 8,
+    kind: "monster",
+    id: "0",
+    location: { x: 0, y: 0 },
+    visible: false,
+    health: 30,
+    maxHealth: 30,
+    attackValue: "2d10 + 5",
     defence: 5,
-    dice: '1d8 + 2',
-    exp: 60,
-    type: 'stone-golem',
-    sprite: GolemSprite,
+    dice: "2d8",
+    exp: 200,
+    type: "stone golem",
+    sprite: { [Direction.West]: GolemSprite, [Direction.East]: GolemSprite },
+    ai: "normal",
+    originalAI: "normal",
+    direction: Direction.West,
+    aiTurns: 0,
 };
 
 export default StoneGolem;

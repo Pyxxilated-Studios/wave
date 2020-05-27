@@ -4,10 +4,11 @@ import LeatherCapImg from "./leather-cap.png";
 
 const LeatherCap: Armour = {
     name: "Leather Cap",
-    type: "helmet",
-    effects: { defenceBonus: 3 },
+    type: "armour",
+    kind: "helmet",
+    effects: { "defence bonus": 3 },
     image: LeatherCapImg,
-    value: 30,
+    price: 30,
 };
 
 export default LeatherCap;

@@ -1,14 +1,24 @@
-import ImpSprite from './imp.png';
+import { Monster, Direction } from "../../../types";
 
-const Imp = {
-    hp: 40,
-    maxHp: 40,
-    attackValue: 10,
+import ImpSprite from "./imp.png";
+
+const Imp: Monster = {
+    kind: "monster",
+    id: "0",
+    location: { x: 0, y: 0 },
+    visible: false,
+    health: 40,
+    maxHealth: 40,
+    attackValue: "2d8 + 18",
     defence: 2,
-    dice: '2d4 + 2',
-    exp: 150,
-    type: 'imp',
-    sprite: ImpSprite,
+    dice: "3d4 + 4",
+    exp: 160,
+    type: "imp",
+    sprite: { [Direction.West]: ImpSprite, [Direction.East]: ImpSprite },
+    ai: "normal",
+    originalAI: "normal",
+    direction: Direction.West,
+    aiTurns: 0,
 };
 
 export default Imp;

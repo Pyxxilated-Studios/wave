@@ -5,12 +5,13 @@ import MithrilPantsImg from "./mithril-pants.png";
 
 const MithrilPants: Armour = {
     name: "Mithril Pants",
-    type: "legs",
+    type: "armour",
+    kind: "legs",
     effects: {
-        defenceBonus: 20,
+        "defence bonus": 20,
     },
     image: MithrilPantsImg,
-    value: 200,
+    price: 200,
 };
 
 export default MithrilPants;

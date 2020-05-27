@@ -14,7 +14,7 @@ const HellsPhoenix: Weapon = {
     damage: "2d8",
     image: BowImg,
     projectile: Arrow,
-    value: 110,
+    price: 110,
 };
 
 export default HellsPhoenix;

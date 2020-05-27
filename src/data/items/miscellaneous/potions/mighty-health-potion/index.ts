@@ -9,7 +9,7 @@ const MightyHealthPotion: ConsumableItem = {
     kind: "health",
     consumeEffect: { healthRestore: 50 },
     image: MightyHealthPotionImage,
-    value: 90,
+    price: 90,
 };
 
 export default MightyHealthPotion;

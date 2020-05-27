@@ -1,6 +1,6 @@
 import { RootThunk } from "../../../store";
 import { revealMonster, hideMonster } from "../../../store/monsters/actions";
-import { Point, Direction } from "../../../types";
+import { Point, Direction, Monster } from "../../../types";
 
 import { radiusTiles } from "../../../utils/get-surrounding-tiles";
 import { arrayContainsPoint } from "../../../utils/array-contains";
@@ -38,7 +38,7 @@ const takeMonstersTurn = (): RootThunk => async (dispatch, getState): Promise<vo
     // find each monster
     Object.entries(entities[currentMap]).forEach(([, monster]) => {
         // Get monster id and position
-        const { id, location, attackValue, dice, type } = monster;
+        const { id, location, attackValue, dice, type } = monster as Monster;
 
         const monsterVisible = arrayContainsPoint(sightBox, location);
 

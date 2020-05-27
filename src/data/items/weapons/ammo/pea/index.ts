@@ -1,11 +1,14 @@
-//Credit: https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
-import PeaImg from "./pea.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const Pea: Projectile = {
+//Credit: https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
+import PeaImage from "./pea.png";
+
+const Pea: Ammo = {
     name: "pea",
+    kind: "ammo",
     target: "enemy",
-    sprite: PeaImg,
+    image: PeaImage,
+    sprite: PeaImage,
     animationFrames: 14,
     useText: "shot a giant",
 };

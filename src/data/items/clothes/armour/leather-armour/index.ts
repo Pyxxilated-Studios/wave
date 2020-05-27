@@ -4,10 +4,11 @@ import LeatherArmourImg from "./leather-armour.png";
 
 const LeatherArmour: Armour = {
     name: "Leather Armour",
-    type: "body",
-    effects: { defenceBonus: 5 },
+    type: "armour",
+    kind: "body",
+    effects: { "defence bonus": 5 },
     image: LeatherArmourImg,
-    value: 40,
+    price: 40,
 };
 
 export default LeatherArmour;

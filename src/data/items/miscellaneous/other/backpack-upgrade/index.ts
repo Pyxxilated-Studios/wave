@@ -7,7 +7,7 @@ const BackpackUpgrade: Backpack = {
     name: "Backpack Upgrade",
     slots: 4,
     image: BackpackUpgradeImg,
-    value: 50,
+    price: 50,
 };
 
 export default BackpackUpgrade;

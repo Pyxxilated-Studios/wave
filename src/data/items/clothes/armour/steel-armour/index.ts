@@ -4,10 +4,11 @@ import SteelArmourImg from "./steel-armour.png";
 
 const SteelArmour: Armour = {
     name: "Steel Armour",
-    type: "body",
-    effects: { defenceBonus: 14 },
+    type: "armour",
+    kind: "body",
+    effects: { "defence bonus": 14 },
     image: SteelArmourImg,
-    value: 150,
+    price: 150,
 };
 
 export default SteelArmour;

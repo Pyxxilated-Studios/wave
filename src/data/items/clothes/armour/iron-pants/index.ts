@@ -4,12 +4,13 @@ import IronPantsImg from "./iron-pants.png";
 
 const IronPants: Armour = {
     name: "Iron Pants",
-    type: "legs",
+    type: "armour",
+    kind: "legs",
     effects: {
-        defenceBonus: 10,
+        "defence bonus": 10,
     },
     image: IronPantsImg,
-    value: 100,
+    price: 100,
 };
 
 export default IronPants;

@@ -5,12 +5,13 @@ import MithrilHelmImg from "./mithril-helm.png";
 
 const MithrilHelm: Armour = {
     name: "Mithril Helm",
-    type: "helmet",
+    type: "armour",
+    kind: "helmet",
     effects: {
-        defenceBonus: 10,
+        "defence bonus": 10,
     },
     image: MithrilHelmImg,
-    value: 100,
+    price: 100,
 };
 
 export default MithrilHelm;

@@ -13,7 +13,7 @@ const Boomerang: Weapon = {
     damage: "1d8 + 2",
     image: BoomerangImg,
     projectile: BoomerangAmmo,
-    value: 35,
+    price: 35,
 };
 
 export default Boomerang;

@@ -1,7 +1,7 @@
 //import { calculateDamage } from "../../../utils/dice";
 import { RootThunk } from "../../../store";
 
-const attackPlayer = (attackValue: number, dice: string, type: string): RootThunk => async (
+const attackPlayer = (attackValue: string, dice: string, type: string): RootThunk => async (
     dispatch,
     getState,
 ): Promise<void> => {
@@ -34,7 +34,7 @@ const attackPlayer = (attackValue: number, dice: string, type: string): RootThun
   });
 
   // check if player died
-  if (stats.hp - calculatedMonsterDamage <= 0) {
+  if (stats.health - calculatedMonsterDamage <= 0) {
     // play death sound
     dispatch({
       type: "PLAYER_DIED",

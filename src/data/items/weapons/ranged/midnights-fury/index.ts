@@ -14,7 +14,7 @@ const MidnightsFury: Weapon = {
     damage: "3d10 + 4",
     image: BowImg,
     projectile: Arrow,
-    value: 666,
+    price: 666,
 };
 
 export default MidnightsFury;

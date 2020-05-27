@@ -89,11 +89,11 @@
     }
 }
 
-.stats-hp-bar-container {
+.stats-health-bar-container {
     background: var(--red);
     border: 1px solid var(--green);
 
-    .stats-hp-bar-value {
+    .stats-health-bar-value {
         background: var(--green);
     }
 }

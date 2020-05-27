@@ -6,7 +6,7 @@ import { abilityCheck } from "../../../store/journal/actions";
 import { damageToMonster, monsterDied } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 
-import { Point, Direction, Entity } from "../../../types";
+import { Point, Direction, Entity, Monster } from "../../../types";
 import { UNARMED_DAMAGE } from "../../../constants";
 
 import { calculateDamage, d20 } from "../../../utils/dice";
@@ -96,7 +96,7 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
         const target = findTarget(position, direction, weapon.range, entities[currentMap]);
         if (target.monsterId) {
             // If we're targetting a monster
-            const targetMonster = entities[currentMap][target.monsterId];
+            const targetMonster = entities[currentMap][target.monsterId] as Monster;
 
             const ability =
                 weapon.kind === "melee" ? "strength" : weapon.kind === "ranged" ? "dexterity" : "intelligence";
@@ -130,7 +130,7 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
             dispatch(damageToMonster(damage, targetMonster.id, currentMap, targetMonster.type));
 
             // check if monster died
-            if (targetMonster.hp - damage <= 0) {
+            if (targetMonster.health - damage <= 0) {
                 // and get some exp
                 dispatch(getExperience(targetMonster.exp));
 

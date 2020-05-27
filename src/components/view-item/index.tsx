@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { StatsState } from "../../store/stats/types";
 import { PlayerState } from "../../store/player/types";
 import { ItemType, ConsumableItem, Backpack, ItemEffect, Weapon } from "../../types";
@@ -64,7 +64,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     const equipped = props.stats.equippedItems;
 
     const { sellPrice, buyPrice } = calculatePrices(
-        props.data.value,
+        props.data.price,
         calculateModifier(props.stats.abilities.charisma),
     );
 
@@ -119,34 +119,38 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             }
             break;
         }
+        case "armour": {
+            switch (props.data.kind) {
+                case "ring": {
+                    itemIsEquipped = equipped.ring?.name === props.data.name;
+                    break;
+                }
 
-        case "ring": {
-            itemIsEquipped = equipped.ring?.name === props.data.name;
-            break;
-        }
+                case "helmet": {
+                    itemIsEquipped = equipped.helmet?.name === props.data.name;
+                    break;
+                }
 
-        case "helmet": {
-            itemIsEquipped = equipped.helmet?.name === props.data.name;
-            break;
-        }
+                case "body": {
+                    itemIsEquipped = equipped.body?.name === props.data.name;
+                    break;
+                }
 
-        case "body": {
-            itemIsEquipped = equipped.body?.name === props.data.name;
-            break;
-        }
+                case "gloves": {
+                    itemIsEquipped = equipped.gloves?.name === props.data.name;
+                    break;
+                }
 
-        case "gloves": {
-            itemIsEquipped = equipped.gloves?.name === props.data.name;
-            break;
-        }
+                case "boots": {
+                    itemIsEquipped = equipped.boots?.name === props.data.name;
+                    break;
+                }
 
-        case "boots": {
-            itemIsEquipped = equipped.boots?.name === props.data.name;
-            break;
-        }
-
-        case "legs": {
-            itemIsEquipped = equipped.legs?.name === props.data.name;
+                case "legs": {
+                    itemIsEquipped = equipped.legs?.name === props.data.name;
+                    break;
+                }
+            }
             break;
         }
 
@@ -181,6 +185,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         //     break;
 
         default:
+            break;
     }
 
     if (props.data.effects) {
@@ -195,12 +200,12 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         });
     }
 
-    if (props.data.value) {
+    if (props.data.price !== undefined) {
         itemStats.push(
             <StatsItem
                 stats={{
-                    name: "value",
-                    value: sellPrice,
+                    name: "price",
+                    value: props.buy ? buyPrice : sellPrice,
                 }}
                 key={uuidv4()}
             />,
@@ -262,7 +267,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             <>
                 <Button onClick={(): void => setConfirmDrop(true)} icon="trash" title={"Drop"} />
 
-                {props.data.type === "potion" ? (
+                {props.data?.type === "potion" ? (
                     <Button
                         onClick={(): void => setConfirmPotion(true)}
                         icon="medkit"
@@ -392,7 +397,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
 
 const mapStateToProps = (state: RootState): StateProps => ({ stats: state.stats, player: state.player });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     buyItem: (item: ItemType): void => dispatch(buyItem(item)),
     consumePotion: (item: ItemType): void => dispatch(consumePotion(item)),
     dropItem: (item: ItemType): void => dispatch(dropItem(item)),

@@ -14,7 +14,6 @@ import {
     GET_EXPERIENCE,
 } from "./types";
 import { RESET } from "../system/types";
-import { Armour, Weapon } from "../../types";
 
 import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
 import calculateModifier from "../../utils/calculate-modifier";
@@ -69,16 +68,16 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
             state.maxMana += manaDifference;
             state.abilityModifierMana = newAbilityModifierMana;
 
-            // calculate new hp
-            const newAbilityModifierHp = calculateMaxHealthPool(
+            // calculate new health
+            const newAbilityModifierHealth = calculateMaxHealthPool(
                 state.level,
                 calculateModifier(action.abilities.constitution),
             );
-            const hpDifference = newAbilityModifierHp - state.abilityModifierHealth;
+            const healthDifference = newAbilityModifierHealth - state.abilityModifierHealth;
 
-            state.health += hpDifference;
-            state.maxHealth += hpDifference;
-            state.abilityModifierHealth = newAbilityModifierHp;
+            state.health += healthDifference;
+            state.maxHealth += healthDifference;
+            state.abilityModifierHealth = newAbilityModifierHealth;
 
             const previousDex = calculateModifier(state.abilities.dexterity);
             const currentDex = calculateModifier(action.abilities.dexterity);
@@ -118,15 +117,15 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
                     newState.experienceToLevel = Math.floor(state.experienceToLevel * 1.25);
                 }
 
-                // calculate new hp
-                const newAbilityModifierHp = calculateMaxHealthPool(
+                // calculate new health
+                const newAbilityModifierHealth = calculateMaxHealthPool(
                     newState.level,
                     calculateModifier(state.abilities.constitution),
                 );
-                newState.levelUp.health = newAbilityModifierHp - state.abilityModifierHealth;
+                newState.levelUp.health = newAbilityModifierHealth - state.abilityModifierHealth;
                 newState.health += newState.levelUp.health;
                 newState.maxHealth += newState.levelUp.health;
-                newState.abilityModifierHealth = newAbilityModifierHp;
+                newState.abilityModifierHealth = newAbilityModifierHealth;
 
                 // calculate new mana
                 const newAbilityModifierMana = calculateMaxManaPool(
@@ -163,33 +162,34 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             let equippedItem = undefined;
 
+            if (item.type !== "armour" && item.type !== "weapon") {
+                // This should never happen, but it makes the below prettier
+                return state;
+            }
+
             switch (item.type) {
-                case "body":
-                case "boots":
-                case "gloves":
-                case "helmet":
-                case "legs":
-                case "ring":
-                    equippedItem = state.equippedItems[item.type];
-                    newState.equippedItems[item.type] = item as Armour;
+                case "armour":
+                    equippedItem = state.equippedItems[item.kind];
+                    newState.equippedItems[item.kind] = item;
                     break;
                 case "weapon":
                     equippedItem = state.equippedItems[item.type];
-                    newState.equippedItems[item.type] = item as Weapon;
+                    newState.equippedItems[item.type] = item;
                     break;
                 default:
+                    break;
             }
 
             if (equippedItem && equippedItem.effects) {
-                newState.defence -= equippedItem.effects.defenceBonus ?? 0;
+                newState.defence -= equippedItem.effects["defence bonus"] ?? 0;
 
-                const { manaBonus } = equippedItem.effects;
+                const { "mana bonus": manaBonus } = equippedItem.effects;
                 if (manaBonus) {
                     newState.mana = Math.max(newState.mana - manaBonus, 1);
                     newState.maxMana -= manaBonus;
                 }
 
-                const { healthBonus } = equippedItem.effects;
+                const { "health bonus": healthBonus } = equippedItem.effects;
                 if (healthBonus) {
                     newState.health = Math.max(newState.health - healthBonus, 1);
                     newState.maxHealth -= healthBonus;
@@ -197,16 +197,16 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
             }
 
             if (item.effects) {
-                newState.defence += item.effects.defenceBonus ?? 0;
+                newState.defence += item.effects["defence bonus"] ?? 0;
 
-                if (item.effects.manaBonus) {
-                    newState.mana += item.effects.manaBonus;
-                    newState.maxMana += item.effects.manaBonus;
+                if (item.effects["mana bonus"]) {
+                    newState.mana += item.effects["mana bonus"];
+                    newState.maxMana += item.effects["mana bonus"];
                 }
 
-                if (item.effects.healthBonus) {
-                    newState.health += item.effects.healthBonus;
-                    newState.maxHealth += item.effects.healthBonus;
+                if (item.effects["health bonus"]) {
+                    newState.health += item.effects["health bonus"];
+                    newState.maxHealth += item.effects["health bonus"];
                 }
             }
 
@@ -219,29 +219,32 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             let equippedItem = undefined;
 
+            if (item.type !== "armour" && item.type !== "weapon") {
+                // This should never happen, but it makes the below prettier
+                return state;
+            }
+
             switch (item.type) {
-                case "body":
-                case "boots":
-                case "gloves":
-                case "helmet":
-                case "legs":
-                case "ring":
+                case "armour":
+                    equippedItem = state.equippedItems[item.kind];
+                    break;
                 case "weapon":
                     equippedItem = state.equippedItems[item.type];
                     break;
                 default:
+                    break;
             }
 
             if (equippedItem && equippedItem.effects) {
-                newState.defence -= equippedItem.effects.defenceBonus ?? 0;
+                newState.defence -= equippedItem.effects["defence bonus"] ?? 0;
 
-                const { manaBonus } = equippedItem.effects;
+                const { "mana bonus": manaBonus } = equippedItem.effects;
                 if (manaBonus) {
                     newState.mana = Math.max(newState.mana - manaBonus, 1);
                     newState.maxMana -= manaBonus;
                 }
 
-                const { healthBonus } = equippedItem.effects;
+                const { "health bonus": healthBonus } = equippedItem.effects;
                 if (healthBonus) {
                     newState.health = Math.max(newState.health - healthBonus, 1);
                     newState.maxHealth -= healthBonus;
@@ -254,29 +257,8 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
                     delete newState.equippedItems.weapon;
                     break;
 
-                case "body":
-                    delete newState.equippedItems.body;
-                    break;
-
-                case "helmet":
-                    delete newState.equippedItems.helmet;
-                    break;
-
-                case "legs":
-                    delete newState.equippedItems.legs;
-                    break;
-
-                case "boots":
-                    delete newState.equippedItems.boots;
-                    break;
-
-                case "gloves":
-                    delete newState.equippedItems.gloves;
-                    break;
-
-                case "ring":
-                    delete newState.equippedItems.ring;
-
+                case "armour":
+                    delete newState.equippedItems[item.kind];
                     break;
 
                 default:

@@ -5,12 +5,13 @@ import RedRobesImg from "./red-robes.png";
 
 const RedRobes: Armour = {
     name: "Red Robes",
-    type: "body",
+    type: "armour",
+    kind: "body",
     effects: {
-        manaBonus: 5,
+        "mana bonus": 5,
     },
     image: RedRobesImg,
-    value: 45,
+    price: 45,
 };
 
 export default RedRobes;

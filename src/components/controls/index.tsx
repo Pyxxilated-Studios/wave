@@ -2,7 +2,7 @@ import { useEffect, useCallback, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import debounce from "lodash.debounce";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { DialogState } from "../../store/dialog/types";
 import { PlayerState } from "../../store/player/types";
 import { Direction } from "../../types";
@@ -109,7 +109,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
     dialog: state.dialog,
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     movePlayer: (direction: Direction): void => dispatch(move(direction)),
     toggleInventory: (): void => dispatch(toggleInventory()),
     toggleSettings: (): void => dispatch(toggleSettings()),

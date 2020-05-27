@@ -5,12 +5,13 @@ import MithrilBootsImg from "./mithril-boots.png";
 
 const MithrilBoots: Armour = {
     name: "Mithril Boots",
-    type: "boots",
+    type: "armour",
+    kind: "boots",
     effects: {
-        defenceBonus: 10,
+        "defence bonus": 10,
     },
     image: MithrilBootsImg,
-    value: 130,
+    price: 130,
 };
 
 export default MithrilBoots;

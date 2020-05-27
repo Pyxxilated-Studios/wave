@@ -6,6 +6,7 @@ import Dialog from "../../../../components/dialog";
 import closeDialog from "../../actions/close-dialog";
 
 import "./styles.scss";
+import { RootDispatch } from "../../../../store";
 
 interface DispatchProps {
     closeDialog: () => void;
@@ -34,7 +35,7 @@ const GameTextDialog: FunctionComponent<GameTextDialogProps> = (props: GameTextD
     );
 };
 
-const mapDispatchToState = (dispatch: any): DispatchProps => ({
+const mapDispatchToState = (dispatch: RootDispatch): DispatchProps => ({
     closeDialog: (): void => dispatch(closeDialog()),
 });
 

@@ -1,9 +1,13 @@
-import BoomerangAnimated from "./boomerang-animated.png";
-import { Projectile } from "../../../../../types";
+import { Ammo } from "../../../../../types";
 
-const BoomerangAmmo: Projectile = {
+import BoomerangImage from "./boomerang.png";
+import BoomerangAnimated from "./boomerang-animated.png";
+
+const BoomerangAmmo: Ammo = {
     name: "boomerang",
+    kind: "ammo",
     target: "enemy",
+    image: BoomerangImage,
     sprite: BoomerangAnimated,
     animationFrames: 14,
     useText: "threw a",

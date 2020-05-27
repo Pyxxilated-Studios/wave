@@ -14,7 +14,7 @@ interface ShopItemProps {
 
 const ShopItem: FunctionComponent<ShopItemProps> = (props: ShopItemProps) => {
     const { item, buyItem, charismaModifier } = props;
-    const { buyPrice } = calculatePrices(item.value, charismaModifier);
+    const { buyPrice } = calculatePrices(item.price, charismaModifier);
 
     return (
         <button onClick={buyItem} className="shop-item-container white-border flex-row">

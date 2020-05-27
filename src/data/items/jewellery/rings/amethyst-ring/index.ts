@@ -4,12 +4,13 @@ import AmethystRingImg from "./amethyst-ring.png";
 
 const AmethystRing: Armour = {
     name: "Amethyst Ring",
-    type: "ring",
+    type: "armour",
+    kind: "ring",
     effects: {
-        defenceBonus: 3,
+        "defence bonus": 3,
     },
     image: AmethystRingImg,
-    value: 120,
+    price: 120,
 };
 
 export default AmethystRing;

@@ -9,7 +9,7 @@ const MightyManaPotion: ConsumableItem = {
     kind: "mana",
     consumeEffect: { manaRestore: 60 },
     image: MightyManaPotionImage,
-    value: 100,
+    price: 100,
 };
 
 export default MightyManaPotion;

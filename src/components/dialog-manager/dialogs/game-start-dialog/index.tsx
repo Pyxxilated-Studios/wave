@@ -9,6 +9,7 @@ import Flame from "../../../flames";
 // import loadGame from "../../actions/load-game";
 
 import "./styles.scss";
+import { RootDispatch } from "../../../../store";
 
 interface DispatchProps {
     // loadGame: () => void;
@@ -62,7 +63,7 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
     );
 };
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     // loadGame: (): void => ,
     startGame: (): void => dispatch(startGame()),
 });

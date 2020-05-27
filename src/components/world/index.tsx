@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from "react";
 import { connect } from "react-redux";
 import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { WorldState } from "../../store/world/types";
 import { PlayerState } from "../../store/player/types";
 import { SystemState } from "../../store/system/types";
@@ -136,7 +136,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
     dialog: state.dialog,
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => {
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => {
     const actions = {
         takeMonstersTurn: (): void => dispatch(takeMonstersTurn()),
         loadMonsters: (): void => dispatch(loadMonsters()),

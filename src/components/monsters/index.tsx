@@ -5,6 +5,8 @@ import { RootState } from "../../store";
 import { MonstersState } from "../../store/monsters/types";
 import { WorldState } from "../../store/world/types";
 
+import { Monster as MonsterType } from "../../types";
+
 import Monster from "./monster";
 
 interface MonstersProps {
@@ -22,7 +24,7 @@ const Monsters: FunctionComponent<MonstersProps> = (props: MonstersProps) => {
         if (props.monsters.entities[currentMap] && Object.entries(props.monsters.entities).length > 0) {
             setMonstersToRender(
                 Object.entries(props.monsters.entities[currentMap]).map(([uuid, monster]) => (
-                    <Monster key={uuid} monster={monster} />
+                    <Monster key={uuid} monster={monster as MonsterType} />
                 )),
             );
         }

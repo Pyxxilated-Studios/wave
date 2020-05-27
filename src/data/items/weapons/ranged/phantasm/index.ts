@@ -14,7 +14,7 @@ const PhantasmCrossbow: Weapon = {
     damage: "2d10 + 4",
     image: CrossbowImg,
     projectile: Bolt,
-    value: 300,
+    price: 300,
 };
 
 export default PhantasmCrossbow;

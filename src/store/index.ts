@@ -1,7 +1,7 @@
-import { combineReducers, Action, createStore, compose, applyMiddleware } from "@reduxjs/toolkit";
+import { combineReducers, createStore, compose, applyMiddleware, AnyAction } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk, { ThunkAction } from "redux-thunk";
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import WorldReducer from "./world/reducer";
 import SystemReducer from "./system/reducer";
@@ -13,6 +13,7 @@ import DialogReducer from "./dialog/reducer";
 import SnackbarReducer from "./snackbar/reducer";
 import InventoryReducer from "./inventory/reducer";
 import JournalReducer from "./journal/reducer";
+import { Dispatch } from "react";
 
 const rootReducer = combineReducers({
     world: WorldReducer,
@@ -50,5 +51,5 @@ export const store = createStore(
 export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
-export type RootDispatch = typeof store.dispatch;
-export type RootThunk = ThunkAction<void, RootState, unknown, Action<string>>;
+export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, {}, AnyAction>;
+export type RootThunk = ThunkAction<void, RootState, unknown, AnyAction>;

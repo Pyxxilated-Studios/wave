@@ -12,7 +12,7 @@ import {
 } from "./types";
 import { RESET } from "../system/types";
 
-import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
+import { Monster, Direction } from "../../types";
 
 const initialState: MonstersState = {
     entities: {},
@@ -35,15 +35,19 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
         case MONSTER_MOVE: {
             const newState = cloneDeep(state);
             newState.entities[action.currentMap][action.id].location = action.position;
+            if (action.direction === Direction.West || action.direction === Direction.East) {
+                // If they move north/south then there's no need to change this
+                (newState.entities[action.currentMap][action.id] as Monster).direction = action.direction;
+            }
             return newState;
         }
 
         case DAMAGE_TO_MONSTER: {
             const newState = cloneDeep(state);
-            // subtract the damage from monster hp
-            newState.entities[action.map][action.monsterId].hp -= action.amount;
-            // if monster has 0 or less hp, kill it
-            if (newState.entities[action.map][action.monsterId].hp <= 0) {
+            // subtract the damage from monster health
+            (newState.entities[action.map][action.monsterId] as Monster).health -= action.amount;
+            // if monster has 0 or less health, kill it
+            if ((newState.entities[action.map][action.monsterId] as Monster).health <= 0) {
                 delete newState.entities[action.map][action.monsterId];
             }
 
@@ -60,13 +64,10 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
                 action.monsters.forEach((monster) => {
                     // generate a unique id (for tracking purposes)
                     const uuid = uuidv4();
-                    // merge the id, monster stats, and position
-                    // set the position from tile(x,y) to actual pixel size
+                    // Actually place the monster, providing it an id, and location
                     monster = {
-                        id: uuid,
-                        location: translateToSpriteCoordinates(monster.location),
-                        visible: false,
                         ...monster,
+                        id: uuid,
                     };
                     newState.entities[action.currentMap][uuid] = monster;
                 });

@@ -4,12 +4,13 @@ import IronBootsImg from "./iron-boots.png";
 
 const IronBoots: Armour = {
     name: "Iron Boots",
-    type: "boots",
+    type: "armour",
+    kind: "boots",
     effects: {
-        defenceBonus: 4,
+        "defence bonus": 4,
     },
     image: IronBootsImg,
-    value: 60,
+    price: 60,
 };
 
 export default IronBoots;

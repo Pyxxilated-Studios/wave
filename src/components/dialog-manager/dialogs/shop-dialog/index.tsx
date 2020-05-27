@@ -11,6 +11,7 @@ import ShopInventory from "../../../../components/shop-inventory";
 import closeDialog from "../../actions/close-dialog";
 
 import "./styles.scss";
+import { RootDispatch } from "../../../../store";
 
 interface DispatchProps {
     closeDialog: () => void;
@@ -19,6 +20,8 @@ interface DispatchProps {
 type ShopDialogProps = DispatchProps;
 
 const ShopDialog: FunctionComponent<ShopDialogProps> = (props: ShopDialogProps) => {
+    const { closeDialog } = props;
+
     const [welcome, setWelcome] = useState(true);
     const [sellItems, setSellItems] = useState<ReactNode>();
 
@@ -48,7 +51,7 @@ const ShopDialog: FunctionComponent<ShopDialogProps> = (props: ShopDialogProps) 
                     </div>
 
                     <div className="flex-row shop-dialog-button">
-                        <Button small onClick={props.closeDialog} icon="walking" title={"Leave"} />
+                        <Button small onClick={closeDialog} icon="walking" title={"Leave"} />
 
                         <Button
                             small
@@ -84,6 +87,8 @@ const ShopDialog: FunctionComponent<ShopDialogProps> = (props: ShopDialogProps) 
     );
 };
 
-const mapActionsToDispatch = (dispatch: any): DispatchProps => ({ closeDialog: (): void => dispatch(closeDialog()) });
+const mapActionsToDispatch = (dispatch: RootDispatch): DispatchProps => ({
+    closeDialog: (): void => dispatch(closeDialog()),
+});
 
 export default connect(null, mapActionsToDispatch)(ShopDialog);

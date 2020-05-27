@@ -1,12 +1,12 @@
-import generateMonsterType from './generate-monster-type';
-import getSurroundingTiles from '../../../utils/get-surrounding-tiles';
-import { MAP_DIMENSIONS } from '../../../constants';
-import { GameMap, Point, Entity } from '../../../types';
+import generateMonsterType from "./generate-monster-type";
+import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
+import { MAP_DIMENSIONS } from "../../../constants";
+import { GameMap, Point, Monster } from "../../../types";
 
-import monsterData from '../../../data/monsters';
+import monsterData from "../../../data/monsters";
 
 // generates random monsters for a random map
-const generateMonsters = (floorNumber: number, map: GameMap, playerPosition: Point, playerLevel: number): Entity[] => {
+const generateMonsters = (floorNumber: number, map: GameMap, playerPosition: Point, playerLevel: number): Monster[] => {
     const availableTiles: Point[] = [];
     // we need to get the tiles from the surrounding tiles func,
     // then reverse the coordinates because they come back in normal notation (y, x)
@@ -48,9 +48,9 @@ const generateMonsters = (floorNumber: number, map: GameMap, playerPosition: Poi
     return monsterTiles.map((location) => {
         const type = generateMonsterType(playerLevel);
         return {
+            ...Reflect.get(monsterData, type),
             location,
             type,
-            ...Reflect.get(monsterData, type),
         };
     });
 };

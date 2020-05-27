@@ -5,12 +5,13 @@ import MithrilGlovesImg from "./mithril-gloves.png";
 
 const MithrilGloves: Armour = {
     name: "Mithril Gloves",
-    type: "gloves",
+    type: "armour",
+    kind: "gloves",
     effects: {
-        defenceBonus: 15,
+        "defence bonus": 15,
     },
     image: MithrilGlovesImg,
-    value: 150,
+    price: 150,
 };
 
 export default MithrilGloves;

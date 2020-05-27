@@ -4,10 +4,11 @@ import SteelHelmImg from "./steel-helm.png";
 
 const SteelHelm: Armour = {
     name: "Steel Helm",
-    type: "helmet",
-    effects: { defenceBonus: 10 },
+    type: "armour",
+    kind: "helmet",
+    effects: { "defence bonus": 10 },
     image: SteelHelmImg,
-    value: 100,
+    price: 100,
 };
 
 export default SteelHelm;

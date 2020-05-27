@@ -55,7 +55,7 @@ const ShopInventory: FunctionComponent<ShopInventoryProps> = (props: ShopInvento
         }
     };
 
-    const incrementPage = () => {
+    const incrementPage = (): void => {
         if (page < MAX_PAGE) {
             setPage(page + 1);
         }
