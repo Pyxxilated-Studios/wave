@@ -9,7 +9,7 @@ import { addBloodSpill } from "../../../store/world/actions";
 import { Point, Direction, Entity, Monster } from "../../../types";
 import { UNARMED_DAMAGE } from "../../../constants";
 
-import { calculateDamage, d20 } from "../../../utils/dice";
+import { d20 } from "../../../utils/dice";
 import calculateModifier from "../../../utils/calculate-modifier";
 
 import { traversableTile, getNewPosition, monsterAtPosition, withinBoundary } from "../../../utils/movement";
@@ -119,7 +119,7 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
                 ),
             );
 
-            const damage = attackValue >= targetMonster.defence ? calculateDamage(weapon.damage) : 0;
+            const damage = attackValue >= targetMonster.defence ? weapon.damage.roll() : 0;
 
             if (damage > 0) {
                 // Only show the attack animation if they hit the monster

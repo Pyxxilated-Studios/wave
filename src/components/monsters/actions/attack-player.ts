@@ -1,4 +1,3 @@
-//import { calculateDamage } from "../../../utils/dice";
 import { RootThunk } from "../../../store";
 
 const attackPlayer = (attackValue: string, dice: string, type: string): RootThunk => async (
@@ -9,7 +8,7 @@ const attackPlayer = (attackValue: string, dice: string, type: string): RootThun
   const { stats } = getState();
 
   const calculatedMonsterDamage =
-    attackValue >= Math.max(stats.defence, 0) ? calculateDamage(dice) : 0;
+    attackValue >= Math.max(stats.defence, 0) ? dice.roll() : 0;
 
   dispatch({
     type: "MONSTER_ABILITY_CHECK",

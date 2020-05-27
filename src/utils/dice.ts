@@ -214,6 +214,9 @@ export const calculateDamageRange = (notation: string): [number, number] => {
 };
 
 // Calculates damage to deal based on Dice Notation (https://en.wikipedia.org/wiki/Dice_notation)
-export const calculateDamage = (notation: string): number => parse(notation, unbiased);
+/* eslint no-extend-native: ["error", { "exceptions": ["String"] }] */
+String.prototype.roll = function (this: string): number {
+    return parse(this, unbiased);
+};
 
 export const d20 = (): number => Math.floor(Math.random() * 20) + 1;
