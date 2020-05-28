@@ -102,24 +102,41 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
                 weapon.kind === "melee" ? "strength" : weapon.kind === "ranged" ? "dexterity" : "intelligence";
 
             const modifier = calculateModifier(stats.abilities[ability]);
-            const attackValue = d20() + modifier;
+            const roll = d20();
+            const criticalHit = roll === 20;
+            const attackValue = roll + modifier;
 
             if (weapon.projectile) {
                 dispatch(useProjectile(target.location, weapon.projectile));
             }
 
-            dispatch(
-                abilityCheck(
-                    "d20 + " + modifier,
-                    attackValue,
-                    ability,
-                    targetMonster.defence,
-                    targetMonster.type,
-                    "defence",
-                ),
-            );
+            if (criticalHit) {
+                dispatch({
+                    type: "CRITICAL_HIT",
+                    payload: {
+                        notation: "d20 + " + modifier,
+                        roll: roll,
+                        ability,
+                    },
+                });
+            } else {
+                dispatch(
+                    abilityCheck(
+                        "d20 + " + modifier,
+                        attackValue,
+                        ability,
+                        targetMonster.defence,
+                        targetMonster.type,
+                        "defence",
+                    ),
+                );
+            }
 
-            const damage = attackValue >= targetMonster.defence ? weapon.damage.roll() : 0;
+            const damage = criticalHit
+                ? weapon.damage.roll(true)
+                : attackValue >= targetMonster.defence
+                ? weapon.damage.roll(false)
+                : 0;
 
             if (damage > 0) {
                 // Only show the attack animation if they hit the monster

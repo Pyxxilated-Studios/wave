@@ -1,4 +1,4 @@
-import { Direction, Point, Projectile } from "../../types";
+import { Direction, Point, Projectile, Spell } from "../../types";
 import { ResetAction } from "../system/types";
 import { MonsterDiedAction } from "../monsters/types";
 
@@ -10,7 +10,7 @@ export interface PlayerState {
     spellCast: boolean;
     playerDied: boolean;
     targetPosition: Point;
-    spell: null;
+    spell?: Spell;
     turnsOutOfCombat: number;
     monsterAttacked: boolean;
     monsterDied: boolean;
@@ -24,9 +24,9 @@ interface MovePlayerAction {
 }
 
 export const PLAYER_DIED = "PLAYER_DIED";
-interface PlayerDieAction {
+export interface PlayerDieAction {
     type: typeof PLAYER_DIED;
-    from: string;
+    reason: { from?: string; entity?: string };
 }
 
 export const PLAYER_ATTACK = "PLAYER_ATTACK";

@@ -10,9 +10,9 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
     const { stats, player } = getState();
     const { attackValue, dice, type, projectile, location } = monster;
 
-    const attack = attackValue.roll();
+    const attack = attackValue.roll(false);
 
-    const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll() : 0;
+    const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll(false) : 0;
 
     if (projectile && projectile.target === "enemy") {
         let direction: Direction;
@@ -63,7 +63,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
     // check if player died
     if (stats.health - calculatedMonsterDamage <= 0) {
         // play death sound
-        dispatch(playerDie(type));
+        dispatch(playerDie({ entity: type }));
         // if it did, game over
         dispatch(pause(true, { gameOver: true }));
     }

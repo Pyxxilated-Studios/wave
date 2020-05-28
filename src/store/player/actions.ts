@@ -16,10 +16,10 @@ export const attackMonster = (): PlayerActionType => {
     };
 };
 
-export const playerDie = (from: string): PlayerActionType => {
+export const playerDie = (reason: { entity?: string; from?: string }): PlayerActionType => {
     return {
         type: PLAYER_DIED,
-        from,
+        reason,
     };
 };
 

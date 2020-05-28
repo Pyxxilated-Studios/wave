@@ -10,7 +10,7 @@ const initialState: PlayerState = {
     playerAttacked: false,
     playerMoved: false,
     spellCast: false,
-    spell: null,
+    spell: undefined,
     playerDied: false,
     targetPosition: { x: 0, y: 0 },
     turnsOutOfCombat: 0,

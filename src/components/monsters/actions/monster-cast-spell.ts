@@ -31,15 +31,15 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
 
         if (!effect) return;
 
-        const healAmount = (effect as HealEffect).amount.roll();
+        const healAmount = (effect as HealEffect).amount.roll(false);
 
         // dispatch({
         //     type: "MONSTER_HEAL_HP",
         //     payload: { healAmount, id, map: currentMap, entity: type },
         //     });
     } else {
-        const attack = attackValue.roll();
-        const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll() : 0;
+        const attack = attackValue.roll(false);
+        const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll(false) : 0;
 
         dispatch({
             type: "MONSTER_ABILITY_CHECK",
@@ -114,7 +114,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
         // check if player died
         if (stats.health - calculatedMonsterDamage <= 0) {
             // play death sound
-            dispatch(playerDie(type));
+            dispatch(playerDie({ entity: type }));
 
             // if it did, game over
             dispatch(pause(true, { gameOver: true }));

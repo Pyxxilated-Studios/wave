@@ -1,4 +1,4 @@
-import { combineReducers, createStore, compose, applyMiddleware, AnyAction } from "@reduxjs/toolkit";
+import { combineReducers, createStore, compose, applyMiddleware, AnyAction, Action } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
@@ -52,4 +52,4 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, {}, AnyAction>;
-export type RootThunk = ThunkAction<any, RootState, unknown, AnyAction>;
+export type RootThunk = ThunkAction<any, RootState, unknown, Action<string | void | boolean>>;

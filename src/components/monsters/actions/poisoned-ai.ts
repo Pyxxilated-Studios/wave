@@ -28,7 +28,7 @@ export const poisoned = (sightBox: Point[], currentMap: string, monster: Monster
     let dead = false;
 
     if (aiTurns % TURNS_FOR_POISON === TURNS_FOR_POISON - 1) {
-        const damage = POISON_DAMAGE.roll();
+        const damage = POISON_DAMAGE.roll(false);
 
         dispatch(damageToMonster(damage, id, currentMap, type, "poison"));
 

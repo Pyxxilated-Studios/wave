@@ -22,52 +22,101 @@ export const move = (
     // dont allow for infinite loops when monster can't move
     if (count >= 5) return;
 
-    const nextPosition = position;
+    const { player, world, monsters } = getState();
+
+    const nextPosition = { ...position };
 
     switch (direction) {
-        case Direction.North:
-            nextPosition.y -= 1;
+        case Direction.North: {
+            --nextPosition.y;
 
-            if (!dispatch(monsterCanMoveTo(nextPosition, id, currentMap))) {
+            if (
+                !monsterCanMoveTo(
+                    nextPosition,
+                    id,
+                    currentMap,
+                    player.position,
+                    monsters.entities[currentMap],
+                    world.maps[world.floorNumber - 1].tiles,
+                )
+            ) {
                 return dispatch(move(Direction.West, position, currentMap, id, count));
+            } else {
+                position = nextPosition;
             }
 
             break;
+        }
 
-        case Direction.South:
-            nextPosition.y += 1;
+        case Direction.South: {
+            ++nextPosition.y;
 
-            if (!dispatch(monsterCanMoveTo(nextPosition, id, currentMap))) {
+            if (
+                !monsterCanMoveTo(
+                    nextPosition,
+                    id,
+                    currentMap,
+                    player.position,
+                    monsters.entities[currentMap],
+                    world.maps[world.floorNumber - 1].tiles,
+                )
+            ) {
                 return dispatch(move(Direction.East, position, currentMap, id, count));
+            } else {
+                position = nextPosition;
             }
 
             break;
+        }
 
-        case Direction.West:
-            nextPosition.x -= 1;
+        case Direction.West: {
+            --nextPosition.x;
 
-            if (!dispatch(monsterCanMoveTo(nextPosition, id, currentMap))) {
+            if (
+                !monsterCanMoveTo(
+                    nextPosition,
+                    id,
+                    currentMap,
+                    player.position,
+                    monsters.entities[currentMap],
+                    world.maps[world.floorNumber - 1].tiles,
+                )
+            ) {
                 return dispatch(move(Direction.South, position, currentMap, id, count));
+            } else {
+                position = nextPosition;
             }
 
             break;
+        }
 
-        case Direction.East:
-            nextPosition.x += 1;
+        case Direction.East: {
+            ++nextPosition.x;
 
-            if (!dispatch(monsterCanMoveTo(nextPosition, id, currentMap))) {
-                // move in a circle, but the opposite direction
+            if (
+                !monsterCanMoveTo(
+                    nextPosition,
+                    id,
+                    currentMap,
+                    player.position,
+                    monsters.entities[currentMap],
+                    world.maps[world.floorNumber - 1].tiles,
+                )
+            ) {
                 return dispatch(move(Direction.North, position, currentMap, id, count));
+            } else {
+                position = nextPosition;
             }
 
             break;
+        }
 
         default:
             break;
     }
 
     // recalculate if the monster is in sight
-    const inSight = isInFieldOfView(getState().map.sightBox, nextPosition);
+    const inSight = isInFieldOfView(getState().map.sightBox, position);
 
     // if the monster is now in sight
     if (inSight) {
@@ -83,7 +132,7 @@ export const move = (
         monsterMove(
             id,
             currentMap,
-            nextPosition,
+            position,
             direction === Direction.North || direction === Direction.South ? monster.direction : direction,
         ),
     );

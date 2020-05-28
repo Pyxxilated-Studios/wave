@@ -93,7 +93,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 <StatsItem stats={{ name: "damage", value: (props.data as Weapon).damage }} key={uuidv4()} />,
             );
 
-            const damageRange = calculateDamageRange((props.data as Weapon).damage);
+            const damageRange = calculateDamageRange((props.data as Weapon).damage, false);
             itemStats.push(
                 <StatsItem
                     stats={{

@@ -16,26 +16,64 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
     dispatch,
     getState,
 ): Promise<void> => {
+    const { player, monsters, world } = getState();
     const { id, location, direction } = monster;
-    const possibleDirections = [];
+
+    const possibleDirections: Point[] = [];
 
     const up = { x: location.x, y: location.y - 1 };
-    if (dispatch(monsterCanMoveTo(up, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(up);
     }
 
     const down = { x: location.x, y: location.y + 1 };
-    if (dispatch(monsterCanMoveTo(down, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(down);
     }
 
     const left = { x: location.x - 1, y: location.y };
-    if (dispatch(monsterCanMoveTo(left, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(left);
     }
 
     const right = { x: location.x + 1, y: location.y };
-    if (dispatch(monsterCanMoveTo(right, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(right);
     }
 

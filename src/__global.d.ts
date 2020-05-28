@@ -1,3 +1,3 @@
 declare interface String {
-    roll(): number;
+    roll(criticalHit: boolean): number;
 }

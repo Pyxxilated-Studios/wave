@@ -1,5 +1,4 @@
-import { RootThunk } from "../../../store";
-import { Point, Entity } from "../../../types";
+import { Point, Entity, Tile } from "../../../types";
 
 import { monsterAtPosition, traversableTile, withinBoundary } from "../../../utils/movement";
 import { radiusTiles } from "../../../utils/get-surrounding-tiles";
@@ -30,18 +29,20 @@ export const checkForOtherMonster = (
  * @param id The id of the monster
  * @param currentMap The current map
  */
-export const monsterCanMoveTo = (position: Point, id: string, currentMap: string): RootThunk => async (
-    _,
-    getState,
-): Promise<boolean> => {
-    const { player, monsters, world } = getState();
-
+export const monsterCanMoveTo = (
+    position: Point,
+    id: string,
+    currentMap: string,
+    playerPosition: Point,
+    entities: Record<string, Entity>,
+    tiles: Tile[][],
+): boolean => {
     return (
-        player.position.x !== position.x &&
-        player.position.y !== position.y &&
+        playerPosition.x !== position.x &&
+        playerPosition.y !== position.y &&
         withinBoundary(position) &&
-        !checkForOtherMonster(id, position, monsters.entities[currentMap]) &&
-        traversableTile(position, world.maps[world.floorNumber - 1].tiles)
+        !checkForOtherMonster(id, position, entities) &&
+        traversableTile(position, tiles)
     );
 };
 

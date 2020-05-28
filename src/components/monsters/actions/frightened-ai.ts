@@ -20,28 +20,66 @@ import { monsterCanMoveTo, isInFieldOfView } from "./move-monster";
  */
 export const moveFrightened = (sightBox: Point[], currentMap: string, monster: Monster): RootThunk => async (
     dispatch,
+    getState,
 ): Promise<void> => {
-    const { id, location } = monster;
+    const { player, monsters, world } = getState();
+    const { id, location, direction } = monster;
 
     const possibleDirections: Point[] = [];
 
     const up = { x: location.x, y: location.y - 1 };
-    if (dispatch(monsterCanMoveTo(up, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(up);
     }
 
     const down = { x: location.x, y: location.y + 1 };
-    if (dispatch(monsterCanMoveTo(down, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(down);
     }
 
     const left = { x: location.x - 1, y: location.y };
-    if (dispatch(monsterCanMoveTo(left, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(left);
     }
 
     const right = { x: location.x + 1, y: location.y };
-    if (dispatch(monsterCanMoveTo(right, id, currentMap))) {
+    if (
+        monsterCanMoveTo(
+            up,
+            id,
+            currentMap,
+            player.position,
+            monsters.entities[currentMap],
+            world.maps[world.floorNumber - 1].tiles,
+        )
+    ) {
         possibleDirections.push(right);
     }
 
@@ -66,11 +104,7 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
                 id,
                 currentMap,
                 newPosition,
-                newPosition.x < location.x
-                    ? Direction.West
-                    : newPosition.x > location.x
-                    ? Direction.East
-                    : monster.direction,
+                newPosition.x < location.x ? Direction.West : newPosition.x > location.x ? Direction.East : direction,
             ),
         );
     }

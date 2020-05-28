@@ -15,8 +15,8 @@ export const attackMonster = (
     const { dice, attackValue } = attackingMonster;
     const { defence, type, health, location } = defender;
 
-    const attack = attackValue.roll();
-    const calculatedMonsterDamage = attack >= Math.max(defence, 0) ? dice.roll() : 0;
+    const attack = attackValue.roll(false);
+    const calculatedMonsterDamage = attack >= Math.max(defence, 0) ? dice.roll(false) : 0;
 
     dispatch(monsterAbilityCheck(attack, Math.max(defence, 0), "defence", attackingMonster.type, type));
 

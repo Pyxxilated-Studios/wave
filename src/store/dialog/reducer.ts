@@ -14,6 +14,7 @@ import {
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
 import { RESET } from "../system/types";
 import { SET_CHEST_DATA } from "../world/types";
+import { PLAYER_DIED } from "../player/types";
 
 const initialState: DialogState = {
     paused: true,
@@ -57,6 +58,7 @@ const initialState: DialogState = {
         race: "Human",
         cclass: "Fighter",
     },
+    diedFrom: {},
 };
 
 const DialogReducer = (state = initialState, action: DialogActionType): DialogState => {
@@ -129,6 +131,9 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             }
 
             return { ...state, reason: {} };
+
+        case PLAYER_DIED:
+            return { ...state, diedFrom: action.reason };
 
         case TOGGLE_SETTINGS:
             return { ...state, reason: { settings: !state.reason.settings } };

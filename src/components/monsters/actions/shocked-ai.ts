@@ -22,7 +22,7 @@ export const shocked = (currentMap: string, monster: Monster): RootThunk => asyn
     const { id, type, health, experience, location, aiTurns, originalAI } = monster;
 
     let dead = false;
-    const damage = SHOCK_DAMAGE.roll();
+    const damage = SHOCK_DAMAGE.roll(false);
 
     dispatch(damageToMonster(damage, id, currentMap, type, "shock"));
 

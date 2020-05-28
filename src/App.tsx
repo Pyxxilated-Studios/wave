@@ -20,6 +20,7 @@ import {
     faWalking,
     faAngleDoubleRight,
     faArrowRight,
+    faSync,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
@@ -51,6 +52,7 @@ fontawesome.library.add(
     faWalking,
     faAngleDoubleRight,
     faArrowRight,
+    faSync,
 );
 
 interface AppProps {
