@@ -1,4 +1,4 @@
-import { Entity, Point, Monster, Direction } from "../../types";
+import { Entity, Point, Monster, Direction, MonsterAI } from "../../types";
 import { ResetAction } from "../system/types";
 
 export interface MonstersState {
@@ -45,10 +45,31 @@ export interface DamageToMonsterAction {
     from: string;
 }
 
+export const MONSTER_HEAL = "MONSTER_HEAL";
+interface MonsterHealAction {
+    type: typeof MONSTER_HEAL;
+    amount: number;
+    id: string;
+    map: string;
+    entity: string;
+}
+
 export const MONSTER_DIED = "MONSTER_DIED";
 export interface MonsterDiedAction {
     type: typeof MONSTER_DIED;
     entity: string;
+}
+
+export const CHANGE_AI = "CHANGE_AI";
+interface ChangeAiAction {
+    type: typeof CHANGE_AI;
+    map: string;
+    id: string;
+    entity: string;
+    to: MonsterAI;
+    from: MonsterAI;
+    turns: number;
+    original: MonsterAI;
 }
 
 export type MonstersActionType =
@@ -57,5 +78,7 @@ export type MonstersActionType =
     | HideMonsterAction
     | MonsterMoveAction
     | DamageToMonsterAction
+    | MonsterHealAction
     | MonsterDiedAction
+    | ChangeAiAction
     | ResetAction;

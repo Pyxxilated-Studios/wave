@@ -1,53 +1,41 @@
 import { RootThunk } from "../../../store";
+import { playerTakeTurn, useProjectile } from "../../../store/player/actions";
+import { abilityCheck, rolledCritical } from "../../../store/journal/actions";
+import { getExperience, heal } from "../../../store/stats/actions";
+import { pause } from "../../../store/dialog/actions";
+import { monsterDied, changeMonsterAI, damageToMonster } from "../../../store/monsters/actions";
+import { addBloodSpill } from "../../../store/world/actions";
 
 import { Monster, Spell, HealEffect, DamageEffect, ChangeAIEffect } from "../../../types";
 
 import calculateModifier from "../../../utils/calculate-modifier";
 import { d20 } from "../../../utils/dice";
-import { monsterAtPosition } from "../../../utils/movement";
+
+import errorMessage from "../../dialog-manager/actions/error-message";
 
 import { findTarget } from "./player-attack";
-import errorMessage from "../../dialog-manager/actions/error-message";
-import { playerTakeTurn } from "../../../store/player/actions";
-import { abilityCheck } from "../../../store/journal/actions";
-import { getExperience } from "../../../store/stats/actions";
-import { pause } from "../../../store/dialog/actions";
-import { monsterDied } from "../../../store/monsters/actions";
-import { addBloodSpill } from "../../../store/world/actions";
+import { applyEffects } from "../../controls/actions/move-player";
 
 /**
  * Change a monsters AI from an effect that the spell the players casting
  * causes.
  *
  * @param spell The spell the player is casting
- * @param currMonster The monster that's being targetted
+ * @param monster The monster that's being targetted
  */
-const changeMonsterAI = (spell: Spell, currMonster: Monster): RootThunk => async (
-    dispatch,
-    getState,
-): Promise<void> => {
+const changeAI = (spell: Spell, monster: Monster): RootThunk => async (dispatch, getState): Promise<void> => {
     if (!spell.effects) return;
 
     const { currentMap } = getState().world;
     const { to, turns, chance } = spell.effects.find((effect) => effect.effect === "changeAI") as ChangeAIEffect;
+    const { ai, originalAI, id, type } = monster;
 
     // If they're already under the effects of something, don't apply a new effect
-    if (currMonster.ai !== currMonster.originalAI) return;
+    if (ai !== originalAI) return;
 
     // If we have a probabilty to hit, then use that to check if we do
     if (!chance || chance.proc()) {
-        // dispatch({
-        //     type: "CHANGE_AI",
-        //     payload: {
-        //         from: currMonster.ai,
-        //         ai: to,
-        //         turns,
-        //         id: currMonster.id,
-        //         map: currentMap,
-        //         entity: currMonster.type,
-        //         original: currMonster.originalAI,
-        //     },
-        // });
+        dispatch(changeMonsterAI(currentMap, id, type, to, ai, turns, originalAI));
     }
 };
 
@@ -59,7 +47,7 @@ const doesProcOnBoss = (): boolean => {
 const changeBossAI = (spell: Spell, currMonster: Monster, criticalHit: boolean): RootThunk => async (
     dispatch,
 ): Promise<void> => {
-    if (criticalHit || doesProcOnBoss()) dispatch(changeMonsterAI(spell, currMonster));
+    if (criticalHit || doesProcOnBoss()) dispatch(changeAI(spell, currMonster));
 };
 
 export const castSpell = (): RootThunk => async (dispatch, getState): Promise<void> => {
@@ -77,10 +65,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
     if (spell.target === "self") {
         if (!spell.effects) return;
 
-        dispatch({
-            type: "CAST_SPELL",
-            payload: { position: position, projectile: spell },
-        });
+        dispatch(useProjectile(position, spell));
 
         const intelligenceModifier = calculateModifier(stats.abilities.intelligence);
 
@@ -89,14 +74,11 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
         const healAmount =
             (effect as HealEffect).amount.roll(false) + (intelligenceModifier > 0 ? intelligenceModifier : 0);
 
-        // dispatch({
-        //     type: "HEAL_HP",
-        //     payload: healAmount,
-        // });
+        dispatch(heal("spell", healAmount));
 
         dispatch(playerTakeTurn());
 
-        // dispatch(applyEffects());
+        applyEffects();
     } else if (spell.target === "enemy") {
         const { currentMap } = world;
         const { entities } = monsters;
@@ -105,7 +87,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
 
         if (monsterId) {
             // If we're targetting a monster
-            const currMonster = entities[currentMap][monsterId] as Monster;
+            const monster = entities[currentMap][monsterId] as Monster;
 
             const modifier = calculateModifier(stats.abilities.intelligence);
 
@@ -113,28 +95,18 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
             const criticalHit = roll === 20;
             const attackValue = roll + modifier;
 
-            // dispatch({
-            //     type: "CAST_SPELL",
-            //     payload: { position: location, projectile: spell },
-            // });
+            dispatch(useProjectile(location, spell));
 
             if (criticalHit) {
-                // dispatch({
-                //     type: "CRITICAL_HIT",
-                //     payload: {
-                //         notation: "d20 + " + modifier,
-                //         roll: roll,
-                //         ability: "intelligence",
-                //     },
-                // });
+                dispatch(rolledCritical("d20 + " + modifier, roll, "intelligence"));
             } else {
                 dispatch(
                     abilityCheck(
                         "d20 + " + modifier,
                         attackValue,
                         "intelligence",
-                        currMonster.defence,
-                        currMonster.type,
+                        monster.defence,
+                        monster.type,
                         "defence",
                     ),
                 );
@@ -148,55 +120,39 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
 
             const damage = criticalHit
                 ? damageEffect.dice.roll(true)
-                : attackValue >= currMonster.defence
+                : attackValue >= monster.defence
                 ? damageEffect.dice.roll(false)
                 : 0;
 
             // deal damage to monster
-            dispatch({
-                type: "DAMAGE_TO_MONSTER",
-                payload: {
-                    damage,
-                    id: currMonster.id,
-                    map: currentMap,
-                    entity: currMonster.type,
-                    from: "player",
-                },
-            });
+            dispatch(damageToMonster(damage, monster.id, currentMap, monster.type, "player"));
 
             // check if monster died
-            if (currMonster.health - damage <= 0) {
+            if (monster.health - damage <= 0) {
                 // and get some exp
-                dispatch(getExperience(currMonster.experience));
-                if (stats.experience + currMonster.experience >= stats.experienceToLevel) {
+                dispatch(getExperience(monster.experience));
+                if (stats.experience + monster.experience >= stats.experienceToLevel) {
                     dispatch(pause(true, { levelUp: true }));
                 }
                 // play death sound
-                dispatch(monsterDied(currMonster.type));
+                dispatch(monsterDied(monster.type));
                 // replace monster will blood spill
                 // need to pass relative tile index
-                dispatch(addBloodSpill(currMonster.location));
+                dispatch(addBloodSpill(monster.location));
             } else if (damage > 0 && spell.effects) {
-                if (currMonster.originalAI === "boss") {
-                    dispatch(changeBossAI(spell, currMonster, criticalHit));
+                if (monster.originalAI === "boss") {
+                    dispatch(changeBossAI(spell, monster, criticalHit));
                 } else {
-                    dispatch(changeMonsterAI(spell, currMonster));
+                    dispatch(changeAI(spell, monster));
                 }
             }
 
             // take a turn if the player attacked something
-            dispatch({
-                type: "TAKE_TURN",
-                payload: null,
-            });
+            dispatch(playerTakeTurn());
 
-            // dispatch(applyEffects());
+            applyEffects();
         } else {
-            // Hit a wall or something else
-            // dispatch({
-            //     type: "CAST_SPELL",
-            //     payload: { position: spellPosition, projectile: spell },
-            // });
+            dispatch(useProjectile(location, spell));
         }
     }
 };

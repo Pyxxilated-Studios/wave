@@ -63,7 +63,7 @@ export interface Monster extends Entity {
     ai: MonsterAI;
     originalAI: MonsterAI;
     direction: Direction;
-    aiTurns: 0;
+    aiTurns: number;
     projectile?: Projectile;
 }
 
@@ -151,6 +151,13 @@ export interface Projectile {
 export interface Ammo extends Projectile {
     kind: "ammo";
     useText: string;
+}
+
+export interface Effect {
+    effect: string;
+    turns: number;
+    immunityTurns: number;
+    damage: string;
 }
 
 export interface ChangeAIEffect {

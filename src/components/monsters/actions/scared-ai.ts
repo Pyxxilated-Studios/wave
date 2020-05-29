@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters/actions";
+import { revealMonster, hideMonster, monsterMove, resetMonsterAI } from "../../../store/monsters/actions";
 
 import { checkForOtherMonster, isInFieldOfView, monsterCanMoveTo } from "./move-monster";
 import { Point, Monster, Direction } from "../../../types";
@@ -128,7 +128,7 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
 export const scared = (sightBox: Point[], currentMap: string, monster: Monster): RootThunk => async (
     dispatch,
 ): Promise<void> => {
-    const { id, location } = monster;
+    const { id, location, aiTurns, type, originalAI, ai } = monster;
 
     const monsterVisible = isInFieldOfView(sightBox, location);
     if (monsterVisible) {
@@ -137,18 +137,7 @@ export const scared = (sightBox: Point[], currentMap: string, monster: Monster):
 
     dispatch(moveScared(sightBox, currentMap, monster));
 
-    if (monster.aiTurns === 0) {
-        // dispatch({
-        //     type: "CHANGE_AI",
-        //     payload: {
-        //         map: currentMap,
-        //         ai: monster.originalAI,
-        //         id: monster.id,
-        //         from: "scared",
-        //         turns: 0,
-        //         entity: monster.type,
-        //         original: monster.originalAI,
-        //     },
-        // });
+    if (aiTurns === 0) {
+        dispatch(resetMonsterAI(currentMap, id, type, originalAI, ai));
     }
 };

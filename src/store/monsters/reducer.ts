@@ -9,6 +9,7 @@ import {
     HIDE_MONSTER,
     MONSTER_MOVE,
     DAMAGE_TO_MONSTER,
+    CHANGE_AI,
 } from "./types";
 import { RESET } from "../system/types";
 
@@ -72,6 +73,15 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
                     newState.entities[action.currentMap][uuid] = monster;
                 });
             }
+
+            return newState;
+        }
+
+        case CHANGE_AI: {
+            const newState = cloneDeep(state);
+
+            (newState.entities[action.map][action.id] as Monster).ai = action.to;
+            (newState.entities[action.map][action.id] as Monster).aiTurns = action.turns;
 
             return newState;
         }

@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import _debounce from "lodash.debounce";
 
 import { store } from "../";
-import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, ResetAction, RESET, SET_SOUND } from "./types";
+import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, RESET, SET_SOUND } from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
 import { SCREEN_SMALL_WIDTH, SCREEN_SMALL_HEIGHT, SCREEN_MEDIUM_WIDTH, SCREEN_MEDIUM_HEIGHT } from "../../constants";
 
-export const reset = (): ResetAction => {
+export const reset = (): SystemActionType => {
     return {
         type: RESET,
     };
@@ -41,14 +41,14 @@ interface ViewportScale {
     sideMenu: boolean;
 }
 
-const updateViewportScale = (scale: ViewportScale) => {
+const updateViewportScale = (scale: ViewportScale): void => {
     store.dispatch(setSideMenu(scale.sideMenu));
     store.dispatch(setLargeView(scale.largeView));
 };
 
 const _updateViewportScale = _debounce(updateViewportScale, VIEWPORT_RESIZE_RATE);
 
-export const useViewportScaling = () => {
+export const useViewportScaling = (): void => {
     const { height, width } = useWindowSize();
 
     useEffect(() => {

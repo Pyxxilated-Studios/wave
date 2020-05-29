@@ -6,8 +6,10 @@ import {
     MONSTER_MOVE,
     DAMAGE_TO_MONSTER,
     MONSTER_DIED,
+    CHANGE_AI,
+    MONSTER_HEAL,
 } from "./types";
-import { Point, Monster, Direction } from "../../types";
+import { Point, Monster, Direction, MonsterAI } from "../../types";
 
 export const addMonsters = (currentMap: string, monsters: Monster[]): MonstersActionType => {
     return {
@@ -58,6 +60,41 @@ export const damageToMonster = (
     return { type: DAMAGE_TO_MONSTER, amount, monsterId, map, entity, from };
 };
 
+export const healMonster = (amount: number, id: string, map: string, entity: string): MonstersActionType => {
+    return { type: MONSTER_HEAL, amount, id, map, entity };
+};
+
 export const monsterDied = (entity: string): MonstersActionType => {
     return { type: MONSTER_DIED, entity };
+};
+
+export const resetMonsterAI = (
+    map: string,
+    id: string,
+    entity: string,
+    to: MonsterAI,
+    from: MonsterAI,
+): MonstersActionType => {
+    return {
+        type: CHANGE_AI,
+        map,
+        id,
+        entity,
+        to,
+        from,
+        turns: 0,
+        original: to,
+    };
+};
+
+export const changeMonsterAI = (
+    map: string,
+    id: string,
+    entity: string,
+    to: MonsterAI,
+    from: MonsterAI,
+    turns: number,
+    original: MonsterAI,
+): MonstersActionType => {
+    return { type: CHANGE_AI, map, id, entity, to, from, turns, original };
 };

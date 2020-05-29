@@ -1,4 +1,14 @@
-import { PlayerActionType, PLAYER_ATTACK, PLAYER_DIED, MOVE_PLAYER, TAKE_TURN, USE_PROJECTILE } from "./types";
+import {
+    PlayerActionType,
+    PLAYER_ATTACK,
+    PLAYER_DIED,
+    MOVE_PLAYER,
+    TAKE_TURN,
+    USE_PROJECTILE,
+    MONSTER_USE_PROJECTILE,
+    MONSTER_ATTACK,
+    EFFECT_PLAYER,
+} from "./types";
 
 import { Direction, Point, Projectile } from "../../types";
 
@@ -31,4 +41,21 @@ export const playerTakeTurn = (): PlayerActionType => {
 
 export const useProjectile = (target: Point, projectile: Projectile): PlayerActionType => {
     return { type: USE_PROJECTILE, target, projectile };
+};
+
+export const effectPlayer = (effect: string, turns: number, damage: string, entity: string): PlayerActionType => {
+    return { type: EFFECT_PLAYER, effect, turns, damage, entity };
+};
+
+export const monsterAttack = (): PlayerActionType => {
+    return { type: MONSTER_ATTACK };
+};
+
+export const monsterUseProjectile = (
+    position: Point,
+    direction: Direction,
+    projectile: Projectile,
+    entity: string,
+): PlayerActionType => {
+    return { type: MONSTER_USE_PROJECTILE, position, direction, projectile, entity };
 };

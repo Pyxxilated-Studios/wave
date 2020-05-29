@@ -63,7 +63,7 @@ const GameOver: FunctionComponent<GameOverProps> = forwardRef((props: GameOverPr
                 <span className="game-over-player">{name.length <= 11 ? name : name.substr(0, 9) + "..."}</span>.{" "}
                 {entity ? (
                     <>
-                        They were slain by a mighty <span className="game-over-killer">{from}</span>
+                        They were slain by a mighty <span className="game-over-killer">{entity}</span>
                     </>
                 ) : (
                     <>

@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { getExperience } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { playerTakeTurn, useProjectile, attackMonster } from "../../../store/player/actions";
-import { abilityCheck } from "../../../store/journal/actions";
+import { abilityCheck, rolledCritical } from "../../../store/journal/actions";
 import { damageToMonster, monsterDied } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 
@@ -11,7 +11,6 @@ import { UNARMED_DAMAGE } from "../../../constants";
 
 import { d20 } from "../../../utils/dice";
 import calculateModifier from "../../../utils/calculate-modifier";
-
 import { traversableTile, getNewPosition, monsterAtPosition, withinBoundary } from "../../../utils/movement";
 
 export const findTarget = (
@@ -111,14 +110,7 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
             }
 
             if (criticalHit) {
-                dispatch({
-                    type: "CRITICAL_HIT",
-                    payload: {
-                        notation: "d20 + " + modifier,
-                        roll: roll,
-                        ability,
-                    },
-                });
+                dispatch(rolledCritical("d20 + " + modifier, roll, ability));
             } else {
                 dispatch(
                     abilityCheck(

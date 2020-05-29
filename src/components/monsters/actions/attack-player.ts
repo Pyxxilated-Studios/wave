@@ -1,6 +1,6 @@
 import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
-import { playerDie } from "../../../store/player/actions";
+import { playerDie, monsterUseProjectile, monsterAttack } from "../../../store/player/actions";
 
 import { Monster, Direction } from "../../../types";
 import { monsterAbilityCheck } from "../../../store/journal/actions";
@@ -15,7 +15,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
     const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll(false) : 0;
 
     if (projectile && projectile.target === "enemy") {
-        let direction: Direction;
+        let direction: Direction = Direction.North;
 
         const targetPosition = { x: location.x - player.position.x, y: location.y - player.position.y };
 
@@ -37,25 +37,13 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
             }
         }
 
-        // dispatch({
-        //     type: "MONSTER_USE_PROJECTILE",
-        //     payload: {
-        //         position: targetPosition,
-        //         projectile,
-        //         direction,
-        //         entity: type,
-        //     },
-        // });
+        dispatch(monsterUseProjectile(targetPosition, direction, projectile, type));
     }
 
     dispatch(monsterAbilityCheck(attack, Math.max(stats.defence, 0), "defence", type, "player"));
 
     if (calculatedMonsterDamage > 0) {
-        // show the attack animation and play sound
-        // dispatch({
-        //     type: "MONSTER_ATTACK",
-        //     payload: null,
-        // });
+        dispatch(monsterAttack());
     }
 
     dispatch(damageToPlayer(calculatedMonsterDamage, type));

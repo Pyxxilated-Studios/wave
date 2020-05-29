@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { damageToMonster, monsterDied } from "../../../store/monsters/actions";
+import { damageToMonster, monsterDied, resetMonsterAI } from "../../../store/monsters/actions";
 import { getExperience } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { addBloodSpill } from "../../../store/world/actions";
@@ -19,7 +19,7 @@ export const shocked = (currentMap: string, monster: Monster): RootThunk => asyn
     getState,
 ): Promise<void> => {
     const { stats } = getState();
-    const { id, type, health, experience, location, aiTurns, originalAI } = monster;
+    const { id, type, health, experience, location, aiTurns, originalAI, ai } = monster;
 
     let dead = false;
     const damage = SHOCK_DAMAGE.roll(false);
@@ -43,17 +43,6 @@ export const shocked = (currentMap: string, monster: Monster): RootThunk => asyn
     }
 
     if (!dead && aiTurns === 0) {
-        // dispatch({
-        //     type: "CHANGE_AI",
-        //     payload: {
-        //         map: currentMap,
-        //         ai: originalAI,
-        //         id: id,
-        //         from: "shocked",
-        //         turns: 0,
-        //         entity: type,
-        //         original: originalAI,
-        //     },
-        // });
+        dispatch(resetMonsterAI(currentMap, id, type, originalAI, ai));
     }
 };

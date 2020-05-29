@@ -1,4 +1,4 @@
-import { Direction, Point, Projectile, Spell } from "../../types";
+import { Direction, Point, Projectile, Spell, Effect } from "../../types";
 import { ResetAction } from "../system/types";
 import { MonsterDiedAction } from "../monsters/types";
 
@@ -14,6 +14,7 @@ export interface PlayerState {
     turnsOutOfCombat: number;
     monsterAttacked: boolean;
     monsterDied: boolean;
+    effects: Effect[];
 }
 
 export const MOVE_PLAYER = "MOVE_PLAYER";
@@ -29,14 +30,14 @@ export interface PlayerDieAction {
     reason: { from?: string; entity?: string };
 }
 
-export const PLAYER_ATTACK = "PLAYER_ATTACK";
-interface PlayerAttackAction {
-    type: typeof PLAYER_ATTACK;
-}
-
 export const TAKE_TURN = "TAKE_TURN";
 export interface PlayerTurnAction {
     type: typeof TAKE_TURN;
+}
+
+export const PLAYER_ATTACK = "PLAYER_ATTACK";
+interface PlayerAttackAction {
+    type: typeof PLAYER_ATTACK;
 }
 
 export const USE_PROJECTILE = "USE_PROJECTILE";
@@ -46,6 +47,29 @@ export interface UseProjectileAction {
     projectile: Projectile;
 }
 
+export const EFFECT_PLAYER = "EFFECT_PLAYER";
+interface EffectPlayerAction {
+    type: typeof EFFECT_PLAYER;
+    effect: string;
+    turns: number;
+    damage: string;
+    entity: string;
+}
+
+export const MONSTER_ATTACK = "MONSTER_ATTACK";
+interface MonsterAttackAction {
+    type: typeof MONSTER_ATTACK;
+}
+
+export const MONSTER_USE_PROJECTILE = "MONSTER_USE_PROJECTILE";
+interface MonsterUseProjectileAction {
+    type: typeof MONSTER_USE_PROJECTILE;
+    position: Point;
+    direction: Direction;
+    projectile: Projectile;
+    entity: string;
+}
+
 export type PlayerActionType =
     | MovePlayerAction
     | PlayerDieAction
@@ -53,4 +77,7 @@ export type PlayerActionType =
     | PlayerTurnAction
     | UseProjectileAction
     | MonsterDiedAction
+    | EffectPlayerAction
+    | MonsterAttackAction
+    | MonsterUseProjectileAction
     | ResetAction;

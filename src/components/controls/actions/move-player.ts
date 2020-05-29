@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { movePlayer, playerTakeTurn } from "../../../store/player/actions";
+import { movePlayer, playerTakeTurn, playerDie } from "../../../store/player/actions";
 import { pause } from "../../../store/dialog/actions";
 import { exploreTiles } from "../../../store/map/actions";
 import { transitionMap } from "../../../store/world/actions";
@@ -10,6 +10,33 @@ import walkStairs from "../../world/actions/walk-stairs";
 
 import exploreChest from "../../world/actions/explore-chest";
 import { getNewPosition, getTileAt, canMoveTo } from "../../../utils/movement";
+import { damageToPlayer } from "../../../store/stats/actions";
+
+/**
+ * Apply all effects currently ailing, or helping, the player.
+ *
+ * These can be things like poison, aura's, etc.
+ */
+export const applyEffects = (): RootThunk => async (dispatch, getState): Promise<void> => {
+    const { player, stats } = getState();
+
+    player.effects.forEach((effect) => {
+        const { turns, damage } = effect;
+
+        if (turns > 0) {
+            const effectDamage = Math.floor(damage.roll(false) / 2);
+
+            if (effectDamage > 0) {
+                dispatch(damageToPlayer(effectDamage, effect.effect));
+
+                if (stats.health - effectDamage <= 0) {
+                    dispatch(playerDie({ from: effect.effect }));
+                    dispatch(pause(true, { gameOver: true }));
+                }
+            }
+        }
+    });
+};
 
 /**
  * Handle any interactions the player can have with tiles.

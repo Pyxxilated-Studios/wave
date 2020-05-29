@@ -16,6 +16,7 @@ const initialState: PlayerState = {
     turnsOutOfCombat: 0,
     monsterAttacked: false,
     monsterDied: false,
+    effects: [],
 };
 
 const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerState => {

@@ -30,9 +30,18 @@ export interface MonsterAbilityCheckAction {
     defender: string;
 }
 
+export const CRITICAL_HIT = "CRITICAL_HIT";
+export interface CriticalHitAction {
+    type: typeof CRITICAL_HIT;
+    dice: string;
+    roll: number;
+    ability: string;
+}
+
 export type JournalActionType =
     | AbilityCheckAction
     | MonsterAbilityCheckAction
     | DamageToMonsterAction
     | MonsterDiedAction
+    | CriticalHitAction
     | ResetAction;

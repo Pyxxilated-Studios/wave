@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { monsterDied, damageToMonster } from "../../../store/monsters/actions";
+import { monsterDied, damageToMonster, resetMonsterAI } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 import { pause } from "../../../store/dialog/actions";
 import { getExperience } from "../../../store/stats/actions";
@@ -21,7 +21,7 @@ export const poisoned = (sightBox: Point[], currentMap: string, monster: Monster
     getState,
 ): Promise<void> => {
     const { stats } = getState();
-    const { id, type, health, experience, location, aiTurns, originalAI } = monster;
+    const { id, type, health, experience, location, aiTurns, originalAI, ai } = monster;
 
     dispatch(moveNormally(sightBox, currentMap, monster));
 
@@ -50,17 +50,6 @@ export const poisoned = (sightBox: Point[], currentMap: string, monster: Monster
     }
 
     if (!dead && aiTurns === 0) {
-        // dispatch({
-        //     type: "CHANGE_AI",
-        //     payload: {
-        //         map: currentMap,
-        //         ai: originalAI,
-        //         id: id,
-        //         from: "poisoned",
-        //         turns: 0,
-        //         entity: type,
-        //         original: originalAI,
-        //     },
-        // });
+        dispatch(resetMonsterAI(currentMap, id, type, originalAI, ai));
     }
 };

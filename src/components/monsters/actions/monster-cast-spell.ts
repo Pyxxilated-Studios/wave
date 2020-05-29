@@ -1,9 +1,12 @@
 import { RootThunk } from "../../../store";
-import { playerDie } from "../../../store/player/actions";
+import { playerDie, monsterUseProjectile, monsterAttack, effectPlayer } from "../../../store/player/actions";
 import { pause } from "../../../store/dialog/actions";
 
-import { Monster, Spell, HealEffect, Direction } from "../../../types";
-import { AI_CHANGE_TURNS, POISON_DAMAGE } from "../../../constants";
+import { Monster, Spell, HealEffect, Direction, ChangeAIEffect } from "../../../types";
+import { AI_CHANGE_TURNS } from "../../../constants";
+import { damageToPlayer } from "../../../store/stats/actions";
+import { healMonster } from "../../../store/monsters/actions";
+import { monsterAbilityCheck } from "../../../store/journal/actions";
 
 export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch, getState): Promise<void> => {
     const { stats, player, world } = getState();
@@ -15,15 +18,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
     const spell = projectile as Spell;
 
     if (spell.target === "self") {
-        // dispatch({
-        //     type: "MONSTER_CAST_SPELL",
-        //     payload: {
-        //         location,
-        //         direction: "NORTH",
-        //         entity: monster.type,
-        //         spell: monster.projectile,
-        //     },
-        // });
+        dispatch(monsterUseProjectile(location, Direction.North, projectile, type));
 
         if (!spell.effects) return;
 
@@ -33,26 +28,14 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
 
         const healAmount = (effect as HealEffect).amount.roll(false);
 
-        // dispatch({
-        //     type: "MONSTER_HEAL_HP",
-        //     payload: { healAmount, id, map: currentMap, entity: type },
-        //     });
+        dispatch(healMonster(healAmount, id, currentMap, type));
     } else {
         const attack = attackValue.roll(false);
         const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll(false) : 0;
 
-        dispatch({
-            type: "MONSTER_ABILITY_CHECK",
-            payload: {
-                attackValue: attack,
-                check: Math.max(stats.defence, 0),
-                against: "defence",
-                entity: type,
-                defender: "player",
-            },
-        });
+        dispatch(monsterAbilityCheck(attack, Math.max(stats.defence, 0), "defence", type, "player"));
 
-        let direction: Direction;
+        let direction: Direction = Direction.North;
 
         const targetPosition = { x: location.x - player.position.x, y: location.y - player.position.y };
 
@@ -74,42 +57,26 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
             }
         }
 
-        // dispatch({
-        //     type: "MONSTER_CAST_SPELL",
-        //     payload: {
-        //         position: targetPosition,
-        //         direction,
-        //         entity: monster.type,
-        //         spell: monster.projectile,
-        //     },
-        // });
+        dispatch(monsterUseProjectile(targetPosition, direction, projectile, type));
 
         if (calculatedMonsterDamage > 0) {
-            // show the attack animation and play sound
-            // dispatch({
-            //     type: "MONSTER_ATTACK",
-            //     payload: null,
-            // });
-            // const { changeAI } = monster.projectile.effects;
-            // if (changeAI) {
-            //     if (player.effects[changeAI.to] && player.effects[changeAI.to].immunityTurns <= 0) {
-            //         dispatch({
-            //             type: "EFFECT_PLAYER",
-            //             payload: {
-            //                 effect: changeAI.to,
-            //                 turns: AI_CHANGE_TURNS,
-            //                 damage: POISON_DAMAGE,
-            //                 from: changeAI.effect,
-            //             },
-            //         });
-            //     }
-            // }
+            dispatch(monsterAttack());
+
+            const { effects } = monster.projectile as Spell;
+
+            if (effects && effects) {
+                const effect = effects.find((effect) => effect.effect === "changeAI") as ChangeAIEffect;
+
+                if (player.effects.some((eff) => eff.effect === effect.effect && eff.immunityTurns <= 0)) {
+                    const damage = effect.extraEffect?.effect === "damage over time" ? effect.extraEffect.dice : "";
+                    if (damage.length > 0) {
+                        dispatch(effectPlayer(effect.effect, AI_CHANGE_TURNS, damage, type));
+                    }
+                }
+            }
         }
 
-        // dispatch({
-        //     type: "DAMAGE_TO_PLAYER",
-        //     payload: { damage: calculatedMonsterDamage, entity: type },
-        // });
+        dispatch(damageToPlayer(calculatedMonsterDamage, type));
 
         // check if player died
         if (stats.health - calculatedMonsterDamage <= 0) {

@@ -31,9 +31,9 @@
         "chokidar": "^3.0.0"
     },
     "scripts": {
-        "start": "wasm-pack build lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired start",
-        "build": "wasm-pack build --release lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired build",
-        "test": "wasm-pack build lib && cd lib/pkg && yarn link && cd ../.. && yarn link wave && react-app-rewired test --passWithNoTests"
+        "start": "wasm-pack build lib && yarn link --cwd lib/pkg && yarn link wave && react-app-rewired start",
+        "build": "wasm-pack build --release lib && yarn link --cwd lib/pkg && yarn link wave && react-app-rewired build",
+        "test": "wasm-pack build lib && yarn link --cwd lib/pkg && yarn link wave && react-app-rewired test --passWithNoTests"
     },
     "lint-staged": {
         "./**/*.{js,jsx,ts,tsx,json}": [
