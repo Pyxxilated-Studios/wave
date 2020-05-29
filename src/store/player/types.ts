@@ -7,13 +7,17 @@ export interface PlayerState {
     position: Point;
     playerMoved: boolean;
     playerAttacked: boolean;
-    spellCast: boolean;
+    projectileUsed?: Projectile;
     playerDied: boolean;
-    targetPosition: Point;
+    targetLocation: Point;
     spell?: Spell;
     turnsOutOfCombat: number;
     monsterAttacked: boolean;
     monsterDied: boolean;
+    monsterLocation: Point;
+    monsterTargetLocation: Point;
+    monsterProjectile?: Projectile;
+    monsterProjectileDirection: Direction;
     effects: Effect[];
 }
 
@@ -64,7 +68,8 @@ interface MonsterAttackAction {
 export const MONSTER_USE_PROJECTILE = "MONSTER_USE_PROJECTILE";
 interface MonsterUseProjectileAction {
     type: typeof MONSTER_USE_PROJECTILE;
-    position: Point;
+    location: Point;
+    targetLocation: Point;
     direction: Direction;
     projectile: Projectile;
     entity: string;

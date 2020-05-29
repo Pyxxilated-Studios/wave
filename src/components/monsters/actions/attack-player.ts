@@ -37,7 +37,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
             }
         }
 
-        dispatch(monsterUseProjectile(targetPosition, direction, projectile, type));
+        dispatch(monsterUseProjectile(location, targetPosition, direction, projectile, type));
     }
 
     dispatch(monsterAbilityCheck(attack, Math.max(stats.defence, 0), "defence", type, "player"));

@@ -130,8 +130,9 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
                 ? weapon.damage.roll(false)
                 : 0;
 
-            if (damage > 0) {
+            if (damage > 0 && !weapon.projectile) {
                 // Only show the attack animation if they hit the monster
+                // The attack will be set in the above useProjectile call above
                 dispatch(attackMonster());
             }
 

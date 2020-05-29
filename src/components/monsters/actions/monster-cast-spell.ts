@@ -18,7 +18,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
     const spell = projectile as Spell;
 
     if (spell.target === "self") {
-        dispatch(monsterUseProjectile(location, Direction.North, projectile, type));
+        dispatch(monsterUseProjectile(location, location, Direction.North, projectile, type));
 
         if (!spell.effects) return;
 
@@ -57,7 +57,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
             }
         }
 
-        dispatch(monsterUseProjectile(targetPosition, direction, projectile, type));
+        dispatch(monsterUseProjectile(location, targetPosition, direction, projectile, type));
 
         if (calculatedMonsterDamage > 0) {
             dispatch(monsterAttack());

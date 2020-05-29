@@ -52,10 +52,11 @@ export const monsterAttack = (): PlayerActionType => {
 };
 
 export const monsterUseProjectile = (
-    position: Point,
+    location: Point,
+    targetLocation: Point,
     direction: Direction,
     projectile: Projectile,
     entity: string,
 ): PlayerActionType => {
-    return { type: MONSTER_USE_PROJECTILE, position, direction, projectile, entity };
+    return { type: MONSTER_USE_PROJECTILE, location, targetLocation, direction, projectile, entity };
 };
