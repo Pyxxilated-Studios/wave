@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { getExperience } from "../../../store/stats/actions";
+import { gainExperience } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { playerTakeTurn, useProjectile, attackMonster } from "../../../store/player/actions";
 import { abilityCheck, rolledCritical } from "../../../store/journal/actions";
@@ -142,7 +142,7 @@ const playerAttack = (): RootThunk => async (dispatch, getState): Promise<void> 
             // check if monster died
             if (targetMonster.health - damage <= 0) {
                 // and get some exp
-                dispatch(getExperience(targetMonster.experience));
+                dispatch(gainExperience(targetMonster.experience));
 
                 if (stats.experience + targetMonster.experience >= stats.experienceToLevel) {
                     dispatch(pause(true, { levelUp: true }));

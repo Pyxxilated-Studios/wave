@@ -1,5 +1,5 @@
 import { Ability } from "../../types";
-import { JournalActionType, ABILITY_CHECK, MONSTER_ABILITY_CHECK, CRITICAL_HIT } from "./types";
+import { JournalActionType, ABILITY_CHECK, MONSTER_ABILITY_CHECK, CRITICAL_HIT, LEVEL_UP } from "./types";
 
 export const abilityCheck = (
     roll: string,
@@ -24,4 +24,8 @@ export const monsterAbilityCheck = (
 
 export const rolledCritical = (dice: string, roll: number, ability: string): JournalActionType => {
     return { type: CRITICAL_HIT, dice, roll, ability };
+};
+
+export const levelUp = (level: number, health: number, mana: number): JournalActionType => {
+    return { type: LEVEL_UP, level, health, mana };
 };

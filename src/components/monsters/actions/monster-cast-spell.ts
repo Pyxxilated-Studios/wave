@@ -76,7 +76,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
             }
         }
 
-        dispatch(damageToPlayer(calculatedMonsterDamage, type));
+        dispatch(damageToPlayer(calculatedMonsterDamage, { entity: type }));
 
         // check if player died
         if (stats.health - calculatedMonsterDamage <= 0) {

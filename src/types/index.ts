@@ -82,6 +82,7 @@ export interface PauseReason {
     gameText?: { title: string; body: string };
     gameOver?: boolean;
     gameStart?: boolean;
+    gameRunning?: boolean;
     gameInstructions?: boolean;
     gameWin?: boolean;
     chest?: boolean;

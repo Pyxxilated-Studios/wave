@@ -46,7 +46,7 @@ export interface DamageToMonsterAction {
 }
 
 export const MONSTER_HEAL = "MONSTER_HEAL";
-interface MonsterHealAction {
+export interface MonsterHealAction {
     type: typeof MONSTER_HEAL;
     amount: number;
     id: string;
@@ -61,7 +61,7 @@ export interface MonsterDiedAction {
 }
 
 export const CHANGE_AI = "CHANGE_AI";
-interface ChangeAiAction {
+export interface ChangeAiAction {
     type: typeof CHANGE_AI;
     map: string;
     id: string;

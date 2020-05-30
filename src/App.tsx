@@ -21,18 +21,23 @@ import {
     faAngleDoubleRight,
     faArrowRight,
     faSync,
+    faBook,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
 import { SystemState } from "./store/system/types";
 import { useViewportScaling } from "./store/system/actions";
 import { WorldState } from "./store/world/types";
+import { DialogState } from "./store/dialog/types";
+
+import { GAME_VIEWPORT_SIZE_LARGE } from "./constants";
 
 import Viewport from "./components/viewport";
 import World from "./components/world";
 import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import GameMenus from "./components/game-menus";
+import Journal from "./components/journal";
 
 fontawesome.library.add(
     faPlayCircle,
@@ -53,11 +58,13 @@ fontawesome.library.add(
     faAngleDoubleRight,
     faArrowRight,
     faSync,
+    faBook,
 );
 
 interface AppProps {
     system: SystemState;
     world: WorldState;
+    dialog: DialogState;
 }
 
 const App: FunctionComponent<AppProps> = (props: AppProps) => {
@@ -81,22 +88,88 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         return null;
     }
 
-    return (
-        <div className={`centered ${props.system.sideMenu ? "flex-row" : "flex-column"}`}>
-            <Viewport>
-                <World library={library} />
-                <DialogManager />
-                <FloorCounter floorNumber={props.world.floorNumber} />
-            </Viewport>
+    const { sideMenu, journalSideMenu } = props.system;
+    const { gameStart, gameOver, gameRunning } = props.dialog.reason;
 
-            <GameMenus />
-        </div>
+    const disableJournal =
+        gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
+
+    const v = null; // TODO: Below
+
+    if (sideMenu) {
+        return (
+            <>
+                <div className={`centered flex-row`}>
+                    <div
+                        style={{
+                            margin: "8px",
+                            display: disableJournal ? "none" : "block",
+                            width: GAME_VIEWPORT_SIZE_LARGE,
+                            height: GAME_VIEWPORT_SIZE_LARGE,
+                        }}
+                    >
+                        <Journal disabled={disableJournal} />
+                    </div>
+                    <div className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}>
+                        <div className={"centered flex-row"}>
+                            <Viewport>
+                                <World library={library} />
+                                <DialogManager />
+                                {/* <Tutorial /> */}
+                                {/* <Abilities /> */}
+                                {/* <Spellbook /> */}
+
+                                <FloorCounter floorNumber={props.world.floorNumber} />
+                            </Viewport>
+                        </div>
+
+                        <GameMenus />
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    return (
+        <>
+            <div className={`centered flex-row`}>
+                <div
+                    style={{
+                        margin: "8px",
+                        display: disableJournal ? "none" : "block",
+                        width: GAME_VIEWPORT_SIZE_LARGE,
+                        height: GAME_VIEWPORT_SIZE_LARGE,
+                    }}
+                >
+                    <Journal disabled={disableJournal} />
+                </div>
+                <div
+                    className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
+                    style={{ marginRight: `${disableJournal ? "0" : GAME_VIEWPORT_SIZE_LARGE}px` }}
+                >
+                    <div className={"centered flex-row"}>
+                        <Viewport>
+                            <World library={library} />
+                            <DialogManager />
+                            {/* <Tutorial /> */}
+                            {/* <Abilities /> */}
+                            {/* <Spellbook /> */}
+
+                            <FloorCounter floorNumber={props.world.floorNumber} />
+                        </Viewport>
+                    </div>
+
+                    <GameMenus />
+                </div>
+            </div>
+        </>
     );
 };
 
 const mapStateToProps = (state: RootState): AppProps => ({
     system: state.system,
     world: state.world,
+    dialog: state.dialog,
 });
 
 export default connect(mapStateToProps)(App);

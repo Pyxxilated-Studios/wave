@@ -1,6 +1,6 @@
 import { RootThunk } from "../../../store";
 import { damageToMonster, monsterDied, resetMonsterAI } from "../../../store/monsters/actions";
-import { getExperience } from "../../../store/stats/actions";
+import { gainExperience } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 
@@ -29,7 +29,7 @@ export const shocked = (currentMap: string, monster: Monster): RootThunk => asyn
     if (health - damage <= 0) {
         dead = true;
 
-        dispatch(getExperience(experience));
+        dispatch(gainExperience(experience));
 
         if (stats.experience + experience >= stats.experienceToLevel) {
             dispatch(pause(true, { levelUp: true }));

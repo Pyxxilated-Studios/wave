@@ -30,7 +30,7 @@ export interface StatsState {
 }
 
 export const GAIN_EXPERIENCE = "GAIN_EXPERIENCE";
-interface GainExperienceAction {
+export interface GainExperienceAction {
     type: typeof GAIN_EXPERIENCE;
     experience: number;
 }
@@ -55,14 +55,8 @@ export interface UnequipItemAction {
 }
 
 export const GET_GOLD = "GET_GOLD";
-interface GetGoldAction {
+export interface GetGoldAction {
     type: typeof GET_GOLD;
-    amount: number;
-}
-
-export const GET_EXPERIENCE = "GET_EXPERIENCE";
-interface GetExperienceAction {
-    type: typeof GET_EXPERIENCE;
     amount: number;
 }
 
@@ -73,24 +67,24 @@ interface LoseGoldAction {
 }
 
 export const HEAL = "HEAL";
-interface HealAction {
+export interface HealAction {
     type: typeof HEAL;
     kind: string;
     amount: number;
 }
 
 export const RESTORE = "RESTORE";
-interface RestoreAction {
+export interface RestoreAction {
     type: typeof RESTORE;
     kind: string;
     amount: number;
 }
 
 export const DAMAGE_TO_PLAYER = "DAMAGE_TO_PLAYER";
-interface DamageToPlayerAction {
+export interface DamageToPlayerAction {
     type: typeof DAMAGE_TO_PLAYER;
     damage: number;
-    from: string;
+    from: { entity?: string; from?: string };
 }
 
 export type StatsActionType =
@@ -99,7 +93,7 @@ export type StatsActionType =
     | EquipItemAction
     | UnequipItemAction
     | GetGoldAction
-    | GetExperienceAction
+    | GainExperienceAction
     | LoseGoldAction
     | HealAction
     | RestoreAction

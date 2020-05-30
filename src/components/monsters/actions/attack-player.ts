@@ -46,7 +46,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
         dispatch(monsterAttack());
     }
 
-    dispatch(damageToPlayer(calculatedMonsterDamage, type));
+    dispatch(damageToPlayer(calculatedMonsterDamage, { entity: type }));
 
     // check if player died
     if (stats.health - calculatedMonsterDamage <= 0) {

@@ -12,7 +12,7 @@ import {
     CLOSE_SETTINGS,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
-import { RESET } from "../system/types";
+import { RESET, SET_SHOW_JOURNAL } from "../system/types";
 import { SET_CHEST_DATA } from "../world/types";
 import { PLAYER_DIED } from "../player/types";
 
@@ -22,6 +22,7 @@ const initialState: DialogState = {
         gameText: { title: "", body: "" },
         gameOver: false,
         gameStart: true,
+        gameRunning: false,
         gameInstructions: false,
         gameWin: false,
         chest: false,
@@ -59,15 +60,26 @@ const initialState: DialogState = {
         cclass: "Fighter",
     },
     diedFrom: {},
+    journalSideMenuOpen: false,
 };
 
 const DialogReducer = (state = initialState, action: DialogActionType): DialogState => {
     switch (action.type) {
         case PAUSE:
+            if (action.reason.journalDialog !== undefined) {
+                state.journalSideMenuOpen = action.reason.journalDialog;
+            }
+
+            action.reason.gameRunning = action.reason.gameRunning || state.reason.gameRunning;
+
             return { ...state, paused: action.paused, reason: action.reason };
 
-        case RESET:
-            return { ...initialState };
+        case SET_SHOW_JOURNAL:
+            return {
+                ...state,
+                paused: state.reason.journalDialog || false,
+                journalSideMenuOpen: (state.reason.journalDialog || false) && action.set,
+            };
 
         case CREATE_CHARACTER:
             return {
@@ -140,6 +152,9 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
 
         case CLOSE_SETTINGS:
             return { ...state, reason: { settings: false } };
+
+        case RESET:
+            return { ...initialState };
 
         default:
             return state;

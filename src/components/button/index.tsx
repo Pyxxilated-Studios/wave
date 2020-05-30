@@ -21,7 +21,6 @@ interface ButtonProps {
     noBorder?: boolean;
     extraClass?: string;
     iconRight?: IconProp;
-    floatIcons?: boolean;
 }
 
 const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
@@ -41,7 +40,7 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
         >
             {props.icon && (
                 <FontAwesomeIcon
-                    className={`${iconClassName} ${props.floatIcons ? "button__float-icon" : "button__icon"}`}
+                    className={`${iconClassName} button-float-icon`}
                     icon={props.icon}
                     style={props.iconStyle || {}}
                 />
@@ -58,11 +57,11 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
                 </EmptySlot>
             )}
 
-            {props.title && <span style={props.icon ? { paddingLeft: "10px" } : {}}>{props.title}</span>}
+            {props.title && <span>{props.title}</span>}
 
             {props.iconRight && (
                 <FontAwesomeIcon
-                    className={props.floatIcons ? "button__float-icon-right" : "button__icon-right"}
+                    className="button-float-icon-right"
                     style={props.iconStyle || {}}
                     icon={props.iconRight}
                 />

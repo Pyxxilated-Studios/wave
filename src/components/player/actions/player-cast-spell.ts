@@ -1,7 +1,7 @@
 import { RootThunk } from "../../../store";
 import { playerTakeTurn, useProjectile } from "../../../store/player/actions";
 import { abilityCheck, rolledCritical } from "../../../store/journal/actions";
-import { getExperience, heal } from "../../../store/stats/actions";
+import { gainExperience, heal } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { monsterDied, changeMonsterAI, damageToMonster } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
@@ -130,7 +130,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
             // check if monster died
             if (monster.health - damage <= 0) {
                 // and get some exp
-                dispatch(getExperience(monster.experience));
+                dispatch(gainExperience(monster.experience));
                 if (stats.experience + monster.experience >= stats.experienceToLevel) {
                     dispatch(pause(true, { levelUp: true }));
                 }

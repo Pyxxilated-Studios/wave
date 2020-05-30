@@ -75,7 +75,6 @@ class Inventory extends Component<InventoryProps> {
                         onClick={(): void => this._toggleInventory()}
                         icon={"briefcase"}
                         iconRight={open ? "times" : undefined}
-                        floatIcons={true}
                         title={open ? "Close" : "Inventory"}
                         style={{
                             width: 180,

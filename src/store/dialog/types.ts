@@ -1,5 +1,5 @@
 import { Abilities, PauseReason, Character, Ability, ChestContents } from "../../types";
-import { ResetAction } from "../system/types";
+import { ResetAction, SetShowJournalAction } from "../system/types";
 import { SetChestDataAction } from "../world/types";
 import { PlayerDieAction } from "../player/types";
 
@@ -11,6 +11,7 @@ export interface DialogState {
     character: Character;
     chestOpen?: ChestContents;
     diedFrom: { entity?: string; from?: string };
+    journalSideMenuOpen: boolean;
 }
 
 export const PAUSE = "PAUSE";
@@ -80,4 +81,5 @@ export type DialogActionType =
     | ToggleSettingsAction
     | CloseSettingsAction
     | PlayerDieAction
+    | SetShowJournalAction
     | ResetAction;

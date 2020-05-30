@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { getExperience } from "../../../store/stats/actions";
+import { gainExperience } from "../../../store/stats/actions";
 import { pause } from "../../../store/dialog/actions";
 import { monsterDied } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
@@ -29,7 +29,7 @@ export const suicidal = (sightBox: Point[], currentMap: string, monster: Monster
     if (playerInRange(player.position, location)) {
         dispatch(attackPlayer(monster));
 
-        dispatch(getExperience(experience));
+        dispatch(gainExperience(experience));
 
         if (stats.experience + experience >= stats.experienceToLevel) {
             dispatch(pause(true, { levelUp: true }));

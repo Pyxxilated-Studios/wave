@@ -1,9 +1,11 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { connect } from "react-redux";
-import { DialogState } from "../../store/dialog/types";
-import { RootState } from "../../store";
-import GameStartDialog from "./dialogs/game-start-dialog";
 
+import { RootState } from "../../store";
+import { DialogState } from "../../store/dialog/types";
+import { SystemState } from "../../store/system/types";
+
+import GameStartDialog from "./dialogs/game-start-dialog";
 import ChestLoot from "./dialogs/chest-loot";
 import InventoryDialog from "./dialogs/inventory-dialog";
 import GameInstructions from "./dialogs/game-instructions";
@@ -16,11 +18,12 @@ import ShopDialog from "./dialogs/shop-dialog";
 import LevelUpDialog from "./dialogs/level-up-dialog";
 import AbilityScores from "./dialogs/ability-dialog";
 // import CharacterCustomisation from './dialogs/character-customisation';
-// import JournalDialog from './dialogs/journal-dialog';
+import JournalDialog from "./dialogs/journal-dialog";
 // import SpellbookDialog from './dialogs/spellbook-dialog';
 
 interface StateProps {
     dialog: DialogState;
+    system: SystemState;
 }
 
 type DialogManagerProps = StateProps;
@@ -40,7 +43,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         shop,
         levelUp,
         abilityDialog,
-        //journalDialog,
+        journalDialog,
         //spellbookDialog,
     } = reason;
 
@@ -52,7 +55,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (chest) PauseComp = <ChestLoot />;
         if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
-        //     if (journalDialog) PauseComp = <JournalDialog entries={journal.entries} />;
+        if (journalDialog && !props.system.journalSideMenu) PauseComp = <JournalDialog />;
         //     if (spellbookDialog) PauseComp = <SpellbookDialog />;
         if (gameText)
             PauseComp = (
@@ -87,6 +90,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
 
 const mapStateToProps = (state: RootState): StateProps => ({
     dialog: state.dialog,
+    system: state.system,
 });
 
 export default connect(mapStateToProps)(DialogManager);

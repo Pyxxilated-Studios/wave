@@ -13,6 +13,8 @@ import logLevelUp from "../../actions/log-level-up";
 
 import { isAbilityAllocationLevel } from "../../../../utils/is-ability-allocation-level";
 
+import spells from "../../../../data/spells";
+
 import "./styles.scss";
 
 interface DispatchProps {
@@ -35,6 +37,7 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
         props.logLevelUp();
         isAbilityAllocationLevel(level) ? props.abilityScoreDialog() : props.closeLevelUpDialog();
     };
+    const unlockedSpell = spells.filter((spell) => spell.unlockLevel === props.stats.level).pop();
 
     return (
         <MicroDialog onClose={nextDialog} onKeyPress={nextDialog}>
@@ -57,6 +60,14 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
                         Gained
                         <span className="level-up-mana">{` +${mana} `}</span>
                         Mana
+                    </div>
+                )}
+            </div>
+
+            <div className="flex-column level-up-contents">
+                {unlockedSpell && (
+                    <div className="level-up-value-spacing">
+                        You just unlocked the <span className="level-up-unlock_spell">{unlockedSpell.name}</span> spell
                     </div>
                 )}
             </div>

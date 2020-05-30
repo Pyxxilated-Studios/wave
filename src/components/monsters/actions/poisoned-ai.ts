@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { monsterDied, damageToMonster, resetMonsterAI } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 import { pause } from "../../../store/dialog/actions";
-import { getExperience } from "../../../store/stats/actions";
+import { gainExperience } from "../../../store/stats/actions";
 
 import { Point, Monster } from "../../../types";
 import { TURNS_FOR_POISON, POISON_DAMAGE } from "../../../constants";
@@ -35,7 +35,7 @@ export const poisoned = (sightBox: Point[], currentMap: string, monster: Monster
         if (health - damage <= 0) {
             dead = true;
             // and get some exp
-            dispatch(getExperience(experience));
+            dispatch(gainExperience(experience));
 
             if (stats.experience + experience >= stats.experienceToLevel) {
                 dispatch(pause(true, { levelUp: true }));

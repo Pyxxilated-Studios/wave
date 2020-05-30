@@ -29,7 +29,9 @@ import {
     ESC_KEY,
     U_KEY,
     SPACE_KEY,
+    J_KEY,
 } from "../../constants";
+import toggleJournal from "../dialog-manager/actions/toggle-journal";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
@@ -37,6 +39,7 @@ interface DispatchProps {
     toggleSettings: () => void;
     openAbilityScoreDialog: () => void;
     playerAttack: () => void;
+    toggleJournal: () => void;
 }
 
 interface StateProps {
@@ -49,7 +52,15 @@ type ControlProps = StateProps & DispatchProps;
 const ANIMATION_WITH_PADDING = ANIMATION_SPEED * 1.25;
 
 const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
-    const { dialog, movePlayer, toggleInventory, toggleSettings, openAbilityScoreDialog, playerAttack } = props;
+    const {
+        dialog,
+        movePlayer,
+        toggleInventory,
+        toggleSettings,
+        toggleJournal,
+        openAbilityScoreDialog,
+        playerAttack,
+    } = props;
 
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
@@ -71,6 +82,8 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                     return movePlayer(Direction.West);
                 case I_KEY:
                     return toggleInventory();
+                case J_KEY:
+                    return toggleJournal();
                 case U_KEY:
                     return openAbilityScoreDialog();
                 case SPACE_KEY:
@@ -78,7 +91,7 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                 default:
             }
         },
-        [movePlayer, toggleInventory, toggleSettings, openAbilityScoreDialog, playerAttack],
+        [movePlayer, toggleInventory, toggleSettings, toggleJournal, openAbilityScoreDialog, playerAttack],
     );
 
     const _handleKeyPress = debounce(
@@ -115,6 +128,7 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     toggleSettings: (): void => dispatch(toggleSettings()),
     openAbilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
     playerAttack: (): void => dispatch(playerAttack()),
+    toggleJournal: (): void => dispatch(toggleJournal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

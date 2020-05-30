@@ -1,0 +1,26 @@
+.journal-dialog-container {
+    flex: 1;
+    width: 20em;
+    height: 20em;
+
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.journal-button-container {
+    flex: 1;
+
+    align-items: center;
+    justify-content: space-around;
+
+    z-index: 100;
+
+    margin-top: 10px;
+}
+
+.journal-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    float: right;
+}

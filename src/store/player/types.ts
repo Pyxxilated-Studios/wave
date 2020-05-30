@@ -52,7 +52,7 @@ export interface UseProjectileAction {
 }
 
 export const EFFECT_PLAYER = "EFFECT_PLAYER";
-interface EffectPlayerAction {
+export interface EffectPlayerAction {
     type: typeof EFFECT_PLAYER;
     effect: string;
     turns: number;
@@ -66,7 +66,7 @@ interface MonsterAttackAction {
 }
 
 export const MONSTER_USE_PROJECTILE = "MONSTER_USE_PROJECTILE";
-interface MonsterUseProjectileAction {
+export interface MonsterUseProjectileAction {
     type: typeof MONSTER_USE_PROJECTILE;
     location: Point;
     targetLocation: Point;

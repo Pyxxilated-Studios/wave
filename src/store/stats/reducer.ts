@@ -11,7 +11,6 @@ import {
     HEAL,
     RESTORE,
     UNEQUIP_ITEM,
-    GET_EXPERIENCE,
     DAMAGE_TO_PLAYER,
 } from "./types";
 import { RESET } from "../system/types";
@@ -52,12 +51,6 @@ const initialState: StatsState = {
 
 const StatsReducer = (state = initialState, action: StatsActionType): StatsState => {
     switch (action.type) {
-        case GAIN_EXPERIENCE:
-            return state;
-
-        case RESET:
-            return initialState;
-
         case SET_ABILITY_SCORES: {
             const newAbilityModifierMana = calculateMaxManaPool(
                 state.level,
@@ -94,10 +87,10 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
         case GET_GOLD:
             return { ...state, gold: state.gold + action.amount };
 
-        case GET_EXPERIENCE: {
+        case GAIN_EXPERIENCE: {
             const newState = cloneDeep(state);
 
-            const newTotalExp = state.experience + action.amount;
+            const newTotalExp = state.experience + action.experience;
             const { experienceToLevel: expToLevel } = state;
             // if they are leveling up
             if (newTotalExp >= expToLevel) {
@@ -141,7 +134,7 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
                 newState.levelUp.level = newState.level;
             } else {
                 // they aren't leveling up
-                newState.experience += action.amount;
+                newState.experience += action.experience;
             }
 
             return newState;
@@ -270,6 +263,9 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             return newState;
         }
+
+        case RESET:
+            return initialState;
 
         default:
             return state;

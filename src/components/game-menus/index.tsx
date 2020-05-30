@@ -10,7 +10,7 @@ import GameSettings from "./settings";
 import Inventory from "../inventory";
 import Snackbar from "../snackbar";
 import Stats from "../stats";
-// import Journal from "../journal";
+import JournalButton from "../journal/button";
 
 import "./styles.scss";
 
@@ -24,12 +24,11 @@ type GameMenusProps = StateProps;
 const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => {
     const { sideMenu, largeView } = props.system;
     const { paused, reason } = props.dialog;
-    const { gameOver, gameStart, inventory, journalDialog, settings } = reason;
+    const { gameOver, gameStart, gameRunning, inventory, journalDialog, settings } = reason;
 
-    // disable the inventory button when we are in settings or paused and not in the inventory
-    const disableInventory = settings || (paused && !inventory && !journalDialog);
+    const disableInventory = !gameRunning || settings || (paused && !inventory && !journalDialog);
     // disable the stats view when in game start or game over or settings
-    const disableStats = gameStart || gameOver || settings;
+    const disableStats = !gameRunning || gameStart || gameOver || settings;
 
     return (
         <div className="flex-row centered">
@@ -46,7 +45,7 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 <Stats largeView={largeView} sideMenu={sideMenu} disabled={disableStats || false} />
 
                 <Inventory sideMenu={sideMenu} disabled={disableInventory} />
-                {/* <Journal sideMenu={sideMenu} disabled={disableInventory} /> */}
+                <JournalButton sideMenu={sideMenu} disabled={disableInventory} />
 
                 <Snackbar largeView={largeView} sideMenu={sideMenu} />
 

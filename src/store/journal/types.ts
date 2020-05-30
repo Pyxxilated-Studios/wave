@@ -1,11 +1,14 @@
 import { ReactNode } from "react";
 
 import { Ability } from "../../types";
-import { ResetAction } from "../system/types";
-import { DamageToMonsterAction, MonsterDiedAction } from "../monsters/types";
+import { ResetAction, LoadAction } from "../system/types";
+import { HealAction, RestoreAction, DamageToPlayerAction, GetGoldAction, GainExperienceAction } from "../stats/types";
+import { DamageToMonsterAction, MonsterDiedAction, MonsterHealAction, ChangeAiAction } from "../monsters/types";
+import { UseProjectileAction, MonsterUseProjectileAction, EffectPlayerAction } from "../player/types";
+import { GetItemAction } from "../inventory/types";
 
 export interface JournalState {
-    entries: ReactNode[];
+    entries: { key: string; entry: ReactNode }[];
     scroll: boolean;
 }
 
@@ -38,10 +41,31 @@ export interface CriticalHitAction {
     ability: string;
 }
 
+export const LEVEL_UP = "LEVEL_UP";
+interface LevelUpAction {
+    type: typeof LEVEL_UP;
+    level: number;
+    health: number;
+    mana: number;
+}
+
 export type JournalActionType =
     | AbilityCheckAction
     | MonsterAbilityCheckAction
     | DamageToMonsterAction
     | MonsterDiedAction
     | CriticalHitAction
+    | LevelUpAction
+    | HealAction
+    | RestoreAction
+    | DamageToPlayerAction
+    | MonsterHealAction
+    | UseProjectileAction
+    | MonsterUseProjectileAction
+    | EffectPlayerAction
+    | ChangeAiAction
+    | GetItemAction
+    | GetGoldAction
+    | GainExperienceAction
+    | LoadAction
     | ResetAction;

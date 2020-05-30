@@ -1,6 +1,5 @@
 import {
     StatsActionType,
-    GAIN_EXPERIENCE,
     SET_ABILITY_SCORES,
     EQUIP_ITEM,
     GET_GOLD,
@@ -8,7 +7,7 @@ import {
     RESTORE,
     LOSE_GOLD,
     UNEQUIP_ITEM,
-    GET_EXPERIENCE,
+    GAIN_EXPERIENCE,
     DAMAGE_TO_PLAYER,
 } from "./types";
 import { Abilities, ItemType } from "../../types";
@@ -46,10 +45,10 @@ export const getGold = (amount: number): StatsActionType => {
     };
 };
 
-export const getExperience = (amount: number): StatsActionType => {
+export const gainExperience = (experience: number): StatsActionType => {
     return {
-        type: GET_EXPERIENCE,
-        amount,
+        type: GAIN_EXPERIENCE,
+        experience,
     };
 };
 
@@ -76,6 +75,6 @@ export const restore = (kind: string, amount: number): StatsActionType => {
     };
 };
 
-export const damageToPlayer = (damage: number, from: string): StatsActionType => {
+export const damageToPlayer = (damage: number, from: { from?: string; entity?: string }): StatsActionType => {
     return { type: DAMAGE_TO_PLAYER, damage, from };
 };

@@ -1,5 +1,5 @@
 .button-container {
-    padding: 15px;
+    padding: 10px;
 
     user-select: none;
 
@@ -22,7 +22,7 @@
         font-size: 22px;
     }
 
-    .button__float-icon {
+    .button-float-icon {
         position: relative;
         float: left;
 
@@ -31,7 +31,7 @@
         font-size: 22px;
     }
 
-    .button__float-icon-right {
+    .button-float-icon-right {
         position: relative;
         float: right;
 

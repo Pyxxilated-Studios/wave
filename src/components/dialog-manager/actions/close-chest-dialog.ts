@@ -1,6 +1,6 @@
 import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
-import { getGold, getExperience } from "../../../store/stats/actions";
+import { getGold, gainExperience } from "../../../store/stats/actions";
 
 const closeChestDialog = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { dialog, stats } = getState();
@@ -18,7 +18,7 @@ const closeChestDialog = (): RootThunk => async (dispatch, getState): Promise<vo
     }
 
     if (experience && experience > 0) {
-        dispatch(getExperience(experience));
+        dispatch(gainExperience(experience));
 
         if (experience + stats.experience >= stats.experienceToLevel) {
             dispatch(pause(true, { levelUp: true, chest: false }));

@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { toggleSettings } from "../../../store/dialog/actions";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { RootDispatch } from "../../../store";
+import { toggleSettings } from "../../../store/dialog/actions";
 
 import "./styles.scss";
 
@@ -19,7 +20,7 @@ const GameSettings: FunctionComponent<GameSettingsProps> = (props: GameSettingsP
     </button>
 );
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     toggleSettings: (): void => dispatch(toggleSettings()),
 });
 

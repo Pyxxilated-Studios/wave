@@ -27,7 +27,7 @@ export const applyEffects = (): RootThunk => async (dispatch, getState): Promise
             const effectDamage = Math.floor(damage.roll(false) / 2);
 
             if (effectDamage > 0) {
-                dispatch(damageToPlayer(effectDamage, effect.effect));
+                dispatch(damageToPlayer(effectDamage, { from: effect.effect }));
 
                 if (stats.health - effectDamage <= 0) {
                     dispatch(playerDie({ from: effect.effect }));
