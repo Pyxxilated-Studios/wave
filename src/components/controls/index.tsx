@@ -11,6 +11,7 @@ import { toggleSettings } from "../../store/dialog/actions";
 
 import move from "./actions/move-player";
 import playerAttack from "../player/actions/player-attack";
+import { castSpell } from "../player/actions/player-cast-spell";
 
 import toggleInventory from "../dialog-manager/actions/toggle-inventory";
 import abilityScoreDialog from "../dialog-manager/actions/ability-score-dialog";
@@ -30,8 +31,11 @@ import {
     U_KEY,
     SPACE_KEY,
     J_KEY,
+    C_KEY,
+    B_KEY,
 } from "../../constants";
 import toggleJournal from "../dialog-manager/actions/toggle-journal";
+import toggleSpellbookDialog from "../dialog-manager/actions/toggle-spellbook-dialog";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
@@ -40,6 +44,8 @@ interface DispatchProps {
     openAbilityScoreDialog: () => void;
     playerAttack: () => void;
     toggleJournal: () => void;
+    toggleSpellbookDialog: () => void;
+    playerCastSpell: () => void;
 }
 
 interface StateProps {
@@ -60,6 +66,8 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
         toggleJournal,
         openAbilityScoreDialog,
         playerAttack,
+        playerCastSpell,
+        toggleSpellbookDialog,
     } = props;
 
     const handleKeyPress = useCallback(
@@ -84,14 +92,28 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                     return toggleInventory();
                 case J_KEY:
                     return toggleJournal();
+                case B_KEY:
+                    return toggleSpellbookDialog();
                 case U_KEY:
                     return openAbilityScoreDialog();
                 case SPACE_KEY:
                     return playerAttack();
+                case C_KEY:
+                    return playerCastSpell();
                 default:
+                    break;
             }
         },
-        [movePlayer, toggleInventory, toggleSettings, toggleJournal, openAbilityScoreDialog, playerAttack],
+        [
+            movePlayer,
+            toggleInventory,
+            toggleSettings,
+            toggleJournal,
+            toggleSpellbookDialog,
+            openAbilityScoreDialog,
+            playerAttack,
+            playerCastSpell,
+        ],
     );
 
     const _handleKeyPress = debounce(
@@ -129,6 +151,8 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     openAbilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
     playerAttack: (): void => dispatch(playerAttack()),
     toggleJournal: (): void => dispatch(toggleJournal()),
+    toggleSpellbookDialog: (): void => dispatch(toggleSpellbookDialog()),
+    playerCastSpell: (): void => dispatch(castSpell()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

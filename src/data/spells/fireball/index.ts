@@ -7,9 +7,9 @@ import FireballImage from "./Fireball-image.png";
 
 const Fireball: Spell = {
     name: "Fireball",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 33,
     unlockLevel: 11,

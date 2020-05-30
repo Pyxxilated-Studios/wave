@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import { Monster as MonsterType, Direction } from "../../types";
 import { SPRITE_PIXELS } from "../../constants";
 
-import HealthBar from "../../components/health-bar";
+import HealthBar from "../health-bar";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 

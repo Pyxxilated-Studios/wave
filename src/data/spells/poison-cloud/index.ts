@@ -7,9 +7,9 @@ import PoisonCloudImage from "./PoisonCloud-image.png";
 
 const PoisonCloud: Spell = {
     name: "Poison Cloud",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 61,
     unlockLevel: 20,

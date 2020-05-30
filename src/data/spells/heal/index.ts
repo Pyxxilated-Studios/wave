@@ -7,9 +7,9 @@ import HealImage from "./Heal-image.png";
 
 const Heal: Spell = {
     name: "Heal",
-    kind: "spell",
+    type: "spell",
     target: "self",
-    type: "assist",
+    kind: "assist",
     range: 0,
     manaCost: 30,
     unlockLevel: 15,

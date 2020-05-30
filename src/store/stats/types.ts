@@ -1,5 +1,6 @@
 import { ResetAction } from "../system/types";
 import { Abilities, Character, ItemType, Armour, Weapon } from "../../types";
+import { UseProjectileAction } from "../player/types";
 
 export interface StatsState {
     abilities: Abilities & {
@@ -98,4 +99,5 @@ export type StatsActionType =
     | HealAction
     | RestoreAction
     | DamageToPlayerAction
+    | UseProjectileAction
     | ResetAction;

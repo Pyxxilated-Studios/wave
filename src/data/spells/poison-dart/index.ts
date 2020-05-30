@@ -7,9 +7,9 @@ import PoisonDartImage from "./PoisonDart-image.png";
 
 const PoisonDart: Spell = {
     name: "Poison Dart",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 21,
     unlockLevel: 5,

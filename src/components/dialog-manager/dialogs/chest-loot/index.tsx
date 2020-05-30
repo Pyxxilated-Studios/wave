@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { RootState, RootDispatch } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
 
-import Button from "../../../../components/button";
-import MicroDialog from "../../../../components/micro-dialog";
+import Button from "../../../button";
+import MicroDialog from "../../../micro-dialog";
 
 import pickupItem from "../../../inventory/actions/pickup-item";
 import openChest from "../../actions/open-chest";

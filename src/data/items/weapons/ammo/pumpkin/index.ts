@@ -4,7 +4,7 @@ import PumpkinImage from "./pumpkin-image.png";
 
 const Pumpkin: Ammo = {
     name: "pumpkin",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: PumpkinImage,
     sprite: PumpkinImage,

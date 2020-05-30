@@ -248,7 +248,7 @@ const JournalReducer = (state = initialState, action: JournalActionType): Journa
 
             const newState = cloneDeep(state);
 
-            if (action.projectile.kind === "spell") {
+            if (action.projectile.type === "spell") {
                 newState.entries.push({
                     key: uuidv4(),
                     entry: <p key={uuidv4()}>You cast {colourise(name, "spell-cast")}</p>,
@@ -275,7 +275,7 @@ const JournalReducer = (state = initialState, action: JournalActionType): Journa
 
             const newState = cloneDeep(state);
 
-            if (projectile.kind === "spell") {
+            if (projectile.type === "spell") {
                 newState.entries.push({
                     key: uuidv4(),
                     entry: (

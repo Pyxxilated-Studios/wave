@@ -77,7 +77,7 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
         case SET_SHOW_JOURNAL:
             return {
                 ...state,
-                paused: state.reason.journalDialog || false,
+                paused: state.reason.journalDialog || state.paused,
                 journalSideMenuOpen: (state.reason.journalDialog || false) && action.set,
             };
 
@@ -148,10 +148,10 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             return { ...state, diedFrom: action.reason };
 
         case TOGGLE_SETTINGS:
-            return { ...state, reason: { settings: !state.reason.settings } };
+            return { ...state, paused: !state.paused, reason: { ...state.reason, settings: !state.reason.settings } };
 
         case CLOSE_SETTINGS:
-            return { ...state, reason: { settings: false } };
+            return { ...state, paused: false, reason: { ...state.reason, settings: false } };
 
         case RESET:
             return { ...initialState };

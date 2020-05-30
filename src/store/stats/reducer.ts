@@ -14,6 +14,9 @@ import {
     DAMAGE_TO_PLAYER,
 } from "./types";
 import { RESET } from "../system/types";
+import { USE_PROJECTILE } from "../player/types";
+
+import { Spell } from "../../types";
 
 import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
 import calculateModifier from "../../utils/calculate-modifier";
@@ -83,6 +86,10 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             return { ...state, abilities: { ...action.abilities, points: action.points } };
         }
+
+        case USE_PROJECTILE:
+            if (action.projectile.type !== "spell") return state;
+            return { ...state, mana: state.mana - (action.projectile as Spell).manaCost };
 
         case GET_GOLD:
             return { ...state, gold: state.gold + action.amount };

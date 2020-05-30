@@ -7,9 +7,9 @@ import LightningBoltImage from "./LightningBolt-image.png";
 
 const LightningBolt: Spell = {
     name: "Lightning Bolt",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 26,
     unlockLevel: 8,

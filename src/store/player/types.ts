@@ -75,6 +75,12 @@ export interface MonsterUseProjectileAction {
     entity: string;
 }
 
+export const SET_ACTIVE_SPELL = "SET_ACTIVE_SPELL";
+interface SetActiveSpellAction {
+    type: typeof SET_ACTIVE_SPELL;
+    spell?: Spell;
+}
+
 export type PlayerActionType =
     | MovePlayerAction
     | PlayerDieAction
@@ -85,4 +91,5 @@ export type PlayerActionType =
     | EffectPlayerAction
     | MonsterAttackAction
     | MonsterUseProjectileAction
+    | SetActiveSpellAction
     | ResetAction;

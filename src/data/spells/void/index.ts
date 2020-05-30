@@ -7,9 +7,9 @@ import VoidImage from "./Void-image.png";
 
 const Void: Spell = {
     name: "Void",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 80,
     unlockLevel: 27,

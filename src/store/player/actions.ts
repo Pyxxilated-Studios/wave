@@ -8,9 +8,10 @@ import {
     MONSTER_USE_PROJECTILE,
     MONSTER_ATTACK,
     EFFECT_PLAYER,
+    SET_ACTIVE_SPELL,
 } from "./types";
 
-import { Direction, Point, Projectile } from "../../types";
+import { Direction, Point, Projectile, Spell } from "../../types";
 
 export const movePlayer = (position: Point, direction: Direction): PlayerActionType => {
     return {
@@ -59,4 +60,8 @@ export const monsterUseProjectile = (
     entity: string,
 ): PlayerActionType => {
     return { type: MONSTER_USE_PROJECTILE, location, targetLocation, direction, projectile, entity };
+};
+
+export const setActiveSpell = (spell?: Spell): PlayerActionType => {
+    return { type: SET_ACTIVE_SPELL, spell };
 };

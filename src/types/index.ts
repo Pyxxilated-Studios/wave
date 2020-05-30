@@ -141,7 +141,7 @@ type Target = "self" | "enemy";
 type SpellType = "combat" | "assist";
 
 export interface Projectile {
-    kind: "ammo" | "spell";
+    type: "spell" | "ammo";
     name: string;
     target: Target;
     animationFrames: number;
@@ -150,7 +150,7 @@ export interface Projectile {
 }
 
 export interface Ammo extends Projectile {
-    kind: "ammo";
+    type: "ammo";
     useText: string;
 }
 
@@ -193,8 +193,8 @@ export interface DamageOverTime {
 export type SpellEffect = DamageEffect | DamageOverTime | HealEffect | ChangeAIEffect;
 
 export interface Spell extends Projectile {
-    kind: "spell";
-    type: SpellType;
+    type: "spell";
+    kind: SpellType;
     range: number;
     manaCost: number;
     description: string;

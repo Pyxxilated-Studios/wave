@@ -5,7 +5,7 @@ import PeaImage from "./pea.png";
 
 const Pea: Ammo = {
     name: "pea",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: PeaImage,
     sprite: PeaImage,

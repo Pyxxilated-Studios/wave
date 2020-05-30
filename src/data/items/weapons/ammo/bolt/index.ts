@@ -4,7 +4,7 @@ import BoltImage from "./bolt.png";
 
 const Bolt: Ammo = {
     name: "bolt",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: BoltImage,
     sprite: BoltImage,

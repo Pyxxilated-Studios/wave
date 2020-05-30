@@ -7,9 +7,9 @@ import FrightenImage from "./Frighten-image.png";
 
 const Frighten: Spell = {
     name: "Frighten",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 40,
     unlockLevel: 13,

@@ -4,7 +4,7 @@ import ArrowImage from "./arrow.png";
 
 const Arrow: Ammo = {
     name: "arrow",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: ArrowImage,
     sprite: ArrowImage,

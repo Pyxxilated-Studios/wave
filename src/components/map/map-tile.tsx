@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode } from "react";
 
 import { Tile, Point } from "../../types";
 
-import Flame from "../../components/flames";
+import Flame from "../flames";
 import { SPRITE_SIZE } from "../../constants";
 import { arrayContainsPoint } from "../../utils/array-contains";
 

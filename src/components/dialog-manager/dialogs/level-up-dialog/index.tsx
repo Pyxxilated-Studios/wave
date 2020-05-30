@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { RootState, RootDispatch } from "../../../../store";
 import { StatsState } from "../../../../store/stats/types";
 
-import Button from "../../../../components/button";
-import MicroDialog from "../../../../components/micro-dialog";
+import Button from "../../../button";
+import MicroDialog from "../../../micro-dialog";
 
 import closeLevelUpDialog from "../../actions/close-level-up-dialog";
 import abilityScoreDialog from "../../actions/ability-score-dialog";
@@ -67,7 +67,7 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
             <div className="flex-column level-up-contents">
                 {unlockedSpell && (
                     <div className="level-up-value-spacing">
-                        You just unlocked the <span className="level-up-unlock_spell">{unlockedSpell.name}</span> spell
+                        You just unlocked the <span className="level-up-unlock-spell">{unlockedSpell.name}</span> spell
                     </div>
                 )}
             </div>

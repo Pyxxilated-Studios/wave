@@ -5,9 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import { RootState, RootDispatch } from "../../store";
 import { StatsState } from "../../store/stats/types";
 import { PlayerState } from "../../store/player/types";
-import { ItemType, ConsumableItem, Backpack, ItemEffect, Weapon } from "../../types";
 import { equipItem, unequipItem } from "../../store/stats/actions";
 import { dropItem, sellItem } from "../../store/inventory/actions";
+import { setActiveSpell } from "../../store/player/actions";
+
+import { ItemType, ConsumableItem, Backpack, ItemEffect, Weapon, Spell, HealEffect, DamageEffect } from "../../types";
 
 import Button from "../button";
 import ConfirmDialog from "../confirm-dialog";
@@ -21,7 +23,6 @@ import buyItem from "../inventory/actions/buy-item";
 import calculateModifier from "../../utils/calculate-modifier";
 import calculateWisdomPotionBonus from "../../utils/calculate-wisdom-potion-bonus";
 import calculatePrices from "../../utils/calculate-price";
-// import setActiveSpell from "../../features/dialog-manager/actions/set-active-spell";
 import { calculateDamageRange } from "../../utils/dice";
 
 import "./styles.scss";
@@ -34,6 +35,7 @@ interface DispatchProps {
     unequipItem: (item: ItemType) => void;
     sellItem: (item: ItemType) => void;
     consumePotion: (item: ItemType) => void;
+    setActiveSpell: (spell?: Spell) => void;
 }
 
 interface StateProps {
@@ -45,7 +47,7 @@ interface OwnProps {
     sell?: boolean;
     buy?: boolean;
     open: boolean;
-    data?: ItemType;
+    data?: ItemType | Spell;
     onClose: () => void;
 }
 
@@ -62,11 +64,6 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     const itemStats = [];
     let itemIsEquipped = false;
     const equipped = props.stats.equippedItems;
-
-    const { sellPrice, buyPrice } = calculatePrices(
-        props.data.price,
-        calculateModifier(props.stats.abilities.charisma),
-    );
 
     // find the type of item
     switch (props.data.type) {
@@ -154,45 +151,61 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             break;
         }
 
-        // case "spell":
-        //     if (data.target.includes("self")) {
-        //         const healRange = calculateDamageRange(data.damage);
-        //         itemStats.push(<StatsItem stats={{ name: "heal", value: data.damage }} key={uuidv4()} />);
-        //         itemStats.push(
-        //             <StatsItem
-        //                 stats={{
-        //                     name: "range",
-        //                     value: healRange[0] + " - " + healRange[1],
-        //                 }}
-        //                 key={uuidv4()}
-        //             />,
-        //         );
-        //     } else {
-        //         const damageRange = calculateDamageRange(data.damage);
-        //         itemStats.push(<StatsItem stats={{ name: "damage", value: data.damage }} key={uuidv4()} />);
-        //         itemStats.push(
-        //             <StatsItem
-        //                 stats={{
-        //                     name: "range",
-        //                     value: damageRange[0] + " - " + damageRange[1],
-        //                 }}
-        //                 key={uuidv4()}
-        //             />,
-        //         );
-        //     }
+        case "spell":
+            if (props.data.target.includes("self")) {
+                const effect = props.data.effects?.find((effect) => effect.effect === "heal");
 
-        //     itemStats.push(<StatsItem stats={{ name: "description", value: data.description }} key={uuidv4()} />);
-        //     break;
+                if (effect) {
+                    const intelligenceModifier = calculateModifier(props.stats.abilities.intelligence);
+
+                    const healRange = calculateDamageRange((effect as HealEffect).amount, false).map(
+                        (amount) => amount + Math.max(0, intelligenceModifier),
+                    );
+                    itemStats.push(<StatsItem stats={{ name: "heal", value: healRange.join(" - ") }} key={uuidv4()} />);
+                    itemStats.push(
+                        <StatsItem
+                            stats={{
+                                name: "range",
+                                value: healRange[0] + " - " + healRange[1],
+                            }}
+                            key={uuidv4()}
+                        />,
+                    );
+                }
+            } else {
+                const effect = props.data.effects?.find((effect) => effect.effect === "damage");
+
+                if (effect) {
+                    const damageEffect = effect as DamageEffect;
+
+                    const damageRange = calculateDamageRange(damageEffect.dice, false);
+                    itemStats.push(
+                        <StatsItem stats={{ name: "damage", value: damageRange.join(" - ") }} key={uuidv4()} />,
+                    );
+                    itemStats.push(
+                        <StatsItem
+                            stats={{
+                                name: "range",
+                                value: damageRange[0] + " - " + damageRange[1],
+                            }}
+                            key={uuidv4()}
+                        />,
+                    );
+                }
+            }
+
+            itemStats.push(<StatsItem stats={{ name: "description", value: props.data.description }} key={uuidv4()} />);
+            break;
 
         default:
             break;
     }
 
-    if (props.data.effects) {
+    if (props.data.type !== "spell" && props.data.effects) {
         // find each effect
         Reflect.ownKeys(props.data.effects).forEach((effect) => {
             if (props.data?.effects) {
-                const value = props.data.effects[effect as keyof ItemEffect];
+                const value = (props.data.effects as ItemEffect)[effect as keyof ItemEffect];
                 if (value) {
                     itemStats.push(<StatsItem stats={{ name: effect.toString(), value }} key={uuidv4()} />);
                 }
@@ -200,7 +213,12 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         });
     }
 
-    if (props.data.price !== undefined) {
+    const { sellPrice, buyPrice } =
+        props.data.type !== "spell"
+            ? calculatePrices(props.data.price, calculateModifier(props.stats.abilities.charisma))
+            : { sellPrice: 0, buyPrice: 0 };
+
+    if (props.data.type !== "spell") {
         itemStats.push(
             <StatsItem
                 stats={{
@@ -223,7 +241,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         ViewItemButtons = <Button onClick={(): void => setConfirmSell(true)} icon="coins" title={"Sell Item"} />;
     } else if (itemIsEquipped) {
         onKeyPress = (): void => {
-            if (props.data) {
+            if (props.data && props.data.type !== "spell") {
                 props.unequipItem(props.data);
             }
             props.onClose();
@@ -231,7 +249,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         ViewItemButtons = (
             <Button
                 onClick={(): void => {
-                    if (props.data) {
+                    if (props.data && props.data.type !== "spell") {
                         props.unequipItem(props.data);
                     }
                     props.onClose();
@@ -240,23 +258,34 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 title="Un-equip"
             />
         );
-        // } else if (props.data.type === "spell") {
-        //     onKeyPress = () => setActiveSpell(data);
-        //     ViewItemButtons = (
-        //         <>
-        //             {player.spell && player.spell.name === data.name ? (
-        //                 <Button onClick={() => setActiveSpell(null)} title={"Remove Active Spell"} />
-        //             ) : (
-        //                 <Button onClick={() => setActiveSpell(data)} title={"Set Active Spell"} />
-        //             )}
-        //         </>
-        //     );
+    } else if (props.data.type === "spell") {
+        const unlocked = props.data.unlockLevel <= props.stats.level;
+        onKeyPress = (): void => {
+            if (props.player.spell && props.player.spell.name === props.data?.name) {
+                props.setActiveSpell(undefined);
+            } else if (unlocked) {
+                props.setActiveSpell(props.data as Spell);
+            }
+        };
+        ViewItemButtons = (
+            <>
+                {props.player.spell && props.player.spell.name === props.data.name ? (
+                    <Button onClick={onKeyPress} title={"Remove Active Spell"} />
+                ) : (
+                    <Button
+                        extraClass={unlocked ? "" : "selected"}
+                        onClick={onKeyPress}
+                        title={unlocked ? "Set Active Spell" : `Unlocked at level ${props.data.unlockLevel}`}
+                    />
+                )}
+            </>
+        );
     } else {
         onKeyPress = (): void => {
             if (props.data?.type === "potion") {
                 setConfirmPotion(true);
             } else {
-                if (props.data) {
+                if (props.data && props.data.type !== "spell") {
                     props.equipItem(props.data);
                 }
                 props.onClose();
@@ -276,7 +305,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 ) : (
                     <Button
                         onClick={(): void => {
-                            if (props.data) {
+                            if (props.data && props.data.type !== "spell") {
                                 props.equipItem(props.data);
                             }
                             props.onClose();
@@ -328,7 +357,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Drop"
                 acceptIcon="trash"
                 confirm={(): void => {
-                    if (props.data) {
+                    if (props.data && props.data.type !== "spell") {
                         props.dropItem(props.data);
                     }
                     setConfirmDrop(false);
@@ -346,7 +375,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Sell"
                 acceptIcon="coins"
                 confirm={(): void => {
-                    if (props.data) {
+                    if (props.data && props.data.type !== "spell") {
                         sellItem(props.data);
                     }
                     setConfirmSell(false);
@@ -364,7 +393,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText="Buy"
                 acceptIcon="coins"
                 confirm={(): void => {
-                    if (props.data) {
+                    if (props.data && props.data.type !== "spell") {
                         buyItem(props.data);
                     }
                     setConfirmBuy(false);
@@ -382,7 +411,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 acceptText={(props.data as ConsumableItem).kind === "health" ? "Heal" : "Restore"}
                 acceptIcon="medkit"
                 confirm={(): void => {
-                    if (props.data) {
+                    if (props.data && props.data.type !== "spell") {
                         props.consumePotion(props.data);
                     }
                     setConfirmPotion(false);
@@ -404,7 +433,7 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     equipItem: (item: ItemType): void => dispatch(equipItem(item)),
     unequipItem: (item: ItemType): void => dispatch(unequipItem(item)),
     sellItem: (item: ItemType): void => dispatch(sellItem(item)),
-    // setActiveSpell: (item: ItemType): void => dispatch(setActiveSpell(item)),
+    setActiveSpell: (spell?: Spell): void => dispatch(setActiveSpell(spell)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewItem);

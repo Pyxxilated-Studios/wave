@@ -13,7 +13,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
     const { id, attackValue, dice, type, location, projectile } = monster;
     const { currentMap } = world;
 
-    if (!projectile || projectile.kind !== "spell") return;
+    if (!projectile || projectile.type !== "spell") return;
 
     const spell = projectile as Spell;
 

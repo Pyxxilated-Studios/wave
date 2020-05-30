@@ -7,9 +7,9 @@ import MeteorImage from "./Meteor-image.png";
 
 const Meteor: Spell = {
     name: "Meteor",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 73,
     unlockLevel: 25,

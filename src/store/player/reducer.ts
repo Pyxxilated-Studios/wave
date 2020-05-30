@@ -7,6 +7,7 @@ import {
     USE_PROJECTILE,
     MONSTER_USE_PROJECTILE,
     MONSTER_ATTACK,
+    SET_ACTIVE_SPELL,
 } from "./types";
 
 import { Direction } from "../../types";
@@ -76,6 +77,9 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
                 monsterProjectile: action.projectile,
                 monsterProjectileDirection: action.direction,
             };
+
+        case SET_ACTIVE_SPELL:
+            return { ...state, spell: action.spell };
 
         case RESET:
             return initialState;

@@ -5,7 +5,7 @@ import { RootState, RootDispatch } from "../../store";
 import { SystemState } from "../../store/system/types";
 import { DialogState } from "../../store/dialog/types";
 
-import Button from "../../components/button";
+import Button from "../button";
 
 import toggleJournal from "../dialog-manager/actions/toggle-journal";
 

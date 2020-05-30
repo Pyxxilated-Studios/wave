@@ -6,9 +6,9 @@ import { ENTER_KEY, ESC_KEY } from "../../../../constants";
 import { closeSettings } from "../../../../store/dialog/actions";
 import resetGameState from "../../../world/actions/reset-game";
 
-import Button from "../../../../components/button";
-import ConfirmDialog from "../../../../components/confirm-dialog";
-import Dialog from "../../../../components/dialog";
+import Button from "../../../button";
+import ConfirmDialog from "../../../confirm-dialog";
+import Dialog from "../../../dialog";
 
 import "./styles.scss";
 

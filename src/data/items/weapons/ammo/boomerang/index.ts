@@ -5,7 +5,7 @@ import BoomerangAnimated from "./boomerang-animated.png";
 
 const BoomerangAmmo: Ammo = {
     name: "boomerang",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: BoomerangImage,
     sprite: BoomerangAnimated,

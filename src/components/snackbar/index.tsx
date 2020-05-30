@@ -11,7 +11,7 @@ import { clearNotification } from "../../store/snackbar/actions";
 
 import { ItemType } from "../../types";
 
-import Dialog from "../../components/dialog";
+import Dialog from "../dialog";
 
 import { SNACK_DURATION, E_KEY } from "../../constants";
 

@@ -7,9 +7,9 @@ import BlizzardImage from "./Blizzard-image.png";
 
 const Blizzard: Spell = {
     name: "Blizzard",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 52,
     unlockLevel: 17,

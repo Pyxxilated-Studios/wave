@@ -42,7 +42,7 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
                 <FontAwesomeIcon
                     className={`${iconClassName} button-float-icon`}
                     icon={props.icon}
-                    style={props.iconStyle || {}}
+                    style={{ ...props.iconStyle, paddingRight: `${props.title ? "10px" : "0"}` }}
                 />
             )}
             {props.image && (

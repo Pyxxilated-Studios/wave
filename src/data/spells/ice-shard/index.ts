@@ -7,9 +7,9 @@ import IceShardImage from "./IceShard-image.png";
 
 const IceShard: Spell = {
     name: "Ice Shard",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 15,
     unlockLevel: 3,

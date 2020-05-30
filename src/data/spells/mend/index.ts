@@ -7,9 +7,9 @@ import MendImage from "./Mend-image.png";
 
 const Mend: Spell = {
     name: "Mend",
-    kind: "spell",
+    type: "spell",
     target: "self",
-    type: "assist",
+    kind: "assist",
     range: 0,
     manaCost: 5,
     unlockLevel: 1,

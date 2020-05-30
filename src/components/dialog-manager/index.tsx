@@ -19,7 +19,7 @@ import LevelUpDialog from "./dialogs/level-up-dialog";
 import AbilityScores from "./dialogs/ability-dialog";
 // import CharacterCustomisation from './dialogs/character-customisation';
 import JournalDialog from "./dialogs/journal-dialog";
-// import SpellbookDialog from './dialogs/spellbook-dialog';
+import SpellbookDialog from "./dialogs/spellbook-dialog";
 
 interface StateProps {
     dialog: DialogState;
@@ -44,7 +44,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         levelUp,
         abilityDialog,
         journalDialog,
-        //spellbookDialog,
+        spellbookDialog,
     } = reason;
 
     let PauseComp: ReactNode = null;
@@ -56,7 +56,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
         if (journalDialog && !props.system.journalSideMenu) PauseComp = <JournalDialog />;
-        //     if (spellbookDialog) PauseComp = <SpellbookDialog />;
+        if (spellbookDialog) PauseComp = <SpellbookDialog />;
         if (gameText)
             PauseComp = (
                 <GameTextDialog

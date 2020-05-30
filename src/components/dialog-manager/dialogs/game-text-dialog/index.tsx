@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import Button from "../../../../components/button";
-import Dialog from "../../../../components/dialog";
+import Button from "../../../button";
+import Dialog from "../../../dialog";
 import closeDialog from "../../actions/close-dialog";
 
 import "./styles.scss";

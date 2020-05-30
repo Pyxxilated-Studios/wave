@@ -4,7 +4,7 @@ import StoneImage from "./stone.png";
 
 const Stone: Ammo = {
     name: "stone",
-    kind: "ammo",
+    type: "ammo",
     target: "enemy",
     image: StoneImage,
     sprite: StoneImage,

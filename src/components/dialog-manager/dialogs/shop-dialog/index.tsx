@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 
 import { ENTER_KEY, ESC_KEY } from "../../../../constants";
 
-import Button from "../../../../components/button";
-import Dialog from "../../../../components/dialog";
+import Button from "../../../button";
+import Dialog from "../../../dialog";
 import SellItemsDialog from "../sell-items-dialog";
 import ShopKeeper from "../../../shop-keeper";
-import ShopInventory from "../../../../components/shop-inventory";
+import ShopInventory from "../../../shop-inventory";
 import closeDialog from "../../actions/close-dialog";
 
 import "./styles.scss";

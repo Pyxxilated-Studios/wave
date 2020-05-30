@@ -7,9 +7,9 @@ import ThunderStormImage from "./ThunderStorm-image.png";
 
 const ThunderStorm: Spell = {
     name: "Thunder Storm",
-    kind: "spell",
+    type: "spell",
     target: "enemy",
-    type: "combat",
+    kind: "combat",
     range: SIGHT_RADIUS,
     manaCost: 68,
     unlockLevel: 23,

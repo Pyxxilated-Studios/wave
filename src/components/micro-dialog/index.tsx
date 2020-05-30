@@ -9,6 +9,7 @@ interface MicroDialogProps {
     noButton?: boolean;
     onClose: () => void;
     onKeyPress?: () => void;
+    keys?: number[];
     className?: string;
     fullsize?: boolean;
     children?: ReactNode;
@@ -20,6 +21,8 @@ const MicroDialog: FunctionComponent<MicroDialogProps> = (props: MicroDialogProp
             if (event.keyCode === ENTER_KEY) {
                 props.onKeyPress && props.onKeyPress();
             } else if (event.keyCode === ESC_KEY) {
+                props.onClose();
+            } else if (props.keys && props.keys.includes(event.keyCode)) {
                 props.onClose();
             }
         },
