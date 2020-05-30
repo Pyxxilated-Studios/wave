@@ -38,8 +38,7 @@ export const monsterCanMoveTo = (
     tiles: Tile[][],
 ): boolean => {
     return (
-        playerPosition.x !== position.x &&
-        playerPosition.y !== position.y &&
+        (playerPosition.x !== position.x || playerPosition.y !== position.y) &&
         withinBoundary(position) &&
         !checkForOtherMonster(id, position, entities) &&
         traversableTile(position, tiles)
