@@ -10,6 +10,7 @@ import {
     SET_LEVEL_UP_ABILITIES,
     TOGGLE_SETTINGS,
     CLOSE_SETTINGS,
+    CHANGE_TUTORIAL_PAGE,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
 import { RESET, SET_SHOW_JOURNAL } from "../system/types";
@@ -36,6 +37,8 @@ const initialState: DialogState = {
         abilityDialog: false,
         playerOpenedAbilityDialog: false,
         characterCreation: false,
+        tutorialDialog: false,
+        tutorialPage: "movement",
     },
     abilities: {
         constitution: STARTING_ABILITY_SCORE_VALUE,
@@ -146,6 +149,9 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
 
         case PLAYER_DIED:
             return { ...state, diedFrom: action.reason };
+
+        case CHANGE_TUTORIAL_PAGE:
+            return { ...state, reason: { ...state.reason, tutorialPage: action.page } };
 
         case TOGGLE_SETTINGS:
             return { ...state, paused: !state.paused, reason: { ...state.reason, settings: !state.reason.settings } };

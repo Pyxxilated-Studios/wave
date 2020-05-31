@@ -10,10 +10,12 @@ import Flame from "../../../flames";
 
 import "./styles.scss";
 import { RootDispatch } from "../../../../store";
+import toggleTutorial from "../../actions/toggle-tutorial";
 
 interface DispatchProps {
     // loadGame: () => void;
     startGame: () => void;
+    toggleTutorial: () => void;
 }
 
 type GameStartDialogProps = DispatchProps;
@@ -28,12 +30,16 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
             <div className="game-start-flame-1">
                 <Flame />
             </div>
-            {/* <div className="game-start-flame-2">
+            <div className="game-start-flame-2">
                 <Flame />
             </div>
-            <div className="game-start-flame-3">
+            {/* <div className="game-start-flame-3">
                 <Flame />
             </div> */}
+
+            <div className="flex-column game-start-button">
+                <Button onClick={props.toggleTutorial} icon="question-circle" title="How to Play" />
+            </div>
 
             <div className="flex-column game-start-button">
                 <Button
@@ -66,6 +72,7 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     // loadGame: (): void => ,
     startGame: (): void => dispatch(startGame()),
+    toggleTutorial: (): void => dispatch(toggleTutorial()),
 });
 
 export default connect(null, mapDispatchToProps)(GameStartDialog);

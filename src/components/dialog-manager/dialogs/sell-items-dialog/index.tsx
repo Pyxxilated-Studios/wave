@@ -26,7 +26,7 @@ const SellItemsDialog: FunctionComponent<SellItemsDialogProps> = (props: SellIte
                 onClose={(): void => setSellItem(undefined)}
             />
 
-            <div className="flex-column sell-items__container" style={{ backgroundImage: `url(${Backpack})` }}>
+            <div className="flex-column sell-items-container" style={{ backgroundImage: `url(${Backpack})` }}>
                 <BackpackItems viewItem={(item): void => setSellItem(item)} />
             </div>
         </MicroDialog>

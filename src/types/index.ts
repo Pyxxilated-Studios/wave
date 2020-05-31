@@ -91,6 +91,8 @@ export interface PauseReason {
     inventory?: boolean;
     journalDialog?: boolean;
     spellbookDialog?: boolean;
+    tutorialDialog?: boolean;
+    tutorialPage?: string;
     levelUp?: boolean;
     fromLevelUp?: boolean;
     abilityDialog?: boolean;

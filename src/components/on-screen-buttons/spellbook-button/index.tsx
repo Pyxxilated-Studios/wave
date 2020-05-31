@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootState, RootDispatch } from "../../store";
-import { PlayerState } from "../../store/player/types";
+import { RootState, RootDispatch } from "../../../store";
+import { PlayerState } from "../../../store/player/types";
 
-import toggleSpellbookDialog from "../dialog-manager/actions/toggle-spellbook-dialog";
-import { castSpell } from "../player/actions/player-cast-spell";
+import toggleSpellbookDialog from "../../dialog-manager/actions/toggle-spellbook-dialog";
+import { castSpell } from "../../player/actions/player-cast-spell";
 
-import Button from "../button";
+import Button from "../../button";
 
 import "./styles.scss";
 

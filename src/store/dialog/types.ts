@@ -69,6 +69,12 @@ interface CloseSettingsAction {
     type: typeof CLOSE_SETTINGS;
 }
 
+export const CHANGE_TUTORIAL_PAGE = "CHANGE_TUTORIAL_PAGE";
+interface ChangeTutorialPageAction {
+    type: typeof CHANGE_TUTORIAL_PAGE;
+    page?: string;
+}
+
 export type DialogActionType =
     | PauseAction
     | CreateCharacterAction
@@ -82,4 +88,5 @@ export type DialogActionType =
     | CloseSettingsAction
     | PlayerDieAction
     | SetShowJournalAction
+    | ChangeTutorialPageAction
     | ResetAction;

@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootDispatch } from "../../store";
+import { RootDispatch } from "../../../store";
 
-import abilityScoreDialog from "../dialog-manager/actions/ability-score-dialog";
+import abilityScoreDialog from "../../dialog-manager/actions/ability-score-dialog";
 
-import Button from "../button";
+import Button from "../../button";
 
 import "./styles.scss";
 

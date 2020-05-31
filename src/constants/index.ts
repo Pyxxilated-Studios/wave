@@ -47,23 +47,24 @@ export const MAX_TUNNEL_LENGTH = 5;
 export const MAP_PADDING_DISTANCE = 5;
 
 // Macros for key codes
-export const UP_KEY = 38;
-export const DOWN_KEY = 40;
-export const LEFT_KEY = 37;
-export const RIGHT_KEY = 39;
-export const W_KEY = 87;
-export const S_KEY = 83;
-export const A_KEY = 65;
-export const D_KEY = 68;
-export const E_KEY = 69;
-export const U_KEY = 85;
-export const I_KEY = 73;
-export const J_KEY = 74;
-export const C_KEY = 67;
-export const B_KEY = 66;
-export const SPACE_KEY = 32;
 export const ENTER_KEY = 13;
 export const ESC_KEY = 27;
+export const SPACE_KEY = 32;
+export const LEFT_KEY = 37;
+export const RIGHT_KEY = 39;
+export const UP_KEY = 38;
+export const DOWN_KEY = 40;
+export const A_KEY = 65;
+export const B_KEY = 66;
+export const C_KEY = 67;
+export const D_KEY = 68;
+export const E_KEY = 69;
+export const H_KEY = 72;
+export const I_KEY = 73;
+export const J_KEY = 74;
+export const S_KEY = 83;
+export const W_KEY = 87;
+export const U_KEY = 85;
 
 // Max number of inventory items
 export const MAX_ITEMS = 8;

@@ -9,6 +9,7 @@ import {
     SET_LEVEL_UP_ABILITIES,
     TOGGLE_SETTINGS,
     CLOSE_SETTINGS,
+    CHANGE_TUTORIAL_PAGE,
 } from "./types";
 import { PauseReason, Ability, Abilities } from "../../types";
 
@@ -67,4 +68,8 @@ export const toggleSettings = (): DialogActionType => {
 
 export const closeSettings = (): DialogActionType => {
     return { type: CLOSE_SETTINGS };
+};
+
+export const changeTutorialPage = (page?: string): DialogActionType => {
+    return { type: CHANGE_TUTORIAL_PAGE, page };
 };

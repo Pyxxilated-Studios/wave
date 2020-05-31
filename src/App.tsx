@@ -41,8 +41,9 @@ import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import GameMenus from "./components/game-menus";
 import Journal from "./components/journal";
-import SpellbookButton from "./components/spellbook-button";
-import AbilityButton from "./components/ability-button";
+import SpellbookButton from "./components/on-screen-buttons/spellbook-button";
+import AbilityButton from "./components/on-screen-buttons/ability-button";
+import TutorialButton from "./components/on-screen-buttons/tutorial-button";
 
 fontawesome.library.add(
     faPlayCircle,
@@ -102,8 +103,6 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
-    const v = null; // TODO: Below
-
     if (sideMenu) {
         return (
             <>
@@ -123,7 +122,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                             <Viewport>
                                 <World library={library} />
                                 <DialogManager />
-                                {/* <Tutorial /> */}
+                                <TutorialButton />
                                 <AbilityButton />
                                 <SpellbookButton />
 
@@ -159,7 +158,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                         <Viewport>
                             <World library={library} />
                             <DialogManager />
-                            {/* <Tutorial /> */}
+                            <TutorialButton />
                             <AbilityButton />
                             <SpellbookButton />
 
