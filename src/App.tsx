@@ -23,6 +23,8 @@ import {
     faSync,
     faBook,
     faBookOpen,
+    faAngleDoubleUp,
+    faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "./store";
@@ -39,7 +41,8 @@ import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import GameMenus from "./components/game-menus";
 import Journal from "./components/journal";
-import Spellbook from "./components/spellbook";
+import SpellbookButton from "./components/spellbook-button";
+import AbilityButton from "./components/ability-button";
 
 fontawesome.library.add(
     faPlayCircle,
@@ -62,6 +65,8 @@ fontawesome.library.add(
     faSync,
     faBook,
     faBookOpen,
+    faAngleDoubleUp,
+    faQuestionCircle,
 );
 
 interface AppProps {
@@ -119,8 +124,8 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                                 <World library={library} />
                                 <DialogManager />
                                 {/* <Tutorial /> */}
-                                {/* <Abilities /> */}
-                                <Spellbook />
+                                <AbilityButton />
+                                <SpellbookButton />
 
                                 <FloorCounter floorNumber={props.world.floorNumber} />
                             </Viewport>
@@ -155,8 +160,8 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                             <World library={library} />
                             <DialogManager />
                             {/* <Tutorial /> */}
-                            {/* <Abilities /> */}
-                            <Spellbook />
+                            <AbilityButton />
+                            <SpellbookButton />
 
                             <FloorCounter floorNumber={props.world.floorNumber} />
                         </Viewport>

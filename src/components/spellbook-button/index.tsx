@@ -20,12 +20,12 @@ interface StateProps {
     player: PlayerState;
 }
 
-type SpellbookProps = DispatchProps & StateProps;
+type SpellbookButtonProps = DispatchProps & StateProps;
 
-const Spellbook: FunctionComponent<SpellbookProps> = (props: SpellbookProps) => {
+const SpellbookButton: FunctionComponent<SpellbookButtonProps> = (props: SpellbookButtonProps) => {
     return (
         <div className={"spellbook-container"}>
-            <Button icon="book-open" onClick={props.toggleSpellbookDialog}></Button>
+            <Button icon="book-open" onClick={props.toggleSpellbookDialog} tiny />
 
             {props.player.spell && (
                 <button
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     castSpell: (): void => dispatch(castSpell()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Spellbook);
+export default connect(mapStateToProps, mapDispatchToProps)(SpellbookButton);

@@ -7,9 +7,10 @@ import { RootState, RootDispatch } from "../../../../store";
 import { Ability } from "../../../../types";
 import { U_KEY, ENTER_KEY, ESC_KEY } from "../../../../constants";
 
-import AbilityScore from "../../../ability-score";
+import AbilityScore from "./ability-score";
 import Button from "../../../button";
 import Dialog from "../../../dialog";
+import MicroDialog from "../../../micro-dialog";
 
 import { increment, decrement } from "./actions/alter-ability-score";
 import backToCharacterCreation from "../../actions/back-to-character-creation";
@@ -32,15 +33,8 @@ interface StateProps {
 
 type AbilityDialogProps = DispatchProps & StateProps;
 
-const AbilityDialog: FunctionComponent<AbilityDialogProps> = ({
-    dialog,
-    increment,
-    decrement,
-    confirmAbilityScoreDialog,
-    backToCharacterCreation,
-    closeDialog,
-}: AbilityDialogProps) => {
-    const { constitution, dexterity, intelligence, strength, wisdom, charisma, points } = dialog.abilities;
+const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDialogProps) => {
+    const { constitution, dexterity, intelligence, strength, wisdom, charisma, points } = props.dialog.abilities;
     const {
         constitution: minConstitution,
         intelligence: minIntelligence,
@@ -48,92 +42,157 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = ({
         dexterity: minDexterity,
         wisdom: minWisdom,
         charisma: minCharisma,
-    } = dialog.abilitiesMinimum;
+    } = props.dialog.abilitiesMinimum;
 
-    const goBack = (): void => {
-        if (!dialog.reason.playerOpenedAbilityDialog && !dialog.reason.fromLevelUp) {
-            backToCharacterCreation();
-        }
-    };
+    if (props.dialog.reason.playerOpenedAbilityDialog || props.dialog.reason.fromLevelUp) {
+        return (
+            <MicroDialog
+                fullsize
+                keys={[ESC_KEY, U_KEY]}
+                onKeyPress={props.confirmAbilityScoreDialog}
+                onClose={props.closeDialog}
+            >
+                <span className="ability-score-title" style={{ marginLeft: "-15px" }}>
+                    Modify your Abilities
+                </span>
+                <div className="flex-column ability-score-dialog-container">
+                    <AbilityScore
+                        name="Strength"
+                        value={strength}
+                        minValue={minStrength}
+                        increment={(): void => props.increment("strength")}
+                        decrement={(): void => props.decrement("strength")}
+                        points={points}
+                        tooltip={"Hit better up close!"}
+                    />
+                    <AbilityScore
+                        name="Constitution"
+                        value={constitution}
+                        minValue={minConstitution}
+                        increment={(): void => props.increment("constitution")}
+                        decrement={(): void => props.decrement("constitution")}
+                        points={points}
+                        tooltip={"Gain more health!"}
+                    />
+                    <AbilityScore
+                        name="Dexterity"
+                        value={dexterity}
+                        minValue={minDexterity}
+                        increment={(): void => props.increment("dexterity")}
+                        decrement={(): void => props.decrement("dexterity")}
+                        points={points}
+                        tooltip={"Defend yourself better! Hit better at range!"}
+                    />
+                    <AbilityScore
+                        name="Charisma"
+                        value={charisma}
+                        minValue={minCharisma}
+                        increment={(): void => props.increment("charisma")}
+                        decrement={(): void => props.decrement("charisma")}
+                        points={points}
+                        tooltip={"Get better prices!"}
+                    />
+                    <AbilityScore
+                        name="Intelligence"
+                        value={intelligence}
+                        minValue={minIntelligence}
+                        increment={(): void => props.increment("intelligence")}
+                        decrement={(): void => props.decrement("intelligence")}
+                        points={points}
+                        tooltip={"Gain more mana! Hit better with magic!"}
+                    />
+                    <AbilityScore
+                        name="Wisdom"
+                        value={wisdom}
+                        minValue={minWisdom}
+                        increment={(): void => props.increment("wisdom")}
+                        decrement={(): void => props.decrement("wisdom")}
+                        points={points}
+                        tooltip={"Restore more with potions!"}
+                    />
+                    <span className="ability-score-dialog-text">
+                        Ability Points remaining:
+                        <span className="ability-score-dialog-points">{points}</span>
+                    </span>
+                    <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} />
+                </div>
+            </MicroDialog>
+        );
+    }
 
     return (
         <Dialog
             keys={[ENTER_KEY, ESC_KEY, U_KEY]}
             onKeyPress={(key): void => {
                 if (key === ENTER_KEY) {
-                    confirmAbilityScoreDialog();
-                } else if (dialog.reason.playerOpenedAbilityDialog || dialog.reason.fromLevelUp) {
-                    if (key === U_KEY || key === ESC_KEY) {
-                        closeDialog();
-                    }
+                    props.confirmAbilityScoreDialog();
                 } else if (key === ESC_KEY) {
-                    backToCharacterCreation();
+                    props.backToCharacterCreation();
                 }
             }}
-            goBack={goBack}
+            goBack={props.backToCharacterCreation}
         >
-            <span
-                className="ability-score-title"
-                style={
-                    dialog.reason.playerOpenedAbilityDialog || dialog.reason.fromLevelUp ? { marginLeft: "0px" } : {}
-                }
-            >
-                Modify your Abilities
-            </span>
+            <span className="ability-score-title">Modify your Abilities</span>
             <div className="flex-column ability-score-dialog-container">
                 <AbilityScore
                     name="Strength"
                     value={strength}
                     minValue={minStrength}
-                    increment={(): void => increment("strength")}
-                    decrement={(): void => decrement("strength")}
+                    increment={(): void => props.increment("strength")}
+                    decrement={(): void => props.decrement("strength")}
                     points={points}
+                    tooltip={"Hit better up close!"}
                 />
                 <AbilityScore
                     name="Constitution"
                     value={constitution}
                     minValue={minConstitution}
-                    increment={(): void => increment("constitution")}
-                    decrement={(): void => decrement("constitution")}
+                    increment={(): void => props.increment("constitution")}
+                    decrement={(): void => props.decrement("constitution")}
                     points={points}
+                    tooltip={"Gain more health!"}
                 />
                 <AbilityScore
                     name="Dexterity"
                     value={dexterity}
-                    minValue={minDexterity}
-                    increment={(): void => increment("dexterity")}
-                    decrement={(): void => decrement("dexterity")}
+                    minValue={minStrength}
+                    increment={(): void => props.increment("dexterity")}
+                    decrement={(): void => props.decrement("dexterity")}
                     points={points}
+                    tooltip={"Defend yourself better! Hit better at range!"}
                 />
                 <AbilityScore
                     name="Charisma"
                     value={charisma}
                     minValue={minCharisma}
-                    increment={(): void => increment("charisma")}
-                    decrement={(): void => decrement("charisma")}
+                    increment={(): void => props.increment("charisma")}
+                    decrement={(): void => props.decrement("charisma")}
                     points={points}
+                    tooltip={"Get better prices!"}
                 />
                 <AbilityScore
                     name="Intelligence"
                     value={intelligence}
                     minValue={minIntelligence}
-                    increment={(): void => increment("intelligence")}
-                    decrement={(): void => decrement("intelligence")}
+                    increment={(): void => props.increment("intelligence")}
+                    decrement={(): void => props.decrement("intelligence")}
                     points={points}
+                    tooltip={"Gain more mana! Hit better with magic!"}
                 />
                 <AbilityScore
                     name="Wisdom"
                     value={wisdom}
                     minValue={minWisdom}
-                    increment={(): void => increment("wisdom")}
-                    decrement={(): void => decrement("wisdom")}
+                    increment={(): void => props.increment("wisdom")}
+                    decrement={(): void => props.decrement("wisdom")}
                     points={points}
+                    tooltip={"Restore more with potions!"}
                 />
                 <span className="ability-score-dialog-text">
                     Ability Points remaining:
                     <span className="ability-score-dialog-points">{points}</span>
                 </span>
-                <Button title="Confirm" onClick={confirmAbilityScoreDialog} small={true} />
+                <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} />
             </div>
         </Dialog>
     );
