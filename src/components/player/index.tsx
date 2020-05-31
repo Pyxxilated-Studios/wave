@@ -79,35 +79,35 @@ class Player extends Component<PlayerProps> {
         } else if (prevPlayer.playerAttacked !== player.playerAttacked) {
             let attackAnimation = undefined;
 
+            const position = { x: 0, y: 0 };
+            switch (player.direction) {
+                case Direction.North:
+                    position.y -= 1;
+                    break;
+
+                case Direction.South:
+                    position.y += 1;
+                    break;
+
+                case Direction.East:
+                    position.x += 1;
+                    break;
+
+                case Direction.West:
+                    position.x -= 1;
+                    break;
+            }
+
             if (player.projectileUsed) {
                 attackAnimation = (
                     <Animation
-                        startPosition={player.position}
+                        startPosition={position}
                         endPosition={player.targetLocation}
                         projectile={player.projectileUsed}
                         direction={player.direction}
                     />
                 );
             } else {
-                const position = { x: 0, y: 0 };
-                switch (player.direction) {
-                    case Direction.North:
-                        position.y -= 1;
-                        break;
-
-                    case Direction.South:
-                        position.y += 1;
-                        break;
-
-                    case Direction.East:
-                        position.x += 1;
-                        break;
-
-                    case Direction.West:
-                        position.x -= 1;
-                        break;
-                }
-
                 const animationPosition = translateToSpriteCoordinates(position);
 
                 attackAnimation = (

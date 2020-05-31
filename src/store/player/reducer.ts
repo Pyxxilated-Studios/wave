@@ -36,7 +36,7 @@ const initialState: PlayerState = {
 const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerState => {
     switch (action.type) {
         case PLAYER_ATTACK:
-            return { ...state, playerAttacked: !state.playerAttacked };
+            return { ...state, playerAttacked: !state.playerAttacked, projectileUsed: undefined };
 
         case MOVE_PLAYER:
             return {
