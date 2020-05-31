@@ -33,9 +33,11 @@ import {
     J_KEY,
     C_KEY,
     B_KEY,
+    H_KEY,
 } from "../../constants";
 import toggleJournal from "../dialog-manager/actions/toggle-journal";
 import toggleSpellbookDialog from "../dialog-manager/actions/toggle-spellbook-dialog";
+import toggleTutorial from "../dialog-manager/actions/toggle-tutorial";
 
 interface DispatchProps {
     movePlayer: (direction: Direction) => void;
@@ -46,6 +48,7 @@ interface DispatchProps {
     toggleJournal: () => void;
     toggleSpellbookDialog: () => void;
     playerCastSpell: () => void;
+    toggleTutorial: () => void;
 }
 
 interface StateProps {
@@ -64,6 +67,7 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
         toggleInventory,
         toggleSettings,
         toggleJournal,
+        toggleTutorial,
         openAbilityScoreDialog,
         playerAttack,
         playerCastSpell,
@@ -96,6 +100,8 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                     return toggleSpellbookDialog();
                 case U_KEY:
                     return openAbilityScoreDialog();
+                case H_KEY:
+                    return toggleTutorial();
                 case SPACE_KEY:
                     return playerAttack();
                 case C_KEY:
@@ -109,6 +115,7 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
             toggleInventory,
             toggleSettings,
             toggleJournal,
+            toggleTutorial,
             toggleSpellbookDialog,
             openAbilityScoreDialog,
             playerAttack,
@@ -153,6 +160,7 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     toggleJournal: (): void => dispatch(toggleJournal()),
     toggleSpellbookDialog: (): void => dispatch(toggleSpellbookDialog()),
     playerCastSpell: (): void => dispatch(castSpell()),
+    toggleTutorial: (): void => dispatch(toggleTutorial()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);
