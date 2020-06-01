@@ -87,6 +87,12 @@ export const BASE_MANA = 5;
 export const MIN_HEALTH_BONUS = 1;
 export const MIN_MANA_BONUS = 5;
 
+// The player regenerates mana at this rate
+export const PASSIVE_MANA_RESTORE_TURNS = 10;
+
+// Determine the range at which the player is considered out of combat
+export const OUT_OF_COMBAT_RANGE = 4;
+
 // For calculating buy/sell prices
 export const MIN_PRICE_PERCENT = 0.1;
 export const MID_PRICE_PERCENT = 0.75;

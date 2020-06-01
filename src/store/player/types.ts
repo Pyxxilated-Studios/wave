@@ -1,4 +1,4 @@
-import { Direction, Point, Projectile, Spell, Effect } from "../../types";
+import { Direction, Point, Projectile, Spell, Effect, SpellEffectType } from "../../types";
 import { ResetAction } from "../system/types";
 import { MonsterDiedAction } from "../monsters/types";
 
@@ -54,7 +54,7 @@ export interface UseProjectileAction {
 export const EFFECT_PLAYER = "EFFECT_PLAYER";
 export interface EffectPlayerAction {
     type: typeof EFFECT_PLAYER;
-    effect: string;
+    effect: SpellEffectType;
     turns: number;
     damage: string;
     entity: string;

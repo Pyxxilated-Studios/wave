@@ -8,9 +8,10 @@ import {
     MONSTER_USE_PROJECTILE,
     MONSTER_ATTACK,
     SET_ACTIVE_SPELL,
+    TAKE_TURN,
 } from "./types";
 
-import { Direction } from "../../types";
+import { Direction, Spell, SpellType } from "../../types";
 import { RESET } from "../system/types";
 import { MONSTER_DIED } from "../monsters/types";
 
@@ -57,7 +58,10 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
                 playerAttacked: !state.playerAttacked,
                 projectileUsed: action.projectile,
                 targetLocation: action.target,
-                turnsOutOfCombat: 0,
+                turnsOutOfCombat:
+                    action.projectile.type === "spell" && (action.projectile as Spell).kind === SpellType.Combat
+                        ? 0
+                        : state.turnsOutOfCombat,
             };
 
         case MONSTER_ATTACK:
@@ -66,6 +70,7 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
                 monsterAttacked: !state.monsterAttacked,
                 monsterTargetLocation: { x: 0, y: 0 },
                 monsterProjectile: undefined,
+                turnsOutOfCombat: 0,
             };
 
         case MONSTER_USE_PROJECTILE:
@@ -80,6 +85,14 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
 
         case SET_ACTIVE_SPELL:
             return { ...state, spell: action.spell };
+
+        case TAKE_TURN:
+            state.effects.forEach((effect) => {
+                --effect.turns;
+                --effect.immunityTurns;
+            });
+
+            return { ...state, turnsOutOfCombat: state.turnsOutOfCombat + 1 };
 
         case RESET:
             return initialState;
