@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 import { SIGHT_RADIUS } from "../../../constants";
 
 // Credit: https://kvsr.itch.io/pixelarteffectfx017
@@ -8,8 +8,8 @@ import MeteorImage from "./Meteor-image.png";
 const Meteor: Spell = {
     name: "Meteor",
     type: "spell",
-    target: "enemy",
-    kind: "combat",
+    target: Target.Enemy,
+    kind: SpellType.Combat,
     range: SIGHT_RADIUS,
     manaCost: 73,
     unlockLevel: 25,
@@ -17,7 +17,7 @@ const Meteor: Spell = {
     image: MeteorImage,
     sprite: MeteorSprite,
     description: "Fireballs weren't destroying enough walls? Maybe this will suit your destruction needs.",
-    effects: [{ effect: "damage", dice: "2d8 + 4" }],
+    effects: [{ effect: SpellEffectType.Damage, dice: "2d8 + 4" }],
 };
 
 export default Meteor;

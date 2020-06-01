@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 import { SIGHT_RADIUS, AI_CHANGE_TURNS } from "../../../constants";
 
 // Credit: https://kvsr.itch.io/pixelarteffectfx017
@@ -8,8 +8,8 @@ import IceShardImage from "./IceShard-image.png";
 const IceShard: Spell = {
     name: "Ice Shard",
     type: "spell",
-    target: "enemy",
-    kind: "combat",
+    target: Target.Enemy,
+    kind: SpellType.Combat,
     range: SIGHT_RADIUS,
     manaCost: 15,
     unlockLevel: 3,
@@ -18,8 +18,8 @@ const IceShard: Spell = {
     sprite: IceShardSprite,
     description: "Just chill out while I try to figure out what to do!",
     effects: [
-        { effect: "changeAI", to: "frozen", turns: AI_CHANGE_TURNS, description: "freeze" },
-        { effect: "damage", dice: "1d4 + 2" },
+        { effect: SpellEffectType.ChangeAI, to: "frozen", turns: AI_CHANGE_TURNS, description: "freeze" },
+        { effect: SpellEffectType.Damage, dice: "1d4 + 2" },
     ],
 };
 

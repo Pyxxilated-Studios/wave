@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 import { playerDie, monsterUseProjectile, monsterAttack } from "../../../store/player/actions";
 
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Target } from "../../../types";
 import { monsterAbilityCheck } from "../../../store/journal/actions";
 import { damageToPlayer } from "../../../store/stats/actions";
 
@@ -14,7 +14,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
 
     const calculatedMonsterDamage = attack >= Math.max(stats.defence, 0) ? dice.roll(false) : 0;
 
-    if (projectile && projectile.target === "enemy") {
+    if (projectile && projectile.target === Target.Enemy) {
         let direction: Direction = Direction.North;
 
         const targetPosition = { x: location.x - player.position.x, y: location.y - player.position.y };

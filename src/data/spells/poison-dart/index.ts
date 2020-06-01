@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 import { SIGHT_RADIUS, AI_CHANGE_TURNS, TURNS_FOR_POISON, POISON_DAMAGE } from "../../../constants";
 
 // Credit: https://kvsr.itch.io/pixelarteffectfx017
@@ -8,8 +8,8 @@ import PoisonDartImage from "./PoisonDart-image.png";
 const PoisonDart: Spell = {
     name: "Poison Dart",
     type: "spell",
-    target: "enemy",
-    kind: "combat",
+    target: Target.Enemy,
+    kind: SpellType.Combat,
     range: SIGHT_RADIUS,
     manaCost: 21,
     unlockLevel: 5,
@@ -18,13 +18,13 @@ const PoisonDart: Spell = {
     sprite: PoisonDartSprite,
     description: "Life is easier when no-one else is around.",
     effects: [
-        { effect: "damage", dice: "2d4" },
+        { effect: SpellEffectType.Damage, dice: "2d4" },
         {
-            effect: "changeAI",
+            effect: SpellEffectType.ChangeAI,
             to: "poisoned",
             turns: AI_CHANGE_TURNS * TURNS_FOR_POISON,
             description: "poison",
-            extraEffect: { effect: "damage over time", dice: POISON_DAMAGE, turns: TURNS_FOR_POISON },
+            extraEffect: { effect: SpellEffectType.DamageOverTime, dice: POISON_DAMAGE, turns: TURNS_FOR_POISON },
         },
     ],
 };

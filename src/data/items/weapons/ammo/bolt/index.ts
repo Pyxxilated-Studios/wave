@@ -1,11 +1,11 @@
-import { Ammo } from "../../../../../types";
+import { Ammo, Target } from "../../../../../types";
 
 import BoltImage from "./bolt.png";
 
 const Bolt: Ammo = {
     name: "bolt",
     type: "ammo",
-    target: "enemy",
+    target: Target.Enemy,
     image: BoltImage,
     sprite: BoltImage,
     animationFrames: 14,

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
-import { Projectile, Point, Direction } from "../../types";
+import { Projectile, Point, Direction, Target } from "../../types";
 import { SPRITE_SIZE, SPRITE_PIXELS } from "../../constants";
 
 interface DivProps {
@@ -40,7 +40,7 @@ export const Animation: FunctionComponent<AnimationProps> = (props: AnimationPro
 
     let start = startPosition;
 
-    if (projectile.target === "self") {
+    if (projectile.target === Target.Self) {
         start = endPosition;
     } else {
         switch (direction) {

@@ -9,7 +9,18 @@ import { equipItem, unequipItem } from "../../store/stats/actions";
 import { dropItem, sellItem } from "../../store/inventory/actions";
 import { setActiveSpell } from "../../store/player/actions";
 
-import { ItemType, ConsumableItem, Backpack, ItemEffect, Weapon, Spell, HealEffect, DamageEffect } from "../../types";
+import {
+    ItemType,
+    ConsumableItem,
+    Backpack,
+    ItemEffect,
+    Weapon,
+    Spell,
+    HealEffect,
+    DamageEffect,
+    Target,
+    SpellEffectType,
+} from "../../types";
 
 import Button from "../button";
 import ConfirmDialog from "../confirm-dialog";
@@ -152,8 +163,8 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
         }
 
         case "spell":
-            if (props.data.target.includes("self")) {
-                const effect = props.data.effects?.find((effect) => effect.effect === "heal");
+            if (props.data.target === Target.Self) {
+                const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.Heal);
 
                 if (effect) {
                     const intelligenceModifier = calculateModifier(props.stats.abilities.intelligence);
@@ -173,7 +184,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                     );
                 }
             } else {
-                const effect = props.data.effects?.find((effect) => effect.effect === "damage");
+                const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.Damage);
 
                 if (effect) {
                     const damageEffect = effect as DamageEffect;

@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 import { SIGHT_RADIUS, AI_CHANGE_TURNS } from "../../../constants";
 
 // Credit: https://kvsr.itch.io/pixelarteffectfx017
@@ -8,8 +8,8 @@ import FrightenImage from "./Frighten-image.png";
 const Frighten: Spell = {
     name: "Frighten",
     type: "spell",
-    target: "enemy",
-    kind: "combat",
+    target: Target.Enemy,
+    kind: SpellType.Combat,
     range: SIGHT_RADIUS,
     manaCost: 40,
     unlockLevel: 13,
@@ -18,8 +18,8 @@ const Frighten: Spell = {
     sprite: FrightenSprite,
     description: "Everybody was kung-fu fighting! Those kicks were fast as lightning! In fact it was a little bit...",
     effects: [
-        { effect: "changeAI", to: "frightened", turns: AI_CHANGE_TURNS, description: "frighten" },
-        { effect: "damage", dice: "2d6" },
+        { effect: SpellEffectType.ChangeAI, to: "frightened", turns: AI_CHANGE_TURNS, description: "frighten" },
+        { effect: SpellEffectType.Damage, dice: "2d6" },
     ],
 };
 

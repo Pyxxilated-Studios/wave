@@ -1,4 +1,4 @@
-import { Ammo } from "../../../../../types";
+import { Ammo, Target } from "../../../../../types";
 
 import BoomerangImage from "./boomerang.png";
 import BoomerangAnimated from "./boomerang-animated.png";
@@ -6,7 +6,7 @@ import BoomerangAnimated from "./boomerang-animated.png";
 const BoomerangAmmo: Ammo = {
     name: "boomerang",
     type: "ammo",
-    target: "enemy",
+    target: Target.Enemy,
     image: BoomerangImage,
     sprite: BoomerangAnimated,
     animationFrames: 14,

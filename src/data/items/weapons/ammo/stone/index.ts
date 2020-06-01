@@ -1,11 +1,11 @@
-import { Ammo } from "../../../../../types";
+import { Ammo, Target } from "../../../../../types";
 
 import StoneImage from "./stone.png";
 
 const Stone: Ammo = {
     name: "stone",
     type: "ammo",
-    target: "enemy",
+    target: Target.Enemy,
     image: StoneImage,
     sprite: StoneImage,
     animationFrames: 14,

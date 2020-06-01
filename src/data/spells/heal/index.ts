@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 
 // Credit: https://untiedgames.itch.io/five-free-pixel-explosions
 import HealSprite from "./Heal.png";
@@ -8,8 +8,8 @@ import HealImage from "./Heal-image.png";
 const Heal: Spell = {
     name: "Heal",
     type: "spell",
-    target: "self",
-    kind: "assist",
+    target: Target.Self,
+    kind: SpellType.Assist,
     range: 0,
     manaCost: 30,
     unlockLevel: 15,
@@ -19,7 +19,7 @@ const Heal: Spell = {
     description: "Aww, did they hurt you?",
     effects: [
         {
-            effect: "heal",
+            effect: SpellEffectType.Heal,
             amount: "2d6",
         },
     ],

@@ -1,11 +1,11 @@
-import { Ammo } from "../../../../../types";
+import { Ammo, Target } from "../../../../../types";
 
 import PumpkinImage from "./pumpkin-image.png";
 
 const Pumpkin: Ammo = {
     name: "pumpkin",
     type: "ammo",
-    target: "enemy",
+    target: Target.Enemy,
     image: PumpkinImage,
     sprite: PumpkinImage,
     animationFrames: 14,

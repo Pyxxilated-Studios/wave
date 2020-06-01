@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 import { SIGHT_RADIUS, AI_CHANGE_TURNS, SHOCK_DAMAGE } from "../../../constants";
 
 // Credit: https://kvsr.itch.io/pixelarteffectfx017
@@ -8,8 +8,8 @@ import ThunderStormImage from "./ThunderStorm-image.png";
 const ThunderStorm: Spell = {
     name: "Thunder Storm",
     type: "spell",
-    target: "enemy",
-    kind: "combat",
+    target: Target.Enemy,
+    kind: SpellType.Combat,
     range: SIGHT_RADIUS,
     manaCost: 68,
     unlockLevel: 23,
@@ -18,9 +18,9 @@ const ThunderStorm: Spell = {
     sprite: ThunderStormSprite,
     description: "Thunder! Ah! Thunder! Ah! Thunder! Ah!",
     effects: [
-        { effect: "damage", dice: "2d6 + 6" },
+        { effect: SpellEffectType.Damage, dice: "2d6 + 6" },
         {
-            effect: "changeAI",
+            effect: SpellEffectType.ChangeAI,
             to: "shocked",
             turns: AI_CHANGE_TURNS * 2,
             description: "shock",
@@ -29,7 +29,7 @@ const ThunderStorm: Spell = {
                 description: "50%",
                 effects: [
                     {
-                        effect: "damage over time",
+                        effect: SpellEffectType.DamageOverTime,
                         dice: SHOCK_DAMAGE,
                         turns: AI_CHANGE_TURNS * 2,
                     },

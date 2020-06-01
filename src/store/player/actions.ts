@@ -11,7 +11,7 @@ import {
     SET_ACTIVE_SPELL,
 } from "./types";
 
-import { Direction, Point, Projectile, Spell } from "../../types";
+import { Direction, Point, Projectile, Spell, SpellEffectType } from "../../types";
 
 export const movePlayer = (position: Point, direction: Direction): PlayerActionType => {
     return {
@@ -44,7 +44,12 @@ export const useProjectile = (target: Point, projectile: Projectile): PlayerActi
     return { type: USE_PROJECTILE, target, projectile };
 };
 
-export const effectPlayer = (effect: string, turns: number, damage: string, entity: string): PlayerActionType => {
+export const effectPlayer = (
+    effect: SpellEffectType,
+    turns: number,
+    damage: string,
+    entity: string,
+): PlayerActionType => {
     return { type: EFFECT_PLAYER, effect, turns, damage, entity };
 };
 

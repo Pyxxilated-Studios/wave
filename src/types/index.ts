@@ -139,8 +139,22 @@ export interface Armour extends Item {
     kind: Exclude<keyof EquippedItems, "weapon">;
 }
 
-type Target = "self" | "enemy";
-type SpellType = "combat" | "assist";
+export enum Target {
+    Self,
+    Enemy,
+}
+
+export enum SpellType {
+    Combat,
+    Assist,
+}
+
+export enum SpellEffectType {
+    ChangeAI,
+    Damage,
+    DamageOverTime,
+    Heal,
+}
 
 export interface Projectile {
     type: "spell" | "ammo";
@@ -157,14 +171,14 @@ export interface Ammo extends Projectile {
 }
 
 export interface Effect {
-    effect: string;
+    effect: SpellEffectType;
     turns: number;
     immunityTurns: number;
     damage: string;
 }
 
 export interface ChangeAIEffect {
-    effect: "changeAI";
+    effect: SpellEffectType.ChangeAI;
     to: MonsterAI;
     turns: number;
     description: string;
@@ -177,17 +191,17 @@ export interface ChangeAIEffect {
 }
 
 export interface HealEffect {
-    effect: "heal";
+    effect: SpellEffectType.Heal;
     amount: string;
 }
 
 export interface DamageEffect {
-    effect: "damage";
+    effect: SpellEffectType.Damage;
     dice: string;
 }
 
 export interface DamageOverTime {
-    effect: "damage over time";
+    effect: SpellEffectType.DamageOverTime;
     dice: string;
     turns: number;
 }

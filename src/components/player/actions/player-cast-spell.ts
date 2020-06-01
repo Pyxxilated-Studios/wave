@@ -6,7 +6,7 @@ import { pause } from "../../../store/dialog/actions";
 import { monsterDied, changeMonsterAI, damageToMonster } from "../../../store/monsters/actions";
 import { addBloodSpill } from "../../../store/world/actions";
 
-import { Monster, Spell, HealEffect, DamageEffect, ChangeAIEffect } from "../../../types";
+import { Monster, Spell, HealEffect, DamageEffect, ChangeAIEffect, SpellEffectType, Target } from "../../../types";
 
 import calculateModifier from "../../../utils/calculate-modifier";
 import { d20 } from "../../../utils/dice";
@@ -27,7 +27,9 @@ const changeAI = (spell: Spell, monster: Monster): RootThunk => async (dispatch,
     if (!spell.effects) return;
 
     const { currentMap } = getState().world;
-    const { to, turns, chance } = spell.effects.find((effect) => effect.effect === "changeAI") as ChangeAIEffect;
+    const { to, turns, chance } = spell.effects.find(
+        (effect) => effect.effect === SpellEffectType.ChangeAI,
+    ) as ChangeAIEffect;
     const { ai, originalAI, id, type } = monster;
 
     // If they're already under the effects of something, don't apply a new effect
@@ -62,7 +64,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
         return;
     }
 
-    if (spell.target === "self") {
+    if (spell.target === Target.Self) {
         if (!spell.effects) return;
 
         // The position used here is an offset from the player
@@ -70,7 +72,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
 
         const intelligenceModifier = calculateModifier(stats.abilities.intelligence);
 
-        const effect = spell.effects.find((effect) => effect.effect === "heal");
+        const effect = spell.effects.find((effect) => effect.effect === SpellEffectType.Heal);
 
         const healAmount =
             (effect as HealEffect).amount.roll(false) + (intelligenceModifier > 0 ? intelligenceModifier : 0);
@@ -80,7 +82,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
         dispatch(playerTakeTurn());
 
         applyEffects();
-    } else if (spell.target === "enemy") {
+    } else if (spell.target === Target.Enemy) {
         const { currentMap } = world;
         const { entities } = monsters;
 
@@ -113,7 +115,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
                 );
             }
 
-            const effect = spell.effects?.find((effect) => effect.effect === "damage");
+            const effect = spell.effects?.find((effect) => effect.effect === SpellEffectType.Damage);
 
             if (!effect) return;
 

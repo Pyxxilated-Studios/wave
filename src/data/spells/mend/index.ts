@@ -1,4 +1,4 @@
-import { Spell } from "../../../types";
+import { Spell, Target, SpellType, SpellEffectType } from "../../../types";
 
 // Credit: https://untiedgames.itch.io/five-free-pixel-explosions
 import MendSprite from "./Mend.png";
@@ -8,8 +8,8 @@ import MendImage from "./Mend-image.png";
 const Mend: Spell = {
     name: "Mend",
     type: "spell",
-    target: "self",
-    kind: "assist",
+    target: Target.Self,
+    kind: SpellType.Assist,
     range: 0,
     manaCost: 5,
     unlockLevel: 1,
@@ -17,7 +17,7 @@ const Mend: Spell = {
     image: MendImage,
     sprite: MendSprite,
     description: "Mend the wounds you got fighting those big bad enemies",
-    effects: [{ effect: "heal", amount: "1d6" }],
+    effects: [{ effect: SpellEffectType.Heal, amount: "1d6" }],
 };
 
 export default Mend;

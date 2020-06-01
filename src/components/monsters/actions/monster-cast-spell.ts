@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { playerDie, monsterUseProjectile, monsterAttack, effectPlayer } from "../../../store/player/actions";
 import { pause } from "../../../store/dialog/actions";
 
-import { Monster, Spell, HealEffect, Direction, ChangeAIEffect } from "../../../types";
+import { Monster, Spell, HealEffect, Direction, ChangeAIEffect, Target, SpellEffectType } from "../../../types";
 import { AI_CHANGE_TURNS } from "../../../constants";
 import { damageToPlayer } from "../../../store/stats/actions";
 import { healMonster } from "../../../store/monsters/actions";
@@ -17,12 +17,12 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
 
     const spell = projectile as Spell;
 
-    if (spell.target === "self") {
+    if (spell.target === Target.Self) {
         dispatch(monsterUseProjectile(location, location, Direction.North, projectile, type));
 
         if (!spell.effects) return;
 
-        const effect = spell.effects.find((effect) => effect.effect === "heal");
+        const effect = spell.effects.find((effect) => effect.effect === SpellEffectType.Heal);
 
         if (!effect) return;
 
@@ -65,10 +65,11 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
             const { effects } = monster.projectile as Spell;
 
             if (effects && effects) {
-                const effect = effects.find((effect) => effect.effect === "changeAI") as ChangeAIEffect;
+                const effect = effects.find((effect) => effect.effect === SpellEffectType.ChangeAI) as ChangeAIEffect;
 
                 if (player.effects.some((eff) => eff.effect === effect.effect && eff.immunityTurns <= 0)) {
-                    const damage = effect.extraEffect?.effect === "damage over time" ? effect.extraEffect.dice : "";
+                    const damage =
+                        effect.extraEffect?.effect === SpellEffectType.DamageOverTime ? effect.extraEffect.dice : "";
                     if (damage.length > 0) {
                         dispatch(effectPlayer(effect.effect, AI_CHANGE_TURNS, damage, type));
                     }
