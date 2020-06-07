@@ -29,33 +29,24 @@ export interface SetShowJournalAction {
     set: boolean;
 }
 
+export interface LoadData {
+    dialog: any;
+    inventory: any;
+    journal: any;
+    map: any;
+    monsters: any;
+    player: any;
+    snackbar: any;
+    stats: any;
+    system: any;
+    world: any;
+}
+
 export const LOAD = "LOAD";
 export interface LoadAction {
     type: typeof LOAD | "persist/REHYDRATE";
-    data?: {
-        dialog: any;
-        inventory: any;
-        journal: any;
-        map: any;
-        monsters: any;
-        player: any;
-        snackbar: any;
-        stats: any;
-        system: any;
-        world: any;
-    };
-    payload?: {
-        dialog: any;
-        inventory: any;
-        journal: any;
-        map: any;
-        monsters: any;
-        player: any;
-        snackbar: any;
-        stats: any;
-        system: any;
-        world: any;
-    };
+    data?: LoadData;
+    payload?: LoadData;
 }
 
 export const RESET = "RESET";

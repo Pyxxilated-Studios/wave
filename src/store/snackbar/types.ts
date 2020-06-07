@@ -1,4 +1,4 @@
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 import { ItemType } from "../../types";
 import { EquipItemAction } from "../stats/types";
 import { GetItemAction, SellItemAction, DropItemAction, UseItemAction } from "../inventory/types";
@@ -47,4 +47,5 @@ export type SnackbarActionType =
     | UseItemAction
     | TooManyItemsAction
     | NotEnoughGoldAction
+    | LoadAction
     | ResetAction;

@@ -2,7 +2,7 @@ import cloneDeep from "lodash.clonedeep";
 import { v4 as uuidv4 } from "uuid";
 
 import { InventoryState, InventoryActionType, GET_ITEM, STARTING_ITEM } from "./types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 import { MAX_ITEMS } from "../../constants";
 
 const initialState: InventoryState = {
@@ -20,6 +20,13 @@ const InventoryReducer = (state = initialState, action: InventoryActionType): In
 
             return newState;
         }
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.inventory };
 
         case RESET:
             return initialState;

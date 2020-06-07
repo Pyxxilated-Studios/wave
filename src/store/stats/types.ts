@@ -1,4 +1,4 @@
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 import { Abilities, Character, ItemType, Armour, Weapon } from "../../types";
 import { UseProjectileAction } from "../player/types";
 
@@ -100,4 +100,5 @@ export type StatsActionType =
     | RestoreAction
     | DamageToPlayerAction
     | UseProjectileAction
+    | LoadAction
     | ResetAction;

@@ -1,5 +1,5 @@
 import { ItemType } from "../../types";
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 
 export interface InventoryState {
     items: (ItemType & { id: string })[];
@@ -42,4 +42,5 @@ export type InventoryActionType =
     | DropItemAction
     | UseItemAction
     | UpgradeBackpackAction
+    | LoadAction
     | ResetAction;

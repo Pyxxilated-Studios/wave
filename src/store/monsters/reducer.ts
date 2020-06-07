@@ -11,7 +11,7 @@ import {
     DAMAGE_TO_MONSTER,
     CHANGE_AI,
 } from "./types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 
 import { Monster, Direction } from "../../types";
 
@@ -90,8 +90,15 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
             return newState;
         }
 
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.monsters };
+
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         default:
             return state;

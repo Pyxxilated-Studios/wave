@@ -13,7 +13,7 @@ import {
     UNEQUIP_ITEM,
     DAMAGE_TO_PLAYER,
 } from "./types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 import { USE_PROJECTILE } from "../player/types";
 
 import { Spell } from "../../types";
@@ -270,6 +270,13 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             return newState;
         }
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.stats };
 
         case RESET:
             return initialState;

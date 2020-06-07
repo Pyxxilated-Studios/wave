@@ -1,5 +1,5 @@
 import { Direction, Point, Projectile, Spell, Effect, SpellEffectType } from "../../types";
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 import { MonsterDiedAction } from "../monsters/types";
 
 export interface PlayerState {
@@ -92,4 +92,5 @@ export type PlayerActionType =
     | MonsterAttackAction
     | MonsterUseProjectileAction
     | SetActiveSpellAction
+    | LoadAction
     | ResetAction;

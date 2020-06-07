@@ -1,5 +1,5 @@
 import { Entity, Point, Monster, Direction, MonsterAI } from "../../types";
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 
 export interface MonstersState {
     entities: Record<string, Record<string, Entity>>;
@@ -81,4 +81,5 @@ export type MonstersActionType =
     | MonsterHealAction
     | MonsterDiedAction
     | ChangeAiAction
+    | LoadAction
     | ResetAction;

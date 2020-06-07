@@ -1,4 +1,13 @@
-import { SystemState, SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, SET_SOUND, SET_SHOW_JOURNAL } from "./types";
+import {
+    SystemState,
+    SystemActionType,
+    SET_LARGE_VIEW,
+    SET_SIDE_MENU,
+    SET_SOUND,
+    SET_SHOW_JOURNAL,
+    LOAD,
+    RESET,
+} from "./types";
 
 const initialState: SystemState = {
     largeView: false,
@@ -20,6 +29,16 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
 
         case SET_SHOW_JOURNAL:
             return { ...state, journalSideMenu: action.set };
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.system };
+
+        case RESET:
+            return initialState;
 
         default:
             return state;

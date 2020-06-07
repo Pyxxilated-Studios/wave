@@ -6,7 +6,7 @@ import {
     TOO_MANY_ITEMS,
     NOT_ENOUGH_GOLD,
 } from "./types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 import { GET_ITEM, SELL_ITEM, DROP_ITEM, USE_ITEM } from "../inventory/types";
 
 const initialState: SnackbarState = {
@@ -66,6 +66,13 @@ const SnackbarReducer = (state = initialState, action: SnackbarActionType): Snac
                 tooManyItems: `${action.item.name}-${new Date().getTime()}`,
                 item: action.item,
             };
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.snackbar };
 
         case CLEAR_NOTIFICATION:
         case RESET:

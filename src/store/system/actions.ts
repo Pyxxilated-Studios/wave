@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import _debounce from "lodash.debounce";
 
 import { store } from "../";
-import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, RESET, SET_SOUND, SET_SHOW_JOURNAL } from "./types";
+import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, RESET, SET_SOUND, SET_SHOW_JOURNAL, LoadData } from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
 import {
@@ -46,6 +46,10 @@ export const setShowJournal = (to: boolean): SystemActionType => {
         type: SET_SHOW_JOURNAL,
         set: to,
     };
+};
+
+export const load = (data: LoadData): SystemActionType => {
+    return { type: "LOAD", data };
 };
 
 const VIEWPORT_RESIZE_RATE = 250;
