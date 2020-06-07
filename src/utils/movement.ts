@@ -74,3 +74,21 @@ export const monsterAtPosition = (position: Point, monsterList: Record<string, E
  */
 export const canMoveTo = (position: Point, tiles: Tile[][], entities: Record<string, Entity>): boolean =>
     traversableTile(position, tiles) && withinBoundary(position) && !monsterAtPosition(position, entities)?.length;
+
+/**
+ * Find all monsters within range of a point
+ *
+ * @param position The position we want to be the center
+ * @param range The range with which to check within
+ * @param monsters The list of monsters in the map
+ */
+export const monstersWithinRange = (position: Point, range: number, monsters: Record<string, Entity>): string[] =>
+    Object.entries(monsters)
+        .filter(
+            ([, entity]) =>
+                entity.location.x <= position.x + range &&
+                entity.location.x >= position.x - range &&
+                entity.location.y <= position.y + range &&
+                entity.location.y >= position.y - range,
+        )
+        .map(([id]) => id);

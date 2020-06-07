@@ -3,6 +3,8 @@ import { revealMonster, hideMonster, monsterMove } from "../../../store/monsters
 
 import { Direction, Monster, Point } from "../../../types";
 
+import { distance } from "../../../utils/distance";
+
 import { attackPlayer } from "./attack-player";
 import { playerInRange, monsterCanMoveTo, isInFieldOfView } from "./move-monster";
 
@@ -30,17 +32,17 @@ const shuffle = <T>(array: T[]): T[] => {
  * @param playerPosition The players position
  */
 const makeRankedPositions = (location: Point, playerPosition: Point): Point[] => {
-    const difference = { x: location.x - playerPosition.x, y: location.y - playerPosition.y };
+    const difference = distance(location, playerPosition);
 
     const rankedPositions = [];
 
-    if (difference.y < 0) {
+    if (difference.dy < 0) {
         rankedPositions.push({ x: location.x, y: location.y + 1 });
 
-        if (difference.x <= 0) {
+        if (difference.dx <= 0) {
             rankedPositions.push({ x: location.x + 1, y: location.y });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x - 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y - 1 });
             } else {
@@ -50,7 +52,7 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
         } else {
             rankedPositions.push({ x: location.x - 1, y: location.y });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x + 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y - 1 });
             } else {
@@ -58,13 +60,13 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
                 rankedPositions.push({ x: location.x + 1, y: location.y });
             }
         }
-    } else if (difference.y > 0) {
+    } else if (difference.dy > 0) {
         rankedPositions.push({ x: location.x, y: location.y - 1 });
 
-        if (difference.x <= 0) {
+        if (difference.dx <= 0) {
             rankedPositions.push({ x: location.x + 1, y: location.y });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x + 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y + 1 });
             } else {
@@ -74,7 +76,7 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
         } else {
             rankedPositions.push({ x: location.x - 1, y: location.y });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x + 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y + 1 });
             } else {
@@ -82,13 +84,13 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
                 rankedPositions.push({ x: location.x + 1, y: location.y });
             }
         }
-    } else if (difference.x < 0) {
+    } else if (difference.dx < 0) {
         rankedPositions.push({ x: location.x + 1, y: location.y });
 
-        if (difference.y <= 0) {
+        if (difference.dy <= 0) {
             rankedPositions.push({ x: location.x, y: location.y + 1 });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x - 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y - 1 });
             } else {
@@ -98,7 +100,7 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
         } else {
             rankedPositions.push({ x: location.x, y: location.y - 1 });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x - 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y + 1 });
             } else {
@@ -109,10 +111,10 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
     } else {
         rankedPositions.push({ x: location.x - 1, y: location.y });
 
-        if (difference.y <= 0) {
+        if (difference.dy <= 0) {
             rankedPositions.push({ x: location.x, y: location.y + 1 });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x + 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y - 1 });
             } else {
@@ -122,7 +124,7 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
         } else {
             rankedPositions.push({ x: location.x, y: location.y - 1 });
 
-            if (Math.abs(difference.x) < Math.abs(difference.y)) {
+            if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
                 rankedPositions.push({ x: location.x + 1, y: location.y });
                 rankedPositions.push({ x: location.x, y: location.y + 1 });
             } else {

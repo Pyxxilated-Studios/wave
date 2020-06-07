@@ -5,12 +5,12 @@ import { exploreTiles } from "../../../store/map/actions";
 import { transitionMap } from "../../../store/world/actions";
 import { damageToPlayer, restore } from "../../../store/stats/actions";
 
-import { Direction, Point, Entity } from "../../../types";
+import { Direction, Point } from "../../../types";
 import { OUT_OF_COMBAT_RANGE, PASSIVE_MANA_RESTORE_TURNS } from "../../../constants";
 
 import walkStairs from "../../world/actions/walk-stairs";
 import exploreChest from "../../world/actions/explore-chest";
-import { getNewPosition, getTileAt, canMoveTo } from "../../../utils/movement";
+import { getNewPosition, getTileAt, canMoveTo, monstersWithinRange } from "../../../utils/movement";
 
 /**
  * Apply all effects currently ailing, or helping, the player.
@@ -59,32 +59,6 @@ const handleInteractWithTile = (tile: number, position: Point): RootThunk => asy
 };
 
 /**
- * Figure out if any monsters are within a certain range of a position
- *
- * @param position The position we want to be the center
- * @param range The range with which to check within
- * @param monsters The list of monsters in the map
- */
-const monstersWithinRange = (position: Point, range: number, monsters: Record<string, Entity>): boolean =>
-    // for (let i = -range; i <= range; i++) {
-    //     for (let j = -range; j <= range; j++) {
-    //         const pos = { x: position.x + i, y: position.y + j };
-    //         if (monsterAtPosition(pos, monsters)) {
-    //             return true;
-    //         }
-    //     }
-    // }
-
-    // return false;
-    Object.entries(monsters).filter(
-        ([, entity]) =>
-            entity.location.x <= position.x + range &&
-            entity.location.x >= position.x - range &&
-            entity.location.y <= position.y + range &&
-            entity.location.y >= position.y - range,
-    ).length > 0;
-
-/**
  * Attempt to move the player. If there is something blocking their way (wall, monster, etc).
  * then don't move them.
  *
@@ -106,10 +80,11 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
 
     const facingDirection = player.direction;
 
+    const monstersAround = monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap]);
+
     if (
-        (facingDirection === direction &&
-            monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap])) ||
-        canMoveTo(newPosition, maps[floorNumber - 1].tiles, monsters.entities[currentMap])
+        canMoveTo(newPosition, maps[floorNumber - 1].tiles, monsters.entities[currentMap]) &&
+        (facingDirection === direction || monstersAround.length === 0)
     ) {
         // explore new tiles
         dispatch(exploreTiles(newPosition));
@@ -118,10 +93,7 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
         // Deal with any interactions the player can perform with the next tile
         dispatch(handleInteractWithTile(nextTile, newPosition));
 
-        if (
-            player.turnsOutOfCombat % PASSIVE_MANA_RESTORE_TURNS === 0 &&
-            !monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap])
-        ) {
+        if (player.turnsOutOfCombat % PASSIVE_MANA_RESTORE_TURNS === 0 && monstersAround.length === 0) {
             dispatch(restore("passive", Math.ceil(stats.maxMana / 10)));
         }
     } else {
