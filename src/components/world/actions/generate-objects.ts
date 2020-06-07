@@ -16,8 +16,8 @@ const generateShop = (map: GameMap, availableWalls: Point[]): GameMap => {
 
 // Randomly generates chests, stairs and shops onto an existing random map
 const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Point, wallType: number): GameMap => {
-    const initialTiles: Point[] = [];
-    const availableTiles: Point[] = [];
+    const initialTiles = [];
+    const availableTiles = [];
 
     const vision = getSurroundingTiles(playerPosition);
 
@@ -25,11 +25,11 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
         for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
             // get a list of floor tiles
             if (map.tiles[i][j].value === 0) {
-                const tile: Point = { x: j, y: i };
-                initialTiles.push(tile);
+                const pos: Point = { x: j, y: i };
+                initialTiles.push(pos);
 
-                if (!vision.tiles.includes(tile)) {
-                    availableTiles.push(tile);
+                if (!vision.tiles.some((tile) => tile.x === pos.x && tile.y === pos.y)) {
+                    availableTiles.push(pos);
                 }
             }
         }
@@ -84,7 +84,7 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
 
     // generate a shop every 4 floors
     if (floorNumber % 4 === 0) {
-        const availableWalls: Point[] = [];
+        const availableWalls = [];
 
         // get a list of available wall tiles
         for (let i = 0; i < MAP_DIMENSIONS.height; i++) {
