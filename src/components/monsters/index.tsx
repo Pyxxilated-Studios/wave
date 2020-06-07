@@ -9,10 +9,12 @@ import { Monster as MonsterType } from "../../types";
 
 import Monster from "./monster";
 
-interface MonstersProps {
+interface StateProps {
     monsters: MonstersState;
     world: WorldState;
 }
+
+type MonstersProps = StateProps;
 
 const Monsters: FunctionComponent<MonstersProps> = (props: MonstersProps) => {
     const { currentMap } = props.world;
@@ -33,9 +35,9 @@ const Monsters: FunctionComponent<MonstersProps> = (props: MonstersProps) => {
     return <>{monstersToRender}</>;
 };
 
-const mapStateToProps = ({ monsters, world }: RootState): MonstersProps => ({
-    monsters,
-    world,
+const mapStateToProps = (state: RootState): StateProps => ({
+    monsters: state.monsters,
+    world: state.world,
 });
 
 export default connect(mapStateToProps)(Monsters);

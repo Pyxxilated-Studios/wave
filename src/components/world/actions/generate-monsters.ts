@@ -26,7 +26,9 @@ const generateMonsters = (floorNumber: number, map: GameMap, playerPosition: Poi
     }
 
     // Remove the available tiles that are within the players vision
-    const tilesNotInView = availableTiles.filter((pos) => !vision.tiles.includes(pos));
+    const tilesNotInView = availableTiles.filter(
+        (pos) => !vision.tiles.some((tile) => tile.x === pos.x && tile.y === pos.y),
+    );
 
     // generate number of monsters for the map based on floor number and player level
     const numberMonsters = Math.ceil(floorNumber / playerLevel) * Math.round(Math.random() * (4 - 2) + 2);
