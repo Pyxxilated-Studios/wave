@@ -80,6 +80,9 @@ pages:
     artifacts:
         paths:
             - public # mandatory, other folder won't work
+    environment:
+        name: staging
+        url: https://www.pyxxilated.studio/wave
     only:
         - master
     except:
