@@ -3,6 +3,7 @@ import { Point, Entity, Tile } from "../../../types";
 import { monsterAtPosition, traversableTile, withinBoundary } from "../../../utils/movement";
 import { radiusTiles } from "../../../utils/get-surrounding-tiles";
 import { arrayContainsPoint } from "../../../utils/array-contains";
+import { distance } from "../../../utils/distance";
 
 const MONSTER_ATTACK_RADIUS = 1;
 
@@ -51,11 +52,11 @@ export const playerInRange = (
     range = MONSTER_ATTACK_RADIUS,
 ): boolean => {
     // for each tile around the monster
-    return radiusTiles(range).some((tile) => {
+    return radiusTiles(monsterPosition, range).some((tile) => {
         // add the monsters location
-        const offset = { x: tile.x + monsterPosition.x, y: tile.y + monsterPosition.y };
-        // see if the player is in range
-        return offset.x === playerPosition.x && offset.y === playerPosition.y;
+        const { dx, dy } = distance(playerPosition, tile);
+
+        return dx === 0 && dy === 0;
     });
 };
 

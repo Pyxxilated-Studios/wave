@@ -1,5 +1,5 @@
 import { RootThunk } from "../../../store";
-import { revealMonster, hideMonster, resetMonsterAI } from "../../../store/monsters/actions";
+import { revealMonster, hideMonster, resetMonsterAI, monsterMove } from "../../../store/monsters/actions";
 
 import { Point, Monster } from "../../../types";
 
@@ -17,7 +17,7 @@ import { isInFieldOfView } from "./move-monster";
 export const frozen = (sightBox: Point[], currentMap: string, monster: Monster): RootThunk => async (
     dispatch,
 ): Promise<void> => {
-    const { id, type, location, aiTurns, originalAI, ai } = monster;
+    const { id, type, location, aiTurns, originalAI, ai, direction } = monster;
 
     const monsterVisible = isInFieldOfView(sightBox, location);
 
@@ -27,6 +27,9 @@ export const frozen = (sightBox: Point[], currentMap: string, monster: Monster):
         // monster is too far away from the player
         dispatch(hideMonster(id, currentMap));
     }
+
+    // 'Move' the monster so it acts as taking a turn
+    dispatch(monsterMove(id, currentMap, location, direction));
 
     if (aiTurns === 0) {
         dispatch(resetMonsterAI(currentMap, id, type, originalAI, ai));

@@ -38,8 +38,12 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
             newState.entities[action.currentMap][action.id].location = action.position;
             if (action.direction === Direction.West || action.direction === Direction.East) {
                 // If they move north/south then there's no need to change this
+                // TODO: Is this always handled before hand (as in, when we dispatch this action)?
                 (newState.entities[action.currentMap][action.id] as Monster).direction = action.direction;
             }
+
+            (newState.entities[action.currentMap][action.id] as Monster).aiTurns -= 1;
+
             return newState;
         }
 
