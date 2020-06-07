@@ -1,7 +1,7 @@
 import { GameMap, Tile, Point, ItemType, ChestContents } from "../../types";
 import { ExploreTilesAction } from "../map/types";
 import { PlayerTurnAction } from "../player/types";
-import { ResetAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 
 export interface WorldState {
     currentMap: string;
@@ -66,4 +66,5 @@ export type WorldActionType =
     | SetChestDataAction
     | OpenChestAction
     | AddBloodSpillAction
+    | LoadAction
     | ResetAction;

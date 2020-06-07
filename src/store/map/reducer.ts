@@ -1,5 +1,5 @@
 import { MapState, EXPLORE_TILES, MapActionType } from "./types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 
 const initialState: MapState = {
     sightBox: [],
@@ -14,6 +14,13 @@ export const MapReducer = (state = initialState, action: MapActionType): MapStat
                 sightBox: action.tiles,
                 paddingSightBox: action.paddingTiles,
             };
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.map };
 
         case RESET:
             return initialState;

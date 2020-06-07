@@ -14,7 +14,7 @@ import {
 import { EXPLORE_TILES } from "../map/types";
 import { Tile, Point } from "../../types";
 import { TAKE_TURN } from "../player/types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 
 import attachMetaToTiles from "../../utils/attach-meta-to-tiles";
 import generatePaddingTiles from "../../utils/generate-padding-tiles";
@@ -148,8 +148,15 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             return newState;
         }
 
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.world };
+
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         default:
             return state;

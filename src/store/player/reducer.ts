@@ -12,7 +12,7 @@ import {
 } from "./types";
 
 import { Direction, Spell, SpellType } from "../../types";
-import { RESET } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 import { MONSTER_DIED } from "../monsters/types";
 
 const initialState: PlayerState = {
@@ -93,6 +93,13 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
             });
 
             return { ...state, turnsOutOfCombat: state.turnsOutOfCombat + 1 };
+
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.player };
 
         case RESET:
             return initialState;

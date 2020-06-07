@@ -1,19 +1,20 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
+import { RootDispatch } from "../../../../store";
+
 import startGame from "../../actions/start-game";
+import loadGame from "../../actions/load-game";
+import toggleTutorial from "../../actions/toggle-tutorial";
 
 import Button from "../../../button";
 import Dialog from "../../../dialog";
 import Flame from "../../../flames";
-// import loadGame from "../../actions/load-game";
 
 import "./styles.scss";
-import { RootDispatch } from "../../../../store";
-import toggleTutorial from "../../actions/toggle-tutorial";
 
 interface DispatchProps {
-    // loadGame: () => void;
+    loadGame: (file: File) => void;
     startGame: () => void;
     toggleTutorial: () => void;
 }
@@ -33,12 +34,8 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
             <div className="game-start-flame-2">
                 <Flame />
             </div>
-            {/* <div className="game-start-flame-3">
+            <div className="game-start-flame-3">
                 <Flame />
-            </div> */}
-
-            <div className="flex-column game-start-button">
-                <Button onClick={props.toggleTutorial} icon="question-circle" title="How to Play" />
             </div>
 
             <div className="flex-column game-start-button">
@@ -49,28 +46,37 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
                     title={"Start Game"}
                 />
 
-                {/* <Button
-          onClick={() => {
-            document.getElementById("load-game-dialog").click();
-          }}
-          icon="save"
-          title={"Load Game"}
-        />
-        <input
-          id={"load-game-dialog"}
-          style={{ display: "none" }}
-          type={"file"}
-          onChange={(event) => {
-            loadGame(event.target.files[0]);
-          }}
-        /> */}
+                <Button
+                    style={{ marginBottom: 16 }}
+                    onClick={props.toggleTutorial}
+                    icon="question-circle"
+                    title="How to Play"
+                />
+
+                <Button
+                    onClick={(): void => {
+                        document.getElementById("load-game-dialog")?.click();
+                    }}
+                    icon="save"
+                    title={"Load Game"}
+                />
+                <input
+                    id={"load-game-dialog"}
+                    style={{ display: "none" }}
+                    type={"file"}
+                    onChange={(event): void => {
+                        if (event.target.files) {
+                            props.loadGame(event.target.files[0]);
+                        }
+                    }}
+                />
             </div>
         </Dialog>
     );
 };
 
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
-    // loadGame: (): void => ,
+    loadGame: (file: File): void => dispatch(loadGame(file)),
     startGame: (): void => dispatch(startGame()),
     toggleTutorial: (): void => dispatch(toggleTutorial()),
 });

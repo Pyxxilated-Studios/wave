@@ -13,7 +13,7 @@ import {
     CHANGE_TUTORIAL_PAGE,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
-import { RESET, SET_SHOW_JOURNAL } from "../system/types";
+import { RESET, SET_SHOW_JOURNAL, LOAD } from "../system/types";
 import { SET_CHEST_DATA } from "../world/types";
 import { PLAYER_DIED } from "../player/types";
 
@@ -159,8 +159,15 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
         case CLOSE_SETTINGS:
             return { ...state, paused: false, reason: { ...state.reason, settings: false } };
 
+        case LOAD:
+            if (!(action.data || action.payload)) return initialState;
+
+            if (action.payload) action.data = action.payload;
+
+            return { ...initialState, ...action.data?.dialog };
+
         case RESET:
-            return { ...initialState };
+            return initialState;
 
         default:
             return state;
