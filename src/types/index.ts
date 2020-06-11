@@ -175,6 +175,7 @@ export interface Effect {
     turns: number;
     immunityTurns: number;
     damage: string;
+    from: string;
 }
 
 export interface ChangeAIEffect {

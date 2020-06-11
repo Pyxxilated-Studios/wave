@@ -20,6 +20,7 @@ import {
     DamageEffect,
     Target,
     SpellEffectType,
+    ChangeAIEffect,
 } from "../../types";
 
 import Button from "../button";
@@ -34,7 +35,6 @@ import buyItem from "../inventory/actions/buy-item";
 import calculateModifier from "../../utils/calculate-modifier";
 import calculateWisdomPotionBonus from "../../utils/calculate-wisdom-potion-bonus";
 import calculatePrices from "../../utils/calculate-price";
-import { calculateDamageRange } from "../../utils/dice";
 
 import "./styles.scss";
 import { SPRITE_PIXELS } from "../../constants";
@@ -91,7 +91,12 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 calculateModifier(props.stats.abilities.wisdom),
             );
 
-            itemStats.push(<StatsItem stats={{ name: props.data.kind, value: potionRestore }} key={uuidv4()} />);
+            itemStats.push(
+                <StatsItem
+                    stats={{ name: props.data.kind, value: potionRestore === Infinity ? "MAX" : potionRestore }}
+                    key={uuidv4()}
+                />,
+            );
             break;
         }
 
@@ -101,20 +106,10 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 <StatsItem stats={{ name: "damage", value: (props.data as Weapon).damage }} key={uuidv4()} />,
             );
 
-            const damageRange = calculateDamageRange((props.data as Weapon).damage, false);
-            itemStats.push(
-                <StatsItem
-                    stats={{
-                        name: "range",
-                        value: damageRange[0] + " - " + damageRange[1],
-                    }}
-                    key={uuidv4()}
-                />,
-            );
             // if there's a bonus
             if (props.data.bonus) {
-                const [bonusType] = props.data.bonus.split("::");
-                const bonusMult = parseFloat(props.data.bonus.split("::")[1]);
+                const [bonusType, multiplier] = props.data.bonus.split("::");
+                const bonusMult = parseFloat(multiplier);
                 itemStats.push(
                     <StatsItem
                         stats={{
@@ -162,42 +157,46 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             break;
         }
 
-        case "spell":
+        case "spell": {
             if (props.data.target === Target.Self) {
                 const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.Heal);
 
                 if (effect) {
                     const intelligenceModifier = calculateModifier(props.stats.abilities.intelligence);
-
-                    const healRange = calculateDamageRange((effect as HealEffect).amount, false).map(
-                        (amount) => amount + Math.max(0, intelligenceModifier),
-                    );
-                    itemStats.push(<StatsItem stats={{ name: "heal", value: healRange.join(" - ") }} key={uuidv4()} />);
-                    itemStats.push(
-                        <StatsItem
-                            stats={{
-                                name: "range",
-                                value: healRange[0] + " - " + healRange[1],
-                            }}
-                            key={uuidv4()}
-                        />,
-                    );
+                    const healAmount = (effect as HealEffect).amount + " + " + Math.max(0, intelligenceModifier);
+                    itemStats.push(<StatsItem stats={{ name: "heal", value: healAmount }} key={uuidv4()} />);
                 }
             } else {
                 const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.Damage);
 
                 if (effect) {
                     const damageEffect = effect as DamageEffect;
+                    itemStats.push(<StatsItem stats={{ name: "damage", value: damageEffect.dice }} key={uuidv4()} />);
+                }
+            }
 
-                    const damageRange = calculateDamageRange(damageEffect.dice, false);
+            itemStats.push(<StatsItem stats={{ name: "mana cost", value: props.data.manaCost }} key={uuidv4()} />);
+
+            const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.ChangeAI);
+            if (effect) {
+                const changeEffect = effect as ChangeAIEffect;
+
+                itemStats.push(
+                    <StatsItem stats={{ name: "effect", value: changeEffect.description }} key={uuidv4()} />,
+                );
+
+                if (changeEffect.chance) {
                     itemStats.push(
-                        <StatsItem stats={{ name: "damage", value: damageRange.join(" - ") }} key={uuidv4()} />,
+                        <StatsItem stats={{ name: "chance", value: changeEffect.chance.description }} key={uuidv4()} />,
                     );
+                }
+
+                if (changeEffect.extraEffect?.effect === SpellEffectType.DamageOverTime) {
                     itemStats.push(
                         <StatsItem
                             stats={{
-                                name: "range",
-                                value: damageRange[0] + " - " + damageRange[1],
+                                name: "DMG over time",
+                                value: changeEffect.extraEffect?.dice + " * " + changeEffect.extraEffect?.turns,
                             }}
                             key={uuidv4()}
                         />,
@@ -207,6 +206,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
 
             itemStats.push(<StatsItem stats={{ name: "description", value: props.data.description }} key={uuidv4()} />);
             break;
+        }
 
         default:
             break;

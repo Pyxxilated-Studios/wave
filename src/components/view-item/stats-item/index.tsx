@@ -12,15 +12,19 @@ const StatsItem: FunctionComponent<StatsItemProps> = (props: StatsItemProps) => 
     const getColor = (name: string): string => {
         switch (name) {
             case "damage":
+            case "DMG over time":
                 return "light-red";
+            case "effect":
             case "range":
             case "defence bonus":
                 return "purple";
-            case "health":
             case "heal":
+            case "health":
                 return "green";
             case "mana":
+            case "mana cost":
                 return "blue";
+            case "chance":
             case "slots":
             case "VS. dragon":
             case "VS. lich":

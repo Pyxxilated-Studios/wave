@@ -57,7 +57,7 @@ export interface EffectPlayerAction {
     effect: SpellEffectType;
     turns: number;
     damage: string;
-    entity: string;
+    from: string;
 }
 
 export const MONSTER_ATTACK = "MONSTER_ATTACK";
