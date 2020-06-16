@@ -48,9 +48,9 @@ export const effectPlayer = (
     effect: SpellEffectType,
     turns: number,
     damage: string,
-    entity: string,
+    from: string,
 ): PlayerActionType => {
-    return { type: EFFECT_PLAYER, effect, turns, damage, entity };
+    return { type: EFFECT_PLAYER, effect, turns, damage, from };
 };
 
 export const monsterAttack = (): PlayerActionType => {

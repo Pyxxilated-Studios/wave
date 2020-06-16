@@ -9,6 +9,7 @@ import {
     MONSTER_ATTACK,
     SET_ACTIVE_SPELL,
     TAKE_TURN,
+    EFFECT_PLAYER,
 } from "./types";
 
 import { Direction, Spell, SpellType } from "../../types";
@@ -85,6 +86,18 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
 
         case SET_ACTIVE_SPELL:
             return { ...state, spell: action.spell };
+
+        case EFFECT_PLAYER:
+            state.effects.forEach((effect) => {
+                if (effect.effect === action.effect && effect.immunityTurns <= 0) {
+                    effect.turns = action.turns;
+                    effect.damage = action.damage;
+                    effect.immunityTurns = action.turns * 3;
+                    effect.from = action.from;
+                }
+            });
+
+            return { ...state };
 
         case TAKE_TURN:
             state.effects.forEach((effect) => {

@@ -72,9 +72,11 @@ export const MAX_ITEMS_UPGRADE = 12;
 
 // Ability score related starting values
 export const STARTING_ABILITY_SCORE_VALUE = 8;
-export const STARTING_ABILITY_POINTS = 12;
+export const STARTING_ABILITY_POINTS = 8;
 export const MAX_ABILITY_SCORE = 20;
 export const LEVEL_UP_ABILITY_POINTS = 2;
+// The number of levels a player needs to level up to gain ability points
+export const LEVELS_BETWEEN_ABILITY_POINT_GAIN = 3;
 
 // If the player is unarmed, we need them to still be able to attack
 export const UNARMED_DAMAGE = "1d4";
@@ -84,7 +86,7 @@ export const BASE_HEALTH = 10;
 export const BASE_MANA = 5;
 
 // Base health/mana level up values
-export const MIN_HEALTH_BONUS = 1;
+export const MIN_HEALTH_BONUS = 2;
 export const MIN_MANA_BONUS = 5;
 
 // The player regenerates mana at this rate

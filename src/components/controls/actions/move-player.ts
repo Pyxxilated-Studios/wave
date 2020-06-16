@@ -21,16 +21,16 @@ export const applyEffects = (): RootThunk => async (dispatch, getState): Promise
     const { player, stats } = getState();
 
     player.effects.forEach((effect) => {
-        const { turns, damage } = effect;
+        const { turns, damage, from } = effect;
 
         if (turns > 0) {
             const effectDamage = Math.floor(damage.roll(false) / 2);
 
             if (effectDamage > 0) {
-                dispatch(damageToPlayer(effectDamage, { from: "FIX ME" }));
+                dispatch(damageToPlayer(effectDamage, { from }));
 
                 if (stats.health - effectDamage <= 0) {
-                    dispatch(playerDie({ from: "FIX ME" }));
+                    dispatch(playerDie({ from }));
                     dispatch(pause(true, { gameOver: true }));
                 }
             }
