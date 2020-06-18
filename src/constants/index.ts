@@ -9,8 +9,8 @@ export const SCREEN_MEDIUM_WIDTH = 600;
 export const SCREEN_MEDIUM_HEIGHT = 680;
 
 // Sizes used to determine whether the journal is shown besides the game or as a dialog
-export const MIN_WIDTH_FOR_JOURNAL = 1200;
-export const MIN_SIDESCREEN_WIDTH_FOR_JOURNAL = 1200;
+export const MIN_WIDTH_FOR_JOURNAL = 1235;
+export const MIN_SIDESCREEN_WIDTH_FOR_JOURNAL = 832;
 
 // Size of each individual sprite
 export const SPRITE_SIZE = 32;

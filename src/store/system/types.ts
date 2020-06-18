@@ -3,6 +3,7 @@ export interface SystemState {
     sideMenu: boolean;
     sound: boolean;
     journalSideMenu: boolean;
+    journalLittleSideMenu: boolean;
 }
 
 export const SET_LARGE_VIEW = "SET_LARGE_VIEW";
@@ -26,6 +27,12 @@ interface SetSoundAction {
 export const SET_SHOW_JOURNAL = "SET_SHOW_JOURNAL";
 export interface SetShowJournalAction {
     type: typeof SET_SHOW_JOURNAL;
+    set: boolean;
+}
+
+export const SET_SHOW_STATS_JOURNAL = "SET_SHOW_STATS_JOURNAL";
+export interface SetShowStatsJournal {
+    type: typeof SET_SHOW_STATS_JOURNAL;
     set: boolean;
 }
 
@@ -59,5 +66,6 @@ export type SystemActionType =
     | SetSideMenuAction
     | SetSoundAction
     | SetShowJournalAction
+    | SetShowStatsJournal
     | LoadAction
     | ResetAction;

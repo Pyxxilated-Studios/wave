@@ -50,7 +50,7 @@ type State = {
     opacity: number;
 };
 
-class World extends Component<WorldProps> {
+class World extends Component<WorldProps, State> {
     state: State = {
         opacity: 0,
     };

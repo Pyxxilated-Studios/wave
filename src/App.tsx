@@ -93,7 +93,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     if (!library) {
         // If we don't do this here, we'd have to do it everywhere we want to
         // load the library. So, may as well do so here and pass it around.
-        import("wave").then((module) => setLibrary(module));
+        import("wave").then(setLibrary);
         return null;
     }
 
@@ -103,73 +103,38 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
-    if (sideMenu) {
-        return (
-            <>
-                <div className={`centered flex-row`}>
-                    <div
-                        style={{
-                            margin: "8px",
-                            display: disableJournal ? "none" : "block",
-                            width: GAME_VIEWPORT_SIZE_LARGE,
-                            height: GAME_VIEWPORT_SIZE_LARGE,
-                        }}
-                    >
-                        <Journal disabled={disableJournal} />
-                    </div>
-                    <div className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}>
-                        <div className={"centered flex-row"}>
-                            <Viewport>
-                                <World library={library} />
-                                <DialogManager />
-                                <TutorialButton />
-                                <AbilityButton />
-                                <SpellbookButton />
-
-                                <FloorCounter floorNumber={props.world.floorNumber} />
-                            </Viewport>
-                        </div>
-
-                        <GameMenus />
-                    </div>
-                </div>
-            </>
-        );
-    }
-
     return (
-        <>
-            <div className={`centered flex-row`}>
-                <div
-                    style={{
-                        margin: "8px",
-                        display: disableJournal ? "none" : "block",
-                        width: GAME_VIEWPORT_SIZE_LARGE,
-                        height: GAME_VIEWPORT_SIZE_LARGE,
-                    }}
-                >
-                    <Journal disabled={disableJournal} />
-                </div>
-                <div
-                    className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
-                    style={{ marginRight: `${disableJournal ? "0" : GAME_VIEWPORT_SIZE_LARGE}px` }}
-                >
-                    <div className={"centered flex-row"}>
-                        <Viewport>
-                            <World library={library} />
-                            <DialogManager />
-                            <TutorialButton />
-                            <AbilityButton />
-                            <SpellbookButton />
-
-                            <FloorCounter floorNumber={props.world.floorNumber} />
-                        </Viewport>
-                    </div>
-
-                    <GameMenus />
-                </div>
+        <div className={`centered flex-row`}>
+            <div
+                style={{
+                    margin: "8px",
+                    marginLeft: "-8px",
+                    display: "block",
+                    width: GAME_VIEWPORT_SIZE_LARGE,
+                    height: GAME_VIEWPORT_SIZE_LARGE,
+                }}
+            >
+                <Journal disabled={disableJournal} />
             </div>
-        </>
+            <div
+                className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
+                style={sideMenu ? {} : { marginRight: GAME_VIEWPORT_SIZE_LARGE }}
+            >
+                <div className={"centered flex-row"}>
+                    <Viewport>
+                        <World library={library} />
+                        <DialogManager />
+                        <TutorialButton />
+                        <AbilityButton />
+                        <SpellbookButton />
+
+                        <FloorCounter floorNumber={props.world.floorNumber} />
+                    </Viewport>
+                </div>
+
+                <GameMenus />
+            </div>
+        </div>
     );
 };
 

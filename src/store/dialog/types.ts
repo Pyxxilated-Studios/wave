@@ -1,5 +1,5 @@
 import { Abilities, PauseReason, Character, Ability, ChestContents } from "../../types";
-import { ResetAction, SetShowJournalAction, LoadAction } from "../system/types";
+import { ResetAction, SetShowJournalAction, SetShowStatsJournal, LoadAction } from "../system/types";
 import { SetChestDataAction } from "../world/types";
 import { PlayerDieAction } from "../player/types";
 
@@ -34,7 +34,7 @@ interface SetRaceAction {
 }
 
 export const CREATE_CHARACTER = "CREATE_CHARACTER";
-interface CreateCharacterAction {
+export interface CreateCharacterAction {
     type: typeof CREATE_CHARACTER;
     name: string;
     cls: string;
@@ -88,6 +88,7 @@ export type DialogActionType =
     | CloseSettingsAction
     | PlayerDieAction
     | SetShowJournalAction
+    | SetShowStatsJournal
     | ChangeTutorialPageAction
     | LoadAction
     | ResetAction;

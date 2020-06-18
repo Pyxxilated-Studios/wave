@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent } from "react";
+import React, { useEffect, FunctionComponent, useRef } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -18,13 +18,13 @@ interface OwnProps {
 type JournalProps = StateProps & OwnProps;
 
 const JournalSide: FunctionComponent<JournalProps> = (props: JournalProps) => {
-    useEffect(() => {
-        const journal = document.getElementById("journal-side");
-        if (journal !== null) {
-            // Automatically scroll the journal when new content is added
-            journal.scrollTop = journal.scrollHeight;
-        }
-    }, [props.journal]);
+    const journalBottom = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = (): void => {
+        journalBottom.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(scrollToBottom, [props.journal]);
 
     return (
         <div
@@ -33,13 +33,7 @@ const JournalSide: FunctionComponent<JournalProps> = (props: JournalProps) => {
                 visibility: props.disabled ? "hidden" : "visible",
             }}
         >
-            <div
-                className="flex-column journal-dialog-container"
-                id="journal-side"
-                style={{
-                    scrollBehavior: "smooth",
-                }}
-            >
+            <div className="flex-column journal-dialog-container">
                 {props.journal.entries.map((entry) =>
                     entry ? (
                         <div key={entry.key} className="journal-entry flex-row">
@@ -49,12 +43,13 @@ const JournalSide: FunctionComponent<JournalProps> = (props: JournalProps) => {
                         <div></div>
                     ),
                 )}
+                <div ref={journalBottom}></div>
             </div>
         </div>
     );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): StateProps => ({
     journal: state.journal,
 });
 

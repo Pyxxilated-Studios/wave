@@ -35,7 +35,7 @@ interface OwnProps {
 type SnackbarProps = DispatchProps & StateProps & OwnProps & ReactTimeoutProps;
 type State = { show: string; item?: ItemType; equip: boolean };
 
-class Snackbar extends Component<SnackbarProps> {
+class Snackbar extends Component<SnackbarProps, State> {
     state: State = {
         show: "",
         equip: false,
@@ -64,7 +64,7 @@ class Snackbar extends Component<SnackbarProps> {
         if (lastMessage !== message && message) {
             this.setState({
                 show: message.split("-")[0],
-                item: null,
+                item: undefined,
                 equip: false,
             });
             this.props.setTimeout && this.props.setTimeout(() => this.handleHideSnack(), SNACK_DURATION);

@@ -2,7 +2,16 @@ import { useEffect } from "react";
 import _debounce from "lodash.debounce";
 
 import { store } from "../";
-import { SystemActionType, SET_LARGE_VIEW, SET_SIDE_MENU, RESET, SET_SOUND, SET_SHOW_JOURNAL, LoadData } from "./types";
+import {
+    SystemActionType,
+    SET_LARGE_VIEW,
+    SET_SIDE_MENU,
+    RESET,
+    SET_SOUND,
+    SET_SHOW_JOURNAL,
+    LoadData,
+    SET_SHOW_STATS_JOURNAL,
+} from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
 import {
@@ -48,6 +57,13 @@ export const setShowJournal = (to: boolean): SystemActionType => {
     };
 };
 
+export const setShowStatsJournal = (to: boolean): SystemActionType => {
+    return {
+        type: SET_SHOW_STATS_JOURNAL,
+        set: to,
+    };
+};
+
 export const load = (data: LoadData): SystemActionType => {
     return { type: "LOAD", data };
 };
@@ -58,12 +74,14 @@ interface ViewportScale {
     largeView: boolean;
     sideMenu: boolean;
     journalSideMenu: boolean;
+    journalStats: boolean;
 }
 
 const updateViewportScale = (scale: ViewportScale): void => {
     store.dispatch(setSideMenu(scale.sideMenu));
     store.dispatch(setLargeView(scale.largeView));
     store.dispatch(setShowJournal(scale.journalSideMenu));
+    store.dispatch(setShowStatsJournal(scale.journalStats));
 };
 
 const _updateViewportScale = _debounce(updateViewportScale, VIEWPORT_RESIZE_RATE);
@@ -75,6 +93,7 @@ export const useViewportScaling = (): void => {
         let largeView = false;
         let sideMenu = false;
         let journalSideMenu = false;
+        let journalStats = false;
 
         // if we have a wide screen size
         if (width > SCREEN_SMALL_WIDTH) {
@@ -91,12 +110,13 @@ export const useViewportScaling = (): void => {
 
         // if (!(isMobile || nativeApp)) {
         if (sideMenu) {
-            if (width > MIN_SIDESCREEN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
+            if (width > MIN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
+            else if (width > MIN_SIDESCREEN_WIDTH_FOR_JOURNAL) journalStats = true;
         } else {
             if (width > MIN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
         }
         // }
 
-        _updateViewportScale({ largeView, sideMenu, journalSideMenu });
+        _updateViewportScale({ largeView, sideMenu, journalSideMenu, journalStats });
     }, [height, width]);
 };

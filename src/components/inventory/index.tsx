@@ -29,7 +29,7 @@ type InventoryProps = DispatchProps & StateProps & OwnProps;
 
 type State = { newItemIndicator: boolean };
 
-class Inventory extends Component<InventoryProps> {
+class Inventory extends Component<InventoryProps, State> {
     state: State = {
         newItemIndicator: false,
     };
@@ -62,7 +62,7 @@ class Inventory extends Component<InventoryProps> {
 
     render(): ReactNode {
         const { newItemIndicator } = this.state;
-        const { disabled, dialog, sideMenu } = this.props;
+        const { disabled, dialog } = this.props;
 
         const open = dialog.reason.inventory;
 
@@ -70,7 +70,6 @@ class Inventory extends Component<InventoryProps> {
             <div className="flex-row inventory-container">
                 {!disabled && (
                     <Button
-                        small={sideMenu}
                         indicator={newItemIndicator}
                         onClick={(): void => this._toggleInventory()}
                         icon={"briefcase"}
