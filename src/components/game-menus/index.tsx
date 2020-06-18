@@ -47,7 +47,7 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 }}
             >
                 {sideMenu && (
-                    <div style={{ height: 166, width: "100%", margin: "4px 0px 10px 2px" }}>
+                    <div style={{ height: 171, width: "100%", margin: "3px 2px 10px 0px" }}>
                         <Journal disabled={disableJournal} />
                     </div>
                 )}

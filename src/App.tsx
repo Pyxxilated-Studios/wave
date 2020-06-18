@@ -97,7 +97,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         return null;
     }
 
-    const { sideMenu, journalSideMenu } = props.system;
+    const { sideMenu, journalSideMenu, journalLittleSideMenu } = props.system;
     const { gameStart, gameOver, gameRunning } = props.dialog.reason;
 
     const disableJournal =
@@ -107,9 +107,8 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         <div className={`centered flex-row`}>
             <div
                 style={{
-                    margin: "8px",
-                    marginLeft: "-8px",
-                    display: "block",
+                    margin: "8px 8px 0px -8px",
+                    display: (sideMenu || !journalLittleSideMenu) && !journalSideMenu ? "none" : "block",
                     width: GAME_VIEWPORT_SIZE_LARGE,
                     height: GAME_VIEWPORT_SIZE_LARGE,
                 }}
@@ -118,7 +117,11 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
             </div>
             <div
                 className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
-                style={sideMenu ? {} : { marginRight: GAME_VIEWPORT_SIZE_LARGE }}
+                style={
+                    sideMenu || (!journalSideMenu && !journalLittleSideMenu)
+                        ? {}
+                        : { marginRight: GAME_VIEWPORT_SIZE_LARGE }
+                }
             >
                 <div className={"centered flex-row"}>
                     <Viewport>

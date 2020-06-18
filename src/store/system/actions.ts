@@ -80,8 +80,15 @@ interface ViewportScale {
 const updateViewportScale = (scale: ViewportScale): void => {
     store.dispatch(setSideMenu(scale.sideMenu));
     store.dispatch(setLargeView(scale.largeView));
-    store.dispatch(setShowJournal(scale.journalSideMenu));
-    store.dispatch(setShowStatsJournal(scale.journalStats));
+
+    // Order these appropriately so that the journal stays open even if we're resizing
+    if (scale.journalSideMenu) {
+        store.dispatch(setShowStatsJournal(scale.journalStats));
+        store.dispatch(setShowJournal(scale.journalSideMenu));
+    } else {
+        store.dispatch(setShowJournal(scale.journalSideMenu));
+        store.dispatch(setShowStatsJournal(scale.journalStats));
+    }
 };
 
 const _updateViewportScale = _debounce(updateViewportScale, VIEWPORT_RESIZE_RATE);
