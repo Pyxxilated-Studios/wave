@@ -3,10 +3,7 @@
     flex-direction: column;
 
     position: absolute;
-    top: 3px;
-    bottom: 3px;
-    left: 3px;
-    right: 3px;
+    top: 0;
 
     z-index: 1001;
 
@@ -15,6 +12,11 @@
 
     cursor: default;
     user-select: none;
+
+    margin: 3px;
+    // 100% - (margin + border width)
+    height: calc(100% - 8px);
+    width: calc(100% - 8px);
 
     .dialog-back-button {
         margin: 5px;

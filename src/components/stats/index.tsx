@@ -91,23 +91,11 @@ class Stats extends Component<StatsProps, State> {
             columnStyle = "stats-column-spacing-large";
         }
 
-        let padding;
-        if (sideMenu) padding = "8px 12px 0";
-        else if (largeView) padding = "12px 15px";
-        else padding = "12px";
-
-        let width;
-        if (sideMenu) width = 390;
-        else if (largeView) width = 390;
-        else width = 324;
-
         return (
             <div
                 style={{
                     alignItems: sideMenu ? "flex-start" : "center",
-                    padding,
                     backgroundColor: statsBgColor,
-                    width,
                     lineHeight: sideMenu ? 1.5 : "unset",
                 }}
                 className={`stats-container flex-row ${disabled ? "" : "white-border"}`}

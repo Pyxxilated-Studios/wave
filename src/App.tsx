@@ -100,6 +100,13 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const { sideMenu, journalSideMenu, journalLittleSideMenu } = props.system;
     const { gameStart, gameOver, gameRunning } = props.dialog.reason;
 
+    const showJournal = !(
+        gameStart ||
+        gameOver ||
+        !gameRunning ||
+        ((sideMenu || !journalLittleSideMenu) && !journalSideMenu)
+    );
+
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
@@ -108,7 +115,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
             <div
                 style={{
                     margin: "8px 8px 0px -8px",
-                    display: (sideMenu || !journalLittleSideMenu) && !journalSideMenu ? "none" : "block",
+                    display: showJournal ? "block" : "none",
                     width: GAME_VIEWPORT_SIZE_LARGE,
                     height: GAME_VIEWPORT_SIZE_LARGE,
                 }}

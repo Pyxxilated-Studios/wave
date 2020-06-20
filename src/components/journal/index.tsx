@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent, useRef } from "react";
+import React, { Component, ReactNode } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -17,37 +17,49 @@ interface OwnProps {
 
 type JournalProps = StateProps & OwnProps;
 
-const JournalSide: FunctionComponent<JournalProps> = (props: JournalProps) => {
-    const journalBottom = useRef<HTMLDivElement>(null);
-
-    const scrollToBottom = (): void => {
-        journalBottom.current?.scrollIntoView({ behavior: "smooth" });
+class JournalSide extends Component<JournalProps> {
+    scrollToBottom = (): void => {
+        console.log("Called");
+        const journal = document.getElementById("journal");
+        if (journal) {
+            console.log(journal);
+            journal.scrollTop = journal.scrollHeight;
+        }
     };
 
-    useEffect(scrollToBottom, [props.journal]);
+    componentDidMount(): void {
+        this.scrollToBottom();
+    }
 
-    return (
-        <div
-            className="journal-container white-border"
-            style={{
-                visibility: props.disabled ? "hidden" : "visible",
-            }}
-        >
-            <div className="flex-column journal-dialog-container">
-                {props.journal.entries.map((entry) =>
-                    entry ? (
-                        <div key={entry.key} className="journal-entry flex-row">
-                            {entry.entry}
-                        </div>
-                    ) : (
-                        <div></div>
-                    ),
-                )}
-                <div ref={journalBottom}></div>
+    componentDidUpdate(): void {
+        this.scrollToBottom();
+    }
+
+    render(): ReactNode {
+        const { disabled, journal } = this.props;
+
+        return (
+            <div
+                className="journal-container white-border"
+                style={{
+                    visibility: disabled ? "hidden" : "visible",
+                }}
+            >
+                <div className="flex-column journal-dialog-container" id="journal">
+                    {journal.entries.map((entry) =>
+                        entry ? (
+                            <div key={entry.key} className="journal-entry flex-row">
+                                {entry.entry}
+                            </div>
+                        ) : (
+                            <div></div>
+                        ),
+                    )}
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 const mapStateToProps = (state: RootState): StateProps => ({
     journal: state.journal,

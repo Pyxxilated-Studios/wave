@@ -117,8 +117,8 @@ export const useViewportScaling = (): void => {
 
         // if (!(isMobile || nativeApp)) {
         if (sideMenu) {
-            if (width > MIN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
-            else if (width > MIN_SIDESCREEN_WIDTH_FOR_JOURNAL) journalStats = true;
+            if (width >= MIN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
+            else if (width >= MIN_SIDESCREEN_WIDTH_FOR_JOURNAL) journalStats = true;
         } else {
             if (width > MIN_WIDTH_FOR_JOURNAL) journalSideMenu = true;
         }

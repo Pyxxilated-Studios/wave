@@ -40,14 +40,14 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 className="game-menu-container flex-row"
                 style={{
                     maxWidth: largeView ? 400 : 350,
-                    paddingLeft: sideMenu ? 8 : 0,
-                    top: sideMenu ? -14 : 0,
-                    height: sideMenu ? "380px" : "unset",
+                    width: largeView ? 400 : 350,
+                    top: 0,
                     justifyContent: disableInventory ? "flex-end" : "center",
+                    padding: sideMenu ? "8px 0 0 8px" : 0,
                 }}
             >
                 {sideMenu && (
-                    <div style={{ height: 171, width: "100%", margin: "3px 2px 10px 0px" }}>
+                    <div className="flex-row journal-side-menu">
                         <Journal disabled={disableJournal} />
                     </div>
                 )}
