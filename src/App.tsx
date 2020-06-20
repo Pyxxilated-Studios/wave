@@ -111,10 +111,11 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
     return (
-        <div className={`centered flex-row`}>
+        <div className="centered flex-row">
             <div
+                className="centered flex-row"
                 style={{
-                    margin: "8px 8px 0px -8px",
+                    margin: "8px 8px 0 0",
                     display: showJournal ? "block" : "none",
                     width: GAME_VIEWPORT_SIZE_LARGE,
                     height: GAME_VIEWPORT_SIZE_LARGE,

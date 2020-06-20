@@ -41,11 +41,12 @@ class JournalSide extends Component<JournalProps> {
         return (
             <div
                 className="journal-container white-border"
+                id="journal"
                 style={{
                     visibility: disabled ? "hidden" : "visible",
                 }}
             >
-                <div className="flex-column journal-dialog-container" id="journal">
+                <div className="flex-column journal-dialog-container">
                     {journal.entries.map((entry) =>
                         entry ? (
                             <div key={entry.key} className="journal-entry flex-row">
