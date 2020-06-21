@@ -1,6 +1,8 @@
 .spellbook-dialog-container {
-    overflow-y: scroll;
     margin: 16px 0 9px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .spellbook-dialog-title {

@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
@@ -17,53 +17,31 @@ interface OwnProps {
 
 type JournalProps = StateProps & OwnProps;
 
-class JournalSide extends Component<JournalProps> {
-    scrollToBottom = (): void => {
-        console.log("Called");
+const Journal: FunctionComponent<JournalProps> = (props: JournalProps) => {
+    useEffect(() => {
         const journal = document.getElementById("journal");
         if (journal) {
-            console.log(journal);
             journal.scrollTop = journal.scrollHeight;
         }
-    };
+    }, [props.disabled, props.journal]);
 
-    componentDidMount(): void {
-        this.scrollToBottom();
-    }
+    if (props.disabled) return null;
 
-    componentDidUpdate(): void {
-        this.scrollToBottom();
-    }
-
-    render(): ReactNode {
-        const { disabled, journal } = this.props;
-
-        return (
-            <div
-                className="journal-container white-border"
-                id="journal"
-                style={{
-                    visibility: disabled ? "hidden" : "visible",
-                }}
-            >
-                <div className="flex-column journal-dialog-container">
-                    {journal.entries.map((entry) =>
-                        entry ? (
-                            <div key={entry.key} className="journal-entry flex-row">
-                                {entry.entry}
-                            </div>
-                        ) : (
-                            <div></div>
-                        ),
-                    )}
-                </div>
+    return (
+        <div className="journal-container white-border" id="journal">
+            <div className="flex-column journal-dialog-container">
+                {props.journal.entries.map((entry) => (
+                    <div key={entry.key} className="journal-entry flex-row">
+                        {entry.entry}
+                    </div>
+                ))}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 const mapStateToProps = (state: RootState): StateProps => ({
     journal: state.journal,
 });
 
-export default connect(mapStateToProps)(JournalSide);
+export default connect(mapStateToProps)(Journal);

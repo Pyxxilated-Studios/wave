@@ -47,7 +47,7 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 }}
             >
                 {sideMenu && (
-                    <div className="flex-row journal-side-menu">
+                    <div className="flex-row journal-side-menu" style={{ width: "100%" }}>
                         <Journal disabled={disableJournal} />
                     </div>
                 )}
