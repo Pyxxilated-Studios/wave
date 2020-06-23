@@ -84,7 +84,17 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     useEffect(() => {
         const root = document.getElementById("root");
         if (root) {
-            disableBodyScroll(root);
+            disableBodyScroll(root, {
+                allowTouchMove: (el: HTMLElement | Element | null) => {
+                    while (el && el !== document.body) {
+                        if (el.getAttribute && el.getAttribute("disable-scroll-lock")) {
+                            return true;
+                        }
+
+                        el = el.parentNode as typeof el;
+                    }
+                },
+            });
         }
 
         return clearAllBodyScrollLocks;
