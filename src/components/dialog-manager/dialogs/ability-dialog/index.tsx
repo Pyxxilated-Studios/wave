@@ -114,7 +114,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
                         Ability Points remaining:
                         <span className="ability-score-dialog-points">{points}</span>
                     </span>
-                    <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} />
+                    <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} label="Confirm" />
                 </div>
             </MicroDialog>
         );

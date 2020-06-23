@@ -25,7 +25,7 @@ type SpellbookButtonProps = DispatchProps & StateProps;
 const SpellbookButton: FunctionComponent<SpellbookButtonProps> = (props: SpellbookButtonProps) => {
     return (
         <div className={"spellbook-container"}>
-            <Button icon="book-open" onClick={props.toggleSpellbookDialog} tiny />
+            <Button icon="book-open" onClick={props.toggleSpellbookDialog} tiny label="Spellbook Button" />
 
             {props.player.spell && (
                 <button
@@ -34,6 +34,7 @@ const SpellbookButton: FunctionComponent<SpellbookButtonProps> = (props: Spellbo
                         backgroundImage: `url('${props.player.spell.image}')`,
                     }}
                     onClick={props.castSpell}
+                    aria-label="Cast Spell Button"
                 ></button>
             )}
         </div>
