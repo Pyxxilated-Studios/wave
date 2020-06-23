@@ -15,7 +15,7 @@ interface DispatchProps {
 type GameSettingsProps = DispatchProps;
 
 const GameSettings: FunctionComponent<GameSettingsProps> = (props: GameSettingsProps) => (
-    <button className="game-settings-button white-border" onClick={props.toggleSettings}>
+    <button className="game-settings-button white-border" onClick={props.toggleSettings} aria-label="Settings Button">
         <FontAwesomeIcon icon="cog" className="game-settings-icon" />
     </button>
 );

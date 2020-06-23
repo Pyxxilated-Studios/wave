@@ -18,7 +18,7 @@ type AbilityButtonProps = DispatchProps;
 const AbilityButton: FunctionComponent<AbilityButtonProps> = (props: AbilityButtonProps) => {
     return (
         <div className="ability-button-container">
-            <Button icon="angle-double-up" onClick={props.abilityScoreDialog} tiny />
+            <Button icon="angle-double-up" onClick={props.abilityScoreDialog} tiny label="Ability Button" />
         </div>
     );
 };

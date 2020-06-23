@@ -103,7 +103,7 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
             </div>
 
             <div className="flex-column character-creation-button">
-                <Button onClick={handleContinue} title={"Continue"} />
+                <Button onClick={handleContinue} title="Continue" />
                 <button ref={continueRef} style={{ display: "none" }} onClick={handleContinue} />
             </div>
         </Dialog>

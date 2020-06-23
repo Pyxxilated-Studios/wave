@@ -39,12 +39,7 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
             </div>
 
             <div className="flex-column game-start-button">
-                <Button
-                    style={{ marginBottom: 16 }}
-                    onClick={props.startGame}
-                    icon="play-circle"
-                    title={"Start Game"}
-                />
+                <Button style={{ marginBottom: 16 }} onClick={props.startGame} icon="play-circle" title="Start Game" />
 
                 <Button
                     style={{ marginBottom: 16 }}
@@ -58,7 +53,7 @@ const GameStartDialog: FunctionComponent<GameStartDialogProps> = (props: GameSta
                         document.getElementById("load-game-dialog")?.click();
                     }}
                     icon="save"
-                    title={"Load Game"}
+                    title="Load Game"
                 />
                 <input
                     id={"load-game-dialog"}

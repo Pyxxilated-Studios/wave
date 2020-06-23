@@ -21,6 +21,7 @@ interface ButtonProps {
     noBorder?: boolean;
     extraClass?: string;
     iconRight?: IconProp;
+    label?: string;
 }
 
 const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
@@ -37,6 +38,7 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
             } ${props.extraClass ? props.extraClass : ""}`}
             style={props.style || {}}
             onClick={handleClick}
+            aria-label={props.label}
         >
             {props.icon && (
                 <FontAwesomeIcon

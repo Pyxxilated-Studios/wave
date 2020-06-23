@@ -30,7 +30,7 @@ const AbilityScore: FunctionComponent<AbilityScoreProps> = (props: AbilityScoreP
                     visibility: props.points === 0 || props.value === MAX_ABILITY_SCORE ? "hidden" : "visible",
                 }}
             >
-                <Button icon="caret-right" onClick={props.increment} tiny noBorder />
+                <Button icon="caret-right" onClick={props.increment} tiny noBorder label="Increment Score" />
             </div>
             <span className="ability-score-score-text">{props.value}</span>
             <div
@@ -39,7 +39,7 @@ const AbilityScore: FunctionComponent<AbilityScoreProps> = (props: AbilityScoreP
                     visibility: props.value === props.minValue ? "hidden" : "visible",
                 }}
             >
-                <Button icon="caret-left" onClick={props.decrement} tiny noBorder />
+                <Button icon="caret-left" onClick={props.decrement} tiny noBorder label="Decrement Score" />
             </div>
         </div>
     </>
