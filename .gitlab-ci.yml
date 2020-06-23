@@ -17,7 +17,7 @@ test:
         - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
         - source $HOME/.cargo/env
         - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        - yarn install
+        - yarn install --frozen-lockfile
         - yarn test
     cache:
         key: ${CI_PROJECT_ID}
@@ -71,7 +71,7 @@ pages:
         - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
         - source $HOME/.cargo/env
         - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        - yarn install
+        - yarn install --frozen-lockfile
         - yarn build
         - mv public _public
         - mv build public
