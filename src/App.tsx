@@ -84,7 +84,17 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     useEffect(() => {
         const root = document.getElementById("root");
         if (root) {
-            disableBodyScroll(root);
+            disableBodyScroll(root, {
+                allowTouchMove: (el: HTMLElement | Element | null) => {
+                    while (el && el !== document.body) {
+                        if (el.getAttribute && el.getAttribute("disable-scroll-lock")) {
+                            return true;
+                        }
+
+                        el = el.parentNode as typeof el;
+                    }
+                },
+            });
         }
 
         return clearAllBodyScrollLocks;
@@ -93,83 +103,59 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     if (!library) {
         // If we don't do this here, we'd have to do it everywhere we want to
         // load the library. So, may as well do so here and pass it around.
-        import("wave").then((module) => setLibrary(module));
+        import("wave").then(setLibrary);
         return null;
     }
 
-    const { sideMenu, journalSideMenu } = props.system;
+    const { sideMenu, journalSideMenu, journalLittleSideMenu } = props.system;
     const { gameStart, gameOver, gameRunning } = props.dialog.reason;
+
+    const showJournal = !(
+        gameStart ||
+        gameOver ||
+        !gameRunning ||
+        ((sideMenu || !journalLittleSideMenu) && !journalSideMenu)
+    );
 
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
-    if (sideMenu) {
-        return (
-            <>
-                <div className={`centered flex-row`}>
-                    <div
-                        style={{
-                            margin: "8px",
-                            display: disableJournal ? "none" : "block",
-                            width: GAME_VIEWPORT_SIZE_LARGE,
-                            height: GAME_VIEWPORT_SIZE_LARGE,
-                        }}
-                    >
-                        <Journal disabled={disableJournal} />
-                    </div>
-                    <div className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}>
-                        <div className={"centered flex-row"}>
-                            <Viewport>
-                                <World library={library} />
-                                <DialogManager />
-                                <TutorialButton />
-                                <AbilityButton />
-                                <SpellbookButton />
-
-                                <FloorCounter floorNumber={props.world.floorNumber} />
-                            </Viewport>
-                        </div>
-
-                        <GameMenus />
-                    </div>
-                </div>
-            </>
-        );
-    }
-
     return (
-        <>
-            <div className={`centered flex-row`}>
-                <div
-                    style={{
-                        margin: "8px",
-                        display: disableJournal ? "none" : "block",
-                        width: GAME_VIEWPORT_SIZE_LARGE,
-                        height: GAME_VIEWPORT_SIZE_LARGE,
-                    }}
-                >
-                    <Journal disabled={disableJournal} />
-                </div>
-                <div
-                    className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
-                    style={{ marginRight: `${disableJournal ? "0" : GAME_VIEWPORT_SIZE_LARGE}px` }}
-                >
-                    <div className={"centered flex-row"}>
-                        <Viewport>
-                            <World library={library} />
-                            <DialogManager />
-                            <TutorialButton />
-                            <AbilityButton />
-                            <SpellbookButton />
-
-                            <FloorCounter floorNumber={props.world.floorNumber} />
-                        </Viewport>
-                    </div>
-
-                    <GameMenus />
-                </div>
+        <div className="centered flex-row">
+            <div
+                className="centered flex-row"
+                style={{
+                    margin: "8px 8px 0 0",
+                    display: showJournal ? "block" : "none",
+                    width: GAME_VIEWPORT_SIZE_LARGE,
+                    height: GAME_VIEWPORT_SIZE_LARGE,
+                }}
+            >
+                <Journal disabled={disableJournal} />
             </div>
-        </>
+            <div
+                className={`centered ${sideMenu ? "flex-row" : "flex-column"}`}
+                style={
+                    sideMenu || (!journalSideMenu && !journalLittleSideMenu)
+                        ? {}
+                        : { marginRight: GAME_VIEWPORT_SIZE_LARGE }
+                }
+            >
+                <div className={"centered flex-row"}>
+                    <Viewport>
+                        <World library={library} />
+                        <DialogManager />
+                        <TutorialButton />
+                        <AbilityButton />
+                        <SpellbookButton />
+
+                        <FloorCounter floorNumber={props.world.floorNumber} />
+                    </Viewport>
+                </div>
+
+                <GameMenus />
+            </div>
+        </div>
     );
 };
 

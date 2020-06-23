@@ -1,9 +1,7 @@
 import { pause, characterCreate } from "../../../../../store/dialog/actions";
+import { RootThunk } from "../../../../../store";
 
-const createCharacter = (characterName: string): import("../../../../../store").RootThunk => async (
-    dispatch,
-    getState,
-): Promise<void> => {
+const createCharacter = (characterName: string): RootThunk => async (dispatch, getState): Promise<void> => {
     const { race, cclass } = getState().dialog.character;
 
     dispatch(characterCreate(characterName, cclass, race));

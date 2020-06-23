@@ -2,9 +2,7 @@ import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 
 const toggleTutorial = (): RootThunk => async (dispatch, getState): Promise<void> => {
-    const { tutorialDialog, tutorialPage, gameRunning } = getState().dialog.reason;
-
-    console.log(tutorialPage, tutorialDialog);
+    const { tutorialDialog, gameRunning } = getState().dialog.reason;
 
     if (gameRunning) {
         if (tutorialDialog) {

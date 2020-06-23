@@ -29,14 +29,14 @@ type JournalButtonProps = DispatchProps & StateProps & OwnProps;
 
 const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButtonProps) => {
     const open =
-        props.dialog.reason.journalDialog || (props.system.journalSideMenu && props.dialog.journalSideMenuOpen);
+        props.dialog.reason.journalDialog ||
+        ((props.system.journalSideMenu || props.system.journalLittleSideMenu) && props.dialog.journalSideMenuOpen);
 
     if (props.disabled) return null;
 
     return (
         <div className="flex-row journal-button-container">
             <Button
-                small={props.sideMenu}
                 onClick={props.toggleJournal}
                 icon={"book"}
                 iconRight={open ? "times" : undefined}

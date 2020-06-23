@@ -32,21 +32,14 @@ interface StateProps {
 
 type CharacterCreationProps = StateProps & DispatchProps;
 
-const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
-    dialog,
-    createCharacter,
-    errorMessage,
-    setClass,
-    setRace,
-    mainGameDialog,
-}: CharacterCreationProps) => {
-    const [characterName, setCharacterName] = useState(dialog.character.name);
+const CharacterCreation: FunctionComponent<CharacterCreationProps> = (props: CharacterCreationProps) => {
+    const [characterName, setCharacterName] = useState(props.dialog.character.name);
 
     function handleContinue(): void {
         if (characterName.trim().length > 0) {
-            createCharacter(characterName);
+            props.createCharacter(characterName);
         } else {
-            errorMessage("Please enter a name");
+            props.errorMessage("Please enter a name");
         }
     }
 
@@ -60,10 +53,10 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                     // For whatever reason, we have to use a ref othwerwise the component isn't updated correctly
                     continueRef.current?.click();
                 } else if (key === ESC_KEY) {
-                    mainGameDialog();
+                    props.mainGameDialog();
                 }
             }}
-            goBack={mainGameDialog}
+            goBack={props.mainGameDialog}
         >
             <div className="character-creation-title">{"Character Creation"}</div>
 
@@ -87,8 +80,8 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                     <SelectButtonGroup
                         key=""
                         values={["Human", "Elf", "Dwarf"]}
-                        select={(value: string): boolean => value === dialog.character.race}
-                        onClick={setRace}
+                        select={(value: string): boolean => value === props.dialog.character.race}
+                        onClick={props.setRace}
                     />
                 </div>
 
@@ -96,8 +89,8 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = ({
                 <div className="container space-around">
                     <SelectButtonGroup
                         values={["Fighter", "Wizard", "Ranger"]}
-                        select={(value: string): boolean => value === dialog.character.cclass}
-                        onClick={setClass}
+                        select={(value: string): boolean => value === props.dialog.character.cclass}
+                        onClick={props.setClass}
                     />
                 </div>
             </div>

@@ -3,14 +3,14 @@ import { pause } from "../../../store/dialog/actions";
 
 export const toggleJournal = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { dialog, system } = getState();
-    const { journalSideMenu } = system;
+    const { journalSideMenu, journalLittleSideMenu } = system;
     const { inventory, journalDialog } = dialog.reason;
 
-    if (journalSideMenu) {
+    if (journalSideMenu || journalLittleSideMenu) {
         dispatch(pause(inventory || false, { journalDialog: !journalDialog, inventory }));
     } else if (journalDialog) {
         dispatch(pause(inventory || false, { inventory }));
-    } else if (!journalSideMenu) {
+    } else if (!(journalSideMenu || journalLittleSideMenu)) {
         dispatch(pause(true, { journalDialog: true }));
     }
 };

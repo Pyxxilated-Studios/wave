@@ -41,7 +41,7 @@ const SpellbookDialog: FunctionComponent<SpellbookDialogProps> = (props: Spellbo
         >
             <ViewItem open={Boolean(viewSpell)} data={viewSpell} onClose={(): void => setViewSpell(undefined)} />
             <span className="spellbook-dialog-title">{"Spellbook"}</span>
-            <div className="spellbook-dialog-container">
+            <div className="spellbook-dialog-container" disable-scroll-lock="true">
                 {spells.map((spell) => (
                     <div key={spell.name} className="spellbook-spell">
                         <SpellButtom
