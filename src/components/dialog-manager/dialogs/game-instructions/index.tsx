@@ -80,7 +80,7 @@ const GameInstructions: FunctionComponent<GameInstructionsProps> = (props: GameI
             </div>
 
             <div className="flex-column game-instructions-button">
-                <Button onClick={handleContinue} title={"Continue"} />
+                <Button onClick={handleContinue} title="Continue" />
             </div>
         </Dialog>
     );

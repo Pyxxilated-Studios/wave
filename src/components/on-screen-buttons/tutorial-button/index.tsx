@@ -16,7 +16,7 @@ type TutorialButtonProps = DispatchProps;
 const TutorialButton: FunctionComponent<TutorialButtonProps> = (props: TutorialButtonProps) => {
     return (
         <div className={"tutorial-container"}>
-            <Button icon="question-circle" onClick={props.toggleTutorial} tiny></Button>
+            <Button icon="question-circle" onClick={props.toggleTutorial} tiny label="Tutorial Button"></Button>
         </div>
     );
 };
