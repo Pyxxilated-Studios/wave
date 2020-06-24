@@ -21,6 +21,7 @@ import { Spell } from "../../types";
 import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
 import calculateModifier from "../../utils/calculate-modifier";
 import { calculateDefenceBonus } from "../../utils/calculate-defence-bonus";
+import { CREATE_CHARACTER } from "../dialog/types";
 
 const initialState: StatsState = {
     abilities: {
@@ -86,6 +87,12 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
 
             return { ...state, abilities: { ...action.abilities, points: action.points } };
         }
+
+        case CREATE_CHARACTER:
+            return {
+                ...state,
+                character: { name: action.name, cclass: action.cls, race: action.race },
+            };
 
         case USE_PROJECTILE:
             if (action.projectile.type !== "spell") return state;

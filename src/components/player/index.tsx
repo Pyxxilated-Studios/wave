@@ -6,6 +6,8 @@ import { RootState } from "../../store";
 import { PlayerState } from "../../store/player/types";
 import { StatsState } from "../../store/stats/types";
 
+import { Direction } from "../../types";
+
 import { SPRITE_SIZE, ANIMATION_SPEED } from "../../constants";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
@@ -17,7 +19,6 @@ import SwordSlash from "./assets/sword-slash.png";
 import MonsterSwordSlash from "./assets/monster-slash.png";
 
 import "./styles.scss";
-import { Direction } from "../../types";
 
 interface StateProps {
     player: PlayerState;
@@ -26,13 +27,13 @@ interface StateProps {
 
 type PlayerProps = StateProps & ReactTimeoutProps;
 
-interface PlayerStateProps {
+interface State {
     attackAnimation: ReactNode;
     monsterAttackAnimation: ReactNode;
 }
 
-class Player extends Component<PlayerProps> {
-    state: PlayerStateProps = {
+class Player extends Component<PlayerProps, State> {
+    state: State = {
         attackAnimation: undefined,
         monsterAttackAnimation: undefined,
     };

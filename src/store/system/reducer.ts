@@ -7,6 +7,7 @@ import {
     SET_SHOW_JOURNAL,
     LOAD,
     RESET,
+    SET_SHOW_STATS_JOURNAL,
 } from "./types";
 
 const initialState: SystemState = {
@@ -14,6 +15,7 @@ const initialState: SystemState = {
     sideMenu: false,
     sound: false,
     journalSideMenu: false,
+    journalLittleSideMenu: false,
 };
 
 const SystemReducer = (state = initialState, action: SystemActionType): SystemState => {
@@ -29,6 +31,9 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
 
         case SET_SHOW_JOURNAL:
             return { ...state, journalSideMenu: action.set };
+
+        case SET_SHOW_STATS_JOURNAL:
+            return { ...state, journalLittleSideMenu: action.set };
 
         case LOAD:
             if (!(action.data || action.payload)) return initialState;
