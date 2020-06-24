@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { combineReducers, createStore, compose, applyMiddleware, AnyAction, Action } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -13,7 +14,6 @@ import DialogReducer from "./dialog/reducer";
 import SnackbarReducer from "./snackbar/reducer";
 import InventoryReducer from "./inventory/reducer";
 import JournalReducer from "./journal/reducer";
-import { Dispatch } from "react";
 
 const rootReducer = combineReducers({
     world: WorldReducer,
@@ -49,5 +49,5 @@ export const store = createStore(
 export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
-export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, {}, AnyAction>;
+export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, unknown, AnyAction>;
 export type RootThunk = ThunkAction<any, RootState, unknown, Action<string | void | boolean>>;
