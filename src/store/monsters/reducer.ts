@@ -91,11 +91,9 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
         }
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.monsters };
+            return { ...initialState, ...action.payload.monsters };
 
         case RESET:
             return initialState;

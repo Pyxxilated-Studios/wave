@@ -36,11 +36,9 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
             return { ...state, journalLittleSideMenu: action.set };
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.system };
+            return { ...initialState, ...action.payload.system };
 
         case RESET:
             return initialState;

@@ -279,11 +279,9 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
         }
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.stats };
+            return { ...initialState, ...action.payload.stats };
 
         case RESET:
             return initialState;

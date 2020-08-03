@@ -68,11 +68,9 @@ const SnackbarReducer = (state = initialState, action: SnackbarActionType): Snac
             };
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.snackbar };
+            return { ...initialState, ...action.payload.snackbar };
 
         case CLEAR_NOTIFICATION:
         case RESET:

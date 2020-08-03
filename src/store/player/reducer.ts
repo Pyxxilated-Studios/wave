@@ -108,11 +108,9 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
             return { ...state, turnsOutOfCombat: state.turnsOutOfCombat + 1 };
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.player };
+            return { ...initialState, ...action.payload.player };
 
         case RESET:
             return initialState;

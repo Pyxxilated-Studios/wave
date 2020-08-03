@@ -414,10 +414,9 @@ const JournalReducer = (state = initialState, action: JournalActionType): Journa
 
         case "persist/REHYDRATE":
         case LOAD: {
-            if (action.payload) action.data = action.payload;
-            if (!(action.data && action.data.journal)) return initialState;
+            if (!action.payload) return initialState;
 
-            const newState = cloneDeep(action.data.journal);
+            const newState = cloneDeep(action.payload.journal);
 
             newState.entries = newState.entries.map(({ key, entry }: JournalEntry) => ({
                 key,

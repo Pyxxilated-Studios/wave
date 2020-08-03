@@ -52,7 +52,6 @@ export interface LoadData {
 export const LOAD = "LOAD";
 export interface LoadAction {
     type: typeof LOAD | "persist/REHYDRATE";
-    data?: LoadData;
     payload?: LoadData;
 }
 

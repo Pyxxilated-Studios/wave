@@ -64,8 +64,8 @@ export const setShowStatsJournal = (to: boolean): SystemActionType => {
     };
 };
 
-export const load = (data: LoadData): SystemActionType => {
-    return { type: "LOAD", data };
+export const load = (payload: LoadData): SystemActionType => {
+    return { type: "LOAD", payload };
 };
 
 const VIEWPORT_RESIZE_RATE = 250;

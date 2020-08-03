@@ -16,11 +16,9 @@ export const MapReducer = (state = initialState, action: MapActionType): MapStat
             };
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.map };
+            return { ...initialState, ...action.payload.map };
 
         case RESET:
             return initialState;

@@ -161,11 +161,9 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             return { ...state, paused: false, reason: { ...state.reason, settings: false } };
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.dialog };
+            return { ...initialState, ...action.payload.dialog };
 
         case RESET:
             return initialState;
