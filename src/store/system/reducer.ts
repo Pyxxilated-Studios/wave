@@ -6,7 +6,6 @@ import {
     SET_SOUND,
     SET_SHOW_JOURNAL,
     LOAD,
-    RESET,
     SET_SHOW_STATS_JOURNAL,
 } from "./types";
 
@@ -39,9 +38,6 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
             if (!action.payload) return initialState;
 
             return { ...initialState, ...action.payload.system };
-
-        case RESET:
-            return initialState;
 
         default:
             return state;
