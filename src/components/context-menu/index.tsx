@@ -10,9 +10,9 @@ interface OwnProps {
 type ContextMenuProps = OwnProps;
 
 const ContextMenu: FunctionComponent<ContextMenuProps> = (props: ContextMenuProps) => (
-    <div className="hoverable">
-        <div className="tooltip">{props.context}</div>
-        {props.children}
+    <div className="context-menu">
+        <div className="context">{props.context}</div>
+        <div className="context-for">{props.children}</div>
     </div>
 );
 

@@ -14,8 +14,8 @@ import { getContext } from "../../utils/get-context";
 
 import "./styles.scss";
 
-const STANDARD_HEIGHT = 80;
-const EXTENDED_HEIGHT = 120;
+const STANDARD_HEIGHT = 64;
+const EXTENDED_HEIGHT = 96;
 
 interface StateProps {
     inventory: InventoryState;
@@ -34,8 +34,9 @@ const BackpackItems: FunctionComponent<BackpackItemsProps> = (props: BackpackIte
 
     for (let i = 0; i < items.length; i++) {
         itemSlots[i] = (
-            <ContextMenu context={getContext(items[i])}>
+            <ContextMenu context={getContext(items[i])} key={items[i].id}>
                 <button
+                    key={`button-for-${items[i].id}`}
                     onClick={(): void => props.viewItem(items[i])}
                     style={{
                         backgroundImage: `url('${items[i].image}')`,
