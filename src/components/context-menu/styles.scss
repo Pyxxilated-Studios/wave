@@ -1,0 +1,29 @@
+.hoverable {
+    float: right;
+    justify-content: center;
+
+    .tooltip {
+        font-family: Montserrat;
+        text-transform: none;
+        font-weight: 400;
+        line-height: 1;
+        visibility: hidden;
+        font-size: 0.75em;
+
+        padding: 5px;
+
+        background-color: var(--dark-gray);
+        border: 0.5px var(--gray) solid;
+
+        color: var(--gray);
+
+        position: absolute;
+        margin-left: 2.5em;
+
+        z-index: 1;
+    }
+}
+
+.hoverable:hover .tooltip {
+    visibility: visible;
+}

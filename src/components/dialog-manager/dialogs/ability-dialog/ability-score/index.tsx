@@ -17,32 +17,30 @@ interface AbilityScoreProps {
 }
 
 const AbilityScore: FunctionComponent<AbilityScoreProps> = (props: AbilityScoreProps) => (
-    <>
-        <div className="ability-score-container">
-            <span className="ability-score-text">{props.name}:</span>
-            <div className="ability-score-tooltip">
-                <FontAwesomeIcon icon="question-circle" />
-                <span className="ability-score-tooltip-text">{props.tooltip}</span>
-            </div>
-            <div
-                className="ability-score-button"
-                style={{
-                    visibility: props.points === 0 || props.value === MAX_ABILITY_SCORE ? "hidden" : "visible",
-                }}
-            >
-                <Button icon="caret-right" onClick={props.increment} tiny noBorder label="Increment Score" />
-            </div>
-            <span className="ability-score-score-text">{props.value}</span>
-            <div
-                className="ability-score-button"
-                style={{
-                    visibility: props.value === props.minValue ? "hidden" : "visible",
-                }}
-            >
-                <Button icon="caret-left" onClick={props.decrement} tiny noBorder label="Decrement Score" />
-            </div>
+    <div className="ability-score-container">
+        <span className="ability-score-text">{props.name}:</span>
+        <div className="ability-score-tooltip">
+            <FontAwesomeIcon icon="question-circle" />
+            <span className="ability-score-tooltip-text">{props.tooltip}</span>
         </div>
-    </>
+        <div
+            className="ability-score-button"
+            style={{
+                visibility: props.points === 0 || props.value === MAX_ABILITY_SCORE ? "hidden" : "visible",
+            }}
+        >
+            <Button icon="caret-right" onClick={props.increment} tiny noBorder label="Increment Score" />
+        </div>
+        <span className="ability-score-score-text">{props.value}</span>
+        <div
+            className="ability-score-button"
+            style={{
+                visibility: props.value === props.minValue ? "hidden" : "visible",
+            }}
+        >
+            <Button icon="caret-left" onClick={props.decrement} tiny noBorder label="Decrement Score" />
+        </div>
+    </div>
 );
 
 export default AbilityScore;

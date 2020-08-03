@@ -5,9 +5,12 @@ import { RootState } from "../../store";
 import { InventoryState } from "../../store/inventory/types";
 
 import { ItemType } from "../../types";
+import { MAX_ITEMS_UPGRADE, SPRITE_PIXELS } from "../../constants";
 
 import EmptySlot from "../empty-slot";
-import { MAX_ITEMS_UPGRADE, SPRITE_PIXELS } from "../../constants";
+import ContextMenu from "../context-menu";
+
+import { getContext } from "../../utils/get-context";
 
 import "./styles.scss";
 
@@ -31,15 +34,17 @@ const BackpackItems: FunctionComponent<BackpackItemsProps> = (props: BackpackIte
 
     for (let i = 0; i < items.length; i++) {
         itemSlots[i] = (
-            <button
-                onClick={(): void => props.viewItem(items[i])}
-                style={{
-                    backgroundImage: `url('${items[i].image}')`,
-                    width: SPRITE_PIXELS,
-                    height: SPRITE_PIXELS,
-                    cursor: "pointer",
-                }}
-            />
+            <ContextMenu context={getContext(items[i])}>
+                <button
+                    onClick={(): void => props.viewItem(items[i])}
+                    style={{
+                        backgroundImage: `url('${items[i].image}')`,
+                        width: SPRITE_PIXELS,
+                        height: SPRITE_PIXELS,
+                        cursor: "pointer",
+                    }}
+                />
+            </ContextMenu>
         );
     }
 
