@@ -1,0 +1,22 @@
+.context {
+    font-family: Montserrat;
+    text-transform: none;
+    font-weight: 400;
+    line-height: 1.25;
+    visibility: hidden;
+    font-size: 0.75em;
+
+    background-color: var(--dark-gray);
+
+    color: var(--gray);
+
+    position: absolute;
+
+    z-index: 1;
+}
+
+.context-menu:hover .context {
+    visibility: visible;
+    margin-top: 32px;
+    position: fixed;
+}

@@ -22,11 +22,9 @@ const InventoryReducer = (state = initialState, action: InventoryActionType): In
         }
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.inventory };
+            return { ...initialState, ...action.payload.inventory };
 
         case RESET:
             return initialState;

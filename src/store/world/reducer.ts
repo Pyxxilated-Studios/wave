@@ -149,11 +149,9 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
         }
 
         case LOAD:
-            if (!(action.data || action.payload)) return initialState;
+            if (!action.payload) return initialState;
 
-            if (action.payload) action.data = action.payload;
-
-            return { ...initialState, ...action.data?.world };
+            return { ...initialState, ...action.payload.world };
 
         case RESET:
             return initialState;
