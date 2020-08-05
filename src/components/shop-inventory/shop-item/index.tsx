@@ -1,10 +1,14 @@
 import React, { FunctionComponent } from "react";
 
+import { ItemType } from "../../../types";
+
 import EmptySlot from "../../empty-slot";
+import ContextMenu from "../../context-menu";
+
 import calculatePrices from "../../../utils/calculate-price";
+import { getContext } from "../../../utils/get-context";
 
 import "./styles.scss";
-import { ItemType } from "../../../types";
 
 interface ShopItemProps {
     item: ItemType;
@@ -18,9 +22,11 @@ const ShopItem: FunctionComponent<ShopItemProps> = (props: ShopItemProps) => {
 
     return (
         <button onClick={buyItem} className="shop-item-container white-border flex-row">
-            <EmptySlot style={{ borderRight: "1px solid" }}>
-                <div className="shop-item-slot" style={{ backgroundImage: `url('${item.image}')` }} />
-            </EmptySlot>
+            <ContextMenu context={getContext(item)}>
+                <EmptySlot style={{ borderRight: "1px solid" }}>
+                    <div className="shop-item-slot" style={{ backgroundImage: `url('${item.image}')` }} />
+                </EmptySlot>
+            </ContextMenu>
 
             <div className="flex-row shop-item-text">
                 <span className="flex-row shop-item-title">{item.name}</span>

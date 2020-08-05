@@ -2,6 +2,7 @@ import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+import { RootState } from "../../store";
 import { StatsState } from "../../store/stats/types";
 import { InventoryState } from "../../store/inventory/types";
 
@@ -10,13 +11,12 @@ import { MAX_ITEMS_UPGRADE } from "../../constants";
 
 import calculateModifier from "../../utils/calculate-modifier";
 
+import Button from "../button";
 import ShopItem from "./shop-item";
 import shopItems from "./shop-items";
 import ViewItem from "../view-item";
 
 import "./styles.scss";
-import Button from "../button";
-import { RootState } from "../../store";
 
 const ITEMS_PER_PAGE = 5;
 
