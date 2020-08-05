@@ -22,11 +22,11 @@ const ShopItem: FunctionComponent<ShopItemProps> = (props: ShopItemProps) => {
 
     return (
         <button onClick={buyItem} className="shop-item-container white-border flex-row">
-            <ContextMenu context={getContext(item)}>
-                <EmptySlot style={{ borderRight: "1px solid" }}>
+            <EmptySlot style={{ borderRight: "1px solid" }}>
+                <ContextMenu context={getContext(item)}>
                     <div className="shop-item-slot" style={{ backgroundImage: `url('${item.image}')` }} />
-                </EmptySlot>
-            </ContextMenu>
+                </ContextMenu>
+            </EmptySlot>
 
             <div className="flex-row shop-item-text">
                 <span className="flex-row shop-item-title">{item.name}</span>
