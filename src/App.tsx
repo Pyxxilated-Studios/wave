@@ -110,15 +110,10 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const { sideMenu, journalSideMenu, journalLittleSideMenu } = props.system;
     const { gameStart, gameOver, gameRunning } = props.dialog.reason;
 
-    const showJournal = !(
-        gameStart ||
-        gameOver ||
-        !gameRunning ||
-        ((sideMenu || !journalLittleSideMenu) && !journalSideMenu)
-    );
-
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
+
+    console.log(gameStart, gameOver, !gameRunning, !journalLittleSideMenu, !props.dialog.journalSideMenuOpen);
 
     return (
         <div className="centered flex-row">
@@ -126,7 +121,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                 className="centered flex-row"
                 style={{
                     margin: "8px 8px 0 0",
-                    display: showJournal ? "block" : "none",
+                    display: journalSideMenu || journalLittleSideMenu ? "block" : "none",
                     width: GAME_VIEWPORT_SIZE_LARGE,
                     height: GAME_VIEWPORT_SIZE_LARGE,
                 }}
