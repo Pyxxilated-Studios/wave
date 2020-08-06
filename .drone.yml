@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build
+  image: node
+  commands:
+  - "which rsync || ( apt-get update -y && apt-get install rsync -y )"
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+  - source $HOME/.cargo/env
+  - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+  - yarn install --frozen-lockfile
+  - yarn build
+
