@@ -29,8 +29,6 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
         props.onClick && props.onClick();
     }
 
-    const iconClassName = `button-icon ${props.indicator ? "button-indicator" : ""}`;
-
     return (
         <button
             className={`button-container ${props.noBorder ? "" : "white-border"} ${
@@ -40,9 +38,10 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
             onClick={handleClick}
             aria-label={props.label}
         >
+            {props.indicator && <span className="button-indicator">o</span>}
             {props.icon && (
                 <FontAwesomeIcon
-                    className={`${iconClassName} button-float-icon`}
+                    className={`button-icon button-float-icon`}
                     icon={props.icon}
                     style={{ ...props.iconStyle, paddingRight: `${props.title ? "10px" : "0"}` }}
                 />

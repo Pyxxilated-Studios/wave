@@ -4,6 +4,7 @@ export interface SystemState {
     sound: boolean;
     journalSideMenu: boolean;
     journalLittleSideMenu: boolean;
+    abilityScoreIndicator: boolean;
 }
 
 export const SET_LARGE_VIEW = "SET_LARGE_VIEW";
@@ -31,8 +32,14 @@ export interface SetShowJournalAction {
 }
 
 export const SET_SHOW_STATS_JOURNAL = "SET_SHOW_STATS_JOURNAL";
-export interface SetShowStatsJournal {
+export interface SetShowStatsJournalAction {
     type: typeof SET_SHOW_STATS_JOURNAL;
+    set: boolean;
+}
+
+export const SET_ABILITY_INDICATOR = "SET_ABILITY_INDICATOR";
+export interface SetAbilityIndicatorAction {
+    type: typeof SET_ABILITY_INDICATOR;
     set: boolean;
 }
 
@@ -65,6 +72,7 @@ export type SystemActionType =
     | SetSideMenuAction
     | SetSoundAction
     | SetShowJournalAction
-    | SetShowStatsJournal
+    | SetShowStatsJournalAction
     | LoadAction
+    | SetAbilityIndicatorAction
     | ResetAction;

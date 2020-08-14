@@ -11,6 +11,7 @@ import {
     SET_SHOW_JOURNAL,
     LoadData,
     SET_SHOW_STATS_JOURNAL,
+    SET_ABILITY_INDICATOR,
 } from "./types";
 import useWindowSize from "../../utils/use-window-size";
 
@@ -66,6 +67,10 @@ export const setShowStatsJournal = (to: boolean): SystemActionType => {
 
 export const load = (payload: LoadData): SystemActionType => {
     return { type: "LOAD", payload };
+};
+
+export const setAbilityIndicator = (to: boolean): SystemActionType => {
+    return { type: SET_ABILITY_INDICATOR, set: to };
 };
 
 const VIEWPORT_RESIZE_RATE = 250;
