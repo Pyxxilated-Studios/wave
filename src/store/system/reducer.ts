@@ -7,6 +7,7 @@ import {
     SET_SHOW_JOURNAL,
     LOAD,
     SET_SHOW_STATS_JOURNAL,
+    SET_ABILITY_INDICATOR,
 } from "./types";
 
 const initialState: SystemState = {
@@ -15,6 +16,7 @@ const initialState: SystemState = {
     sound: false,
     journalSideMenu: false,
     journalLittleSideMenu: false,
+    abilityScoreIndicator: false,
 };
 
 const SystemReducer = (state = initialState, action: SystemActionType): SystemState => {
@@ -33,6 +35,9 @@ const SystemReducer = (state = initialState, action: SystemActionType): SystemSt
 
         case SET_SHOW_STATS_JOURNAL:
             return { ...state, journalLittleSideMenu: action.set };
+
+        case SET_ABILITY_INDICATOR:
+            return { ...state, abilityScoreIndicator: action.set };
 
         case LOAD:
             if (!action.payload) return initialState;

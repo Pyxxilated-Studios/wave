@@ -11,8 +11,6 @@ import closeLevelUpDialog from "../../actions/close-level-up-dialog";
 import abilityScoreDialog from "../../actions/ability-score-dialog";
 import logLevelUp from "../../actions/log-level-up";
 
-import { isAbilityAllocationLevel } from "../../../../utils/is-ability-allocation-level";
-
 import spells from "../../../../data/spells";
 
 import "./styles.scss";
@@ -35,7 +33,7 @@ const LevelUpDialog: FunctionComponent<LevlUpDialogProps> = (props: LevlUpDialog
 
     const nextDialog = (): void => {
         props.logLevelUp();
-        isAbilityAllocationLevel(level) ? props.abilityScoreDialog() : props.closeLevelUpDialog();
+        props.closeLevelUpDialog();
     };
     const unlockedSpell = spells.filter((spell) => spell.unlockLevel === props.stats.level).pop();
 

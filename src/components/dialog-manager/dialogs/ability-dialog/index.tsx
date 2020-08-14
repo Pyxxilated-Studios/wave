@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { DialogState } from "../../../../store/dialog/types";
 import { RootState, RootDispatch } from "../../../../store";
+import { DialogState } from "../../../../store/dialog/types";
+import { SystemState } from "../../../../store/system/types";
+import { setAbilityIndicator } from "../../../../store/system/actions";
 
 import { Ability } from "../../../../types";
 import { U_KEY, ENTER_KEY, ESC_KEY } from "../../../../constants";
@@ -25,10 +27,12 @@ interface DispatchProps {
     confirmAbilityScoreDialog: () => void;
     backToCharacterCreation: () => void;
     closeDialog: () => void;
+    openedAbilityDialog: () => void;
 }
 
 interface StateProps {
     dialog: DialogState;
+    system: SystemState;
 }
 
 type AbilityDialogProps = DispatchProps & StateProps;
@@ -50,7 +54,13 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
                 fullsize
                 keys={[ESC_KEY, U_KEY]}
                 onKeyPress={props.confirmAbilityScoreDialog}
-                onClose={props.closeDialog}
+                onClose={() => {
+                    if (props.system.abilityScoreIndicator) {
+                        props.openedAbilityDialog();
+                    }
+
+                    props.closeDialog();
+                }}
             >
                 <span className="ability-score-title" style={{ marginLeft: "-15px" }}>
                     Modify your Abilities
@@ -198,12 +208,13 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
     );
 };
 
-const mapStateToProps = (state: RootState): StateProps => ({ dialog: state.dialog });
+const mapStateToProps = (state: RootState): StateProps => ({ dialog: state.dialog, system: state.system });
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     increment: (ability: Ability): void => dispatch(increment(ability)),
     decrement: (ability: Ability): void => dispatch(decrement(ability)),
     confirmAbilityScoreDialog: (): void => dispatch(confirmAbilityScoreDialog()),
     backToCharacterCreation: (): void => dispatch(backToCharacterCreation()),
     closeDialog: (): void => dispatch(closeDialog()),
+    openedAbilityDialog: (): void => dispatch(setAbilityIndicator(false)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AbilityDialog);

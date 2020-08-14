@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { RootDispatch } from "../../../store";
+import { RootDispatch, RootState } from "../../../store";
+import { SystemState } from "../../../store/system/types";
 
 import abilityScoreDialog from "../../dialog-manager/actions/ability-score-dialog";
 
@@ -13,18 +14,31 @@ interface DispatchProps {
     abilityScoreDialog: () => void;
 }
 
-type AbilityButtonProps = DispatchProps;
+interface StateProps {
+    system: SystemState;
+}
+
+type AbilityButtonProps = DispatchProps & StateProps;
 
 const AbilityButton: FunctionComponent<AbilityButtonProps> = (props: AbilityButtonProps) => {
     return (
         <div className="ability-button-container">
-            <Button icon="angle-double-up" onClick={props.abilityScoreDialog} tiny label="Ability Button" />
+            <Button
+                indicator={props.system.abilityScoreIndicator}
+                icon="angle-double-up"
+                onClick={props.abilityScoreDialog}
+                tiny
+                label="Ability Button"
+                style={{ transition: "width .25s ease-out" }}
+            />
         </div>
     );
 };
+
+const mapStateToProps = (state: RootState): StateProps => ({ system: state.system });
 
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     abilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
 });
 
-export default connect(null, mapDispatchToProps)(AbilityButton);
+export default connect(mapStateToProps, mapDispatchToProps)(AbilityButton);
