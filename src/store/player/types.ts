@@ -22,7 +22,7 @@ export interface PlayerState {
 }
 
 export const MOVE_PLAYER = "MOVE_PLAYER";
-interface MovePlayerAction {
+export interface MovePlayerAction {
     type: typeof MOVE_PLAYER;
     position: Point;
     direction: Direction;
