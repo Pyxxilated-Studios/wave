@@ -62,7 +62,7 @@ pages:
         ##
         ## Scan the keys of the server.
         ##
-        - ssh-keyscan pyxxilated.studio >> ~/.ssh/known_hosts
+        - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
 
         ##
