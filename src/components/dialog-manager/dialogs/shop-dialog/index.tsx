@@ -1,8 +1,6 @@
 import React, { useState, FunctionComponent, ReactNode } from "react";
 import { connect } from "react-redux";
 
-import { ENTER_KEY, ESC_KEY } from "../../../../constants";
-
 import Button from "../../../button";
 import Dialog from "../../../dialog";
 import SellItemsDialog from "../sell-items-dialog";
@@ -32,9 +30,9 @@ const ShopDialog: FunctionComponent<ShopDialogProps> = (props: ShopDialogProps) 
     if (welcome) {
         return (
             <Dialog
-                keys={[ENTER_KEY, ESC_KEY]}
+                keys={["Enter", "Escape", "Esc"]}
                 onKeyPress={(key): void => {
-                    if (key === ENTER_KEY) {
+                    if (key === "Enter") {
                         setWelcome(false);
                     } else {
                         closeDialog();
@@ -67,7 +65,7 @@ const ShopDialog: FunctionComponent<ShopDialogProps> = (props: ShopDialogProps) 
 
     return (
         <Dialog
-            keys={[ESC_KEY]}
+            keys={["Escape", "Esc"]}
             onKeyPress={(): void => {
                 closeDialog();
             }}

@@ -1,15 +1,13 @@
 import React, { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
-
-import { ENTER_KEY, ESC_KEY } from "../../constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./styles.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface MicroDialogProps {
     noButton?: boolean;
     onClose: () => void;
     onKeyPress?: () => void;
-    keys?: number[];
+    keys?: string[];
     className?: string;
     fullsize?: boolean;
     children?: ReactNode;
@@ -18,11 +16,11 @@ interface MicroDialogProps {
 const MicroDialog: FunctionComponent<MicroDialogProps> = (props: MicroDialogProps) => {
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
-            if (event.keyCode === ENTER_KEY) {
+            if (event.key === "Enter") {
                 props.onKeyPress && props.onKeyPress();
-            } else if (event.keyCode === ESC_KEY) {
+            } else if (event.key === "Escape" || event.key === "Esc") {
                 props.onClose();
-            } else if (props.keys && props.keys.includes(event.keyCode)) {
+            } else if (props.keys && props.keys.includes(event.key)) {
                 props.onClose();
             }
         },

@@ -1,29 +1,28 @@
 import React, { useEffect, FunctionComponent, CSSProperties, ReactNode } from "react";
 
-import { ENTER_KEY, ESC_KEY } from "../../constants";
+import Button from "../button";
 
 import "./styles.scss";
-import Button from "../button";
 
 interface DialogProps {
     className?: string;
     style?: CSSProperties;
     goBack?: (_?: KeyboardEvent) => void;
-    onKeyPress?: (key: number) => void;
-    keys?: number[];
+    onKeyPress?: (key: string) => void;
+    keys?: string[];
     children: ReactNode;
 }
 
 const Dialog: FunctionComponent<DialogProps> = (props: DialogProps) => {
     const handleKeyPress = (event: KeyboardEvent): void => {
         if (props.onKeyPress) {
-            if (props.keys ? props.keys.includes(event.keyCode) : event.keyCode === ENTER_KEY) {
-                props.onKeyPress(event.keyCode);
+            if (props.keys ? props.keys.includes(event.key) : event.key === "Enter") {
+                props.onKeyPress(event.key);
             }
         }
 
         if (props.goBack) {
-            if (event.keyCode === ESC_KEY) {
+            if (event.key === "Escape" || event.key === "Esc") {
                 props.goBack(event);
             }
         }
