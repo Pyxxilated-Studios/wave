@@ -131,7 +131,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
 
     return (
         <Dialog
-            keys={["Enter", "Esc", "Escape", "U"]}
+            keys={["Enter", "Esc", "Escape", "U", "u"]}
             onKeyPress={(key): void => {
                 if (key === "Enter") {
                     props.confirmAbilityScoreDialog();

@@ -63,7 +63,7 @@ const TutorialDialog: FunctionComponent<TutorialDialogProps> = (props: TutorialD
 
     return (
         <MicroDialog
-            keys={["H"]}
+            keys={["H", "h"]}
             onClose={props.toggleTutorial}
             onKeyPress={(): void => props.changeTutorialPage(nextPage)}
             fullsize

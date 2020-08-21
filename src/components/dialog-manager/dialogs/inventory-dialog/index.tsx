@@ -25,7 +25,7 @@ const InventoryDialog: FunctionComponent<InventoryDialogProps> = (props: Invento
     const [viewItem, setViewItem] = useState<ItemType | undefined>(undefined);
 
     return (
-        <Dialog keys={["I", "Escape", "Esc"]} onKeyPress={props.toggleInventory}>
+        <Dialog keys={["I", "i", "Escape", "Esc"]} onKeyPress={props.toggleInventory}>
             {viewItem && (
                 <ViewItem open={Boolean(viewItem)} data={viewItem} onClose={(): void => setViewItem(undefined)} />
             )}

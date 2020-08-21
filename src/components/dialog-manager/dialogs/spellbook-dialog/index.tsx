@@ -34,7 +34,7 @@ const SpellbookDialog: FunctionComponent<SpellbookDialogProps> = (props: Spellbo
     return (
         <MicroDialog
             fullsize
-            keys={["B", "Escape", "Esc"]}
+            keys={["B", "b", "Escape", "Esc"]}
             onClose={props.toggleSpellbookDialog}
             onKeyPress={props.toggleSpellbookDialog}
         >

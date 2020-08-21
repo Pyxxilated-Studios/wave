@@ -18,7 +18,7 @@ type JournalDialogProps = DispatchProps;
 
 const JournalDialog: FunctionComponent<JournalDialogProps> = (props: JournalDialogProps) => {
     return (
-        <Dialog keys={["J", "Escape", "Esc"]} onKeyPress={(): void => props.toggleJournal()}>
+        <Dialog keys={["J", "j", "Escape", "Esc"]} onKeyPress={(): void => props.toggleJournal()}>
             <Journal disabled={false} />
         </Dialog>
     );

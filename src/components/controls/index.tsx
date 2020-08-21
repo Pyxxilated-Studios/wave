@@ -66,33 +66,43 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
                 case "Up": // IE/Edge specific value
                 case "ArrowUp":
                 case "W":
+                case "w":
                     return movePlayer(Direction.North);
                 case "Down": // IE/Edge specific value
                 case "ArrowDown":
                 case "S":
+                case "s":
                     return movePlayer(Direction.South);
                 case "Right": // IE/Edge specific value
                 case "ArrowRight":
                 case "D":
+                case "d":
                     return movePlayer(Direction.East);
                 case "Left": // IE/Edge specific value
                 case "ArrowLeft":
                 case "A":
+                case "a":
                     return movePlayer(Direction.West);
                 case "I":
+                case "i":
                     return toggleInventory();
                 case "J":
+                case "j":
                     return toggleJournal();
                 case "B":
+                case "b":
                     return toggleSpellbookDialog();
                 case "U":
+                case "u":
                     return openAbilityScoreDialog();
                 case "H":
+                case "h":
                     return toggleTutorial();
+                case "C":
+                case "c":
+                    return playerCastSpell();
                 case " ":
                     return playerAttack();
-                case "C":
-                    return playerCastSpell();
                 default:
                     break;
             }

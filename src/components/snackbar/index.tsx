@@ -142,7 +142,7 @@ class Snackbar extends Component<SnackbarProps, State> {
         return (
             <Dialog
                 className="snackbar-container white-border"
-                keys={["E"]}
+                keys={["E", "e"]}
                 onKeyPress={(): void => {
                     if (this.state.equip) this.handleEquip();
                 }}
