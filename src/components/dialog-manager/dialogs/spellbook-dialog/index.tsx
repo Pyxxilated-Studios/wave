@@ -6,7 +6,6 @@ import { PlayerState } from "../../../../store/player/types";
 import { StatsState } from "../../../../store/stats/types";
 
 import { Spell } from "../../../../types";
-import { B_KEY, ESC_KEY } from "../../../../constants";
 
 import toggleSpellbookDialog from "../../actions/toggle-spellbook-dialog";
 
@@ -35,7 +34,7 @@ const SpellbookDialog: FunctionComponent<SpellbookDialogProps> = (props: Spellbo
     return (
         <MicroDialog
             fullsize
-            keys={[B_KEY, ESC_KEY]}
+            keys={["B", "b", "Escape", "Esc"]}
             onClose={props.toggleSpellbookDialog}
             onKeyPress={props.toggleSpellbookDialog}
         >

@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../button";
-import { ENTER_KEY, ESC_KEY } from "../../constants";
 
 import "./styles.scss";
 
@@ -23,9 +22,9 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props: ConfirmDial
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
             // check if a key is pressed and bound to an action
-            if (event.keyCode === ENTER_KEY) {
+            if (event.key === "Enter") {
                 props.confirm();
-            } else if (event.keyCode === ESC_KEY) {
+            } else if (event.key === "Escape" || event.key === "Esc") {
                 props.onClose();
             }
         },

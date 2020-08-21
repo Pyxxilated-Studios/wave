@@ -2,7 +2,6 @@ import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../../../store";
-import { ENTER_KEY, ESC_KEY } from "../../../../constants";
 import { closeSettings } from "../../../../store/dialog/actions";
 import resetGameState from "../../../world/actions/reset-game";
 
@@ -50,9 +49,9 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
 
     return (
         <Dialog
-            keys={[ENTER_KEY, ESC_KEY]}
+            keys={["Enter", "Escape", "Esc"]}
             onKeyPress={(key): void => {
-                if (key === ENTER_KEY) {
+                if (key === "Enter") {
                     setConfirmQuit(true);
                 } else {
                     props.closeSettings();

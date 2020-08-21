@@ -6,8 +6,6 @@ import { RootDispatch, RootState } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
 import { reset } from "../../../../store/system/actions";
 
-import { ENTER_KEY } from "../../../../constants";
-
 import Button from "../../../button";
 import Dialog from "../../../dialog";
 
@@ -49,7 +47,7 @@ const GameOver: FunctionComponent<GameOverProps> = forwardRef((props: GameOverPr
 
     return (
         <Dialog
-            keys={[ENTER_KEY]}
+            keys={["Enter"]}
             onKeyPress={(): void => {
                 if (ready) resetGameState();
             }}

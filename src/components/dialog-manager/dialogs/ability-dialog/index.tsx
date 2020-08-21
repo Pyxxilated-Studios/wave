@@ -7,7 +7,6 @@ import { SystemState } from "../../../../store/system/types";
 import { setAbilityIndicator } from "../../../../store/system/actions";
 
 import { Ability } from "../../../../types";
-import { U_KEY, ENTER_KEY, ESC_KEY } from "../../../../constants";
 
 import AbilityScore from "./ability-score";
 import Button from "../../../button";
@@ -52,7 +51,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
         return (
             <MicroDialog
                 fullsize
-                keys={[ESC_KEY, U_KEY]}
+                keys={["Escape", "Esc", "U"]}
                 onKeyPress={props.confirmAbilityScoreDialog}
                 onClose={() => {
                     if (props.system.abilityScoreIndicator) {
@@ -132,11 +131,11 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
 
     return (
         <Dialog
-            keys={[ENTER_KEY, ESC_KEY, U_KEY]}
+            keys={["Enter", "Esc", "Escape", "U", "u"]}
             onKeyPress={(key): void => {
-                if (key === ENTER_KEY) {
+                if (key === "Enter") {
                     props.confirmAbilityScoreDialog();
-                } else if (key === ESC_KEY) {
+                } else if (key === "Escape" || key === "Esc") {
                     props.backToCharacterCreation();
                 }
             }}
