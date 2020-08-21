@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { RootState, RootDispatch } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
 
-import { ESC_KEY, ENTER_KEY } from "../../../../constants";
-
 import SelectButtonGroup from "../../../select-button/group";
 import Button from "../../../button";
 import Dialog from "../../../dialog";
@@ -47,12 +45,12 @@ const CharacterCreation: FunctionComponent<CharacterCreationProps> = (props: Cha
 
     return (
         <Dialog
-            keys={[ENTER_KEY, ESC_KEY]}
+            keys={["Enter", "Escape", "Esc"]}
             onKeyPress={(key): void => {
-                if (key === ENTER_KEY) {
+                if (key === "Enter") {
                     // For whatever reason, we have to use a ref othwerwise the component isn't updated correctly
                     continueRef.current?.click();
-                } else if (key === ESC_KEY) {
+                } else if (key === "Escape" || key === "Esc") {
                     props.mainGameDialog();
                 }
             }}

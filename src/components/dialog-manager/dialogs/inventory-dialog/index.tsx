@@ -2,7 +2,6 @@ import React, { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { ItemType } from "../../../../types";
-import { I_KEY, ESC_KEY } from "../../../../constants";
 
 import Dialog from "../../../dialog";
 import BackpackItems from "../../../backpack-items";
@@ -26,7 +25,7 @@ const InventoryDialog: FunctionComponent<InventoryDialogProps> = (props: Invento
     const [viewItem, setViewItem] = useState<ItemType | undefined>(undefined);
 
     return (
-        <Dialog keys={[I_KEY, ESC_KEY]} onKeyPress={props.toggleInventory}>
+        <Dialog keys={["I", "Escape", "Esc"]} onKeyPress={props.toggleInventory}>
             {viewItem && (
                 <ViewItem open={Boolean(viewItem)} data={viewItem} onClose={(): void => setViewItem(undefined)} />
             )}

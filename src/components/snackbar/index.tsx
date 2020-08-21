@@ -13,7 +13,7 @@ import { ItemType } from "../../types";
 
 import Dialog from "../dialog";
 
-import { SNACK_DURATION, E_KEY } from "../../constants";
+import { SNACK_DURATION } from "../../constants";
 
 import "./styles.scss";
 
@@ -142,7 +142,7 @@ class Snackbar extends Component<SnackbarProps, State> {
         return (
             <Dialog
                 className="snackbar-container white-border"
-                keys={[E_KEY]}
+                keys={["E"]}
                 onKeyPress={(): void => {
                     if (this.state.equip) this.handleEquip();
                 }}

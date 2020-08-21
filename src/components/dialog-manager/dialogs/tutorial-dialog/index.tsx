@@ -21,8 +21,6 @@ import getNextPage from "./actions/get-next-page";
 import getPreviousPage from "./actions/get-previous-page";
 import toggleTutorial from "../../actions/toggle-tutorial";
 
-import { H_KEY } from "../../../../constants";
-
 import "./styles.scss";
 
 interface DispatchProps {
@@ -65,7 +63,7 @@ const TutorialDialog: FunctionComponent<TutorialDialogProps> = (props: TutorialD
 
     return (
         <MicroDialog
-            keys={[H_KEY]}
+            keys={["H"]}
             onClose={props.toggleTutorial}
             onKeyPress={(): void => props.changeTutorialPage(nextPage)}
             fullsize

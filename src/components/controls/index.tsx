@@ -16,25 +16,7 @@ import { castSpell } from "../player/actions/player-cast-spell";
 import toggleInventory from "../dialog-manager/actions/toggle-inventory";
 import abilityScoreDialog from "../dialog-manager/actions/ability-score-dialog";
 
-import {
-    LEFT_KEY,
-    A_KEY,
-    UP_KEY,
-    W_KEY,
-    RIGHT_KEY,
-    D_KEY,
-    DOWN_KEY,
-    S_KEY,
-    ANIMATION_SPEED,
-    I_KEY,
-    ESC_KEY,
-    U_KEY,
-    SPACE_KEY,
-    J_KEY,
-    C_KEY,
-    B_KEY,
-    H_KEY,
-} from "../../constants";
+import { ANIMATION_SPEED } from "../../constants";
 import toggleJournal from "../dialog-manager/actions/toggle-journal";
 import toggleSpellbookDialog from "../dialog-manager/actions/toggle-spellbook-dialog";
 import toggleTutorial from "../dialog-manager/actions/toggle-tutorial";
@@ -77,34 +59,39 @@ const Controls: FunctionComponent<ControlProps> = (props: ControlProps) => {
     const handleKeyPress = useCallback(
         (event: KeyboardEvent): void => {
             event.preventDefault();
-            switch (event.keyCode) {
-                case ESC_KEY:
+            switch (event.key) {
+                case "Escape":
+                case "Esc":
                     return toggleSettings();
-                case UP_KEY:
-                case W_KEY:
+                case "Up": // IE/Edge specific value
+                case "ArrowUp":
+                case "W":
                     return movePlayer(Direction.North);
-                case DOWN_KEY:
-                case S_KEY:
+                case "Down": // IE/Edge specific value
+                case "ArrowDown":
+                case "S":
                     return movePlayer(Direction.South);
-                case RIGHT_KEY:
-                case D_KEY:
+                case "Right": // IE/Edge specific value
+                case "ArrowRight":
+                case "D":
                     return movePlayer(Direction.East);
-                case LEFT_KEY:
-                case A_KEY:
+                case "Left": // IE/Edge specific value
+                case "ArrowLeft":
+                case "A":
                     return movePlayer(Direction.West);
-                case I_KEY:
+                case "I":
                     return toggleInventory();
-                case J_KEY:
+                case "J":
                     return toggleJournal();
-                case B_KEY:
+                case "B":
                     return toggleSpellbookDialog();
-                case U_KEY:
+                case "U":
                     return openAbilityScoreDialog();
-                case H_KEY:
+                case "H":
                     return toggleTutorial();
-                case SPACE_KEY:
+                case " ":
                     return playerAttack();
-                case C_KEY:
+                case "C":
                     return playerCastSpell();
                 default:
                     break;

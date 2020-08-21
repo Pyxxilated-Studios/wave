@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 
 import { RootDispatch } from "../../../../store";
 
-import { J_KEY, ESC_KEY } from "../../../../constants";
-
 import Dialog from "../../../dialog";
 import Journal from "../../../journal";
 
@@ -20,7 +18,7 @@ type JournalDialogProps = DispatchProps;
 
 const JournalDialog: FunctionComponent<JournalDialogProps> = (props: JournalDialogProps) => {
     return (
-        <Dialog keys={[J_KEY, ESC_KEY]} onKeyPress={(): void => props.toggleJournal()}>
+        <Dialog keys={["J", "Escape", "Esc"]} onKeyPress={(): void => props.toggleJournal()}>
             <Journal disabled={false} />
         </Dialog>
     );
