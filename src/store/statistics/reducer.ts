@@ -1,9 +1,9 @@
 import { StatisticsState, StatisticsActionType } from "./types";
 import { MONSTER_DIED, DAMAGE_TO_MONSTER } from "../monsters/types";
 import { MOVE_PLAYER, USE_PROJECTILE } from "../player/types";
+import { GAIN_EXPERIENCE, DAMAGE_TO_PLAYER } from "../stats/types";
 
 import { Spell } from "../../types";
-import { GAIN_EXPERIENCE, DAMAGE_TO_PLAYER } from "../stats/types";
 
 const initialState: StatisticsState = {
     steps: 0,

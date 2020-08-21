@@ -1,7 +1,7 @@
-import cloneDeep from 'lodash.clonedeep';
-import { Tile } from '../types';
+import cloneDeep from "lodash.clonedeep";
+import { Tile } from "../types";
 
-export const attachMetaToTiles = (tiles: Tile[][]) => {
+export const attachMetaToTiles = (tiles: Tile[][]): Tile[][] => {
     const newTiles = cloneDeep(tiles);
 
     newTiles.forEach((_, tileRowIndex) => {
