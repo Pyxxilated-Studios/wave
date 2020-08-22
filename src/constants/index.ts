@@ -1,3 +1,5 @@
+import { Dimension } from "../types";
+
 // Size of the viewport
 export const GAME_VIEWPORT_SIZE = 350;
 export const GAME_VIEWPORT_SIZE_LARGE = 400;
@@ -21,8 +23,8 @@ const TILE_HEIGHT = 32;
 const TILE_WIDTH = 32;
 
 // Map size
-export const MAP_DIMENSIONS = { width: TILE_WIDTH, height: TILE_HEIGHT };
-export const MAP_SIZE = {
+export const MAP_DIMENSIONS: Dimension = { width: TILE_WIDTH, height: TILE_HEIGHT };
+export const MAP_SIZE: Dimension = {
     width: TILE_WIDTH,
     height: TILE_HEIGHT,
 };
@@ -42,6 +44,11 @@ export const SIGHT_RADIUS = 3;
 // Configuration for random map generation
 export const MAX_TUNNELS = 60;
 export const MAX_TUNNEL_LENGTH = 5;
+export const ROOM_COUNT = 5;
+export const MIN_ROOM_DIMENSIONS: Dimension = { width: 2, height: 2 };
+export const MAX_ROOM_DIMENSIONS: Dimension = { width: 5, height: 5 };
+export const RANDOM_CONNECTIONS = 3;
+export const SPURS = 5;
 
 // Set the number of tiles to pad the map with (so the player cant see edge)
 export const MAP_PADDING_DISTANCE = 5;

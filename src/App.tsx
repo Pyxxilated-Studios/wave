@@ -113,8 +113,6 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     const disableJournal =
         gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
 
-    console.log(gameStart, gameOver, !gameRunning, !journalLittleSideMenu, !props.dialog.journalSideMenuOpen);
-
     return (
         <div className="centered flex-row">
             <div

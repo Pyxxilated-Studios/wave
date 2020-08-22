@@ -3,6 +3,11 @@ export interface Point {
     y: number;
 }
 
+export interface Dimension {
+    width: number;
+    height: number;
+}
+
 export interface Tile {
     location: Point;
     value: number;
