@@ -39,7 +39,7 @@ jobs:
               run: eval $(ssh-agent -s)
 
             - name: Add SSH keys
-              run: echo "${{ SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
+              run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
 
             - name: Create SSH directory with permissions
               run: |
@@ -58,4 +58,4 @@ jobs:
                   curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
                   yarn install --frozen-lockfile
                   yarn build
-                  rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build gitlab@${{ SERVER_IP }}:/var/www/wave/
+                  rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build gitlab@${{ secrets.SERVER_IP }}:/var/www/wave/
