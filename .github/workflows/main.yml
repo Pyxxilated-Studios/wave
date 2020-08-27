@@ -34,17 +34,22 @@ jobs:
 
             - name: Install rsync
               run: which rsync || (apt update -y && apt install rsync -y)
+          
+            - name: Install rustup/wasm-pack
+              run: |
+                  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
+                  source ~/.cargo/env
+                  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
             - name: Run SSH agent
               run: eval $(ssh-agent -s)
 
-            - name: Add SSH keys
-              run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
-
-            - name: Create SSH directory with permissions
+            - name: Get SSH key
               run: |
                   mkdir -p ~/.ssh
                   chmod 700 ~/.ssh
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/key
+                  chmod 600 ~/.ssh/key
 
             - name: Scan keys from the server
               run: |
@@ -53,9 +58,6 @@ jobs:
 
             - name: Deploy
               run: |
-                  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
-                  source $HOME/.cargo/env
-                  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
                   yarn install --frozen-lockfile
                   yarn build
-                  rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build gitlab@${{ secrets.SERVER_IP }}:/var/www/wave/
+                  rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" build gitlab@${{ secrets.SERVER_IP }}:/var/www/wave/
