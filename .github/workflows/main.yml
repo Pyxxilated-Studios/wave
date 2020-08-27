@@ -51,11 +51,6 @@ jobs:
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/key
                   chmod 600 ~/.ssh/key
 
-            - name: Scan keys from the server
-              run: |
-                  ssh-keyscan ${{ secrets.SERVER_IP }}
-                  chmod 644 ~/.ssh/known_hosts
-
             - name: Deploy
               run: |
                   yarn install --frozen-lockfile
