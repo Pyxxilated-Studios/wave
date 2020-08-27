@@ -48,7 +48,7 @@ jobs:
 
             - name: Scan keys from the server
               run: |
-                  ssh-keyscan ${{ SERVER_IP }}
+                  ssh-keyscan ${{ secrets.SERVER_IP }}
                   chmod 644 ~/.ssh/known_hosts
 
             - name: Deploy
