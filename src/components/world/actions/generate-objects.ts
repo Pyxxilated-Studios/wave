@@ -1,8 +1,15 @@
 import { Point, GameMap } from "../../../types";
-
-import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
 import { MAP_DIMENSIONS } from "../../../constants";
 
+import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
+import { randBetween } from "../../../utils/rand_between";
+
+/**
+ * Generate a shop in a random position
+ *
+ * @param map The map to generate the shop in
+ * @param availableWalls The walls that are adjacent to floor tiles
+ */
 const generateShop = (map: GameMap, availableWalls: Point[]): GameMap => {
     if (availableWalls.length > 0) {
         const randomIndex = Math.floor(Math.random() * availableWalls.length);
@@ -66,19 +73,15 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
         }
     }
 
-    // generate a random number of chests between 0 - 5
-    const max = 5;
-    const min = 0;
-    const randomChests = Math.round(Math.random() * (max - min) + min);
+    const randomChests = randBetween(0, 5);
 
     // place the chests on empty tiles
     for (let x = 0; x < randomChests; x++) {
         if (availableTiles.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableTiles.length);
-            const tile = availableTiles[randomIndex];
+            const tile = availableTiles.splice(randomIndex, 1)[0];
 
             map.tiles[tile.y][tile.x].value = 4;
-            availableTiles.splice(randomIndex, 1);
         }
     }
 

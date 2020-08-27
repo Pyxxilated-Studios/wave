@@ -99,25 +99,23 @@ const corridorBetweenPoints = (x1: number, y1: number, x2: number, y2: number, j
     }
 };
 
-const joinRooms = (room1: Room, room2: Room, joinBy?: string) => {
-    const [r1, r2] = [room1, room2].sort((a, b) => a.x - b.x);
+const joinRooms = (roomOne: Room, roomTwo: Room, joinBy?: string) => {
+    const px1 = roomOne.x + roomOne.width - 1;
+    const py1 = roomOne.y + roomOne.height - 1;
 
-    const px1 = r1.x + r1.width - 1;
-    const py1 = r1.y + r1.height - 1;
+    const px2 = roomTwo.x + roomTwo.width - 1;
+    const py2 = roomTwo.y + roomTwo.height - 1;
 
-    const px2 = r2.x + r2.width - 1;
-    const py2 = r2.y + r2.height - 1;
-
-    if (r1.x < r2.x + r2.width && r2.x < r1.x + r1.width) {
-        const jx = randBetween(r2.x, px1);
-        const tempY = [r1.y, r2.y, py1, py2].sort();
+    if (roomOne.x < roomTwo.x + roomTwo.width && roomTwo.x < roomOne.x + roomOne.width) {
+        const jx = randBetween(roomTwo.x, px1);
+        const tempY = [roomOne.y, roomTwo.y, py1, py2].sort();
         const jy1 = tempY[1] + 1;
         const jy2 = tempY[2] - 1;
 
         return corridorBetweenPoints(jx, jy1, jx, jy2);
-    } else if (r1.y < r2.y + r2.height && r2.y < r1.y + r1.height) {
-        const jy = r2.y > r1.y ? randBetween(r2.y, py1) : randBetween(r1.y, py2);
-        const tempX = [r1.x, r2.x, px1, px2].sort();
+    } else if (roomOne.y < roomTwo.y + roomTwo.height && roomTwo.y < roomOne.y + roomOne.height) {
+        const jy = roomTwo.y > roomOne.y ? randBetween(roomTwo.y, py1) : randBetween(roomOne.y, py2);
+        const tempX = [roomOne.x, roomTwo.x, px1, px2].sort();
 
         const jx1 = tempX[1] + 1;
         const jx2 = tempX[2] - 1;
@@ -127,33 +125,33 @@ const joinRooms = (room1: Room, room2: Room, joinBy?: string) => {
         const join = joinBy ? joinBy : ["top", "bottom"][Math.floor(Math.random() * 2)];
 
         if (join === "top") {
-            if (r2.y > r1.y) {
+            if (roomTwo.y > roomOne.y) {
                 const jx1 = px1 + 1;
-                const jy1 = randBetween(r1.y, py1);
-                const jx2 = randBetween(r2.x, px2);
-                const jy2 = r2.y - 1;
+                const jy1 = randBetween(roomOne.y, py1);
+                const jx2 = randBetween(roomTwo.x, px2);
+                const jy2 = roomTwo.y - 1;
 
                 return corridorBetweenPoints(jx1, jy1, jx2, jy2, "bottom");
             } else {
-                const jx1 = randBetween(r1.x, px1);
-                const jy1 = r1.y - 1;
-                const jx2 = r2.x - 1;
-                const jy2 = randBetween(r2.y, py2);
+                const jx1 = randBetween(roomOne.x, px1);
+                const jy1 = roomOne.y - 1;
+                const jx2 = roomTwo.x - 1;
+                const jy2 = randBetween(roomTwo.y, py2);
 
                 return corridorBetweenPoints(jx1, jy1, jx2, jy2, "top");
             }
         } else {
-            if (r2.y > r1.y) {
-                const jx1 = randBetween(r1.x, px1);
+            if (roomTwo.y > roomOne.y) {
+                const jx1 = randBetween(roomOne.x, px1);
                 const jy1 = py1 + 1;
-                const jx2 = r2.x - 1;
-                const jy2 = randBetween(r2.y, py2);
+                const jx2 = roomTwo.x - 1;
+                const jy2 = randBetween(roomTwo.y, py2);
 
                 return corridorBetweenPoints(jx1, jy1, jx2, jy2, "top");
             } else {
                 const jx1 = py1 + 1;
-                const jy1 = randBetween(r1.y, py1);
-                const jx2 = randBetween(r2.x, px2);
+                const jy1 = randBetween(roomOne.y, py1);
+                const jx2 = randBetween(roomTwo.x, px2);
                 const jy2 = px2 + 1;
 
                 return corridorBetweenPoints(jx1, jy1, jx2, jy2, "bottom");
@@ -173,7 +171,7 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     // Change the walls of the dungeon as the floors get higher
     const wallType = 5 + Math.floor(floorNumber / 30);
 
-    // Create a map of walls to carve rooms and hallways from
+    // Create a map of walls to carve rooms and corridors from
     const map = createMapOfWalls(wallType);
 
     const rooms: (Dimension & Point)[] = [
@@ -197,25 +195,28 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
         }
     }
 
+    // Sort the rooms from left to right just to make the rest of this simpler
+    rooms.sort((r1, r2) => r1.x - r2.x);
+
     for (let i = 0; i < rooms.length - 1; i++) {
         corridors.push(joinRooms(rooms[i], rooms[i + 1]));
     }
 
     // for (let i = 0; i < RANDOM_CONNECTIONS; i++) {
-    //     const room_1 = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     const room_2 = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     corridors.push(joinRooms(room_1, room_2));
+    //     const roomOne = rooms[Math.floor(Math.random() * (rooms.length - 1))];
+    //     const roomTwo = rooms[Math.floor(Math.random() * (rooms.length - 1))];
+    //     corridors.push(joinRooms(roomOne, roomTwo));
     // }
 
     // for (let i = 0; i < SPURS; i++) {
-    //     const room_1 = {
+    //     const roomOne = {
     //         x: randBetween(2, MAP_DIMENSIONS.width - 2),
     //         y: randBetween(2, MAP_DIMENSIONS.height - 2),
     //         width: 1,
     //         height: 1,
     //     };
-    //     const room_2 = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     corridors.push(joinRooms(room_1, room_2));
+    //     const roomTwo = rooms[Math.floor(Math.random() * (rooms.length - 1))];
+    //     corridors.push(joinRooms(roomOne, roomTwo));
     // }
 
     rooms.forEach((room) => {
@@ -227,90 +228,29 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     });
 
     corridors.forEach((corridor) => {
-        for (let h = 0; h < Math.abs(corridor[0].y - corridor[1].y) + 1; h++) {
-            for (let w = 0; w < Math.abs(corridor[0].x - corridor[1].x) + 1; w++) {
-                map.tiles[Math.min(corridor[0].y, corridor[1].y) + h][
-                    Math.min(corridor[0].x, corridor[1].x) + w
-                ].value = 0;
+        const startx = Math.min(corridor[0].x, corridor[1].x);
+        const starty = Math.min(corridor[0].y, corridor[1].y);
+
+        for (let h = 0; h <= Math.abs(corridor[0].y - corridor[1].y); h++) {
+            for (let w = 0; w <= Math.abs(corridor[0].x - corridor[1].x); w++) {
+                map.tiles[starty + h][startx + w].value = 0;
             }
         }
 
+        // The corridor has a bend in it
         if (corridor.length === 3) {
-            for (let h = 0; h < Math.abs(corridor[1].y - corridor[2].y) + 1; h++) {
-                for (let w = 0; w < Math.abs(corridor[1].x - corridor[2].x) + 1; w++) {
-                    map.tiles[Math.min(corridor[1].y, Math.min(corridor[2].y)) + h][
-                        Math.min(corridor[1].x, corridor[2].x) + w
-                    ].value = 0;
+            const startx = Math.min(corridor[1].x, corridor[2].x);
+            const starty = Math.min(corridor[1].y, corridor[2].y);
+
+            for (let h = 0; h <= Math.abs(corridor[1].y - corridor[2].y); h++) {
+                for (let w = 0; w <= Math.abs(corridor[1].x - corridor[2].x); w++) {
+                    map.tiles[starty + h][startx + w].value = 0;
                 }
             }
         }
     });
 
-    // Array to get a random direction from (left,right,up,down)
-    // const directions: Point[] = [
-    //     { x: -1, y: 0 },
-    //     { x: 1, y: 0 },
-    //     { x: 0, y: -1 },
-    //     { x: 0, y: 1 },
-    // ];
-
-    // // store the max tunnels in a local variable that can be decremented
-    // let maxTunnels = MAX_TUNNELS;
-
-    // // our current row - start at a random spot
-    // let currentRow = startPosition.y;
-    // // our current column - start at a random spot
-    // let currentColumn = startPosition.x;
-
-    // // save the last direction we went
-    // let lastDirection: Point = { x: 0, y: 0 };
-
-    // // next turn/direction - holds a value from directions
-    // let randomDirection;
-
-    // // lets create some tunnels - while maxTunnels, MAP_DIMENSIONS, and MAX_TUNNEL_LENGTH is greater than 0.
-    // while (maxTunnels && MAP_DIMENSIONS && MAX_TUNNEL_LENGTH) {
-    //     // lets get a random direction - until it is a perpendicular to our lastDirection
-    //     // if the last direction = left or right,
-    //     // then our new direction has to be up or down,
-    //     // and vice versa
-    //     do {
-    //         randomDirection = directions[Math.floor(Math.random() * directions.length)];
-    //     } while (
-    //         (randomDirection.x === -lastDirection.x && randomDirection.y === -lastDirection.y) ||
-    //         (randomDirection.x === lastDirection.x && randomDirection.y === lastDirection.y)
-    //     );
-
-    //     const randomLength = Math.ceil(Math.random() * MAX_TUNNEL_LENGTH); // length the next tunnel will be (max of maxLength)
-    //     let tunnelLength = 0; // current length of tunnel being created
-
-    //     // lets loop until our tunnel is long enough or until we hit an edge
-    //     while (tunnelLength < randomLength) {
-    //         //break the loop if it is going out of the map
-    //         if (
-    //             (currentRow === 0 && randomDirection.x === -1) ||
-    //             (currentColumn === 0 && randomDirection.y === -1) ||
-    //             (currentRow === MAP_DIMENSIONS.height - 1 && randomDirection.x === 1) ||
-    //             (currentColumn === MAP_DIMENSIONS.width - 1 && randomDirection.y === 1)
-    //         ) {
-    //             break;
-    //         } else {
-    //             map.tiles[currentRow][currentColumn].value = 0; //set the value of the index in map to 0 (a tunnel, making it one longer)
-    //             currentRow += randomDirection.x; //add the value from randomDirection to row and col (-1, 0, or 1) to update our location
-    //             currentColumn += randomDirection.y;
-    //             tunnelLength++; //the tunnel is now one longer, so lets increment that variable
-    //         }
-    //     }
-
-    //     if (tunnelLength) {
-    //         // update our variables unless our last loop broke before we made any part of a tunnel
-    //         lastDirection = randomDirection; //set lastDirection, so we can remember what way we went
-    //         maxTunnels--; // we created a whole tunnel so lets decrement how many we have left to create
-    //     }
-    // }
-
-    // all our tunnels have been created and now we run placeObjects(),
-    // which will complete our map, so lets return it to our render()
+    // Finished dungeon generation, so lets populate it with some objects
     return generateObjects(map, floorNumber, startPosition, wallType);
 };
 

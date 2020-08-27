@@ -19,8 +19,8 @@ export const SPRITE_SIZE = 32;
 export const SPRITE_PIXELS = SPRITE_SIZE.toString() + "px";
 
 // Number of tiles in the map
-const TILE_HEIGHT = 32;
-const TILE_WIDTH = 32;
+const TILE_HEIGHT = 64;
+const TILE_WIDTH = 64;
 
 // Map size
 export const MAP_DIMENSIONS: Dimension = { width: TILE_WIDTH, height: TILE_HEIGHT };
@@ -45,10 +45,10 @@ export const SIGHT_RADIUS = 3;
 export const MAX_TUNNELS = 60;
 export const MAX_TUNNEL_LENGTH = 5;
 export const ROOM_COUNT = 5;
-export const MIN_ROOM_DIMENSIONS: Dimension = { width: 2, height: 2 };
-export const MAX_ROOM_DIMENSIONS: Dimension = { width: 5, height: 5 };
-export const RANDOM_CONNECTIONS = 3;
-export const SPURS = 5;
+export const MIN_ROOM_DIMENSIONS: Dimension = { width: 5, height: 5 };
+export const MAX_ROOM_DIMENSIONS: Dimension = { width: 10, height: 10 };
+export const RANDOM_CONNECTIONS = 1;
+export const SPURS = 3;
 
 // Set the number of tiles to pad the map with (so the player cant see edge)
 export const MAP_PADDING_DISTANCE = 5;
