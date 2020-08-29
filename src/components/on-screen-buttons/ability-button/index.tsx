@@ -38,7 +38,7 @@ const AbilityButton: FunctionComponent<AbilityButtonProps> = (props: AbilityButt
 const mapStateToProps = (state: RootState): StateProps => ({ system: state.system });
 
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
-    abilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
+    abilityScoreDialog: (): void => dispatch(abilityScoreDialog(true)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AbilityButton);

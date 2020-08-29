@@ -13,15 +13,18 @@ import {
     UNEQUIP_ITEM,
     DAMAGE_TO_PLAYER,
 } from "./types";
+import { LEVEL_UP } from "../journal/types";
 import { RESET, LOAD } from "../system/types";
 import { USE_PROJECTILE } from "../player/types";
+import { CREATE_CHARACTER } from "../dialog/types";
 
 import { Spell } from "../../types";
 
-import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
 import calculateModifier from "../../utils/calculate-modifier";
 import { calculateDefenceBonus } from "../../utils/calculate-defence-bonus";
-import { CREATE_CHARACTER } from "../dialog/types";
+import { calculateMaxHealthPool, calculateMaxManaPool } from "../../utils/calculate-max-pool";
+import { isAbilityAllocationLevel } from "../../utils/is-ability-allocation-level";
+import { LEVEL_UP_ABILITY_POINTS } from "../../constants";
 
 const initialState: StatsState = {
     abilities: {
@@ -86,6 +89,17 @@ const StatsReducer = (state = initialState, action: StatsActionType): StatsState
             state.defence = state.defence - prevDefenceBonus + currDefenceBonus;
 
             return { ...state, abilities: { ...action.abilities, points: action.points } };
+        }
+
+        case LEVEL_UP: {
+            return {
+                ...state,
+                abilities: {
+                    ...state.abilities,
+                    points:
+                        state.abilities.points + (isAbilityAllocationLevel(action.level) ? LEVEL_UP_ABILITY_POINTS : 0),
+                },
+            };
         }
 
         case CREATE_CHARACTER:

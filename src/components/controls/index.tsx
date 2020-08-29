@@ -152,7 +152,7 @@ const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
     movePlayer: (direction: Direction): void => dispatch(move(direction)),
     toggleInventory: (): void => dispatch(toggleInventory()),
     toggleSettings: (): void => dispatch(toggleSettings()),
-    openAbilityScoreDialog: (): void => dispatch(abilityScoreDialog(false)),
+    openAbilityScoreDialog: (): void => dispatch(abilityScoreDialog(true)),
     playerAttack: (): void => dispatch(playerAttack()),
     toggleJournal: (): void => dispatch(toggleJournal()),
     toggleSpellbookDialog: (): void => dispatch(toggleSpellbookDialog()),
