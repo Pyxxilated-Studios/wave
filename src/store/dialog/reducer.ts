@@ -33,7 +33,6 @@ const initialState: DialogState = {
         journalDialog: false,
         spellbookDialog: false,
         levelUp: false,
-        fromLevelUp: false,
         abilityDialog: false,
         playerOpenedAbilityDialog: false,
         characterCreation: false,

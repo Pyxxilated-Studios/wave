@@ -94,7 +94,6 @@ export interface PauseReason {
     tutorialDialog?: boolean;
     tutorialPage?: string;
     levelUp?: boolean;
-    fromLevelUp?: boolean;
     abilityDialog?: boolean;
     playerOpenedAbilityDialog?: boolean;
     characterCreation?: boolean;

@@ -2,6 +2,7 @@ import { ResetAction, LoadAction } from "../system/types";
 import { Abilities, Character, ItemType, Armour, Weapon } from "../../types";
 import { UseProjectileAction } from "../player/types";
 import { CreateCharacterAction } from "../dialog/types";
+import { LevelUpAction } from "../journal/types";
 
 export interface StatsState {
     abilities: Abilities & {
@@ -103,4 +104,5 @@ export type StatsActionType =
     | UseProjectileAction
     | CreateCharacterAction
     | LoadAction
+    | LevelUpAction
     | ResetAction;

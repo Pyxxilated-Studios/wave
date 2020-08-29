@@ -42,7 +42,7 @@ export interface CriticalHitAction {
 }
 
 export const LEVEL_UP = "LEVEL_UP";
-interface LevelUpAction {
+export interface LevelUpAction {
     type: typeof LEVEL_UP;
     level: number;
     health: number;

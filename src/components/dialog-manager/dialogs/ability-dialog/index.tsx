@@ -47,101 +47,11 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
         charisma: minCharisma,
     } = props.dialog.abilitiesMinimum;
 
-    if (props.dialog.reason.playerOpenedAbilityDialog || props.dialog.reason.fromLevelUp) {
-        return (
-            <MicroDialog
-                fullsize
-                keys={["Escape", "Esc", "U"]}
-                onKeyPress={props.confirmAbilityScoreDialog}
-                onClose={() => {
-                    if (props.system.abilityScoreIndicator) {
-                        props.openedAbilityDialog();
-                    }
-
-                    props.closeDialog();
-                }}
-            >
-                <span className="ability-score-title" style={{ marginLeft: "-15px" }}>
-                    Modify your Abilities
-                </span>
-                <div className="flex-column ability-score-dialog-container">
-                    <AbilityScore
-                        name="Strength"
-                        value={strength}
-                        minValue={minStrength}
-                        increment={(): void => props.increment("strength")}
-                        decrement={(): void => props.decrement("strength")}
-                        points={points}
-                        tooltip={"Hit better up close!"}
-                    />
-                    <AbilityScore
-                        name="Constitution"
-                        value={constitution}
-                        minValue={minConstitution}
-                        increment={(): void => props.increment("constitution")}
-                        decrement={(): void => props.decrement("constitution")}
-                        points={points}
-                        tooltip={"Gain more health!"}
-                    />
-                    <AbilityScore
-                        name="Dexterity"
-                        value={dexterity}
-                        minValue={minDexterity}
-                        increment={(): void => props.increment("dexterity")}
-                        decrement={(): void => props.decrement("dexterity")}
-                        points={points}
-                        tooltip={"Defend yourself better! Hit better at range!"}
-                    />
-                    <AbilityScore
-                        name="Charisma"
-                        value={charisma}
-                        minValue={minCharisma}
-                        increment={(): void => props.increment("charisma")}
-                        decrement={(): void => props.decrement("charisma")}
-                        points={points}
-                        tooltip={"Get better prices!"}
-                    />
-                    <AbilityScore
-                        name="Intelligence"
-                        value={intelligence}
-                        minValue={minIntelligence}
-                        increment={(): void => props.increment("intelligence")}
-                        decrement={(): void => props.decrement("intelligence")}
-                        points={points}
-                        tooltip={"Gain more mana! Hit better with magic!"}
-                    />
-                    <AbilityScore
-                        name="Wisdom"
-                        value={wisdom}
-                        minValue={minWisdom}
-                        increment={(): void => props.increment("wisdom")}
-                        decrement={(): void => props.decrement("wisdom")}
-                        points={points}
-                        tooltip={"Restore more with potions!"}
-                    />
-                    <span className="ability-score-dialog-text">
-                        Ability Points remaining:
-                        <span className="ability-score-dialog-points">{points}</span>
-                    </span>
-                    <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} label="Confirm" />
-                </div>
-            </MicroDialog>
-        );
-    }
-
-    return (
-        <Dialog
-            keys={["Enter", "Esc", "Escape", "U", "u"]}
-            onKeyPress={(key): void => {
-                if (key === "Enter") {
-                    props.confirmAbilityScoreDialog();
-                } else if (key === "Escape" || key === "Esc") {
-                    props.backToCharacterCreation();
-                }
-            }}
-            goBack={props.backToCharacterCreation}
-        >
-            <span className="ability-score-title">Modify your Abilities</span>
+    const abilityScores = (
+        <>
+            <span className="ability-score-title" style={{ marginLeft: "-15px" }}>
+                Modify your Abilities
+            </span>
             <div className="flex-column ability-score-dialog-container">
                 <AbilityScore
                     name="Strength"
@@ -164,7 +74,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
                 <AbilityScore
                     name="Dexterity"
                     value={dexterity}
-                    minValue={minStrength}
+                    minValue={minDexterity}
                     increment={(): void => props.increment("dexterity")}
                     decrement={(): void => props.decrement("dexterity")}
                     points={points}
@@ -201,8 +111,43 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
                     Ability Points remaining:
                     <span className="ability-score-dialog-points">{points}</span>
                 </span>
-                <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} />
+                <Button title="Confirm" onClick={props.confirmAbilityScoreDialog} small={true} label="Confirm" />
             </div>
+        </>
+    );
+
+    if (props.dialog.reason.playerOpenedAbilityDialog) {
+        return (
+            <MicroDialog
+                fullsize
+                keys={["Escape", "Esc", "U", "u"]}
+                onKeyPress={props.confirmAbilityScoreDialog}
+                onClose={() => {
+                    if (props.system.abilityScoreIndicator) {
+                        props.openedAbilityDialog();
+                    }
+
+                    props.closeDialog();
+                }}
+            >
+                {abilityScores}
+            </MicroDialog>
+        );
+    }
+
+    return (
+        <Dialog
+            keys={["Enter", "Esc", "Escape", "U", "u"]}
+            onKeyPress={(key): void => {
+                if (key === "Enter") {
+                    props.confirmAbilityScoreDialog();
+                } else if (key === "Escape" || key === "Esc") {
+                    props.backToCharacterCreation();
+                }
+            }}
+            goBack={props.backToCharacterCreation}
+        >
+            {abilityScores}
         </Dialog>
     );
 };
