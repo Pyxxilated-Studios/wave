@@ -116,19 +116,17 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
         </>
     );
 
+    if (props.system.abilityScoreIndicator) {
+        props.openedAbilityDialog();
+    }
+
     if (props.dialog.reason.playerOpenedAbilityDialog) {
         return (
             <MicroDialog
                 fullsize
                 keys={["Escape", "Esc", "U", "u"]}
                 onKeyPress={props.confirmAbilityScoreDialog}
-                onClose={() => {
-                    if (props.system.abilityScoreIndicator) {
-                        props.openedAbilityDialog();
-                    }
-
-                    props.closeDialog();
-                }}
+                onClose={props.closeDialog}
             >
                 {abilityScores}
             </MicroDialog>
