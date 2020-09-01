@@ -43,7 +43,13 @@ const Dialog: FunctionComponent<DialogProps> = (props: DialogProps) => {
     return (
         <div className={props.className || "dialog-container white-border"} style={props.style}>
             {props.goBack && (
-                <Button icon="arrow-left" onClick={props.goBack} extraClass="dialog-back-button" label="Go Back" />
+                <Button
+                    icon="arrow-left"
+                    noBorder
+                    onClick={props.goBack}
+                    extraClass="dialog-back-button"
+                    label="Go Back"
+                />
             )}
             {props.children}
         </div>

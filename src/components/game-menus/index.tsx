@@ -41,7 +41,6 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 style={{
                     maxWidth: largeView ? 400 : 350,
                     width: largeView ? 400 : 350,
-                    top: 0,
                     justifyContent: disableInventory ? "flex-end" : "center",
                     padding: sideMenu ? "8px 0 0 8px" : 0,
                 }}
@@ -54,13 +53,11 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
 
                 <Stats largeView={largeView} sideMenu={sideMenu} disabled={disableStats || false} />
 
-                <Inventory sideMenu={sideMenu} disabled={disableInventory} />
-                <JournalButton sideMenu={sideMenu} disabled={disableInventory} />
-
                 <Snackbar largeView={largeView} sideMenu={sideMenu} />
 
-                <div className="flex-column">
-                    {/* <GameMusic sideMenu={sideMenu} /> */}
+                <div className="flex-row">
+                    <Inventory sideMenu={sideMenu} disabled={disableInventory} />
+                    <JournalButton sideMenu={sideMenu} disabled={disableInventory} />
                     <GameSettings />
                 </div>
             </div>

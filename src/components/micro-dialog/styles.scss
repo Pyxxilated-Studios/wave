@@ -21,12 +21,12 @@
         right: 0;
         top: 0;
 
-        font-size: 24px;
+        font-size: var(--text-size);
 
         border-left: 1px solid;
         border-bottom: 1px solid;
         border-radius: 2px;
 
-        padding: 7px 12px;
+        padding: 0.5em 0.75em;
     }
 }

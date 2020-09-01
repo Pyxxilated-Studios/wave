@@ -35,7 +35,7 @@ const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButt
     if (props.disabled) return null;
 
     return (
-        <div className="flex-row journal-button-container">
+        <div className="journal-button-container">
             <Button
                 onClick={props.toggleJournal}
                 icon={"book"}
@@ -47,6 +47,7 @@ const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButt
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     backgroundColor: "var(--dark-gray)",
+                    margin: ".5em",
                 }}
             />
         </div>

@@ -9,6 +9,9 @@ html {
     --light-red: #ff593b;
     --purple: #b666d2;
     --transparent: rgba(0, 0, 0, 0);
+    --text-size: 16px;
+    --title-size: 1.5em;
+    --icon-size: 1.5em;
 }
 
 body {
@@ -19,12 +22,12 @@ body {
     /* default font */
     font-family: Montserrat, Roboto, sans-serif;
     font-weight: 400;
-    font-size: 20px;
+    font-size: var(--text-size);
     text-transform: uppercase;
+    line-height: 1.15;
 }
 
 button {
-    font-size: 20px;
     font-family: Montserrat;
     text-transform: uppercase;
 
@@ -61,7 +64,7 @@ a {
 .flex-column-side {
     display: flex;
     flex-direction: column;
-    padding-right: 20px;
+    padding-right: 1em;
 }
 
 .flex-column-reverse {

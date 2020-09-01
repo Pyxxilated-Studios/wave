@@ -15,9 +15,25 @@ interface DispatchProps {
 type GameSettingsProps = DispatchProps;
 
 const GameSettings: FunctionComponent<GameSettingsProps> = (props: GameSettingsProps) => (
-    <button className="game-settings-button white-border" onClick={props.toggleSettings} aria-label="Settings Button">
-        <FontAwesomeIcon icon="cog" className="game-settings-icon" />
-    </button>
+    <div
+        style={{
+            position: "relative",
+            height: "100%",
+            width: "100%",
+            overflowY: "scroll",
+            scrollBehavior: "smooth",
+            WebkitOverflowScrolling: "touch",
+            margin: "0.25em 0.5em ",
+        }}
+    >
+        <button
+            className="game-settings-button white-border"
+            onClick={props.toggleSettings}
+            aria-label="Settings Button"
+        >
+            <FontAwesomeIcon icon="cog" className="game-settings-icon" />
+        </button>
+    </div>
 );
 
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({

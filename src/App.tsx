@@ -116,7 +116,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     return (
         <div className="centered flex-row">
             <div
-                className="centered flex-row"
+                className="centered flex-column"
                 style={{
                     margin: "8px 8px 0 0",
                     display: journalSideMenu || journalLittleSideMenu ? "block" : "none",
@@ -134,7 +134,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                         : { marginRight: GAME_VIEWPORT_SIZE_LARGE }
                 }
             >
-                <div className={"centered flex-row"}>
+                <div className={"centered flex-column"}>
                     <Viewport>
                         <World library={library} />
                         <DialogManager />

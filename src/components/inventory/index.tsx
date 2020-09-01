@@ -67,7 +67,7 @@ class Inventory extends Component<InventoryProps, State> {
         const open = dialog.reason.inventory;
 
         return (
-            <div className="flex-row inventory-container">
+            <div className="inventory-container">
                 {!disabled && (
                     <Button
                         indicator={newItemIndicator}
@@ -81,6 +81,7 @@ class Inventory extends Component<InventoryProps, State> {
                             whiteSpace: "nowrap",
                             overflow: "hidden",
                             backgroundColor: "var(--dark-gray)",
+                            margin: ".5em .25em",
                         }}
                     />
                 )}

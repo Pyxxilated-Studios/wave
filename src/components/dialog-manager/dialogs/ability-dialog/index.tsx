@@ -49,9 +49,7 @@ const AbilityDialog: FunctionComponent<AbilityDialogProps> = (props: AbilityDial
 
     const abilityScores = (
         <>
-            <span className="ability-score-title" style={{ marginLeft: "-15px" }}>
-                Modify your Abilities
-            </span>
+            <span className="ability-score-title">Modify your Abilities</span>
             <div className="flex-column ability-score-dialog-container">
                 <AbilityScore
                     name="Strength"

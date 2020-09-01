@@ -3,7 +3,7 @@
     top: 5px;
     width: 20rem;
     text-align: center;
-    font-size: 25px;
+    font-size: var(--title-size);
     font-weight: 400;
     padding-left: 30px;
 }
@@ -64,7 +64,6 @@
     justify-content: space-between;
     position: relative;
     padding: 10px 5px 5px 5px;
-    line-height: 0.75;
     text-transform: none;
 }
 
@@ -73,11 +72,10 @@
 }
 .tutorial-page-ability-description {
     display: inline-block;
-    line-height: 1;
     overflow-wrap: break-word;
     margin-top: 1px;
-    margin-left: 10px;
-    font-size: 15px;
+    margin-left: 0.5em;
+    font-size: var(--text-size);
     text-align: left;
 }
 
@@ -90,7 +88,7 @@
 .tutorial-page-spell-icons {
     flex: 1;
     justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 0.5em;
 }
 
 .tutorial-page-hotkeys {
