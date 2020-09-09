@@ -7,6 +7,7 @@ import { RootDispatch } from "../../../store";
 import { toggleSettings } from "../../../store/dialog/actions";
 
 import "./styles.scss";
+import Button from "../../button";
 
 interface DispatchProps {
     toggleSettings: () => void;
@@ -15,24 +16,8 @@ interface DispatchProps {
 type GameSettingsProps = DispatchProps;
 
 const GameSettings: FunctionComponent<GameSettingsProps> = (props: GameSettingsProps) => (
-    <div
-        style={{
-            position: "relative",
-            height: "100%",
-            width: "100%",
-            overflowY: "scroll",
-            scrollBehavior: "smooth",
-            WebkitOverflowScrolling: "touch",
-            margin: "0.25em 0.5em ",
-        }}
-    >
-        <button
-            className="game-settings-button white-border"
-            onClick={props.toggleSettings}
-            aria-label="Settings Button"
-        >
-            <FontAwesomeIcon icon="cog" className="game-settings-icon" />
-        </button>
+    <div className="settings-container">
+        <Button icon="cog" onClick={props.toggleSettings} extraClass="game-settings-button" />
     </div>
 );
 

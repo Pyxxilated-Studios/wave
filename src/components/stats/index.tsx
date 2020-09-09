@@ -92,19 +92,11 @@ class Stats extends Component<StatsProps, State> {
         }
 
         return (
-            <div
-                style={{
-                    alignItems: sideMenu ? "flex-start" : "center",
-                    backgroundColor: statsBgColor,
-                    lineHeight: sideMenu ? 1.5 : "unset",
-                }}
-                className={`stats-container flex-row ${disabled ? "" : "white-border"}`}
-            >
-                <div className="flex-column" style={{ padding: "0", margin: "0", border: "0" }}>
+            <div className="stats-container flex-row white-border">
+                <div className="flex-column stats-column-spacing">
                     <div
                         className="flex-row"
                         style={{
-                            paddingBottom: sideMenu ? 0 : 5,
                             borderBottom: "solid",
                         }}
                     >
@@ -113,24 +105,12 @@ class Stats extends Component<StatsProps, State> {
                         </span>
                     </div>
 
-                    <div
-                        className="flex-row"
-                        style={{
-                            paddingBottom: sideMenu ? 0 : 15,
-                            paddingTop: sideMenu ? 8 : 15,
-                        }}
-                    >
+                    <div className="flex-row stats-row-spacing">
                         <span className="stats-text-spacing">{"LEVEL: "}</span>
                         <span className="stats-text-level">{level}</span>
                     </div>
 
-                    <div
-                        className="flex-row"
-                        style={{
-                            paddingBottom: sideMenu ? 0 : 15,
-                            paddingTop: sideMenu ? 10 : 0,
-                        }}
-                    >
+                    <div className="flex-row stats-row-spacing">
                         <span className="stats-bar-container stats-health-bar-container">
                             <span className="stats-bar-text flex-row stats-health-bar-text">
                                 {health + "/" + maxHealth}
@@ -145,14 +125,14 @@ class Stats extends Component<StatsProps, State> {
                         </span>
                     </div>
 
-                    <div className="flex-row" style={{ paddingTop: sideMenu ? 9 : 0 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"STR: "}</span>
                         <span className="stats-text-melee">
                             {abilities.strength + " (" + (strengthModifier > 0 ? "+" : "") + strengthModifier + ")"}
                         </span>
                     </div>
 
-                    <div className="flex-row" style={{ paddingBottom: 8 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"CON: "}</span>
                         <span className="stats-text-melee">
                             {abilities.constitution +
@@ -168,29 +148,19 @@ class Stats extends Component<StatsProps, State> {
                     <div
                         className="flex-row"
                         style={{
-                            paddingBottom: sideMenu ? 0 : 5,
                             borderBottom: "solid",
                         }}
                     >
                         <span className="stats-text-info">{character.race}</span>
                     </div>
 
-                    <div
-                        className={`flex-row ${sideMenu ? "" : "stats-row-spacing"}`}
-                        style={{
-                            paddingBottom: sideMenu ? 0 : 15,
-                            paddingTop: sideMenu ? 8 : 15,
-                        }}
-                    >
+                    <div className="flex-row stats-row-spacing">
                         <span className="stats-text-spacing">{"DEFENCE: "}</span>
                         <span className="stats-text-defence">{defence}</span>
                     </div>
 
-                    <div className={`flex-row ${sideMenu ? "" : "stats-row-spacing"}`}>
-                        <div
-                            className="flex-row"
-                            style={{ paddingBottom: sideMenu ? 0 : 0, paddingTop: sideMenu ? 10 : 0 }}
-                        >
+                    <div className="flex-row stats-row-spacing">
+                        <div className="flex-row">
                             <span className="stats-bar-container stats-mana-bar-container">
                                 <span className="stats-bar-text flex-row stats-mana-bar-text">
                                     {mana + "/" + maxMana}
@@ -206,14 +176,14 @@ class Stats extends Component<StatsProps, State> {
                         </div>
                     </div>
 
-                    <div className="flex-row" style={{ paddingTop: sideMenu ? 9 : 0 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"DEX: "}</span>
                         <span className="stats-text-ranged">
                             {abilities.dexterity + " (" + (dexterityModifier > 0 ? "+" : "") + dexterityModifier + ")"}
                         </span>
                     </div>
 
-                    <div className="flex-row" style={{ paddingBottom: 8 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"CHR: "}</span>
                         <span className="stats-text-ranged">
                             {abilities.charisma + " (" + (charismaModifier > 0 ? "+" : "") + charismaModifier + ")"}
@@ -225,33 +195,19 @@ class Stats extends Component<StatsProps, State> {
                     <div
                         className="flex-row"
                         style={{
-                            paddingBottom: sideMenu ? 0 : 5,
                             borderBottom: "solid",
                         }}
                     >
                         <span className="stats-text-info">{character.cclass}</span>
                     </div>
 
-                    <div
-                        className={`flex-row ${sideMenu ? "" : "stats-row-spacing"}`}
-                        style={{
-                            paddingBottom: sideMenu ? 0 : 15,
-                            paddingTop: sideMenu ? 8 : 15,
-                        }}
-                    >
+                    <div className="flex-row stats-row-spacing">
                         <span className="stats-text-spacing">{"GOLD: "}</span>
                         <span className="stats-text-gold">{gold}</span>
                     </div>
 
-                    <div className={`flex-row ${sideMenu ? "" : "stats-row-spacing"}`}>
-                        <div
-                            className={`flex-row ${sideMenu ? "" : "flex-1"}`}
-                            style={{
-                                paddingBottom: sideMenu ? 0 : 0,
-                                paddingTop: sideMenu ? 10 : 0,
-                                paddingRight: sideMenu ? 30 : 0,
-                            }}
-                        >
+                    <div className="flex-row stats-row-spacing">
+                        <div className={`flex-row ${sideMenu ? "" : "flex-1"}`}>
                             <span className="stats-bar-container exp-bar-container">
                                 <span className="stats-bar-text flex-row stats-exp-bar-text">
                                     {experience + "/" + experienceToLevel}
@@ -266,7 +222,7 @@ class Stats extends Component<StatsProps, State> {
                         </div>
                     </div>
 
-                    <div className="flex-row" style={{ paddingTop: sideMenu ? 9 : 0 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"INT: "}</span>
                         <span className="stats-text-magic">
                             {abilities.intelligence +
@@ -277,7 +233,7 @@ class Stats extends Component<StatsProps, State> {
                         </span>
                     </div>
 
-                    <div className="flex-row" style={{ paddingBottom: 8 }}>
+                    <div className="flex-row">
                         <span className="stats-text-spacing">{"WIS: "}</span>
                         <span className="stats-text-magic">
                             {abilities.wisdom + " (" + (wisdomModifier > 0 ? "+" : "") + wisdomModifier + ")"}

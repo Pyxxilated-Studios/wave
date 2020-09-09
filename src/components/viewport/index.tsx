@@ -30,11 +30,7 @@ const Viewport: FunctionComponent<ViewportProps> = (props: ViewportProps) => {
         margin,
     };
 
-    return (
-        <div style={styles} className="viewport-container white-border">
-            {props.children}
-        </div>
-    );
+    return <div className="viewport-container white-border">{props.children}</div>;
 };
 
 const mapStateToProps = (state: RootState): StateProps => ({ system: state.system });

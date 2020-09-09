@@ -132,11 +132,6 @@ class Snackbar extends Component<SnackbarProps, State> {
         const { sideMenu, largeView } = this.props;
         const { show, equip } = this.state;
 
-        let width;
-        if (sideMenu) width = 400;
-        else if (largeView) width = 398;
-        else width = 350;
-
         if (show.length === 0) return null;
 
         return (
@@ -147,12 +142,9 @@ class Snackbar extends Component<SnackbarProps, State> {
                     if (this.state.equip) this.handleEquip();
                 }}
                 style={{
-                    marginLeft: sideMenu ? -402 : 0,
-                    top: sideMenu ? 360 : -50,
-                    width,
-                    height: sideMenu ? 40 : 40,
-                    fontSize: sideMenu ? 18 : 20,
                     opacity: show === "" ? 0 : 1,
+                    width: "100%",
+                    height: "1.5em",
                     zIndex: show === "" ? 0 : 1003,
                     transition:
                         show === ""

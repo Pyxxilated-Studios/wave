@@ -9,7 +9,7 @@ import { SystemState } from "../../store/system/types";
 import { DialogState } from "../../store/dialog/types";
 
 import { Point } from "../../types";
-import { MAP_TRANSITION_DELAY } from "../../constants";
+import { MAP_TRANSITION_DELAY, SPRITE_PIXELS } from "../../constants";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
@@ -17,6 +17,7 @@ import Map from "../map";
 import Controls from "../controls";
 import Monsters from "../monsters";
 import Player from "../player";
+import Snackbar from "../snackbar";
 
 import { takeMonstersTurn } from "../monsters/actions/take-monsters-turn";
 import { exploreTiles } from "../../store/map/actions";
@@ -96,22 +97,15 @@ class World extends Component<WorldProps, State> {
         const { system, player } = this.props;
         const { largeView } = system;
 
-        // calculate the offset for the world map according to player position
-        // so that the viewport is always centered
-        const mapOffset = largeView ? 180 : 155;
-
         const playerSpriteCoordinates = translateToSpriteCoordinates(player.position);
-
-        const worldTop = mapOffset - playerSpriteCoordinates.y;
-        const worldLeft = mapOffset - playerSpriteCoordinates.x;
 
         return (
             <>
                 <div
                     className="world-container"
                     style={{
-                        top: worldTop,
-                        left: worldLeft,
+                        top: `calc(50% - ${playerSpriteCoordinates.y}px - ${SPRITE_PIXELS})`,
+                        left: `calc(50% - ${playerSpriteCoordinates.x}px - ${SPRITE_PIXELS})`,
                     }}
                 >
                     <Controls />
@@ -122,6 +116,7 @@ class World extends Component<WorldProps, State> {
 
                     <Monsters />
                 </div>
+                <Snackbar largeView={true} sideMenu={false} />
 
                 <div className="world-map-transition" style={{ opacity }} />
             </>

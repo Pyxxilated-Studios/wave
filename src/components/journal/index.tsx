@@ -29,9 +29,9 @@ const Journal: FunctionComponent<JournalProps> = (props: JournalProps) => {
 
     return (
         <div className="journal-container white-border" id="journal">
-            <div className="flex-column journal-dialog-container">
+            <div className="flex-column">
                 {props.journal.entries.map((entry) => (
-                    <div key={entry.key} className="journal-entry flex-row">
+                    <div key={entry.key} className="journal-entry">
                         {entry.entry}
                     </div>
                 ))}

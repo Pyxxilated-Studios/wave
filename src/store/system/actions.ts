@@ -13,6 +13,7 @@ import {
     SET_SHOW_STATS_JOURNAL,
     SET_ABILITY_INDICATOR,
 } from "./types";
+
 import useWindowSize from "../../utils/use-window-size";
 
 import {
@@ -102,23 +103,27 @@ export const useViewportScaling = (): void => {
     const { height, width } = useWindowSize();
 
     useEffect(() => {
-        let largeView = false;
+        const largeView = false;
         let sideMenu = false;
         let journalSideMenu = false;
         let journalStats = false;
 
         // if we have a wide screen size
-        if (width > SCREEN_SMALL_WIDTH) {
-            largeView = true;
-            // if the screen size is too short
-            if (height < SCREEN_MEDIUM_HEIGHT) sideMenu = true;
-            if (height <= SCREEN_SMALL_HEIGHT) largeView = false;
+        // if (width > SCREEN_SMALL_WIDTH) {
+        //     largeView = true;
+        //     // if the screen size is too short
+        //     if (height < SCREEN_MEDIUM_HEIGHT) sideMenu = true;
+        //     if (height <= SCREEN_SMALL_HEIGHT) largeView = false;
+        // }
+
+        if (width <= SCREEN_SMALL_WIDTH) {
+            sideMenu = true;
         }
 
-        // don't switch to side menu if there's no horizontal room
-        if (width < SCREEN_MEDIUM_WIDTH) {
-            sideMenu = false;
-        }
+        // // don't switch to side menu if there's no horizontal room
+        // if (width < SCREEN_MEDIUM_WIDTH) {
+        //     sideMenu = false;
+        // }
 
         // if (!(isMobile || nativeApp)) {
         if (sideMenu) {

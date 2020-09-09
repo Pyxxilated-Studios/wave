@@ -1,11 +1,8 @@
 .snackbar-container {
     background-color: var(--dark-gray);
 
-    position: absolute;
-    top: 10px;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    position: relative;
+    top: calc(100% - 1.75em);
 
     text-align: center;
 
@@ -13,6 +10,7 @@
     user-select: none;
 
     display: flex;
+    flex: auto;
 }
 
 .snackbar-text {
@@ -21,8 +19,6 @@
 
     align-self: center;
     justify-content: center;
-
-    padding: 5px 15px 10px 15px;
 }
 
 .snackbar-equip-text {
@@ -31,11 +27,6 @@
 
     align-self: center;
     justify-content: flex-start;
-
-    padding-top: 7px;
-    padding-left: 5px;
-
-    width: 100vh;
 }
 
 .snackbar-equip-button {

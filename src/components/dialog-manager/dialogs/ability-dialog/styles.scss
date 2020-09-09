@@ -16,7 +16,6 @@
 
 .ability-score-dialog-text {
     font-family: Montserrat;
-    font-size: 1em;
     text-transform: none;
 
     letter-spacing: 2px;
@@ -41,11 +40,10 @@
 
     letter-spacing: 2px;
 
-    margin: 20px;
+    margin: 1em;
 }
 
 .ability-score-dialog-points {
     width: max-content;
     float: right;
-    margin-right: 3em;
 }

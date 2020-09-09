@@ -3,7 +3,7 @@ export const GAME_VIEWPORT_SIZE = 350;
 export const GAME_VIEWPORT_SIZE_LARGE = 400;
 
 // Sizes for different screens
-export const SCREEN_SMALL_WIDTH = 330;
+export const SCREEN_SMALL_WIDTH = 640;
 export const SCREEN_SMALL_HEIGHT = 500;
 export const SCREEN_MEDIUM_WIDTH = 832;
 export const SCREEN_MEDIUM_HEIGHT = 652;

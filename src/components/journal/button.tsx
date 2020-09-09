@@ -22,7 +22,6 @@ interface StateProps {
 
 interface OwnProps {
     disabled: boolean;
-    sideMenu: boolean;
 }
 
 type JournalButtonProps = DispatchProps & StateProps & OwnProps;
@@ -41,14 +40,6 @@ const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButt
                 icon={"book"}
                 iconRight={open ? "times" : undefined}
                 title={open ? "Close" : "Journal"}
-                style={{
-                    width: 160,
-                    transition: "width .25s ease-out",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    backgroundColor: "var(--dark-gray)",
-                    margin: ".5em",
-                }}
             />
         </div>
     );

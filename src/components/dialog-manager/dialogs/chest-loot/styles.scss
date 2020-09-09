@@ -7,7 +7,6 @@
 
 .chest-loot-contents {
     flex: 1;
-    font-size: 22px;
 
     justify-content: space-around;
     align-self: center;
@@ -21,11 +20,10 @@
     }
 
     .chest-loot-item {
-        font-size: 24px;
         text-align: center;
 
         .chest-loot-item-name {
-            padding-left: 15px;
+            padding-left: 1em;
 
             justify-content: center;
         }
@@ -44,5 +42,5 @@
     justify-content: flex-end;
 
     align-items: center;
-    padding: 25px 0;
+    padding: 1.5em 0;
 }
