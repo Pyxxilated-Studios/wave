@@ -12,14 +12,15 @@ import { MAP_TRANSITION_DELAY, SPRITE_SIZE } from "../../constants";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
-import Map from "../map";
-import Controls from "../controls";
-import Monsters from "../monsters";
-import Player from "../player";
+import { exploreTiles } from "../../store/map/actions";
 
 import { takeMonstersTurn } from "../monsters/actions/take-monsters-turn";
-import { exploreTiles } from "../../store/map/actions";
 import loadMonsters from "../monsters/actions/load-monsters";
+
+import Controls from "../controls";
+import Map from "../map";
+import Monsters from "../monsters";
+import Player from "../player";
 
 import "./styles.scss";
 
