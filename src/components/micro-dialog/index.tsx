@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./styles.scss";
+import Button from "../button";
 
 interface MicroDialogProps {
     noButton?: boolean;
@@ -39,17 +39,16 @@ const MicroDialog: FunctionComponent<MicroDialogProps> = (props: MicroDialogProp
         };
     }, [props.onKeyPress, handleKeyPress]);
 
-    const noSpacing = { top: 0, bottom: 0, left: 0, right: 0 };
-
     return (
-        <div
-            style={props.fullsize ? noSpacing : {}}
-            className={`micro-dialog-container white-border ${props.className || ""}`}
-        >
+        <div className={`micro-dialog-container white-border ${props.className || ""}`}>
             {!props.noButton && (
-                <button className="micro-dialog-close" onClick={props.onClose}>
-                    <FontAwesomeIcon icon="times" />
-                </button>
+                <Button
+                    extraClass="micro-dialog-close"
+                    noBorder
+                    onClick={props.onClose}
+                    icon="times"
+                    label="Close dialog"
+                />
             )}
 
             {props.children}

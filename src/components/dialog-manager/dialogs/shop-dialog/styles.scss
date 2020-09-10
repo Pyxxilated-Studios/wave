@@ -6,7 +6,7 @@
 }
 
 .shop-dialog-title {
-    font-size: 26px;
+    font-size: var(--title-size);
     text-align: center;
 
     padding: 24px 64px 0;
@@ -21,7 +21,6 @@
 
     font-size: 20px;
     text-align: center;
-    line-height: 1.4;
     letter-spacing: 1px;
 }
 

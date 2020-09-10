@@ -1,15 +1,14 @@
 .game-start-title {
     justify-content: center;
 
-    padding: 16px 16px 0;
+    padding: 1em 1em 0;
 
-    font-size: 26px;
+    font-size: var(--title-size);
 }
 
 .game-start-text {
     flex: 1;
 
-    font-size: 20px;
     letter-spacing: 1px;
     text-align: center;
 
@@ -26,18 +25,18 @@
 
 .game-start-flame-1 {
     position: absolute;
-    bottom: 60px;
+    bottom: 50px;
     right: 75px;
 }
 
 .game-start-flame-2 {
     position: absolute;
-    bottom: 125px;
+    bottom: 100px;
     right: 75px;
 }
 
 .game-start-flame-3 {
     position: absolute;
-    bottom: 190px;
+    bottom: 150px;
     right: 75px;
 }

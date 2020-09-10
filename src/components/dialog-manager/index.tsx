@@ -56,8 +56,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (chest) PauseComp = <ChestLoot />;
         if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
-        if (journalDialog && !props.system.journalSideMenu && !props.system.journalLittleSideMenu)
-            PauseComp = <JournalDialog />;
+        if (journalDialog) PauseComp = <JournalDialog />;
         if (spellbookDialog) PauseComp = <SpellbookDialog />;
         if (tutorialDialog) PauseComp = <TutorialDialog />;
         if (gameText)
@@ -78,7 +77,18 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
     if (levelUp) LevelUpComp = <LevelUpDialog />;
 
     return (
-        <>
+        <div
+            style={{
+                display: "flex",
+                position: "absolute",
+                width: "calc(100% - 1.5em)",
+                minWidth: "20em",
+                height: "calc(100% - 15em)",
+                left: ".75em",
+                justifyContent: "center",
+                alignContent: "center",
+            }}
+        >
             {/* Show the 'paused' component here - this is the game start screen,
         game over screen, as well as other dialogs throughout the game */}
             {PauseComp}
@@ -87,7 +97,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
 
             {/* Show the 'settings' component over the 'paused' components */}
             {SettingsComp}
-        </>
+        </div>
     );
 };
 

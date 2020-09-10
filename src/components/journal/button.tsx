@@ -22,32 +22,22 @@ interface StateProps {
 
 interface OwnProps {
     disabled: boolean;
-    sideMenu: boolean;
 }
 
 type JournalButtonProps = DispatchProps & StateProps & OwnProps;
 
 const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButtonProps) => {
-    const open =
-        props.dialog.reason.journalDialog ||
-        ((props.system.journalSideMenu || props.system.journalLittleSideMenu) && props.dialog.journalSideMenuOpen);
+    const open = props.dialog.reason.journalDialog;
 
     if (props.disabled) return null;
 
     return (
-        <div className="flex-row journal-button-container">
+        <div className="journal-button-container">
             <Button
                 onClick={props.toggleJournal}
                 icon={"book"}
                 iconRight={open ? "times" : undefined}
                 title={open ? "Close" : "Journal"}
-                style={{
-                    width: 160,
-                    transition: "width .25s ease-out",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    backgroundColor: "var(--dark-gray)",
-                }}
             />
         </div>
     );

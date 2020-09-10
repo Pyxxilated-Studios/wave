@@ -1,5 +1,5 @@
 import { Abilities, PauseReason, Character, Ability, ChestContents } from "../../types";
-import { ResetAction, SetShowJournalAction, SetShowStatsJournalAction, LoadAction } from "../system/types";
+import { ResetAction, LoadAction } from "../system/types";
 import { SetChestDataAction } from "../world/types";
 import { PlayerDieAction } from "../player/types";
 
@@ -87,8 +87,6 @@ export type DialogActionType =
     | ToggleSettingsAction
     | CloseSettingsAction
     | PlayerDieAction
-    | SetShowJournalAction
-    | SetShowStatsJournalAction
     | ChangeTutorialPageAction
     | LoadAction
     | ResetAction;

@@ -1,10 +1,14 @@
 .inventory-container {
+    display: flex;
     flex: 1;
-
     align-items: center;
     justify-content: space-around;
+    transition: width 0.25s ease-out;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: var(--dark-gray);
 
-    z-index: 100;
-
-    margin-top: 8px;
+    button {
+        min-width: 12em;
+    }
 }

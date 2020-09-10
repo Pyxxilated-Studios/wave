@@ -1,4 +1,4 @@
-html {
+:root {
     --red: #650501;
     --green: #258000;
     --gray: #adadad;
@@ -9,37 +9,46 @@ html {
     --light-red: #ff593b;
     --purple: #b666d2;
     --transparent: rgba(0, 0, 0, 0);
+    --text-size: 16px;
+    --title-size: 24px;
+    --icon-size: 20px;
+    --sprite-size: 32px;
+}
+
+html {
+    width: 100%;
+    height: 100%;
 }
 
 body {
-    margin: 0;
+    margin: 0.5em;
+
     background-color: var(--dark-gray);
-    /* default text color */
-    color: var(--gray);
-    /* default font */
+
+    color: var(--gray) !important;
     font-family: Montserrat, Roboto, sans-serif;
     font-weight: 400;
-    font-size: 20px;
-    text-transform: uppercase;
+    font-size: var(--text-size);
+
+    height: calc(100% - 1em);
+    width: calc(100% - 1em);
 }
 
 button {
-    font-size: 20px;
-    font-family: Montserrat;
     text-transform: uppercase;
-
-    color: var(--gray);
-    outline-color: var(--gray);
 
     border: none;
 
     background-color: var(--transparent);
+    color: var(--gray);
+
     padding: 0;
 
     cursor: pointer;
 }
 
-a {
+a,
+button {
     outline-color: var(--gray);
 }
 
@@ -61,7 +70,7 @@ a {
 .flex-column-side {
     display: flex;
     flex-direction: column;
-    padding-right: 20px;
+    padding-right: 1em;
 }
 
 .flex-column-reverse {
@@ -95,7 +104,12 @@ a {
 }
 
 .white-border {
-    border: 1px solid;
-    border-radius: 2px;
-    color: var(--gray);
+    border: 1px solid var(--gray);
+    border-radius: 0.25em;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }

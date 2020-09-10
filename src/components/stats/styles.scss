@@ -1,45 +1,36 @@
 .stats-container {
-    justify-content: center;
-
-    transition: background 0.5s ease-in-out;
-
-    cursor: default;
-    user-select: none;
-
-    width: 100%;
-    margin-top: 8px;
+    min-width: 18em;
+    min-height: 10em;
+    max-height: 10em;
+    padding: 0.25em;
 }
 
 .stats-row-spacing {
-    padding-bottom: 15px;
+    padding-bottom: 1em;
 }
 
 .stats-text-spacing {
-    padding-right: 10px;
-    font-size: 15px;
+    padding-right: 0.5em;
     font-family: "Roboto Mono";
 }
 
 .stats-text-info {
     color: var(--white);
-    font-size: 16px;
     text-transform: none;
     font-family: "Roboto Mono";
 }
 
-.stats-text-level {
+.stats-text-level,
+.stats-text-magic {
     color: var(--blue);
-    font-size: 18px;
 }
 
 .stats-text-gold {
     color: var(--orange);
-    font-size: 18px;
 }
 
 .stats-text-defence {
     color: var(--purple);
-    font-size: 18px;
 }
 
 .stats-text-blank {
@@ -48,35 +39,29 @@
 
 .stats-text-melee {
     color: var(--light-red);
-    font-size: 14px;
 }
 
 .stats-text-ranged {
     color: var(--green);
-    font-size: 14px;
-}
-
-.stats-text-magic {
-    color: var(--blue);
-    font-size: 14px;
 }
 
 .stats-column-spacing {
-    padding-left: 12px;
+    flex: auto;
+    width: 6em;
 }
 
 .stats-column-spacing-large {
-    padding-left: 24px;
+    padding-left: 1.5em;
 }
 
 .stats-bar-container {
-    width: 100px;
-    height: 20px;
+    width: 5em;
+    height: 1.25em;
     position: relative;
-    border-radius: 7px;
+    border-radius: 0.5em;
 
     .stats-bar-value {
-        height: 20px;
+        height: 100%;
         border-radius: 5px 0px 0px 4px;
         position: absolute;
         transition: width 1s ease-in-out;
@@ -121,7 +106,7 @@
     align-items: center;
 
     position: absolute;
-    z-index: 1000;
+    z-index: 101;
     left: 0;
     right: 0;
 }

@@ -1,7 +1,8 @@
 .viewport-container {
-    position: relative;
-
+    display: flex;
+    flex: auto;
+    min-height: 25em;
+    min-width: 20em;
+    background-color: black;
     overflow: hidden;
-
-    background: black;
 }
