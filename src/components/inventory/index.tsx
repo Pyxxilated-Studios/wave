@@ -22,7 +22,6 @@ interface StateProps {
 
 interface OwnProps {
     disabled: boolean;
-    sideMenu: boolean;
 }
 
 type InventoryProps = DispatchProps & StateProps & OwnProps;
@@ -67,23 +66,15 @@ class Inventory extends Component<InventoryProps, State> {
         const open = dialog.reason.inventory;
 
         return (
-            <div className="flex-row inventory-container">
-                {!disabled && (
-                    <Button
-                        indicator={newItemIndicator}
-                        onClick={(): void => this._toggleInventory()}
-                        icon={"briefcase"}
-                        iconRight={open ? "times" : undefined}
-                        title={open ? "Close" : "Inventory"}
-                        style={{
-                            width: 180,
-                            transition: "width .25s ease-out",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            backgroundColor: "var(--dark-gray)",
-                        }}
-                    />
-                )}
+            <div className="inventory-container">
+                <Button
+                    indicator={newItemIndicator}
+                    onClick={(): void => this._toggleInventory()}
+                    icon={"briefcase"}
+                    iconRight={open ? "times" : undefined}
+                    title={open ? "Close" : "Inventory"}
+                    style={{ visibility: disabled ? "hidden" : "visible" }}
+                />
             </div>
         );
     }

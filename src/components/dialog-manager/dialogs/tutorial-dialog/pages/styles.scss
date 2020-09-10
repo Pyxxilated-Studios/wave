@@ -1,24 +1,18 @@
 .tutorial-page-title {
     position: relative;
-    top: 5px;
-    width: 20rem;
     text-align: center;
-    font-size: 25px;
+    font-size: var(--title-size);
     font-weight: 400;
-    padding-left: 30px;
+    margin: 0.25em 0;
 }
 
 .tutorial-page-movement {
     position: relative;
-    margin-top: 10px;
-    padding: 0px 5px 5px 5px;
     text-transform: none;
 }
 
 .tutorial-page-item {
     position: relative;
-    margin-top: 10px;
-    padding: 0px 5px 5px 5px;
     text-transform: none;
 }
 
@@ -36,7 +30,6 @@
 
 .tutorial-page-shop {
     position: relative;
-    margin-top: 10px;
     text-transform: none;
     width: 200px;
 }
@@ -49,7 +42,6 @@
 
 .tutorial-page-combat {
     position: relative;
-    padding: 15px 5px 5px 5px;
     text-transform: none;
 }
 
@@ -63,47 +55,38 @@
     flex: 1;
     justify-content: space-between;
     position: relative;
-    padding: 10px 5px 5px 5px;
-    line-height: 0.75;
     text-transform: none;
 }
 
-.tutorial-page-ability-text {
-    font-size: 15px;
-}
 .tutorial-page-ability-description {
     display: inline-block;
-    line-height: 1;
     overflow-wrap: break-word;
-    margin-top: 1px;
-    margin-left: 10px;
-    font-size: 15px;
+    margin-top: 0.25px;
+    margin-left: 0.5em;
+    font-size: var(--text-size);
     text-align: left;
 }
 
 .tutorial-page-spell {
     position: relative;
-    padding: 10px 5px 5px 5px;
     text-transform: none;
 }
 
 .tutorial-page-spell-icons {
     flex: 1;
     justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 0.5em;
 }
 
 .tutorial-page-hotkeys {
     margin: auto;
     position: relative;
-    padding: 10px 5px 5px 5px;
     text-transform: none;
 }
 
 .tutorial-page-dice {
     margin: auto;
     position: relative;
-    padding: 10px 5px 5px 5px;
     text-transform: none;
 }
 

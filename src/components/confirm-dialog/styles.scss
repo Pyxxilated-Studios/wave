@@ -19,14 +19,14 @@
         flex: 1;
         align-items: center;
 
-        font-size: 22px;
+        font-size: var(--text-size);
         text-align: center;
 
-        padding: 16px;
+        padding: 1em;
     }
 
     .confirm-dialog-buttons {
         justify-content: space-around;
-        padding-bottom: 16px;
+        padding-bottom: 1em;
     }
 }

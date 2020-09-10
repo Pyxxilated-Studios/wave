@@ -6,11 +6,10 @@
 
 .game-text-dialog-text {
     font-family: Montserrat;
-    font-size: 18px;
+    font-size: var(--text-size);
     text-transform: none;
 
     letter-spacing: 2px;
-    line-height: 1.5;
 }
 
 .game-text-dialog-button {

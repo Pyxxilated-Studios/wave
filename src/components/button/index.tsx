@@ -58,7 +58,7 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
                 </EmptySlot>
             )}
 
-            {props.title && <span>{props.title}</span>}
+            {props.title && <span className="button-title">{props.title}</span>}
 
             {props.iconRight && (
                 <FontAwesomeIcon

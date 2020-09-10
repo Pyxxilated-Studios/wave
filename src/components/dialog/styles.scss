@@ -4,6 +4,9 @@
 
     position: absolute;
     top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 
     z-index: 1001;
 
@@ -13,23 +16,24 @@
     cursor: default;
     user-select: none;
 
-    margin: 3px;
-    // 100% - (margin + border width)
-    height: calc(100% - 8px);
-    width: calc(100% - 8px);
+    margin: auto;
+    min-width: 20em;
+    max-width: 20em;
+    min-height: 24.5em;
+    max-height: 24.5em;
 
     .dialog-back-button {
-        margin: 5px;
         position: absolute;
-        left: 0;
         top: 0;
 
-        font-size: 24px;
+        font-size: var(--icon-size);
 
         border-right: 1px solid;
         border-bottom: 1px solid;
-        border-radius: 2px;
+        border-radius: 0.25em;
 
-        padding: 12px 16px;
+        padding: 0.2em 0.4em;
+
+        z-index: 100;
     }
 }

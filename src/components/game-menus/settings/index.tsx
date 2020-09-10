@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { RootDispatch } from "../../../store";
 import { toggleSettings } from "../../../store/dialog/actions";
 
 import "./styles.scss";
+import Button from "../../button";
 
 interface DispatchProps {
     toggleSettings: () => void;
@@ -15,9 +14,9 @@ interface DispatchProps {
 type GameSettingsProps = DispatchProps;
 
 const GameSettings: FunctionComponent<GameSettingsProps> = (props: GameSettingsProps) => (
-    <button className="game-settings-button white-border" onClick={props.toggleSettings} aria-label="Settings Button">
-        <FontAwesomeIcon icon="cog" className="game-settings-icon" />
-    </button>
+    <div className="settings-container">
+        <Button icon="cog" onClick={props.toggleSettings} extraClass="game-settings-button" />
+    </div>
 );
 
 const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({

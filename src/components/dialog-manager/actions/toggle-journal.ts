@@ -3,16 +3,12 @@ import { pause } from "../../../store/dialog/actions";
 
 export const toggleJournal = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { dialog, system } = getState();
-    const { journalSideMenu, journalLittleSideMenu } = system;
-    const { inventory, journalDialog } = dialog.reason;
+    const { journalDialog } = dialog.reason;
+    const { sideMenu } = system;
 
-    if (journalSideMenu || journalLittleSideMenu) {
-        dispatch(pause(inventory || false, { journalDialog: !journalDialog, inventory }));
-    } else if (journalDialog) {
-        dispatch(pause(inventory || false, { inventory }));
-    } else if (!(journalSideMenu || journalLittleSideMenu)) {
-        dispatch(pause(true, { journalDialog: true }));
-    }
+    const shouldPause = sideMenu && !journalDialog;
+
+    dispatch(pause(shouldPause, { journalDialog: shouldPause }));
 };
 
 export default toggleJournal;

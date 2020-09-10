@@ -6,11 +6,9 @@
 
 .ability-score-text {
     font-family: Montserrat;
-    font-size: 12px;
     text-transform: none;
 
     letter-spacing: 2px;
-    line-height: 1.5;
 
     text-align: left;
     display: inline-block;
@@ -23,13 +21,10 @@
 
 .ability-score-score-text {
     font-family: Montserrat;
-    font-size: 12px;
     text-transform: none;
     letter-spacing: 2px;
-    line-height: 1.5;
-    margin-right: 8px;
-    margin-top: 2px;
-    width: 20px;
+    margin-right: 0.5em;
+    width: 1.5em;
     float: right;
     text-align: right;
 }
@@ -39,17 +34,14 @@
     justify-content: center;
     margin-top: 5px;
     margin-left: 15px;
-    font-size: 15px;
 
     .ability-score-tooltip-text {
         font-family: Montserrat;
-        font-size: 14px;
         text-transform: none;
         font-weight: 400;
-        line-height: 1;
         visibility: hidden;
 
-        padding: 5px;
+        padding: 0.5em;
 
         background-color: var(--dark-gray);
         border: 0.5px var(--gray) solid;

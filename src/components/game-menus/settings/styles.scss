@@ -1,18 +1,14 @@
 .game-settings-button {
-    padding: 9px;
+    padding: 0.5em;
 
     background-color: var(--dark-gray);
-
-    margin-top: 8px;
 
     user-select: none;
 
     position: relative;
 
-    z-index: 100;
-
     .game-settings-icon {
-        font-size: 26px;
+        font-size: var(--icon-size);
 
         height: 100%;
 

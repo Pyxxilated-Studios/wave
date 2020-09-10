@@ -27,12 +27,7 @@ interface StateProps {
     inventory: InventoryState;
 }
 
-interface OwnProps {
-    sideMenu: boolean;
-    largeView: boolean;
-}
-
-type SnackbarProps = DispatchProps & StateProps & OwnProps & ReactTimeoutProps;
+type SnackbarProps = DispatchProps & StateProps & ReactTimeoutProps;
 type State = { show: string; item?: ItemType; equip: boolean };
 
 class Snackbar extends Component<SnackbarProps, State> {
@@ -128,14 +123,8 @@ class Snackbar extends Component<SnackbarProps, State> {
         this.handleHideSnack();
     }
 
-    render(): ReactNode | null {
-        const { sideMenu, largeView } = this.props;
+    render(): ReactNode {
         const { show, equip } = this.state;
-
-        let width;
-        if (sideMenu) width = 400;
-        else if (largeView) width = 398;
-        else width = 350;
 
         if (show.length === 0) return null;
 
@@ -147,11 +136,6 @@ class Snackbar extends Component<SnackbarProps, State> {
                     if (this.state.equip) this.handleEquip();
                 }}
                 style={{
-                    marginLeft: sideMenu ? -402 : 0,
-                    top: sideMenu ? 360 : -50,
-                    width,
-                    height: sideMenu ? 40 : 40,
-                    fontSize: sideMenu ? 18 : 20,
                     opacity: show === "" ? 0 : 1,
                     zIndex: show === "" ? 0 : 1003,
                     transition:

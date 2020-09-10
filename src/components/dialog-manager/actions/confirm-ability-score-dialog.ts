@@ -7,9 +7,7 @@ const confirmAbilityScoreDialog = (): RootThunk => async (dispatch, getState): P
 
     dispatch(setAbilityScores(abilities, abilities.points));
 
-    if (getState().dialog.reason.fromLevelUp) {
-        dispatch(pause(false, { fromLevelUp: false }));
-    } else if (getState().dialog.reason.playerOpenedAbilityDialog) {
+    if (getState().dialog.reason.playerOpenedAbilityDialog) {
         dispatch(pause(false, { playerOpenedAbilityDialog: false }));
     } else {
         dispatch(pause(true, { gameInstructions: true }));
