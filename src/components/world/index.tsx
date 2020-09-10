@@ -16,7 +16,6 @@ import Map from "../map";
 import Controls from "../controls";
 import Monsters from "../monsters";
 import Player from "../player";
-import Snackbar from "../snackbar";
 
 import { takeMonstersTurn } from "../monsters/actions/take-monsters-turn";
 import { exploreTiles } from "../../store/map/actions";
@@ -113,7 +112,6 @@ class World extends Component<WorldProps, State> {
 
                     <Monsters />
                 </div>
-                <Snackbar />
 
                 <div
                     className="world-map-transition"

@@ -1,9 +1,6 @@
 .snackbar-container {
     background-color: var(--dark-gray);
 
-    position: relative;
-    top: calc(100% - 1.75em);
-
     text-align: center;
 
     cursor: default;
@@ -11,6 +8,15 @@
 
     display: flex;
     flex: auto;
+
+    display: flex;
+    position: absolute;
+    place-content: center;
+
+    bottom: 14.25em;
+
+    width: calc(100% - 1.25em);
+    height: 1.5em;
 }
 
 .snackbar-text {

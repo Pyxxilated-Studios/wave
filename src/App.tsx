@@ -33,14 +33,15 @@ import { useViewportScaling } from "./store/system/actions";
 import { WorldState } from "./store/world/types";
 import { DialogState } from "./store/dialog/types";
 
-import Viewport from "./components/viewport";
-import World from "./components/world";
+import AbilityButton from "./components/on-screen-buttons/ability-button";
 import DialogManager from "./components/dialog-manager";
 import FloorCounter from "./components/floor-counter";
 import GameMenus from "./components/game-menus";
+import Snackbar from "./components/snackbar";
 import SpellbookButton from "./components/on-screen-buttons/spellbook-button";
-import AbilityButton from "./components/on-screen-buttons/ability-button";
 import TutorialButton from "./components/on-screen-buttons/tutorial-button";
+import Viewport from "./components/viewport";
+import World from "./components/world";
 
 fontawesome.library.add(
     faPlayCircle,
@@ -113,6 +114,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
                 <TutorialButton />
                 <AbilityButton />
                 <SpellbookButton />
+                <Snackbar />
             </Viewport>
 
             <GameMenus />

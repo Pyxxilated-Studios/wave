@@ -123,7 +123,7 @@ class Snackbar extends Component<SnackbarProps, State> {
         this.handleHideSnack();
     }
 
-    render(): ReactNode | null {
+    render(): ReactNode {
         const { show, equip } = this.state;
 
         if (show.length === 0) return null;
@@ -137,8 +137,6 @@ class Snackbar extends Component<SnackbarProps, State> {
                 }}
                 style={{
                     opacity: show === "" ? 0 : 1,
-                    width: "100%",
-                    height: "1.5em",
                     zIndex: show === "" ? 0 : 1003,
                     transition:
                         show === ""
