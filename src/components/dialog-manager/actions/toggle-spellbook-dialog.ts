@@ -2,9 +2,12 @@ import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 
 const toggleSpellbookDialog = (): RootThunk => async (dispatch, getState): Promise<void> => {
-    const { paused, reason } = getState().dialog;
+    const { reason } = getState().dialog;
+    const { spellbookDialog } = reason;
 
-    dispatch(pause(!paused, { spellbookDialog: !reason.spellbookDialog }));
+    const paused = !(spellbookDialog || false);
+
+    dispatch(pause(paused, { spellbookDialog: paused }));
 };
 
 export default toggleSpellbookDialog;

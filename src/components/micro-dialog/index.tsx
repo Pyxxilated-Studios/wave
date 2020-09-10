@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./styles.scss";
 import Button from "../button";

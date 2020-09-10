@@ -51,6 +51,12 @@
         animation: fade 4s ease-in-out infinite;
         opacity: 1;
     }
+
+    .button-title {
+        display: inline-grid;
+        height: 100%;
+        vertical-align: middle;
+    }
 }
 
 .button-container-small {

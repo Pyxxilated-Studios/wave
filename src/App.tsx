@@ -104,15 +104,8 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         return null;
     }
 
-    const { sideMenu, journalSideMenu, journalLittleSideMenu } = props.system;
-    const { gameStart, gameOver, gameRunning } = props.dialog.reason;
-
-    const disableJournal =
-        gameStart || gameOver || !gameRunning || !journalSideMenu || !props.dialog.journalSideMenuOpen;
-
     return (
         <>
-            {/* <Journal disabled={disableJournal} /> */}
             <Viewport>
                 <World library={library} />
                 <FloorCounter floorNumber={props.world.floorNumber} />

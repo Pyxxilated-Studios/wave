@@ -56,8 +56,7 @@ const DialogManager: FunctionComponent<DialogManagerProps> = (props: DialogManag
         if (chest) PauseComp = <ChestLoot />;
         if (shop) PauseComp = <ShopDialog />;
         if (inventory) PauseComp = <InventoryDialog />;
-        if (journalDialog && !props.system.journalSideMenu && !props.system.journalLittleSideMenu)
-            PauseComp = <JournalDialog />;
+        if (journalDialog) PauseComp = <JournalDialog />;
         if (spellbookDialog) PauseComp = <SpellbookDialog />;
         if (tutorialDialog) PauseComp = <TutorialDialog />;
         if (gameText)

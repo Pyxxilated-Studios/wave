@@ -27,12 +27,7 @@ interface StateProps {
     inventory: InventoryState;
 }
 
-interface OwnProps {
-    sideMenu: boolean;
-    largeView: boolean;
-}
-
-type SnackbarProps = DispatchProps & StateProps & OwnProps & ReactTimeoutProps;
+type SnackbarProps = DispatchProps & StateProps & ReactTimeoutProps;
 type State = { show: string; item?: ItemType; equip: boolean };
 
 class Snackbar extends Component<SnackbarProps, State> {
@@ -129,7 +124,6 @@ class Snackbar extends Component<SnackbarProps, State> {
     }
 
     render(): ReactNode | null {
-        const { sideMenu, largeView } = this.props;
         const { show, equip } = this.state;
 
         if (show.length === 0) return null;

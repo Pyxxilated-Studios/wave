@@ -13,7 +13,7 @@ import {
     CHANGE_TUTORIAL_PAGE,
 } from "./types";
 import { STARTING_ABILITY_SCORE_VALUE, STARTING_ABILITY_POINTS, MAX_ABILITY_SCORE } from "../../constants";
-import { RESET, SET_SHOW_JOURNAL, LOAD, SET_SHOW_STATS_JOURNAL } from "../system/types";
+import { RESET, LOAD } from "../system/types";
 import { SET_CHEST_DATA } from "../world/types";
 import { PLAYER_DIED } from "../player/types";
 
@@ -75,14 +75,6 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             action.reason.gameRunning = action.reason.gameRunning || state.reason.gameRunning;
 
             return { ...state, paused: action.paused, reason: action.reason };
-
-        case SET_SHOW_JOURNAL:
-        case SET_SHOW_STATS_JOURNAL:
-            return {
-                ...state,
-                paused: state.reason.journalDialog || state.paused,
-                journalSideMenuOpen: (state.reason.journalDialog || false) && action.set,
-            };
 
         case CREATE_CHARACTER:
             return {

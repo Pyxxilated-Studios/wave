@@ -1,23 +1,10 @@
-.journal-dialog-container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    margin-right: 0.5em;
-}
-
 .journal-container {
     position: relative;
-    // height: 100%;
-    // width: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     display: flex;
     flex: auto;
-    border: 1px solid black;
-    margin-right: 0.5em;
-    min-height: 13em;
-    max-height: 13em;
 }
 
 .journal-button-container {
@@ -29,8 +16,46 @@
     white-space: nowrap;
     overflow: hidden;
     background-color: var(--dark-gray);
+    margin: 0 0.25em;
 
     button {
         min-width: 12em;
     }
+}
+
+.journal-entry {
+    padding: 0px 5px;
+    margin: -0.75em 0;
+}
+
+.damage-type,
+.gold,
+.type {
+    color: var(--orange);
+}
+
+.ai,
+.damage-to-player,
+.damage-to-monster {
+    color: var(--light-red);
+}
+
+.experience,
+.level,
+.ability {
+    color: var(--purple);
+}
+
+.mana-gain,
+.restore-mana,
+.score {
+    color: var(--blue);
+}
+
+.projectile,
+.restore-health,
+.health-gain,
+.spell-cast,
+.get-item {
+    color: var(--green);
 }

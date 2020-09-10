@@ -27,9 +27,7 @@ interface OwnProps {
 type JournalButtonProps = DispatchProps & StateProps & OwnProps;
 
 const JournalButton: FunctionComponent<JournalButtonProps> = (props: JournalButtonProps) => {
-    const open =
-        props.dialog.reason.journalDialog ||
-        ((props.system.journalSideMenu || props.system.journalLittleSideMenu) && props.dialog.journalSideMenuOpen);
+    const open = props.dialog.reason.journalDialog;
 
     if (props.disabled) return null;
 

@@ -65,8 +65,6 @@ class Inventory extends Component<InventoryProps, State> {
 
         const open = dialog.reason.inventory;
 
-        if (disabled) return null;
-
         return (
             <div className="inventory-container">
                 <Button
@@ -75,6 +73,7 @@ class Inventory extends Component<InventoryProps, State> {
                     icon={"briefcase"}
                     iconRight={open ? "times" : undefined}
                     title={open ? "Close" : "Inventory"}
+                    style={{ visibility: disabled ? "hidden" : "visible" }}
                 />
             </div>
         );

@@ -15,8 +15,6 @@ interface StateProps {
 }
 
 interface OwnProps {
-    disabled: boolean;
-    largeView: boolean;
     sideMenu: boolean;
 }
 
@@ -33,7 +31,7 @@ class Stats extends Component<StatsProps, State> {
 
     componentDidUpdate(prevProps: StatsProps): void {
         // detemine when the stats have been updated and are not disabled
-        if (!this.props.disabled && prevProps.stats.level !== this.props.stats.level) {
+        if (prevProps.stats.level !== this.props.stats.level) {
             // animate the container
             this.setState({ statsBgColor: "var(--gray)" });
             // pause the infinite animation after 1 iteration
@@ -46,7 +44,7 @@ class Stats extends Component<StatsProps, State> {
     }
 
     render(): ReactNode {
-        const { disabled, stats, sideMenu, largeView } = this.props;
+        const { stats, sideMenu } = this.props;
         const {
             abilities,
             character,
@@ -61,7 +59,7 @@ class Stats extends Component<StatsProps, State> {
             defence,
         } = stats;
 
-        if (disabled) return null;
+        // if (disabled) return null;
 
         const { statsBgColor } = this.state;
 
@@ -86,13 +84,10 @@ class Stats extends Component<StatsProps, State> {
         else if (manaPercentageRemaining >= 97) manaBorder = "5px 3px 3px 5px";
         else manaBorder = "5px 0 0 5px";
 
-        let columnStyle = "stats-column-spacing";
-        if (!sideMenu && largeView) {
-            columnStyle = "stats-column-spacing-large";
-        }
+        const columnStyle = "stats-column-spacing";
 
         return (
-            <div className="stats-container flex-row white-border">
+            <div className="stats-container flex-row white-border" style={{ backgroundColor: statsBgColor }}>
                 <div className="flex-column stats-column-spacing">
                     <div
                         className="flex-row"

@@ -21,16 +21,11 @@ interface StateProps {
 type GameMenusProps = StateProps;
 
 const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => {
-    const { sideMenu, largeView, journalLittleSideMenu } = props.system;
+    const { sideMenu } = props.system;
     const { paused, reason } = props.dialog;
-    const { gameOver, gameStart, gameRunning, inventory, journalDialog, settings } = reason;
+    const { gameRunning, inventory, journalDialog, settings } = reason;
 
     const disableInventory = !gameRunning || settings || (paused && !inventory && !journalDialog);
-    // disable the stats view when in game start or game over or settings
-    const disableStats = !gameRunning || gameStart || gameOver || settings;
-
-    const disableJournal =
-        !gameRunning || gameStart || gameOver || !journalLittleSideMenu || !props.dialog.journalSideMenuOpen;
 
     return (
         <>
@@ -38,12 +33,12 @@ const GameMenus: FunctionComponent<GameMenusProps> = (props: GameMenusProps) => 
                 <Journal disabled={sideMenu} />
 
                 <div className="flex-column centered">
-                    <Stats largeView={largeView} sideMenu={sideMenu} disabled={disableStats || false} />
+                    <Stats sideMenu={sideMenu} />
 
                     <div className="flex-row" style={{ marginTop: "0.5em" }}>
                         <Inventory disabled={disableInventory} />
 
-                        {/* <JournalButton disabled={disableInventory} /> */}
+                        <JournalButton disabled={!sideMenu} />
                         <GameSettings />
                     </div>
                 </div>

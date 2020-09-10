@@ -5,11 +5,10 @@ import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 import { RootState, RootDispatch } from "../../store";
 import { WorldState } from "../../store/world/types";
 import { PlayerState } from "../../store/player/types";
-import { SystemState } from "../../store/system/types";
 import { DialogState } from "../../store/dialog/types";
 
 import { Point } from "../../types";
-import { MAP_TRANSITION_DELAY, SPRITE_PIXELS } from "../../constants";
+import { MAP_TRANSITION_DELAY, SPRITE_SIZE } from "../../constants";
 
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
 
@@ -36,7 +35,6 @@ interface DispatchProps {
 }
 
 interface StateProps {
-    system: SystemState;
     world: WorldState;
     player: PlayerState;
     dialog: DialogState;
@@ -94,8 +92,7 @@ class World extends Component<WorldProps, State> {
 
     render(): ReactNode {
         const { opacity } = this.state;
-        const { system, player } = this.props;
-        const { largeView } = system;
+        const { player, dialog } = this.props;
 
         const playerSpriteCoordinates = translateToSpriteCoordinates(player.position);
 
@@ -104,8 +101,8 @@ class World extends Component<WorldProps, State> {
                 <div
                     className="world-container"
                     style={{
-                        top: `calc(50% - ${playerSpriteCoordinates.y}px - ${SPRITE_PIXELS})`,
-                        left: `calc(50% - ${playerSpriteCoordinates.x}px - ${SPRITE_PIXELS})`,
+                        top: `calc(50% - ${playerSpriteCoordinates.y}px - ${SPRITE_SIZE / 2}px)`,
+                        left: `calc(50% - ${playerSpriteCoordinates.x}px - ${SPRITE_SIZE / 2}px)`,
                     }}
                 >
                     <Controls />
@@ -116,16 +113,18 @@ class World extends Component<WorldProps, State> {
 
                     <Monsters />
                 </div>
-                <Snackbar largeView={true} sideMenu={false} />
+                <Snackbar />
 
-                <div className="world-map-transition" style={{ opacity }} />
+                <div
+                    className="world-map-transition"
+                    style={{ opacity: player.playerDied || !dialog.reason.gameRunning ? 1 : opacity }}
+                />
             </>
         );
     }
 }
 
 const mapStateToProps = (state: RootState): StateProps => ({
-    system: state.system,
     world: state.world,
     player: state.player,
     dialog: state.dialog,
