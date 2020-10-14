@@ -33,6 +33,12 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     // Create a map of walls to carve rooms and hallways from
     const map = createMapOfWalls(wallType);
 
+    import("wave").then((wave) => {
+        const m = wave.generate(BigInt(MAP_DIMENSIONS.width), BigInt(MAP_DIMENSIONS.height));
+
+        console.log(m.map((i) => i.reduce((c, t) => c + " " + (t.value() === BigInt(0) ? " " : "."), "")));
+    });
+
     // Array to get a random direction from (left,right,up,down)
     const directions: Point[] = [
         { x: -1, y: 0 },
