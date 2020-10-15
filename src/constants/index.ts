@@ -1,14 +1,7 @@
 import { Dimension } from "../types";
 
-// Size of the viewport
-export const GAME_VIEWPORT_SIZE = 350;
-export const GAME_VIEWPORT_SIZE_LARGE = 400;
-
 // Sizes for different screens
 export const SCREEN_SMALL_WIDTH = 640;
-export const SCREEN_SMALL_HEIGHT = 500;
-export const SCREEN_MEDIUM_WIDTH = 832;
-export const SCREEN_MEDIUM_HEIGHT = 652;
 
 // Sizes used to determine whether the journal is shown besides the game or as a dialog
 export const MIN_WIDTH_FOR_JOURNAL = 1235;
@@ -47,8 +40,6 @@ export const MAX_TUNNEL_LENGTH = 5;
 export const ROOM_COUNT = 5;
 export const MIN_ROOM_DIMENSIONS: Dimension = { width: 5, height: 5 };
 export const MAX_ROOM_DIMENSIONS: Dimension = { width: 10, height: 10 };
-export const RANDOM_CONNECTIONS = 1;
-export const SPURS = 3;
 
 // Set the number of tiles to pad the map with (so the player cant see edge)
 export const MAP_PADDING_DISTANCE = 5;

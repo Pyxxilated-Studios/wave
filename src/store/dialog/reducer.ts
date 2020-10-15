@@ -146,10 +146,31 @@ const DialogReducer = (state = initialState, action: DialogActionType): DialogSt
             return { ...state, reason: { ...state.reason, tutorialPage: action.page } };
 
         case TOGGLE_SETTINGS:
-            return { ...state, paused: !state.paused, reason: { ...state.reason, settings: !state.reason.settings } };
+            return {
+                ...state,
+                paused: state.paused ? true : !state.reason.settings,
+                reason: { ...state.reason, settings: !state.reason.settings },
+            };
 
         case CLOSE_SETTINGS:
-            return { ...state, paused: false, reason: { ...state.reason, settings: false } };
+            return {
+                ...state,
+                paused:
+                    state.reason.abilityDialog ||
+                    state.reason.characterCreation ||
+                    state.reason.chest ||
+                    state.reason.gameInstructions ||
+                    state.reason.gameText !== undefined ||
+                    state.reason.inventory ||
+                    state.reason.journalDialog ||
+                    state.reason.levelUp ||
+                    state.reason.playerOpenedAbilityDialog ||
+                    state.reason.shop ||
+                    state.reason.spellbookDialog ||
+                    state.reason.tutorialDialog ||
+                    false,
+                reason: { ...state.reason, settings: false },
+            };
 
         case LOAD:
             if (!action.payload) return initialState;

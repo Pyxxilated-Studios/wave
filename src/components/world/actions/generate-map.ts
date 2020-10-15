@@ -1,17 +1,8 @@
-import {
-    MAP_DIMENSIONS,
-    ROOM_COUNT,
-    MAX_ROOM_DIMENSIONS,
-    MIN_ROOM_DIMENSIONS,
-    RANDOM_CONNECTIONS,
-    SPURS,
-} from "../../../constants";
-import { Point, GameMap, Tile, Dimension } from "../../../types";
+import { MAP_DIMENSIONS, ROOM_COUNT, MAX_ROOM_DIMENSIONS, MIN_ROOM_DIMENSIONS } from "../../../constants";
+import { Point, GameMap, Tile, Dimension, Room } from "../../../types";
 
 import { randBetween } from "../../../utils/rand_between";
 import generateObjects from "./generate-objects";
-
-type Room = Dimension & Point;
 
 /**
  * Generate a map, initialising all tiles to a wall tile
@@ -69,19 +60,7 @@ const corridorBetweenPoints = (x1: number, y1: number, x2: number, y2: number, j
             { x: x2, y: y2 },
         ];
     } else {
-        let join = joinBy;
-
-        if (joinBy === undefined && [0, 1].some((p) => [x1, x2, y1, y2].includes(p))) {
-            join = "bottom";
-        } else if (
-            (joinBy === undefined &&
-                [MAP_DIMENSIONS.width - 1, MAP_DIMENSIONS.width - 2].some((p) => [x1, x2].includes(p))) ||
-            [MAP_DIMENSIONS.height - 1, MAP_DIMENSIONS.height - 2].some((p) => [y1, y2].includes(p))
-        ) {
-            join = "top";
-        } else if (joinBy === undefined) {
-            join = ["top", "bottom"][Math.floor(Math.random() * 2)];
-        }
+        const join = joinBy || ["top", "bottom"][Math.floor(Math.random() * 2)];
 
         if (join === "top") {
             return [
@@ -186,7 +165,7 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
 
     for (let i = 0; i < ROOM_COUNT * 5; i++) {
         const room = generateRoom();
-        if (rooms.length === 0 || !overlapping(room, rooms)) {
+        if (!overlapping(room, rooms)) {
             rooms.push(room);
         }
 
@@ -201,23 +180,6 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     for (let i = 0; i < rooms.length - 1; i++) {
         corridors.push(joinRooms(rooms[i], rooms[i + 1]));
     }
-
-    // for (let i = 0; i < RANDOM_CONNECTIONS; i++) {
-    //     const roomOne = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     const roomTwo = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     corridors.push(joinRooms(roomOne, roomTwo));
-    // }
-
-    // for (let i = 0; i < SPURS; i++) {
-    //     const roomOne = {
-    //         x: randBetween(2, MAP_DIMENSIONS.width - 2),
-    //         y: randBetween(2, MAP_DIMENSIONS.height - 2),
-    //         width: 1,
-    //         height: 1,
-    //     };
-    //     const roomTwo = rooms[Math.floor(Math.random() * (rooms.length - 1))];
-    //     corridors.push(joinRooms(roomOne, roomTwo));
-    // }
 
     rooms.forEach((room) => {
         for (let j = 0; j < room.height; j++) {
@@ -251,7 +213,7 @@ const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
     });
 
     // Finished dungeon generation, so lets populate it with some objects
-    return generateObjects(map, floorNumber, startPosition, wallType);
+    return generateObjects(map, floorNumber, startPosition, wallType, rooms);
 };
 
 export default generateMap;

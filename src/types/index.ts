@@ -8,6 +8,8 @@ export interface Dimension {
     height: number;
 }
 
+export type Room = Dimension & Point;
+
 export interface Tile {
     location: Point;
     value: number;

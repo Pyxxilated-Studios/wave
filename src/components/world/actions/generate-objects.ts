@@ -1,4 +1,4 @@
-import { Point, GameMap } from "../../../types";
+import { Point, GameMap, Room } from "../../../types";
 import { MAP_DIMENSIONS } from "../../../constants";
 
 import getSurroundingTiles from "../../../utils/get-surrounding-tiles";
@@ -22,7 +22,13 @@ const generateShop = (map: GameMap, availableWalls: Point[]): GameMap => {
 };
 
 // Randomly generates chests, stairs and shops onto an existing random map
-const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Point, wallType: number): GameMap => {
+const generateObjects = (
+    map: GameMap,
+    floorNumber: number,
+    playerPosition: Point,
+    wallType: number,
+    rooms: Room[],
+): GameMap => {
     const initialTiles = [];
     const availableTiles = [];
 
@@ -73,17 +79,34 @@ const generateObjects = (map: GameMap, floorNumber: number, playerPosition: Poin
         }
     }
 
-    const randomChests = randBetween(0, 5);
+    // const randomChests = randBetween(0, 5);
 
     // place the chests on empty tiles
-    for (let x = 0; x < randomChests; x++) {
-        if (availableTiles.length > 0) {
-            const randomIndex = Math.floor(Math.random() * availableTiles.length);
-            const tile = availableTiles.splice(randomIndex, 1)[0];
+    // for (let x = 0; x < randomChests; x++) {
+    //     if (availableTiles.length > 0) {
+    //         const randomIndex = Math.floor(Math.random() * availableTiles.length);
+    //         const tile = availableTiles.splice(randomIndex, 1)[0];
 
-            map.tiles[tile.y][tile.x].value = 4;
+    //         map.tiles[tile.y][tile.x].value = 4;
+    //     }
+    // }
+
+    rooms.forEach((room) => {
+        // Only place a chest in a room that the player didn't start in
+        if (
+            !(
+                playerPosition.x >= room.x &&
+                playerPosition.x <= room.width + room.x &&
+                playerPosition.y >= room.y &&
+                playerPosition.y <= room.height + room.y
+            )
+        ) {
+            const randomX = randBetween(0, room.width - 1);
+            const randomY = randBetween(0, room.height - 1);
+
+            map.tiles[randomY + room.y][randomX + room.x].value = 4;
         }
-    }
+    });
 
     // generate a shop every 4 floors
     if (floorNumber % 4 === 0) {
