@@ -27,7 +27,7 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
 
     const saveGame = (): void => {
         const blob = new Blob([JSON.stringify(props.state)]);
-        const filename = props.state.dialog.character.name + ".json";
+        const filename = "wave.json";
 
         if (window.navigator.msSaveBlob) {
             // Internet Explorer/Edge
@@ -45,8 +45,6 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
         }
     };
 
-    const playerCreated = props.state.dialog.character.name.length > 0;
-
     return (
         <Dialog
             keys={["Enter", "Escape", "Esc"]}
@@ -63,14 +61,10 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
 
                 <Button onClick={(): void => setConfirmQuit(true)} icon="caret-square-left" title="Return to Menu" />
 
-                {playerCreated && (
-                    <>
-                        <Button onClick={saveGame} icon="save" title="Save Game" />
-                        <a href="#save" id="save-game-dialog" style={{ display: "none" }}>
-                            Save
-                        </a>
-                    </>
-                )}
+                <Button onClick={saveGame} icon="save" title="Save Game" />
+                <a href="#save" id="save-game-dialog" style={{ display: "none" }}>
+                    Save
+                </a>
 
                 <Button onClick={props.closeSettings} icon="times" title="Close" />
             </div>
