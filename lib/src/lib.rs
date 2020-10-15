@@ -3,7 +3,6 @@ use wasm_bindgen::JsCast;
 
 use js_sys::Array;
 
-use rand::distributions::Standard;
 use rand::prelude::*;
 
 use std::cmp::{max, min};
@@ -19,17 +18,19 @@ extern "C" {
 #[wasm_bindgen]
 #[derive(Clone)]
 pub struct Point {
-    x: i64,
-    y: i64,
+    x: i32,
+    y: i32,
 }
 
 #[wasm_bindgen]
 impl Point {
-    pub fn x(&self) -> i64 {
+    #[wasm_bindgen(getter)]
+    pub fn x(&self) -> i32 {
         self.x
     }
 
-    pub fn y(&self) -> i64 {
+    #[wasm_bindgen(getter)]
+    pub fn y(&self) -> i32 {
         self.y
     }
 }
@@ -65,26 +66,45 @@ impl Rect {
 struct Tile {
     location: Point,
     explored: bool,
-    value: i64,
-    variation: i64,
+    value: i32,
+    variation: i32,
 }
 
 #[wasm_bindgen]
 impl Tile {
+    #[wasm_bindgen(getter)]
     pub fn location(&self) -> Point {
         self.location.clone()
     }
 
+    #[wasm_bindgen(getter)]
     pub fn explored(&self) -> bool {
         self.explored
     }
 
-    pub fn value(&self) -> i64 {
+    #[wasm_bindgen(setter)]
+    pub fn set_explored(&mut self, explored: bool) {
+        self.explored = explored;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn value(&self) -> i32 {
         self.value
     }
 
-    pub fn variation(&self) -> i64 {
+    #[wasm_bindgen(setter)]
+    pub fn set_value(&mut self, value: i32) {
+        self.value = value;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn variation(&self) -> i32 {
         self.variation
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_variation(&mut self, variation: i32) {
+        self.variation = variation;
     }
 }
 
@@ -118,7 +138,7 @@ fn apply_vertical_tunnel(map: &mut Vec<Vec<Tile>>, y1: i32, y2: i32, x: i32) {
 }
 
 #[wasm_bindgen]
-pub fn generate(width: i64, height: i64) -> Map {
+pub fn generate(width: i32, height: i32, pos_x: i32, pos_y: i32) -> Map {
     console_error_panic_hook::set_once();
 
     let mut map = Vec::new();
@@ -143,11 +163,9 @@ pub fn generate(width: i64, height: i64) -> Map {
     const MIN_SIZE: i32 = 6;
     const MAX_SIZE: i32 = 10;
 
-    let rand_between = |min, max: i32| {
-        ((StdRng::from_entropy().sample::<f32, Standard>(Standard)
-            * (max as f32 - min as f32 - 1.))
-            + min as f32) as i32
-    };
+    let mut rng = StdRng::from_entropy();
+
+    let mut rand_between = |min, max| rng.gen_range(min, max + 1);
 
     for _ in 0..MAX_ROOMS {
         let w = rand_between(MIN_SIZE, MAX_SIZE);
@@ -158,14 +176,10 @@ pub fn generate(width: i64, height: i64) -> Map {
         println!("w: {}, h: {}, x: {}, y: {}", w, h, x, y);
 
         let new_room = Rect::new(x, y, w, h);
-        let mut ok = true;
-        for other_room in rooms.iter() {
-            if new_room.intersect(other_room) {
-                ok = false
-            }
-        }
 
-        if ok {
+        let no_overlap = rooms.iter().all(|rm| !rm.intersect(&new_room));
+
+        if no_overlap {
             apply_room_to_map(&new_room, &mut map);
             if !rooms.is_empty() {
                 let (new_x, new_y) = new_room.center();
@@ -190,7 +204,7 @@ pub fn generate(width: i64, height: i64) -> Map {
 }
 
 #[wasm_bindgen]
-pub fn compute(a: i64, b: i64) -> i64 {
+pub fn compute(a: i32, b: i32) -> i32 {
     a + b
 }
 
@@ -203,6 +217,6 @@ mod tests {
 
     #[test]
     pub fn main() {
-        super::generate(32, 32);
+        super::generate(32, 32, 0, 0);
     }
 }
