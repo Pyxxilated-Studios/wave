@@ -1,7 +1,5 @@
 import { Dispatch } from "react";
 import { combineReducers, createStore, compose, applyMiddleware, AnyAction, Action } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import WorldReducer from "./world/reducer";
@@ -28,15 +26,8 @@ const rootReducer = combineReducers({
     journal: JournalReducer,
 });
 
-const persistConfig = {
-    key: "wave",
-    storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = createStore(
-    persistedReducer,
+    rootReducer,
     compose(
         applyMiddleware(thunk),
         (process.env.NODE_ENV === "development" &&
@@ -45,8 +36,6 @@ export const store = createStore(
             compose,
     ),
 );
-
-export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, unknown, AnyAction>;
