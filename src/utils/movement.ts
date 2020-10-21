@@ -42,13 +42,13 @@ export const traversableTile = (position: Point, tiles: Tile[][]): boolean => ge
 export const getNewPosition = (oldPosition: Point, direction: Direction): Point => {
     switch (direction) {
         case Direction.North:
-            return { x: oldPosition.x, y: oldPosition.y - 1 };
+            return new Point(oldPosition.x, oldPosition.y - 1);
         case Direction.South:
-            return { x: oldPosition.x, y: oldPosition.y + 1 };
+            return new Point(oldPosition.x, oldPosition.y + 1);
         case Direction.East:
-            return { x: oldPosition.x + 1, y: oldPosition.y };
+            return new Point(oldPosition.x + 1, oldPosition.y);
         case Direction.West:
-            return { x: oldPosition.x - 1, y: oldPosition.y };
+            return new Point(oldPosition.x - 1, oldPosition.y);
         default:
             return oldPosition;
     }

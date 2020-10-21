@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 // Credit: https://pipoya.itch.io/free-rpg-monster-pack
 import PlanteraSprite from "./plantera.png";
@@ -7,7 +7,7 @@ import Pea from "../../items/weapons/ammo/pea";
 const Plantera: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 40,
     maxHealth: 40,

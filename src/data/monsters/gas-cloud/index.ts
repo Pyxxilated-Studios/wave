@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 // Credit: https://pipoya.itch.io/free-rpg-monster-pack
 import GasCloudSprite from "./gas-cloud.png";
@@ -6,7 +6,7 @@ import GasCloudSprite from "./gas-cloud.png";
 const GasCloud: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 10,
     maxHealth: 10,

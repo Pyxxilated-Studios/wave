@@ -10,6 +10,7 @@ import { Monster, Spell, HealEffect, DamageEffect, ChangeAIEffect, SpellEffectTy
 
 import calculateModifier from "../../../utils/calculate-modifier";
 import { d20 } from "../../../utils/dice";
+import { Point } from "../../../types";
 
 import errorMessage from "../../dialog-manager/actions/error-message";
 
@@ -68,7 +69,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
         if (!spell.effects) return;
 
         // The position used here is an offset from the player
-        dispatch(useProjectile({ x: 0, y: 0 }, spell));
+        dispatch(useProjectile(new Point(0, 0), spell));
 
         const intelligenceModifier = calculateModifier(stats.abilities.intelligence);
 
@@ -98,7 +99,7 @@ export const castSpell = (): RootThunk => async (dispatch, getState): Promise<vo
             const criticalHit = roll === 20;
             const attackValue = roll + modifier;
 
-            dispatch(useProjectile({ x: position.x - location.x, y: position.y - location.y }, spell));
+            dispatch(useProjectile(new Point(position.x - location.x, position.y - location.y), spell));
 
             if (criticalHit) {
                 dispatch(rolledCritical("d20 + " + modifier, roll, "intelligence"));

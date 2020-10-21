@@ -78,14 +78,7 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
 
     const nextTile = getTileAt(newPosition, maps[floorNumber - 1].tiles);
 
-    const facingDirection = player.direction;
-
-    const monstersAround = monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap]);
-
-    if (
-        canMoveTo(newPosition, maps[floorNumber - 1].tiles, monsters.entities[currentMap]) &&
-        (facingDirection === direction || monstersAround.length === 0)
-    ) {
+    if (canMoveTo(newPosition, maps[floorNumber - 1].tiles, monsters.entities[currentMap])) {
         // explore new tiles
         dispatch(exploreTiles(newPosition));
         // move the player
@@ -93,7 +86,10 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
         // Deal with any interactions the player can perform with the next tile
         dispatch(handleInteractWithTile(nextTile, newPosition));
 
-        if (player.turnsOutOfCombat % PASSIVE_MANA_RESTORE_TURNS === 0 && monstersAround.length === 0) {
+        const monstersAround =
+            monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap]).length > 0;
+
+        if (player.turnsOutOfCombat % PASSIVE_MANA_RESTORE_TURNS === 0 && !monstersAround) {
             dispatch(restore("passive", Math.ceil(stats.maxMana / 10)));
         }
     } else {
@@ -104,10 +100,8 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
         if (nextTile === 9) {
             // show the shop dialog
             dispatch(pause(true, { shop: true }));
-        }
-
-        // the player has accessed a shrine
-        if (nextTile === 10) {
+        } else if (nextTile === 10) {
+            // the player has accessed a shrine
             // check if they have won the game
             dispatch(pause(true, { gameWin: true }));
         }

@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 // Credit: Made on www.pixelart.com by Kelvin Ngor
 import BatSprite from "./bat.png";
@@ -6,7 +6,7 @@ import BatSprite from "./bat.png";
 const Bat: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 10,
     maxHealth: 10,

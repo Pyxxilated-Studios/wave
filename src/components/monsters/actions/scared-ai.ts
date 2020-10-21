@@ -21,7 +21,7 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
 
     const possibleDirections: Point[] = [];
 
-    const up = { x: location.x, y: location.y - 1 };
+    const up = new Point(location.x, location.y - 1);
     if (
         monsterCanMoveTo(
             up,
@@ -35,7 +35,7 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         possibleDirections.push(up);
     }
 
-    const down = { x: location.x, y: location.y + 1 };
+    const down = new Point(location.x, location.y + 1);
     if (
         monsterCanMoveTo(
             up,
@@ -49,7 +49,7 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         possibleDirections.push(down);
     }
 
-    const left = { x: location.x - 1, y: location.y };
+    const left = new Point(location.x - 1, location.y);
     if (
         monsterCanMoveTo(
             up,
@@ -63,7 +63,7 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         possibleDirections.push(left);
     }
 
-    const right = { x: location.x + 1, y: location.y };
+    const right = new Point(location.x + 1, location.y);
     if (
         monsterCanMoveTo(
             up,

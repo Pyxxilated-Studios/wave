@@ -26,8 +26,34 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
     const [confirmQuit, setConfirmQuit] = useState(false);
 
     const saveGame = (): void => {
-        const blob = new Blob([JSON.stringify(props.state)]);
-        const filename = props.state.dialog.character.name + ".json";
+        const state: any = props.state;
+
+        state.world.chests = Object.entries(props.state.world.chests).map(([, chest]) => ({
+            ...chest,
+            position: chest.position.serialize(),
+        }));
+        state.world.maps = props.state.world.maps.map((map) => ({
+            ...map,
+            tiles: map.tiles.map((row) => row.map((tile) => tile.serialize())),
+            paddingTiles: {
+                top: map.paddingTiles.top.map((row) => row.map((tile) => tile.serialize())),
+                bottom: map.paddingTiles.bottom.map((row) => row.map((tile) => tile.serialize())),
+                left: map.paddingTiles.left.map((row) => row.map((tile) => tile.serialize())),
+                right: map.paddingTiles.right.map((row) => row.map((tile) => tile.serialize())),
+            },
+        }));
+
+        Object.entries(state.monsters.entities).forEach(([, entities]: any[]) => {
+            Object.entries(entities).forEach(([, entity]: any[]) => (entity.location = entity.location.serialize()));
+        });
+
+        state.player.monsterLocation = props.state.player.monsterLocation.serialize();
+        state.player.targetLocation = props.state.player.targetLocation.serialize();
+        state.player.monsterTargetLocation = props.state.player.monsterTargetLocation.serialize();
+        state.player.position = props.state.player.position.serialize();
+
+        const blob = new Blob([JSON.stringify(state)]);
+        const filename = "wave.json";
 
         if (window.navigator.msSaveBlob) {
             // Internet Explorer/Edge
@@ -45,8 +71,6 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
         }
     };
 
-    const playerCreated = props.state.dialog.character.name.length > 0;
-
     return (
         <Dialog
             keys={["Enter", "Escape", "Esc"]}
@@ -63,14 +87,10 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
 
                 <Button onClick={(): void => setConfirmQuit(true)} icon="caret-square-left" title="Return to Menu" />
 
-                {playerCreated && (
-                    <>
-                        <Button onClick={saveGame} icon="save" title="Save Game" />
-                        <a href="#save" id="save-game-dialog" style={{ display: "none" }}>
-                            Save
-                        </a>
-                    </>
-                )}
+                <Button onClick={saveGame} icon="save" title="Save Game" />
+                <a href="#save" id="save-game-dialog" style={{ display: "none" }}>
+                    Save
+                </a>
 
                 <Button onClick={props.closeSettings} icon="times" title="Close" />
             </div>

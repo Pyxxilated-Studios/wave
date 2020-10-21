@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import { PlayerState } from "../../store/player/types";
 import { StatsState } from "../../store/stats/types";
 
-import { Direction } from "../../types";
+import { Direction, Point } from "../../types";
 
 import { SPRITE_SIZE, ANIMATION_SPEED } from "../../constants";
 
@@ -80,7 +80,7 @@ class Player extends Component<PlayerProps, State> {
         } else if (prevPlayer.playerAttacked !== player.playerAttacked) {
             let attackAnimation = undefined;
 
-            const position = { x: 0, y: 0 };
+            const position = new Point(0, 0);
             switch (player.direction) {
                 case Direction.North:
                     position.y -= 1;

@@ -20,7 +20,7 @@ const generateMonsters = (floorNumber: number, map: GameMap, playerPosition: Poi
 
             // get a list of floor tiles
             if (mapValue === 0) {
-                availableTiles.push({ y: i, x: j });
+                availableTiles.push(new Point(j, i));
             }
         }
     }

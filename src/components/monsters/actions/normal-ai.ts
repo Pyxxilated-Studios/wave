@@ -37,99 +37,99 @@ const makeRankedPositions = (location: Point, playerPosition: Point): Point[] =>
     const rankedPositions = [];
 
     if (difference.dy < 0) {
-        rankedPositions.push({ x: location.x, y: location.y + 1 });
+        rankedPositions.push(new Point(location.x, location.y + 1));
 
         if (difference.dx <= 0) {
-            rankedPositions.push({ x: location.x + 1, y: location.y });
+            rankedPositions.push(new Point(location.x + 1, location.y));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x - 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
+                rankedPositions.push(new Point(location.x - 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y - 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
-                rankedPositions.push({ x: location.x - 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y - 1));
+                rankedPositions.push(new Point(location.x - 1, location.y));
             }
         } else {
-            rankedPositions.push({ x: location.x - 1, y: location.y });
+            rankedPositions.push(new Point(location.x - 1, location.y));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x + 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
+                rankedPositions.push(new Point(location.x + 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y - 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
-                rankedPositions.push({ x: location.x + 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y - 1));
+                rankedPositions.push(new Point(location.x + 1, location.y));
             }
         }
     } else if (difference.dy > 0) {
-        rankedPositions.push({ x: location.x, y: location.y - 1 });
+        rankedPositions.push(new Point(location.x, location.y - 1));
 
         if (difference.dx <= 0) {
-            rankedPositions.push({ x: location.x + 1, y: location.y });
+            rankedPositions.push(new Point(location.x + 1, location.y));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x + 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
+                rankedPositions.push(new Point(location.x + 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y + 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
-                rankedPositions.push({ x: location.x + 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y + 1));
+                rankedPositions.push(new Point(location.x + 1, location.y));
             }
         } else {
-            rankedPositions.push({ x: location.x - 1, y: location.y });
+            rankedPositions.push(new Point(location.x - 1, location.y));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x + 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
+                rankedPositions.push(new Point(location.x + 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y + 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
-                rankedPositions.push({ x: location.x + 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y + 1));
+                rankedPositions.push(new Point(location.x + 1, location.y));
             }
         }
     } else if (difference.dx < 0) {
-        rankedPositions.push({ x: location.x + 1, y: location.y });
+        rankedPositions.push(new Point(location.x + 1, location.y));
 
         if (difference.dy <= 0) {
-            rankedPositions.push({ x: location.x, y: location.y + 1 });
+            rankedPositions.push(new Point(location.x, location.y + 1));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x - 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
+                rankedPositions.push(new Point(location.x - 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y - 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
-                rankedPositions.push({ x: location.x - 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y - 1));
+                rankedPositions.push(new Point(location.x - 1, location.y));
             }
         } else {
-            rankedPositions.push({ x: location.x, y: location.y - 1 });
+            rankedPositions.push(new Point(location.x, location.y - 1));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x - 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
+                rankedPositions.push(new Point(location.x - 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y + 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
-                rankedPositions.push({ x: location.x - 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y + 1));
+                rankedPositions.push(new Point(location.x - 1, location.y));
             }
         }
     } else {
-        rankedPositions.push({ x: location.x - 1, y: location.y });
+        rankedPositions.push(new Point(location.x - 1, location.y));
 
         if (difference.dy <= 0) {
-            rankedPositions.push({ x: location.x, y: location.y + 1 });
+            rankedPositions.push(new Point(location.x, location.y + 1));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x + 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
+                rankedPositions.push(new Point(location.x + 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y - 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y - 1 });
-                rankedPositions.push({ x: location.x + 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y - 1));
+                rankedPositions.push(new Point(location.x + 1, location.y));
             }
         } else {
-            rankedPositions.push({ x: location.x, y: location.y - 1 });
+            rankedPositions.push(new Point(location.x, location.y - 1));
 
             if (Math.abs(difference.dx) < Math.abs(difference.dy)) {
-                rankedPositions.push({ x: location.x + 1, y: location.y });
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
+                rankedPositions.push(new Point(location.x + 1, location.y));
+                rankedPositions.push(new Point(location.x, location.y + 1));
             } else {
-                rankedPositions.push({ x: location.x, y: location.y + 1 });
-                rankedPositions.push({ x: location.x + 1, y: location.y });
+                rankedPositions.push(new Point(location.x, location.y + 1));
+                rankedPositions.push(new Point(location.x + 1, location.y));
             }
         }
     }

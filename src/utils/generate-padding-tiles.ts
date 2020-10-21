@@ -1,5 +1,5 @@
 import { MAP_DIMENSIONS, MAP_PADDING_DISTANCE } from "../constants";
-import { Tile, PaddingTiles } from "../types";
+import { Tile, PaddingTiles, Point } from "../types";
 
 const generatePaddingTiles = (): PaddingTiles => {
     // we need to add padding tiles so the player cannot see past the edge of the map
@@ -13,18 +13,10 @@ const generatePaddingTiles = (): PaddingTiles => {
         const bottomRow: Tile[] = [];
 
         for (let j = 0; j < MAP_DIMENSIONS.width; j++) {
-            topRow.push({
-                location: { y: -i - 1, x: j },
-                explored: false,
-                variation: Math.round(Math.random() * (4 - 1) + 1),
-                value: 0,
-            });
-            bottomRow.push({
-                location: { y: i + MAP_DIMENSIONS.height, x: j },
-                explored: false,
-                variation: Math.round(Math.random() * (4 - 1) + 1),
-                value: 0,
-            });
+            topRow.push(new Tile(new Point(j, -i - 1), false, 0, Math.round(Math.random() * (4 - 1) + 1)));
+            bottomRow.push(
+                new Tile(new Point(j, i + MAP_DIMENSIONS.height), false, 0, Math.round(Math.random() * (4 - 1) + 1)),
+            );
         }
 
         top.push(topRow);
@@ -36,18 +28,22 @@ const generatePaddingTiles = (): PaddingTiles => {
         const rightRow: Tile[] = [];
 
         for (let j = 0; j < MAP_PADDING_DISTANCE; j++) {
-            leftRow.push({
-                location: { y: i - MAP_PADDING_DISTANCE, x: j - MAP_PADDING_DISTANCE },
-                explored: false,
-                variation: Math.round(Math.random() * (4 - 1) + 1),
-                value: 0,
-            });
-            rightRow.push({
-                location: { y: i - MAP_PADDING_DISTANCE, x: j + MAP_DIMENSIONS.width },
-                explored: false,
-                variation: Math.round(Math.random() * (4 - 1) + 1),
-                value: 0,
-            });
+            leftRow.push(
+                new Tile(
+                    new Point(j - MAP_PADDING_DISTANCE, i - MAP_PADDING_DISTANCE),
+                    false,
+                    0,
+                    Math.round(Math.random() * (4 - 1) + 1),
+                ),
+            );
+            rightRow.push(
+                new Tile(
+                    new Point(j + MAP_DIMENSIONS.width, i - MAP_PADDING_DISTANCE),
+                    false,
+                    0,
+                    Math.round(Math.random() * (4 - 1) + 1),
+                ),
+            );
         }
 
         left.push(leftRow);

@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 import SalamanderSprite from "./salamander.png";
 import Stone from "../../items/weapons/ammo/stone";
@@ -6,7 +6,7 @@ import Stone from "../../items/weapons/ammo/stone";
 const Salamander: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 12,
     maxHealth: 12,
