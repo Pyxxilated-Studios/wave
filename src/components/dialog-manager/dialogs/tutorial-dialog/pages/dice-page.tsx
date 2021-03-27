@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import D4 from "./assets/dice/d4.png";
 import D6 from "./assets/dice/d6.png";

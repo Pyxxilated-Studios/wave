@@ -1,4 +1,4 @@
-import React, { ReactNode, FunctionComponent } from "react";
+import { ReactNode, FunctionComponent } from "react";
 
 import { Point } from "../../types";
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";

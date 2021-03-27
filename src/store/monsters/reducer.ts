@@ -97,6 +97,7 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
                 ...initialState,
                 ...action.payload.monsters,
                 entities: Object.fromEntries(
+                    /* eslint-disable @typescript-eslint/no-explicit-any */
                     Object.entries(action.payload.monsters.entities).map(([id, entities]: any[]) => [
                         id,
                         Object.fromEntries(

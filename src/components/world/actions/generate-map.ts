@@ -1,7 +1,7 @@
 import { MAP_DIMENSIONS } from "../../../constants";
 import { Point, GameMap } from "../../../types";
 
-import * as wave from "wave";
+import { generate } from "wave";
 
 /**
  * Generate a random dungeon map.
@@ -11,12 +11,11 @@ import * as wave from "wave";
  * @param floorNumber The current floor number
  */
 const generateMap = (startPosition: Point, floorNumber: number): GameMap => {
-    // We need to pass the Rust version of this, which requires a 'free' function,
-    // however we aren't going to use it so it can just do nothing
-    const startPositionShim = new wave.Point(startPosition.x, startPosition.y);
+    const startingPoint = new Point(startPosition.x, startPosition.y);
+    const tiles = generate(MAP_DIMENSIONS.width, MAP_DIMENSIONS.height, startingPoint, floorNumber);
 
     const map: GameMap = {
-        tiles: wave.generate(MAP_DIMENSIONS.width, MAP_DIMENSIONS.height, startPositionShim, floorNumber),
+        tiles,
         paddingTiles: { top: [], bottom: [], left: [], right: [] },
         id: "",
     };

@@ -156,7 +156,6 @@ export const move = (monster: Monster, currentMap: string): RootThunk => async (
             monsterCanMoveTo(
                 position,
                 id,
-                currentMap,
                 player.position,
                 monsters.entities[currentMap],
                 world.maps[world.floorNumber - 1].tiles,
@@ -215,7 +214,6 @@ export const moveNormally = (sightBox: Point[], currentMap: string, monster: Mon
                     monsterCanMoveTo(
                         position,
                         id,
-                        currentMap,
                         player.position,
                         monsters.entities[currentMap],
                         world.maps[world.floorNumber - 1].tiles,

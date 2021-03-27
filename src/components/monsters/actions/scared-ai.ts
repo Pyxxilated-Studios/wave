@@ -26,7 +26,6 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -40,7 +39,6 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -54,7 +52,6 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -68,7 +65,6 @@ const moveScared = (sightBox: Point[], currentMap: string, monster: Monster): Ro
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,

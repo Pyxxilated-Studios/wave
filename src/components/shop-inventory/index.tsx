@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 

@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../../../store";
@@ -26,6 +26,7 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
     const [confirmQuit, setConfirmQuit] = useState(false);
 
     const saveGame = (): void => {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const state: any = props.state;
 
         state.world.chests = Object.entries(props.state.world.chests).map(([, chest]) => ({

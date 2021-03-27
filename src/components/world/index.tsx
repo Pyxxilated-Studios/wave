@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 import { connect } from "react-redux";
 import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 

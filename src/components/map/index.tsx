@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { MapState } from "../../store/map/types";

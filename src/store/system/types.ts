@@ -22,6 +22,7 @@ export interface SetAbilityIndicatorAction {
     set: boolean;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface LoadData {
     dialog: any;
     inventory: any;

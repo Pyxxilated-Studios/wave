@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import ArrowKeys from "./assets/keyboard/arrow_keys.png";
 import WASDKeys from "./assets/keyboard/wasd_keys.png";

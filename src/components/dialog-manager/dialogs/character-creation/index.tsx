@@ -1,4 +1,4 @@
-import React, { useState, useRef, FunctionComponent, ChangeEvent } from "react";
+import { useState, useRef, FunctionComponent, ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../../../store";

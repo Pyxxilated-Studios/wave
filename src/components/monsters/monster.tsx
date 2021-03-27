@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import { Monster as MonsterType, Direction } from "../../types";
 import { SPRITE_PIXELS } from "../../constants";

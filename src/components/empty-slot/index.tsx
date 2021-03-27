@@ -1,4 +1,4 @@
-import React, { FunctionComponent, CSSProperties, ReactNode } from "react";
+import { FunctionComponent, CSSProperties, ReactNode } from "react";
 
 import InventorySlot from "./inventory-slot.png";
 import { SPRITE_PIXELS } from "../../constants";

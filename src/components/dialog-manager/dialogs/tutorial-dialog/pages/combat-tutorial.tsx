@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import Spacebar from "./assets/keyboard/space_key.png";
 

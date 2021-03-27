@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import * as fontawesome from "@fortawesome/fontawesome-svg-core";

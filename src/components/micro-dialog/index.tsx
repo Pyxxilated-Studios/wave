@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
+import { useEffect, useCallback, ReactNode, FunctionComponent } from "react";
 
 import "./styles.scss";
 import Button from "../button";

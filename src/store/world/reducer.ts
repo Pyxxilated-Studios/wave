@@ -150,6 +150,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
         case LOAD: {
             if (!action.payload) return initialState;
 
+            /* eslint-disable @typescript-eslint/no-explicit-any */
             const state = {
                 ...initialState,
                 ...action.payload.world,

@@ -39,4 +39,5 @@ export const store = createStore(
 
 export type RootState = ReturnType<typeof store.getState>;
 export type RootDispatch = Dispatch<AnyAction> & ThunkDispatch<RootState, unknown, AnyAction>;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type RootThunk = ThunkAction<any, RootState, unknown, Action<string | void | boolean>>;

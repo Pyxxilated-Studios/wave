@@ -32,7 +32,6 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -46,7 +45,6 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -60,7 +58,6 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -74,7 +71,6 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,

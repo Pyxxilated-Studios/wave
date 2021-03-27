@@ -2,10 +2,10 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen;
 
 use js_sys::Array;
 
+use rand::distributions::uniform::SampleUniform;
 use rand::prelude::*;
 
 use std::cmp::{max, min};
@@ -34,25 +34,24 @@ extern "C" {
 #[wasm_bindgen]
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct Point {
-    // #[get]
-    // #[set]
     pub x: i32,
-    // #[get]
-    // #[set]
     pub y: i32,
 }
 
 #[wasm_bindgen]
 impl Point {
+    #[must_use]
     #[wasm_bindgen(constructor)]
     pub fn new(x: i32, y: i32) -> Self {
         Self { x, y }
     }
 
-    pub fn serialize(&self) -> JsValue {
+    #[must_use]
+    pub fn serialize(self) -> JsValue {
         serde_wasm_bindgen::to_value(&self).expect("There was an error serializing the point")
     }
 
+    #[must_use]
     pub fn deserialize(value: JsValue) -> Point {
         let value: Self = serde_wasm_bindgen::from_value(value)
             .expect("There was an error deserializing the point");
@@ -62,50 +61,49 @@ impl Point {
 
 #[derive(Debug)]
 pub struct Rect {
-    pub x1: i32,
-    pub x2: i32,
-    pub y1: i32,
-    pub y2: i32,
+    pub left: i32,
+    pub right: i32,
+    pub top: i32,
+    pub bottom: i32,
 }
 
 impl Rect {
+    #[must_use]
     pub fn new(x: i32, y: i32, w: i32, h: i32) -> Self {
         Self {
-            x1: x,
-            y1: y,
-            x2: x + w,
-            y2: y + h,
+            left: x,
+            top: y,
+            right: x + w,
+            bottom: y + h,
         }
     }
 
-    // Returns true if this overlaps with other
+    #[must_use]
     pub fn intersect(&self, other: &Self) -> bool {
-        self.x1 <= other.x2 && self.x2 >= other.x1 && self.y1 <= other.y2 && self.y2 >= other.y1
+        self.left <= other.right
+            && self.right >= other.left
+            && self.top <= other.bottom
+            && self.bottom >= other.top
     }
 
+    #[must_use]
     pub fn center(&self) -> (i32, i32) {
-        ((self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2)
+        ((self.left + self.right) / 2, (self.top + self.bottom) / 2)
     }
 }
 
 #[wasm_bindgen]
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct Tile {
-    // #[get]
     pub location: Point,
-    // #[get]
-    // #[set]
     pub explored: bool,
-    // #[get]
-    // #[set]
     pub value: i32,
-    // #[get]
-    // #[set]
     pub variation: i32,
 }
 
 #[wasm_bindgen]
 impl Tile {
+    #[must_use]
     #[wasm_bindgen(constructor)]
     pub fn new(location: Point, explored: bool, value: i32, variation: i32) -> Self {
         Self {
@@ -116,10 +114,12 @@ impl Tile {
         }
     }
 
+    #[must_use]
     pub fn serialize(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self).expect("There was an error serializing the tile")
     }
 
+    #[must_use]
     pub fn deserialize(value: JsValue) -> Tile {
         let value: Self = serde_wasm_bindgen::from_value(value)
             .expect("There was an error deserializing the tile");
@@ -128,27 +128,27 @@ impl Tile {
 }
 
 fn apply_room_to_map(room: &Rect, map: &mut Vec<Vec<Tile>>) {
-    for y in room.y1 + 1..=room.y2 {
-        for x in room.x1 + 1..=room.x2 {
+    for y in room.top + 1..=room.bottom {
+        for x in room.left + 1..=room.right {
             map[y as usize][x as usize].value = TileType::Floor as i32;
         }
     }
 }
 
 fn apply_horizontal_tunnel(map: &mut Vec<Vec<Tile>>, x1: i32, x2: i32, y: i32, width: i32) {
-    for x in min(x1, x2)..=max(x1, x2) {
+    (min(x1, x2)..=max(x1, x2)).for_each(|x| {
         if x > 0 && x < width {
             map[y as usize][x as usize].value = TileType::Floor as i32;
         }
-    }
+    })
 }
 
 fn apply_vertical_tunnel(map: &mut Vec<Vec<Tile>>, y1: i32, y2: i32, x: i32, height: i32) {
-    for y in min(y1, y2)..=max(y1, y2) {
+    (min(y1, y2)..=max(y1, y2)).for_each(|y| {
         if y > 0 && y < height {
             map[y as usize][x as usize].value = TileType::Floor as i32;
         }
-    }
+    })
 }
 
 struct MapGenerator {
@@ -156,47 +156,70 @@ struct MapGenerator {
     height: i32,
     floor_number: i32,
     starting_point: Point,
+    rng: StdRng,
 }
 
 impl MapGenerator {
+    #[must_use]
     fn new(width: i32, height: i32, floor_number: i32, starting_point: Point) -> Self {
         Self {
             width,
             height,
             floor_number,
             starting_point,
+            rng: StdRng::from_entropy(),
         }
     }
 
-    pub fn generate(self) -> Map {
-        let wall_type = 5 + self.floor_number / 30;
+    #[must_use]
+    fn rand_between<T: SampleUniform>(&mut self, min: T, max: T) -> T {
+        self.rng.gen_range(min, max)
+    }
 
-        let mut map = Vec::with_capacity(self.height as usize);
+    /// Generate a shop somewhere on the map.
+    ///
+    /// This will search the entire map to find all tiles that are walls, but are
+    /// surrounded on at least one side by a walkable tile
+    fn generate_shop(&mut self, map: &mut Vec<Vec<Tile>>, wall_type: i32) {
+        let edges = map
+            .iter()
+            .flat_map(|row| {
+                row.iter().filter_map(|tile| {
+                    let (x, y) = (tile.location.x as usize, tile.location.y as usize);
 
-        for y in 0..self.height {
-            let mut row = Vec::with_capacity(self.width as usize);
+                    if tile.value != wall_type {
+                        None
+                    } else if (x + 1 < self.width as usize
+                        && map[y][x + 1].value == TileType::Floor as i32)
+                        || (x > 0 && map[y][x - 1].value == TileType::Floor as i32)
+                        || (y + 1 < self.height as usize
+                            && map[y + 1][x].value == TileType::Floor as i32)
+                        || (y > 0 && map[y - 1][x].value == TileType::Floor as i32)
+                    {
+                        Some((x, y))
+                    } else {
+                        None
+                    }
+                })
+            })
+            .collect::<Vec<_>>();
 
-            for x in 0..self.width {
-                row.push(Tile {
-                    location: Point { x, y },
-                    explored: false,
-                    value: wall_type,
-                    variation: 0,
-                });
-            }
-
-            map.push(row);
+        if !edges.is_empty() {
+            let shop_position = edges[self.rand_between(0, edges.len())];
+            map[shop_position.1][shop_position.0].value = TileType::Shop as i32;
         }
+    }
 
+    /// Generate the rooms that can be found inside the map.
+    ///
+    /// This will also generate the tunnels between these rooms,
+    /// and the stairs between the previous floor and the next.
+    fn generate_rooms(&mut self, mut map: &mut Vec<Vec<Tile>>) {
         let mut rooms: Vec<Rect> = Vec::with_capacity(MAX_ROOMS as usize);
 
-        let mut rng = StdRng::from_entropy();
-
-        let mut rand_between = |min, max| rng.gen_range(min, max + 1);
-
         let (w, h) = (
-            rand_between(MIN_SIZE, MAX_SIZE),
-            rand_between(MIN_SIZE, MAX_SIZE),
+            self.rand_between(MIN_SIZE, MAX_SIZE),
+            self.rand_between(MIN_SIZE, MAX_SIZE),
         );
 
         let starting_room = Rect::new(
@@ -223,10 +246,10 @@ impl MapGenerator {
         rooms.push(starting_room);
 
         for _ in 1..MAX_ROOMS {
-            let w = rand_between(MIN_SIZE, MAX_SIZE);
-            let h = rand_between(MIN_SIZE, MAX_SIZE);
-            let x = rand_between(1, self.width - w - 1) - 1;
-            let y = rand_between(1, self.height - h - 1) - 1;
+            let w = self.rand_between(MIN_SIZE, MAX_SIZE);
+            let h = self.rand_between(MIN_SIZE, MAX_SIZE);
+            let x = self.rand_between(1, self.width - w - 1) - 1;
+            let y = self.rand_between(1, self.height - h - 1) - 1;
 
             let new_room = Rect::new(x, y, w, h);
 
@@ -236,7 +259,7 @@ impl MapGenerator {
                 apply_room_to_map(&new_room, &mut map);
 
                 let (new_x, new_y) = new_room.center();
-                let (prev_x, prev_y) = rooms[rooms.len() - 1].center();
+                let (prev_x, prev_y) = rooms.last().unwrap().center();
 
                 if rand::random() {
                     apply_horizontal_tunnel(&mut map, prev_x, new_x, prev_y, self.width);
@@ -247,8 +270,8 @@ impl MapGenerator {
                 }
 
                 // Add a random chest
-                let x = rand_between(new_room.x1, new_room.x2);
-                let y = rand_between(new_room.y1, new_room.y2);
+                let x = self.rand_between(new_room.left + 1, new_room.right - 1);
+                let y = self.rand_between(new_room.top + 1, new_room.bottom - 1);
 
                 map[y as usize][x as usize].value = TileType::Chest as i32;
 
@@ -259,54 +282,33 @@ impl MapGenerator {
         // Add some stairs to go to the next level
         let (x, y) = rooms.last().unwrap().center();
         map[y as usize][x as usize].value = TileType::Upstairs as i32;
+    }
+
+    #[must_use]
+    pub fn generate(mut self) -> Map {
+        let wall_type = 5 + self.floor_number / 30;
+
+        let mut map = Vec::with_capacity(self.height as usize);
+
+        for y in 0..self.height {
+            let mut row = Vec::with_capacity(self.width as usize);
+
+            for x in 0..self.width {
+                row.push(Tile {
+                    location: Point { x, y },
+                    explored: false,
+                    value: wall_type,
+                    variation: 0,
+                });
+            }
+
+            map.push(row);
+        }
+
+        self.generate_rooms(&mut map);
 
         if self.floor_number > 0 {
-            let edges = map
-                .iter()
-                .enumerate()
-                .flat_map(|(y, row)| {
-                    row.iter()
-                        .enumerate()
-                        .filter_map(|(x, tile)| {
-                            if tile.value == wall_type
-                                && (map[y][x - 1].value == TileType::Floor as i32
-                                    || map[y][x + 1].value == TileType::Floor as i32
-                                    || map[y - 1][x].value == TileType::Floor as i32
-                                    || map[y + 1][x].value == TileType::Floor as i32)
-                            {
-                                Some((x, y))
-                            } else {
-                                None
-                            }
-                        })
-                        .collect::<Vec<(usize, usize)>>()
-                })
-                .collect::<Vec<(usize, usize)>>();
-
-            // let mut edges = Vec::new();
-
-            // for y in 1..self.height {
-            //     for x in 1..self.width {
-            //         if map[y as usize][x as usize].value == wall_type
-            //             && (map[y as usize][(x - 1) as usize].value == TileType::Floor as i32
-            //                 || map[y as usize][(x + 1) as usize].value == TileType::Floor as i32
-            //                 || map[(y - 1) as usize][x as usize].value == TileType::Floor as i32
-            //                 || map[(y + 1) as usize][x as usize].value == TileType::Floor as i32)
-            //         {
-            //             edges.push((x as usize, y as usize));
-            //         }
-            //     }
-            // }
-
-            let shop_position = edges[rand_between(0, edges.len() as i32) as usize];
-            map[shop_position.1][shop_position.0].value = TileType::Shop as i32;
-
-            log(&format!("Shop is at position: {:#?}", shop_position));
-            log(&format!("Map is: {:#?}", map));
-            log(&format!(
-                "Shop: {:#?}",
-                map[shop_position.1][shop_position.0]
-            ));
+            self.generate_shop(&mut map, wall_type);
         }
 
         map.into_iter()
@@ -316,6 +318,7 @@ impl MapGenerator {
     }
 }
 
+#[must_use]
 #[wasm_bindgen]
 pub fn generate(width: i32, height: i32, position: Point, floor_number: i32) -> Map {
     console_error_panic_hook::set_once();

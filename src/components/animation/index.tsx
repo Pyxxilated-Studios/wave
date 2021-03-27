@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
 import { Projectile, Point, Direction, Target } from "../../types";
 import { SPRITE_SIZE, SPRITE_PIXELS } from "../../constants";

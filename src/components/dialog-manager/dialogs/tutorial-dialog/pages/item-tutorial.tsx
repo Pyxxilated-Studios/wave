@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import Chest from "./assets/chest.png";
 import Shop from "./assets/shop.png";
