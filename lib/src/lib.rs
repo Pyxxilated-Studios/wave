@@ -10,6 +10,8 @@ use rand::prelude::*;
 
 use std::cmp::{max, min};
 
+pub mod dice;
+
 const MAX_ROOMS: i32 = 30;
 const MIN_SIZE: i32 = 6;
 const MAX_SIZE: i32 = 10;
@@ -59,7 +61,6 @@ impl Point {
     }
 }
 
-#[derive(Debug)]
 pub struct Rect {
     pub left: i32,
     pub right: i32,
@@ -93,7 +94,7 @@ impl Rect {
 }
 
 #[wasm_bindgen]
-#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
+#[derive(Copy, Clone, Serialize, Deserialize)]
 pub struct Tile {
     pub location: Point,
     pub explored: bool,
@@ -128,11 +129,10 @@ impl Tile {
 }
 
 fn apply_room_to_map(room: &Rect, map: &mut Vec<Vec<Tile>>) {
-    for y in room.top + 1..=room.bottom {
-        for x in room.left + 1..=room.right {
-            map[y as usize][x as usize].value = TileType::Floor as i32;
-        }
-    }
+    (room.top + 1..=room.bottom).for_each(|y| {
+        (room.left + 1..=room.right)
+            .for_each(|x| map[y as usize][x as usize].value = TileType::Floor as i32)
+    })
 }
 
 fn apply_horizontal_tunnel(map: &mut Vec<Vec<Tile>>, x1: i32, x2: i32, y: i32, width: i32) {
@@ -245,7 +245,7 @@ impl MapGenerator {
         apply_room_to_map(&starting_room, &mut map);
         rooms.push(starting_room);
 
-        for _ in 1..MAX_ROOMS {
+        (1..MAX_ROOMS).for_each(|_| {
             let w = self.rand_between(MIN_SIZE, MAX_SIZE);
             let h = self.rand_between(MIN_SIZE, MAX_SIZE);
             let x = self.rand_between(1, self.width - w - 1) - 1;
@@ -253,9 +253,7 @@ impl MapGenerator {
 
             let new_room = Rect::new(x, y, w, h);
 
-            let no_overlap = rooms.iter().all(|rm| !rm.intersect(&new_room));
-
-            if no_overlap {
+            if rooms.iter().all(|rm| !rm.intersect(&new_room)) {
                 apply_room_to_map(&new_room, &mut map);
 
                 let (new_x, new_y) = new_room.center();
@@ -277,7 +275,7 @@ impl MapGenerator {
 
                 rooms.push(new_room);
             }
-        }
+        });
 
         // Add some stairs to go to the next level
         let (x, y) = rooms.last().unwrap().center();
@@ -288,22 +286,18 @@ impl MapGenerator {
     pub fn generate(mut self) -> Map {
         let wall_type = 5 + self.floor_number / 30;
 
-        let mut map = Vec::with_capacity(self.height as usize);
-
-        for y in 0..self.height {
-            let mut row = Vec::with_capacity(self.width as usize);
-
-            for x in 0..self.width {
-                row.push(Tile {
-                    location: Point { x, y },
-                    explored: false,
-                    value: wall_type,
-                    variation: 0,
-                });
-            }
-
-            map.push(row);
-        }
+        let mut map = (0..self.height)
+            .map(|y| {
+                (0..self.width)
+                    .map(|x| Tile {
+                        location: Point { x, y },
+                        explored: false,
+                        value: wall_type,
+                        variation: 0,
+                    })
+                    .collect()
+            })
+            .collect();
 
         self.generate_rooms(&mut map);
 

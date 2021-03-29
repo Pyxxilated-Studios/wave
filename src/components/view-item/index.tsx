@@ -38,6 +38,7 @@ import calculatePrices from "../../utils/calculate-price";
 
 import "./styles.scss";
 import { SPRITE_PIXELS } from "../../constants";
+import { calculateDamageRange } from "../../utils/dice";
 
 interface DispatchProps {
     buyItem: (item: ItemType) => void;
@@ -79,9 +80,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
     // find the type of item
     switch (props.data.type) {
         case "backpack": {
-            itemStats.push(
-                <StatsItem stats={{ name: "slots", value: (props.data as Backpack).slots }} key={uuidv4()} />,
-            );
+            itemStats.push(<StatsItem stats={{ name: "slots", value: (props.data as Backpack).slots }} />);
             break;
         }
 
@@ -94,7 +93,6 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             itemStats.push(
                 <StatsItem
                     stats={{ name: props.data.kind, value: potionRestore === Infinity ? "MAX" : potionRestore }}
-                    key={uuidv4()}
                 />,
             );
             break;
@@ -102,9 +100,10 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
 
         case "weapon": {
             itemIsEquipped = equipped.weapon?.name === props.data.name;
-            itemStats.push(
-                <StatsItem stats={{ name: "damage", value: (props.data as Weapon).damage }} key={uuidv4()} />,
-            );
+            itemStats.push(<StatsItem stats={{ name: "damage", value: (props.data as Weapon).damage }} />);
+
+            const range = calculateDamageRange((props.data as Weapon).damage, false);
+            itemStats.push(<StatsItem stats={{ name: "range", value: `${range[0]}-${range[1]}` }} />);
 
             // if there's a bonus
             if (props.data.bonus) {
@@ -116,7 +115,6 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                             name: `VS. ${bonusType}`,
                             value: `${bonusMult}x`,
                         }}
-                        key={uuidv4()}
                     />,
                 );
             }
@@ -164,31 +162,27 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 if (effect) {
                     const intelligenceModifier = calculateModifier(props.stats.abilities.intelligence);
                     const healAmount = (effect as HealEffect).amount + " + " + Math.max(0, intelligenceModifier);
-                    itemStats.push(<StatsItem stats={{ name: "heal", value: healAmount }} key={uuidv4()} />);
+                    itemStats.push(<StatsItem stats={{ name: "heal", value: healAmount }} />);
                 }
             } else {
                 const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.Damage);
 
                 if (effect) {
                     const damageEffect = effect as DamageEffect;
-                    itemStats.push(<StatsItem stats={{ name: "damage", value: damageEffect.dice }} key={uuidv4()} />);
+                    itemStats.push(<StatsItem stats={{ name: "damage", value: damageEffect.dice }} />);
                 }
             }
 
-            itemStats.push(<StatsItem stats={{ name: "mana cost", value: props.data.manaCost }} key={uuidv4()} />);
+            itemStats.push(<StatsItem stats={{ name: "mana cost", value: props.data.manaCost }} />);
 
             const effect = props.data.effects?.find((effect) => effect.effect === SpellEffectType.ChangeAI);
             if (effect) {
                 const changeEffect = effect as ChangeAIEffect;
 
-                itemStats.push(
-                    <StatsItem stats={{ name: "effect", value: changeEffect.description }} key={uuidv4()} />,
-                );
+                itemStats.push(<StatsItem stats={{ name: "effect", value: changeEffect.description }} />);
 
                 if (changeEffect.chance) {
-                    itemStats.push(
-                        <StatsItem stats={{ name: "chance", value: changeEffect.chance.description }} key={uuidv4()} />,
-                    );
+                    itemStats.push(<StatsItem stats={{ name: "chance", value: changeEffect.chance.description }} />);
                 }
 
                 if (changeEffect.extraEffect?.effect === SpellEffectType.DamageOverTime) {
@@ -198,13 +192,12 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                                 name: "DMG over time",
                                 value: changeEffect.extraEffect?.dice + " * " + changeEffect.extraEffect?.turns,
                             }}
-                            key={uuidv4()}
                         />,
                     );
                 }
             }
 
-            itemStats.push(<StatsItem stats={{ name: "description", value: props.data.description }} key={uuidv4()} />);
+            itemStats.push(<StatsItem stats={{ name: "description", value: props.data.description }} />);
             break;
         }
 
@@ -218,7 +211,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             if (props.data?.effects) {
                 const value = (props.data.effects as ItemEffect)[effect as keyof ItemEffect];
                 if (value) {
-                    itemStats.push(<StatsItem stats={{ name: effect.toString(), value }} key={uuidv4()} />);
+                    itemStats.push(<StatsItem stats={{ name: effect.toString(), value }} />);
                 }
             }
         });
@@ -236,7 +229,6 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                     name: "price",
                     value: props.buy ? buyPrice : sellPrice,
                 }}
-                key={uuidv4()}
             />,
         );
     }
@@ -354,7 +346,11 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                 <span className="view-item-text">{props.data.name || "-"}</span>
             </div>
 
-            <div className="flex-column view-item-stats">{itemStats}</div>
+            <div className="flex-column view-item-stats">
+                {itemStats.map((stats) => (
+                    <div key={uuidv4()}>{stats}</div>
+                ))}
+            </div>
 
             <div className="flex-column view-item-button-container">
                 <div className="flex-row view-item-button">{ViewItemButtons}</div>
