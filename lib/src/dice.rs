@@ -10,12 +10,17 @@ pub enum BiasedTo {
     Min,
 }
 
-impl BiasedTo {
-    fn apply(self, sides: i32) -> i32 {
-        match self {
-            Self::Min => 1,
-            Self::Max => sides,
-        }
+struct Dice<'a>(Option<BiasedTo>, i32, &'a mut StdRng);
+
+impl<'a> Iterator for Dice<'a> {
+    type Item = i32;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        Some(match self.0 {
+            Some(BiasedTo::Max) => self.1,
+            Some(BiasedTo::Min) => 1,
+            None => self.2.gen_range(1, self.1),
+        })
     }
 }
 
@@ -28,6 +33,7 @@ enum Operator {
     Dice,
     Low,
     High,
+    Explosion,
 }
 
 impl Operator {
@@ -37,6 +43,7 @@ impl Operator {
             Operator::Multiply | Operator::Divide => 2,
             Operator::Low | Operator::High => 3,
             Operator::Dice => 4,
+            Operator::Explosion => 5,
         }
     }
 
@@ -47,9 +54,8 @@ impl Operator {
         critical_hit: bool,
         bias: Option<BiasedTo>,
     ) -> Literal {
-        use self::Literal::*;
-        use self::Operator::*;
-        use Token::*;
+        use self::Literal::{Array, Number};
+        use Token::Literal;
 
         let (l, r) = match (left, right) {
             (Literal(l), Literal(r)) => (l, r),
@@ -57,25 +63,25 @@ impl Operator {
         };
 
         match self {
-            Plus => l + r,
-            Minus => l - r,
-            Multiply => l * r,
-            Divide => l / r,
-            Low => match l {
+            Self::Plus => l + r,
+            Self::Minus => l - r,
+            Self::Multiply => l * r,
+            Self::Divide => l / r,
+            Self::Low => match l {
                 Number(v) => Number(v),
                 Array(mut a) => {
                     a.sort_unstable();
                     Array(a.into_iter().take(r.inner() as usize).collect())
                 }
             },
-            High => match l {
+            Self::High => match l {
                 Number(v) => Number(v),
                 Array(mut a) => {
                     a.sort_unstable_by(|a, b| b.cmp(a));
                     Array(a.into_iter().take(r.inner() as usize).collect())
                 }
             },
-            Dice => {
+            Self::Dice => {
                 let sides = r.inner();
                 let mul = if critical_hit {
                     2 * l.inner()
@@ -83,12 +89,23 @@ impl Operator {
                     l.inner()
                 };
 
-                if let Some(bias) = bias {
-                    Array((0..mul).map(|_| bias.apply(sides)).collect())
+                let mut rng = StdRng::from_entropy();
+                let dice = Dice(bias, sides, &mut rng);
+
+                Array(dice.take(mul as usize).collect())
+            }
+            Self::Explosion => {
+                let sides = r.inner();
+                let mul = if critical_hit {
+                    2 * l.inner()
                 } else {
-                    let mut rng = StdRng::from_entropy();
-                    Array((0..mul).map(|_| rng.gen_range(1, sides)).collect())
-                }
+                    l.inner()
+                };
+
+                let mut rng = StdRng::from_entropy();
+                let dice = Dice(bias, sides, &mut rng);
+
+                Array(dice.take(mul as usize).collect())
             }
         }
     }
@@ -149,60 +166,70 @@ enum Token {
     Literal(Literal),
 }
 
-fn lex(notation: &str) -> Result<Vec<Token>, String> {
-    use self::Literal::*;
-    use self::Operator::*;
-    use Token::*;
+trait Lex {
+    type Output;
+    fn lex(self) -> Result<Self::Output, String>;
+}
 
-    let mut output = Vec::new();
-    let mut expression = notation.chars().peekable();
+impl Lex for &str {
+    type Output = Vec<Token>;
 
-    while let Some(ch) = expression.peek() {
-        let token = match ch {
-            'd' => {
-                // Ensure that something like 'd4' works as expected
-                match output.last() {
-                    Some(Some(Literal(_))) => {}
-                    _ => output.push(Some(Literal(Number(1)))),
-                };
-                Some(Operator(Dice))
-            }
-            'l' => Some(Operator(Low)),
-            'h' => Some(Operator(High)),
-            '-' => Some(Operator(Minus)),
-            '+' => Some(Operator(Plus)),
-            '*' => Some(Operator(Multiply)),
-            '/' => Some(Operator(Divide)),
-            '(' => Some(LeftParen),
-            ')' => Some(RightParen),
-            '0'..='9' => {
-                let mut num = String::new();
+    fn lex(self) -> Result<Self::Output, String> {
+        use self::Literal::Number;
+        use self::Operator::{Dice, Divide, Explosion, High, Low, Minus, Multiply, Plus};
+        use Token::{LeftParen, Literal, Operator, RightParen};
 
-                while let Some(ch) = expression.peek() {
-                    if !ch.is_digit(10) {
-                        break;
+        let mut output = Vec::new();
+        let mut expression = self.chars().peekable();
+
+        while let Some(ch) = expression.peek() {
+            let token = match ch {
+                'd' => {
+                    // Ensure that something like 'd4' works as expected
+                    match output.last() {
+                        Some(Some(Literal(_))) => {}
+                        _ => output.push(Some(Literal(Number(1)))),
+                    };
+                    Some(Operator(Dice))
+                }
+                // '!' => Some(Operator(Explosion)),
+                'l' => Some(Operator(Low)),
+                'h' => Some(Operator(High)),
+                '-' => Some(Operator(Minus)),
+                '+' => Some(Operator(Plus)),
+                '*' => Some(Operator(Multiply)),
+                '/' => Some(Operator(Divide)),
+                '(' => Some(LeftParen),
+                ')' => Some(RightParen),
+                '0'..='9' => {
+                    let mut num = String::new();
+
+                    while let Some(ch) = expression.peek() {
+                        if !ch.is_digit(10) {
+                            break;
+                        }
+
+                        num.push(expression.next().unwrap());
                     }
 
-                    num.push(expression.next().unwrap());
+                    Some(Literal(Number(num.parse().unwrap())))
                 }
+                c if c.is_whitespace() => None,
+                _ => return Err(format!("Unknown character {}", ch)),
+            };
 
-                Some(Literal(Number(num.parse().unwrap())))
-            }
-            c if c.is_whitespace() => None,
-            _ => return Err(format!("Unknown character {}", ch)),
-        };
+            output.push(token);
 
-        output.push(token);
+            match output.last().unwrap() {
+                Some(Literal(_)) => {}
+                _ => {
+                    expression.next();
+                }
+            };
+        }
 
-        match output.last().unwrap() {
-            Some(Literal(_)) => {}
-            _ => {
-                expression.next();
-            }
-        };
+        Ok(output.into_iter().flatten().collect())
     }
-
-    Ok(output.into_iter().flatten().collect())
 }
 
 fn reorder(stack: &mut Vec<Token>, operator: Operator, output: &mut Vec<Token>) {
@@ -216,7 +243,7 @@ fn reorder(stack: &mut Vec<Token>, operator: Operator, output: &mut Vec<Token>) 
 }
 
 fn yard(infix: &[Token]) -> Vec<Token> {
-    use Token::*;
+    use Token::{LeftParen, Literal, Operator, RightParen};
 
     let (output, stack) = infix.iter().fold(
         (Vec::new(), Vec::new()),
@@ -249,20 +276,20 @@ fn yard(infix: &[Token]) -> Vec<Token> {
 }
 
 fn rpn(postfix: &[Token], critical_hit: bool, bias: Option<BiasedTo>) -> Result<i32, String> {
-    use self::Literal::*;
-    use Token::*;
+    use self::Literal::{Array, Number};
+    use Token::Literal;
 
     let evaluated = postfix
         .iter()
         .try_fold(Vec::new(), |mut stack, token| {
             match token {
-                Operator(op) => {
+                Token::Operator(op) => {
                     let right = match stack.pop() {
                         Some(token) => match token {
                             Literal(_) => token,
                             _ => return Err(String::from("Invalid expression")),
                         },
-                        _ => return Err(String::from("Invalid expression")),
+                        None => return Err(String::from("Invalid expression")),
                     };
 
                     let left = match stack.pop() {
@@ -270,15 +297,10 @@ fn rpn(postfix: &[Token], critical_hit: bool, bias: Option<BiasedTo>) -> Result<
                             Literal(_) => token,
                             _ => return Err(String::from("Invalid expression")),
                         },
-                        _ => return Err(String::from("Invalid expression")),
+                        None => return Err(String::from("Invalid expression")),
                     };
 
-                    stack.push(Token::Literal(op.operation(
-                        left,
-                        right,
-                        critical_hit,
-                        bias,
-                    )));
+                    stack.push(Literal(op.operation(left, right, critical_hit, bias)));
                 }
                 Literal(_) => stack.push(token.clone()),
                 _ => return Err(format!("Expected Operator or Literal, found {:#?}", token)),
@@ -296,7 +318,7 @@ fn rpn(postfix: &[Token], critical_hit: bool, bias: Option<BiasedTo>) -> Result<
 }
 
 fn parse(notation: &str, critical_hit: bool, bias: Option<BiasedTo>) -> Result<i32, String> {
-    rpn(&yard(&lex(notation)?), critical_hit, bias)
+    rpn(&yard(&notation.lex()?), critical_hit, bias)
 }
 
 #[wasm_bindgen]

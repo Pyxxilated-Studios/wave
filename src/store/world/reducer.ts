@@ -16,8 +16,9 @@ import { Tile, Point } from "../../types";
 import { TAKE_TURN } from "../player/types";
 import { RESET, LOAD } from "../system/types";
 
+import { generate_padding_tiles } from "wave";
+
 import attachMetaToTiles from "../../utils/attach-meta-to-tiles";
-import generatePaddingTiles from "../../utils/generate-padding-tiles";
 import { arrayContainsPoint } from "../../utils/array-contains";
 import { getChestName } from "../../utils/get-chest-name";
 
@@ -57,7 +58,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             const _randomMaps = cloneDeep(state.maps);
 
             const randomTiles = attachMetaToTiles(action.tiles);
-            const randomPaddTiles = generatePaddingTiles();
+            const randomPaddTiles = generate_padding_tiles();
 
             _randomMaps.push({
                 tiles: randomTiles,
