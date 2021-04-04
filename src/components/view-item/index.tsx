@@ -22,6 +22,7 @@ import {
     SpellEffectType,
     ChangeAIEffect,
 } from "../../types";
+import { SPRITE_SIZE } from "../../constants";
 
 import Button from "../button";
 import ConfirmDialog from "../confirm-dialog";
@@ -32,13 +33,12 @@ import StatsItem from "./stats-item";
 import consumePotion from "../inventory/actions/consume-potion";
 import buyItem from "../inventory/actions/buy-item";
 
+import { calculateDamageRange } from "../../utils/dice";
 import calculateModifier from "../../utils/calculate-modifier";
 import calculateWisdomPotionBonus from "../../utils/calculate-wisdom-potion-bonus";
 import calculatePrices from "../../utils/calculate-price";
 
 import "./styles.scss";
-import { SPRITE_PIXELS } from "../../constants";
-import { calculateDamageRange } from "../../utils/dice";
 
 interface DispatchProps {
     buyItem: (item: ItemType) => void;
@@ -337,8 +337,8 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
                     <div
                         style={{
                             backgroundImage: `url('${props.data.image}')`,
-                            width: SPRITE_PIXELS,
-                            height: SPRITE_PIXELS,
+                            width: SPRITE_SIZE,
+                            height: SPRITE_SIZE,
                         }}
                     />
                 </EmptySlot>

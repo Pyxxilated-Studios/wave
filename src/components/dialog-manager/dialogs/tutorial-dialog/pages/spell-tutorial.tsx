@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { SPRITE_PIXELS } from "../../../../../constants";
+import { SPRITE_SIZE } from "../../../../../constants";
 
 import Fireball from "./assets/fireball.png";
 
@@ -26,7 +26,7 @@ const SpellTutorial: FunctionComponent = () => {
                         className="white-border"
                         src={Fireball}
                         alt="fireball"
-                        style={{ width: SPRITE_PIXELS, padding: "1em" }}
+                        style={{ width: SPRITE_SIZE, padding: "1em" }}
                     />
                 </div>
             </div>

@@ -5,7 +5,7 @@ use rand::prelude::*;
 use std::ops::{Add, Div, Mul, Sub};
 
 #[derive(Clone, Copy)]
-pub enum BiasedTo {
+enum BiasedTo {
     Max,
     Min,
 }
@@ -328,8 +328,10 @@ pub fn roll(notation: &str, critical_hit: bool) -> Result<i32, JsValue> {
 
 #[wasm_bindgen]
 pub fn calculate_damage_range(notation: &str, critical_hit: bool) -> Result<Vec<i32>, JsValue> {
-    let min = parse(notation, critical_hit, Some(BiasedTo::Min))?;
-    let max = parse(notation, critical_hit, Some(BiasedTo::Max))?;
+    let postfix = yard(&notation.lex()?);
+
+    let min = rpn(&postfix, critical_hit, Some(BiasedTo::Min))?;
+    let max = rpn(&postfix, critical_hit, Some(BiasedTo::Max))?;
 
     Ok(vec![min, max])
 }

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../../../store";
 import { DialogState } from "../../../../store/dialog/types";
+import { SPRITE_SIZE } from "../../../../constants";
 
 import Button from "../../../button";
 import MicroDialog from "../../../micro-dialog";
@@ -12,7 +13,6 @@ import openChest from "../../actions/open-chest";
 import closeChestDialog from "../../actions/close-chest-dialog";
 
 import "./styles.scss";
-import { SPRITE_PIXELS } from "../../../../constants";
 
 interface DispatchProps {
     pickupItem: () => void;
@@ -72,8 +72,8 @@ const ChestLoot: FunctionComponent<ChestLootProps> = (props: ChestLootProps) => 
                         <div
                             style={{
                                 backgroundImage: `url('${item.image}')`,
-                                width: SPRITE_PIXELS,
-                                height: SPRITE_PIXELS,
+                                width: SPRITE_SIZE,
+                                height: SPRITE_SIZE,
                             }}
                         />
                         <span className="flex-column chest-loot-item-name">{item.name}</span>
