@@ -227,16 +227,8 @@ impl MapGenerator {
         );
 
         let starting_room = Rect::new(
-            if self.starting_point.x - w / 2 < 0 {
-                w / 2 - self.starting_point.x
-            } else {
-                self.starting_point.x - w / 2
-            },
-            if self.starting_point.y - h / 2 < 0 {
-                h / 2 - self.starting_point.y
-            } else {
-                self.starting_point.y - h / 2
-            },
+            (self.starting_point.x - w / 2).abs(),
+            (self.starting_point.y - h / 2).abs(),
             w,
             h,
         );
@@ -257,7 +249,7 @@ impl MapGenerator {
 
             let new_room = Rect::new(x, y, w, h);
 
-            if rooms.iter().all(|rm| !rm.intersect(&new_room)) {
+            if !rooms.iter().any(|rm| rm.intersect(&new_room)) {
                 apply_room_to_map(&new_room, map);
 
                 let (new_x, new_y) = new_room.center();

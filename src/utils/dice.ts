@@ -1,9 +1,8 @@
 import { calculate_damage_range, roll } from "wave";
 
-export const calculateDamageRange = (notation: string, criticalHit: boolean): [number, number] => {
-    const range = calculate_damage_range(notation, criticalHit);
-    const [min, max] = range;
-    return [min, max];
+export const calculateDamageRange = (notation: string, criticalHit: boolean): { min: number, max: number } => {
+    const [min, max] = calculate_damage_range(notation, criticalHit);
+    return { min, max };
 };
 
 String.prototype.roll = function (this: string, criticalHit: boolean): number {

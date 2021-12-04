@@ -103,7 +103,7 @@ const ViewItem: FunctionComponent<ViewItemProps> = (props: ViewItemProps) => {
             itemStats.push(<StatsItem stats={{ name: "damage", value: (props.data as Weapon).damage }} />);
 
             const range = calculateDamageRange((props.data as Weapon).damage, false);
-            itemStats.push(<StatsItem stats={{ name: "range", value: `${range[0]}-${range[1]}` }} />);
+            itemStats.push(<StatsItem stats={{ name: "range", value: `${range.min}-${range.max}` }} />);
 
             // if there's a bonus
             if (props.data.bonus) {
