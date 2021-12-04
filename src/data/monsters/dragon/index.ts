@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 import DragonSprite from "./dragon.png";
 import DragonFloppedSprite from "./dragon-flopped.png";
@@ -8,7 +8,7 @@ import Mend from "../../spells/mend";
 const Dragon: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 60,
     maxHealth: 60,

@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../store";
 import { InventoryState } from "../../store/inventory/types";
 
 import { ItemType } from "../../types";
-import { MAX_ITEMS_UPGRADE, SPRITE_PIXELS } from "../../constants";
+import { MAX_ITEMS_UPGRADE, SPRITE_SIZE } from "../../constants";
 
 import EmptySlot from "../empty-slot";
 import ContextMenu from "../context-menu";
@@ -40,8 +40,8 @@ const BackpackItems: FunctionComponent<BackpackItemsProps> = (props: BackpackIte
                     onClick={(): void => props.viewItem(items[i])}
                     style={{
                         backgroundImage: `url('${items[i].image}')`,
-                        width: SPRITE_PIXELS,
-                        height: SPRITE_PIXELS,
+                        width: SPRITE_SIZE,
+                        height: SPRITE_SIZE,
                         cursor: "pointer",
                     }}
                 />

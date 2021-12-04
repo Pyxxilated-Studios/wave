@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../../../store";
@@ -26,12 +26,39 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
     const [confirmQuit, setConfirmQuit] = useState(false);
 
     const saveGame = (): void => {
-        const blob = new Blob([JSON.stringify(props.state)]);
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        const state: any = props.state;
+
+        state.world.chests = Object.entries(props.state.world.chests).map(([, chest]) => ({
+            ...chest,
+            position: chest.position.serialize(),
+        }));
+        state.world.maps = props.state.world.maps.map((map) => ({
+            ...map,
+            tiles: map.tiles.map((row) => row.map((tile) => tile.serialize())),
+            paddingTiles: {
+                top: map.paddingTiles.top.map((row) => row.map((tile) => tile.serialize())),
+                bottom: map.paddingTiles.bottom.map((row) => row.map((tile) => tile.serialize())),
+                left: map.paddingTiles.left.map((row) => row.map((tile) => tile.serialize())),
+                right: map.paddingTiles.right.map((row) => row.map((tile) => tile.serialize())),
+            },
+        }));
+
+        Object.entries(state.monsters.entities).forEach(([, entities]: any[]) => {
+            Object.entries(entities).forEach(([, entity]: any[]) => (entity.location = entity.location.serialize()));
+        });
+
+        state.player.monsterLocation = props.state.player.monsterLocation.serialize();
+        state.player.targetLocation = props.state.player.targetLocation.serialize();
+        state.player.monsterTargetLocation = props.state.player.monsterTargetLocation.serialize();
+        state.player.position = props.state.player.position.serialize();
+
+        const blob = new Blob([JSON.stringify(state)]);
         const filename = "wave.json";
 
-        if (window.navigator.msSaveBlob) {
+        if ((window.navigator as any).msSaveBlob) {
             // Internet Explorer/Edge
-            window.navigator.msSaveBlob(blob, filename);
+            (window.navigator as any).msSaveBlob(blob, filename);
         } else {
             // Chrome/Firefox
             const save = document.getElementById("save-game-dialog") as HTMLAnchorElement;

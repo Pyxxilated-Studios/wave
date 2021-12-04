@@ -1,10 +1,10 @@
-import React, { FunctionComponent, CSSProperties } from "react";
+import { FunctionComponent, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import EmptySlot from "../empty-slot";
 
-import { SPRITE_PIXELS } from "../../constants";
+import { SPRITE_SIZE } from "../../constants";
 
 import "./styles.scss";
 
@@ -51,8 +51,8 @@ const Button: FunctionComponent<ButtonProps> = (props: ButtonProps) => {
                     <div
                         style={{
                             backgroundImage: `url('${props.image}')`,
-                            width: SPRITE_PIXELS,
-                            height: SPRITE_PIXELS,
+                            width: SPRITE_SIZE,
+                            height: SPRITE_SIZE,
                         }}
                     />
                 </EmptySlot>

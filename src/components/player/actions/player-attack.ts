@@ -22,43 +22,43 @@ export const findTarget = (
     switch (direction) {
         case Direction.North:
             for (let y = position.y; y >= position.y - range; y--) {
-                const pos = getNewPosition({ x: position.x, y }, direction);
+                const pos = getNewPosition(new Point(position.x, y), direction);
                 const id = monsterAtPosition(pos, entities)?.[0];
                 if (id) {
                     return { location: pos, monsterId: id };
                 }
             }
-            return { location: { x: position.x, y: position.y - range } };
+            return { location: new Point(position.x, position.y - range) };
 
         case Direction.South:
             for (let y = position.y; y <= position.y + range; y++) {
-                const pos = getNewPosition({ x: position.x, y }, direction);
+                const pos = getNewPosition(new Point(position.x, y), direction);
                 const id = monsterAtPosition(pos, entities)?.[0];
                 if (id) {
                     return { location: pos, monsterId: id };
                 }
             }
-            return { location: { x: position.x, y: position.y + range } };
+            return { location: new Point(position.x, position.y + range) };
 
         case Direction.East:
             for (let x = position.x; x <= position.x + range; x++) {
-                const pos = getNewPosition({ x, y: position.y }, direction);
+                const pos = getNewPosition(new Point(x, position.y), direction);
                 const id = monsterAtPosition(pos, entities)?.[0];
                 if (id) {
                     return { location: pos, monsterId: id };
                 }
             }
-            return { location: { x: position.x + range, y: position.y } };
+            return { location: new Point(position.x + range, position.y) };
 
         case Direction.West:
             for (let x = position.x; x >= position.x - range; x--) {
-                const pos = getNewPosition({ x, y: position.y }, direction);
+                const pos = getNewPosition(new Point(x, position.y), direction);
                 const id = monsterAtPosition(pos, entities)?.[0];
                 if (id) {
                     return { location: pos, monsterId: id };
                 }
             }
-            return { location: { x: position.x - range, y: position.y } };
+            return { location: new Point(position.x - range, position.y) };
 
         default:
     }

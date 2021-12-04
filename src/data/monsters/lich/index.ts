@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 import LichSprite from "./lich.png";
 import LichFloppedSprite from "./lich-flopped.png";
@@ -6,7 +6,7 @@ import LichFloppedSprite from "./lich-flopped.png";
 const Lich: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 80,
     maxHealth: 80,

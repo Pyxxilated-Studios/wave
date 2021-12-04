@@ -8,7 +8,9 @@ import {
     OPEN_CHEST,
     ADD_BLOOD_SPILL,
 } from "./types";
-import { Tile, ChestContents, Point } from "../../types";
+import { ChestContents, Point } from "../../types";
+
+import { Tile } from "wave";
 
 export const setCurrentMap = (map: string, floorNumber: number): WorldActionType => {
     return {

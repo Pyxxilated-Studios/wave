@@ -41,9 +41,6 @@ export const ROOM_COUNT = 5;
 export const MIN_ROOM_DIMENSIONS: Dimension = { width: 5, height: 5 };
 export const MAX_ROOM_DIMENSIONS: Dimension = { width: 10, height: 10 };
 
-// Set the number of tiles to pad the map with (so the player cant see edge)
-export const MAP_PADDING_DISTANCE = 5;
-
 // Max number of inventory items
 export const MAX_ITEMS = 8;
 export const MAX_ITEMS_UPGRADE = 12;

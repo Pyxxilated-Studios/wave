@@ -16,8 +16,9 @@ import { Tile, Point } from "../../types";
 import { TAKE_TURN } from "../player/types";
 import { RESET, LOAD } from "../system/types";
 
+import { generate_padding_tiles } from "wave";
+
 import attachMetaToTiles from "../../utils/attach-meta-to-tiles";
-import generatePaddingTiles from "../../utils/generate-padding-tiles";
 import { arrayContainsPoint } from "../../utils/array-contains";
 import { getChestName } from "../../utils/get-chest-name";
 
@@ -57,7 +58,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             const _randomMaps = cloneDeep(state.maps);
 
             const randomTiles = attachMetaToTiles(action.tiles);
-            const randomPaddTiles = generatePaddingTiles();
+            const randomPaddTiles = generate_padding_tiles();
 
             _randomMaps.push({
                 tiles: randomTiles,
@@ -123,7 +124,7 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             const { tiles, paddingTiles } = action;
 
             const currentMapData = newState.maps[newState.floorNumber - 1];
-            // get each tile
+
             tiles.forEach((tile: Point) => {
                 currentMapData.tiles[tile.y][tile.x].explored = true;
             });
@@ -136,10 +137,9 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
                         currentMapData.paddingTiles,
                         direction,
                         Reflect.get(currentMapData.paddingTiles, direction).map((tileRow: Tile[]) =>
-                            tileRow.map((tile) => ({
-                                ...tile,
-                                explored: arrayContainsPoint(paddingTiles, tile.location) || tile.explored,
-                            })),
+                            tileRow.forEach((tile) => {
+                                tile.explored = arrayContainsPoint(paddingTiles, tile.location) || tile.explored;
+                            }),
                         ),
                     );
                 });
@@ -148,10 +148,39 @@ const WorldReducer = (state = initialState, action: WorldActionType): WorldState
             return newState;
         }
 
-        case LOAD:
+        case LOAD: {
             if (!action.payload) return initialState;
 
-            return { ...initialState, ...action.payload.world };
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            const state = {
+                ...initialState,
+                ...action.payload.world,
+                chests: Object.entries(action.payload.world.chests).map(([, chest]: any[]) => ({
+                    ...chest,
+                    position: Point.deserialize(chest.position),
+                })),
+                maps: action.payload.world.maps.map((map: any) => {
+                    return {
+                        ...map,
+                        tiles: map.tiles.map((row: any) => row.map((tile: any) => Tile.deserialize(tile))),
+                        paddingTiles: {
+                            top: map.paddingTiles.top.map((row: any) => row.map((tile: any) => Tile.deserialize(tile))),
+                            bottom: map.paddingTiles.bottom.map((row: any) =>
+                                row.map((tile: any) => Tile.deserialize(tile)),
+                            ),
+                            left: map.paddingTiles.left.map((row: any) =>
+                                row.map((tile: any) => Tile.deserialize(tile)),
+                            ),
+                            right: map.paddingTiles.right.map((row: any) =>
+                                row.map((tile: any) => Tile.deserialize(tile)),
+                            ),
+                        },
+                    };
+                }),
+            };
+
+            return state;
+        }
 
         case RESET:
             return initialState;

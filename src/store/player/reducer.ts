@@ -12,24 +12,24 @@ import {
     EFFECT_PLAYER,
 } from "./types";
 
-import { Direction, Spell, SpellType } from "../../types";
+import { Direction, Spell, SpellType, Point } from "../../types";
 import { RESET, LOAD } from "../system/types";
 import { MONSTER_DIED } from "../monsters/types";
 
 const initialState: PlayerState = {
     direction: Direction.South,
-    position: { x: 0, y: 0 },
+    position: new Point(0, 0),
     playerAttacked: false,
     playerMoved: false,
     projectileUsed: undefined,
     spell: undefined,
     playerDied: false,
-    targetLocation: { x: 0, y: 0 },
+    targetLocation: new Point(0, 0),
     turnsOutOfCombat: 0,
     monsterAttacked: false,
     monsterDied: false,
-    monsterLocation: { x: 0, y: 0 },
-    monsterTargetLocation: { x: 0, y: 0 },
+    monsterLocation: new Point(0, 0),
+    monsterTargetLocation: new Point(0, 0),
     monsterProjectile: undefined,
     monsterProjectileDirection: Direction.North,
     effects: [],
@@ -69,7 +69,7 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
             return {
                 ...state,
                 monsterAttacked: !state.monsterAttacked,
-                monsterTargetLocation: { x: 0, y: 0 },
+                monsterTargetLocation: new Point(0, 0),
                 monsterProjectile: undefined,
                 turnsOutOfCombat: 0,
             };
@@ -110,7 +110,14 @@ const PlayerReducer = (state = initialState, action: PlayerActionType): PlayerSt
         case LOAD:
             if (!action.payload) return initialState;
 
-            return { ...initialState, ...action.payload.player };
+            return {
+                ...initialState,
+                ...action.payload.player,
+                monsterLocation: Point.deserialize(action.payload.player.monsterLocation),
+                targetLocation: Point.deserialize(action.payload.player.targetLocation),
+                monsterTargetLocation: Point.deserialize(action.payload.player.monsterTargetLocation),
+                position: Point.deserialize(action.payload.player.position),
+            };
 
         case RESET:
             return initialState;

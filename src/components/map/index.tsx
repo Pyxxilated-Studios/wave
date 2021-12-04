@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { MapState } from "../../store/map/types";
@@ -65,7 +65,7 @@ const MapRow: FunctionComponent<MapRowProps> = (props: MapRowProps) => {
                 return (
                     <MapTile
                         tile={tile}
-                        position={{ x: index, y: props.index }}
+                        position={new Point(index, props.index)}
                         sightBox={props.sightBox}
                         key={JSON.stringify(tile) + index}
                     />

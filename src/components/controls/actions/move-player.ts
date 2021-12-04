@@ -78,9 +78,6 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
 
     const nextTile = getTileAt(newPosition, maps[floorNumber - 1].tiles);
 
-    const monstersAround =
-        monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap]).length > 0;
-
     if (canMoveTo(newPosition, maps[floorNumber - 1].tiles, monsters.entities[currentMap])) {
         // explore new tiles
         dispatch(exploreTiles(newPosition));
@@ -88,6 +85,9 @@ const move = (direction: Direction): RootThunk => async (dispatch, getState): Pr
         dispatch(movePlayer(newPosition, direction));
         // Deal with any interactions the player can perform with the next tile
         dispatch(handleInteractWithTile(nextTile, newPosition));
+
+        const monstersAround =
+            monstersWithinRange(newPosition, OUT_OF_COMBAT_RANGE, monsters.entities[currentMap]).length > 0;
 
         if (player.turnsOutOfCombat % PASSIVE_MANA_RESTORE_TURNS === 0 && !monstersAround) {
             dispatch(restore("passive", Math.ceil(stats.maxMana / 10)));

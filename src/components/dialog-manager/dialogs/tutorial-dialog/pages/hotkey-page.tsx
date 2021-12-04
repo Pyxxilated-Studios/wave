@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import BKey from "./assets/keyboard/b_key.png";
 import HKey from "./assets/keyboard/h_key.png";

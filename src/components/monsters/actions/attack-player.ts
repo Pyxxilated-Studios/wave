@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { pause } from "../../../store/dialog/actions";
 import { playerDie, monsterUseProjectile, monsterAttack } from "../../../store/player/actions";
 
-import { Monster, Direction, Target } from "../../../types";
+import { Monster, Direction, Target, Point } from "../../../types";
 import { monsterAbilityCheck } from "../../../store/journal/actions";
 import { damageToPlayer } from "../../../store/stats/actions";
 
@@ -17,7 +17,7 @@ export const attackPlayer = (monster: Monster): RootThunk => async (dispatch, ge
     if (projectile && projectile.target === Target.Enemy) {
         let direction: Direction = Direction.North;
 
-        const targetPosition = { x: location.x - player.position.x, y: location.y - player.position.y };
+        const targetPosition = new Point(location.x - player.position.x, location.y - player.position.y);
 
         if (player.position.x !== location.x) {
             if (player.position.x < location.x) {

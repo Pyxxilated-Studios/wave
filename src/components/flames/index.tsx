@@ -1,4 +1,4 @@
-import React, { ReactNode, FunctionComponent } from "react";
+import { ReactNode, FunctionComponent } from "react";
 
 import { Point } from "../../types";
 import { translateToSpriteCoordinates } from "../../utils/translate-point-sprite";
@@ -13,7 +13,7 @@ interface FlameProps {
 }
 
 const Flame: FunctionComponent<FlameProps> = (props: FlameProps) => {
-    const { x: left, y: top } = translateToSpriteCoordinates(props.position ? props.position : { x: 0, y: 0 });
+    const { x: left, y: top } = translateToSpriteCoordinates(props.position ? props.position : new Point(0, 0));
 
     return (
         <div

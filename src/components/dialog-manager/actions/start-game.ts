@@ -12,15 +12,16 @@ import { MAP_DIMENSIONS } from "../../../constants";
 
 import generateMap from "../../world/actions/generate-map";
 import generateMonsters from "../../world/actions/generate-monsters";
+import { Point } from "wave";
 
 const startGame = (): RootThunk => async (dispatch, getState): Promise<void> => {
     const { stats } = getState();
     const floorNumber = 1;
 
-    const startingPosition = {
-        x: Math.floor(Math.random() * (MAP_DIMENSIONS.width - 1) + 1),
-        y: Math.floor(Math.random() * (MAP_DIMENSIONS.height - 1) + 1),
-    };
+    const startingPosition = new Point(
+        Math.floor(Math.random() * (MAP_DIMENSIONS.width - 1) + 1),
+        Math.floor(Math.random() * (MAP_DIMENSIONS.height - 1) + 1),
+    );
 
     dispatch(movePlayer(startingPosition, Direction.South));
     // generate a random map and id

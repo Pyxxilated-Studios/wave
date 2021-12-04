@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import * as fontawesome from "@fortawesome/fontawesome-svg-core";
@@ -101,7 +101,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     if (!library) {
         // If we don't do this here, we'd have to do it everywhere we want to
         // load the library. So, may as well do so here and pass it around.
-        import("wave").then(setLibrary);
+	import("wave").then(setLibrary);
         return null;
     }
 

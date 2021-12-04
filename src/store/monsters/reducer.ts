@@ -13,7 +13,7 @@ import {
 } from "./types";
 import { RESET, LOAD } from "../system/types";
 
-import { Monster, Direction } from "../../types";
+import { Monster, Direction, Point } from "../../types";
 
 const initialState: MonstersState = {
     entities: {},
@@ -93,7 +93,25 @@ const MonstersReducer = (state = initialState, action: MonstersActionType): Mons
         case LOAD:
             if (!action.payload) return initialState;
 
-            return { ...initialState, ...action.payload.monsters };
+            return {
+                ...initialState,
+                ...action.payload.monsters,
+                entities: Object.fromEntries(
+                    /* eslint-disable @typescript-eslint/no-explicit-any */
+                    Object.entries(action.payload.monsters.entities).map(([id, entities]: any[]) => [
+                        id,
+                        Object.fromEntries(
+                            Object.entries(entities).map(([i, entity]: any[]) => [
+                                i,
+                                {
+                                    ...entity,
+                                    location: Point.deserialize(entity.location),
+                                },
+                            ]),
+                        ),
+                    ]),
+                ),
+            };
 
         case RESET:
             return initialState;

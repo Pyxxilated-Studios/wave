@@ -1,20 +1,10 @@
-export interface Point {
-    x: number;
-    y: number;
-}
+import { Point, Tile } from "wave";
+
+export { Point, Tile } from "wave";
 
 export interface Dimension {
     width: number;
     height: number;
-}
-
-export type Room = Dimension & Point;
-
-export interface Tile {
-    location: Point;
-    value: number;
-    explored: boolean;
-    variation: number;
 }
 
 export enum Direction {

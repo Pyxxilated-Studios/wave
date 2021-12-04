@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import { Monster as MonsterType, Direction } from "../../types";
-import { SPRITE_PIXELS } from "../../constants";
+import { SPRITE_SIZE } from "../../constants";
 
 import HealthBar from "../health-bar";
 
@@ -28,8 +28,8 @@ const Monster: FunctionComponent<MonsterProps> = (props: MonsterProps) => {
                 left: spriteCoordinates.x,
                 backgroundImage: `url('${monster.sprite[monster.direction]}')`,
                 opacity: monster.visible ? 1 : 0,
-                width: SPRITE_PIXELS,
-                height: SPRITE_PIXELS,
+                width: SPRITE_SIZE,
+                height: SPRITE_SIZE,
                 transition: "left .35s ease-in-out .15s, top .35s ease-in-out .15s, opacity .35s ease-in-out",
             }}
         >

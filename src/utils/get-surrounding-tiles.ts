@@ -13,7 +13,7 @@ export const radiusTiles = (position: Point, radius = SIGHT_RADIUS): Point[] => 
     for (let y = -radius; y <= radius; y++) {
         for (let x = -radius; x <= radius; x++) {
             if (x * x + y * y <= radius * radius) {
-                radTiles.push({ x: x + position.x, y: y + position.y });
+                radTiles.push(new Point(x + position.x, y + position.y));
             }
         }
     }
@@ -32,21 +32,21 @@ const getSurroundingTiles = (position: Point): { tiles: Point[]; paddingTiles: P
     const paddingTiles: Point[] = [];
 
     // make sure the start position is within the bounds
-    if (position.x >= MAP_DIMENSIONS.width || position.x < 0 || position.y >= MAP_DIMENSIONS.height || position.y < 0) {
-        return { tiles: surroundingTiles, paddingTiles };
+    if (
+        !(position.x >= MAP_DIMENSIONS.width || position.x < 0 || position.y >= MAP_DIMENSIONS.height || position.y < 0)
+    ) {
+        // add position as offset to each radius tile
+        radiusTiles(position).forEach(({ x, y }) => {
+            // if it is inside the bounds
+            if (x >= 0 && x < MAP_DIMENSIONS.width && y >= 0 && y < MAP_DIMENSIONS.height) {
+                // add to surrounding tiles...
+                surroundingTiles.push(new Point(x, y));
+            } else {
+                // otherwise add the tile to padding tiles array
+                paddingTiles.push(new Point(x, y));
+            }
+        });
     }
-
-    // add position as offset to each radius tile
-    radiusTiles(position).forEach(({ x, y }) => {
-        // if it is inside the bounds
-        if (x >= 0 && x < MAP_DIMENSIONS.width && y >= 0 && y < MAP_DIMENSIONS.height) {
-            // add to surrounding tiles...
-            surroundingTiles.push({ x, y });
-        } else {
-            // otherwise add the tile to padding tiles array
-            paddingTiles.push({ x, y });
-        }
-    });
 
     return {
         tiles: surroundingTiles,

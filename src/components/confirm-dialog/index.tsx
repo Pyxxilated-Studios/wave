@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, FunctionComponent } from "react";
+import { useEffect, useCallback, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../button";

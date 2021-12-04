@@ -27,12 +27,11 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
 
     const possibleDirections: Point[] = [];
 
-    const up = { x: location.x, y: location.y - 1 };
+    const up = new Point(location.x, location.y - 1);
     if (
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -41,12 +40,11 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         possibleDirections.push(up);
     }
 
-    const down = { x: location.x, y: location.y + 1 };
+    const down = new Point(location.x, location.y + 1);
     if (
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -55,12 +53,11 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         possibleDirections.push(down);
     }
 
-    const left = { x: location.x - 1, y: location.y };
+    const left = new Point(location.x - 1, location.y);
     if (
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,
@@ -69,12 +66,11 @@ export const moveFrightened = (sightBox: Point[], currentMap: string, monster: M
         possibleDirections.push(left);
     }
 
-    const right = { x: location.x + 1, y: location.y };
+    const right = new Point(location.x + 1, location.y);
     if (
         monsterCanMoveTo(
             up,
             id,
-            currentMap,
             player.position,
             monsters.entities[currentMap],
             world.maps[world.floorNumber - 1].tiles,

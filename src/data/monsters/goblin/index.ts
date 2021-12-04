@@ -1,11 +1,11 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 import GoblinSprite from "./goblin.png";
 
 const Goblin: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 14,
     maxHealth: 14,

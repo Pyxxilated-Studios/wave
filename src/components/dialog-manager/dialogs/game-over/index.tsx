@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, forwardRef } from "react";
+import { FunctionComponent, useState, forwardRef } from "react";
 import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 import { connect } from "react-redux";
 

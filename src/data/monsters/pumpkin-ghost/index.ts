@@ -1,4 +1,4 @@
-import { Monster, Direction } from "../../../types";
+import { Monster, Direction, Point } from "../../../types";
 
 // Credit: https://pipoya.itch.io/free-rpg-monster-pack
 import PumpkinGhostSprite from "./pumpkin-ghost.png";
@@ -7,7 +7,7 @@ import Pumpkin from "../../items/weapons/ammo/pumpkin";
 const PumpkinGhost: Monster = {
     kind: "monster",
     id: "0",
-    location: { x: 0, y: 0 },
+    location: new Point(0, 0),
     visible: false,
     health: 35,
     maxHealth: 35,

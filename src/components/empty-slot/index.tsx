@@ -1,7 +1,8 @@
-import React, { FunctionComponent, CSSProperties, ReactNode } from "react";
+import { FunctionComponent, CSSProperties, ReactNode } from "react";
 
 import InventorySlot from "./inventory-slot.png";
-import { SPRITE_PIXELS } from "../../constants";
+
+import { SPRITE_SIZE } from "../../constants";
 
 interface EmptySlotProps {
     margin?: string;
@@ -14,8 +15,8 @@ const EmptySlot: FunctionComponent<EmptySlotProps> = (props: EmptySlotProps) => 
     const styles = {
         ...props.style,
         backgroundImage: `url('${InventorySlot}')`,
-        width: SPRITE_PIXELS,
-        height: SPRITE_PIXELS,
+        width: SPRITE_SIZE,
+        height: SPRITE_SIZE,
         margin: props.margin,
     };
 

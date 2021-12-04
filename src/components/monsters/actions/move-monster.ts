@@ -28,12 +28,10 @@ export const checkForOtherMonster = (
  *
  * @param position The position the monster is looking to move to
  * @param id The id of the monster
- * @param currentMap The current map
  */
 export const monsterCanMoveTo = (
     position: Point,
     id: string,
-    currentMap: string,
     playerPosition: Point,
     entities: Record<string, Entity>,
     tiles: Tile[][],

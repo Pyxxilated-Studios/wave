@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../button";

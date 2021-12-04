@@ -2,7 +2,7 @@ import { RootThunk } from "../../../store";
 import { playerDie, monsterUseProjectile, monsterAttack, effectPlayer } from "../../../store/player/actions";
 import { pause } from "../../../store/dialog/actions";
 
-import { Monster, Spell, HealEffect, Direction, ChangeAIEffect, Target, SpellEffectType } from "../../../types";
+import { Monster, Spell, HealEffect, Direction, ChangeAIEffect, Target, SpellEffectType, Point } from "../../../types";
 import { AI_CHANGE_TURNS } from "../../../constants";
 import { damageToPlayer } from "../../../store/stats/actions";
 import { healMonster } from "../../../store/monsters/actions";
@@ -37,7 +37,7 @@ export const monsterCastSpell = (monster: Monster): RootThunk => async (dispatch
 
         let direction: Direction = Direction.North;
 
-        const targetPosition = { x: location.x - player.position.x, y: location.y - player.position.y };
+        const targetPosition = new Point(location.x - player.position.x, location.y - player.position.y);
 
         if (player.position.x !== location.x) {
             if (player.position.x < location.x) {

@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent, CSSProperties, ReactNode } from "react";
+import { useEffect, FunctionComponent, CSSProperties, ReactNode } from "react";
 
 import Button from "../button";
 

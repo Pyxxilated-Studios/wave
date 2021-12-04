@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { connect } from "react-redux";
 
 import { RootState, RootDispatch } from "../../store";
@@ -6,7 +6,7 @@ import { StatsState } from "../../store/stats/types";
 import { unequipItem } from "../../store/stats/actions";
 
 import { ItemType } from "../../types";
-import { SPRITE_PIXELS } from "../../constants";
+import { SPRITE_SIZE } from "../../constants";
 
 import EmptySlot, { DarkenSlot } from "../empty-slot";
 import ContextMenu from "../context-menu";
@@ -81,8 +81,8 @@ const EquippedItems: FunctionComponent<EquippedItemsProps> = (props: EquippedIte
                         <ContextMenu context={getContext(gloves)}>
                             <div
                                 style={{
-                                    height: SPRITE_PIXELS,
-                                    width: SPRITE_PIXELS,
+                                    height: SPRITE_SIZE,
+                                    width: SPRITE_SIZE,
                                     backgroundImage: `url('${gloves.image}')`,
                                 }}
                             >
@@ -184,8 +184,8 @@ const EquippedItems: FunctionComponent<EquippedItemsProps> = (props: EquippedIte
                         <ContextMenu context={getContext(boots)}>
                             <div
                                 style={{
-                                    height: SPRITE_PIXELS,
-                                    width: SPRITE_PIXELS,
+                                    height: SPRITE_SIZE,
+                                    width: SPRITE_SIZE,
                                     backgroundImage: `url('${boots.image}')`,
                                 }}
                             >
