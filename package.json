@@ -7,8 +7,8 @@
     "type": "module",
     "main": "dist/index.js",
     "scripts": {
-        "start": "wasm-pack build wave --target web && tsc && vite",
-        "build": "wasm-pack build --release wave --target web && tsc && vite build --emptyOutDir"
+        "start": "wasm-pack build wave --target web && vite",
+        "build": "wasm-pack build --release wave --target web && vite build --emptyOutDir"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",

@@ -4,12 +4,17 @@ import wasmPack from "vite-plugin-wasm-pack";
 
 export default defineConfig({
     plugins: [
-        wasmPack("./wave"),
+        wasmPack(["./wave"]),
         react(),
     ],
     root: "src",
     publicDir: "../public",
     build: {
-        outDir: "../dist"
+        outDir: "../dist",
+        rollupOptions: {
+            output: {
+                entryFileNames: "[name].js"
+            }
+        }
     }
 });
