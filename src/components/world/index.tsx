@@ -24,10 +24,6 @@ import Player from "../player";
 
 import "./styles.scss";
 
-interface OwnProps {
-    library: typeof import("wave");
-}
-
 interface DispatchProps {
     takeMonstersTurn: () => void;
     loadMonsters: () => void;
@@ -40,7 +36,7 @@ interface StateProps {
     dialog: DialogState;
 }
 
-type WorldProps = OwnProps & DispatchProps & StateProps & ReactTimeoutProps;
+type WorldProps = DispatchProps & StateProps & ReactTimeoutProps;
 
 // animation time is 500(ms), adding +100 makes it smoother
 const MAP_TRANSITION = MAP_TRANSITION_DELAY + 100;

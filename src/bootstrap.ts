@@ -13,6 +13,4 @@ import init from "wave";
     import("./index");
 })();
 
-export {
-    init
-};
+export { };

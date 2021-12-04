@@ -37,16 +37,8 @@ class Snackbar extends Component<SnackbarProps, State> {
     };
 
     componentDidUpdate(prevProps: SnackbarProps): void {
-        const {
-            itemReceived,
-            itemUsed,
-            itemDropped,
-            notEnoughGold,
-            tooManyItems,
-            item,
-            message,
-            itemSold,
-        } = this.props.snackbar;
+        const { itemReceived, itemUsed, itemDropped, notEnoughGold, tooManyItems, item, message, itemSold } =
+            this.props.snackbar;
 
         const lastItemReceived = prevProps.snackbar.itemReceived;
         const lastItemDropped = prevProps.snackbar.itemDropped;

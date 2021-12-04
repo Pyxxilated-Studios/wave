@@ -17,10 +17,10 @@ const Div = styled.div<DivProps>`
     height: ${SPRITE_PIXELS};
     z-index: 1000;
 
-    animation: ${(props: DivProps): Keyframes => props.animation} .5s steps(${(props: DivProps): number =>
-    props.projectile.animationFrames});
+    animation: ${(props: DivProps): Keyframes => props.animation} 0.5s
+        steps(${(props: DivProps): number => props.projectile.animationFrames});
 
-    background-image: url('${(props: DivProps): string => props.projectile.sprite}');
+    background-image: url("${(props: DivProps): string => props.projectile.sprite}");
     background-position-x: 0px;
 `;
 

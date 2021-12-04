@@ -29,25 +29,24 @@ const MapPadding: FunctionComponent<MapPaddingProps> = (props: MapPaddingProps) 
     };
 
     Object.entries(props.tiles).forEach(([direction, tiles]) => {
-        paddingTiles[direction as keyof Padding] = 
-            tiles.map((row: Tile[], index: number) => {
-                return (
-                    <div className="row" style={{ height: SPRITE_SIZE }} key={`${direction}-${index}`}>
-                        {row.map((rowTile) => {
-                            return (
-                                <BoundaryTile
-                                    tileType={props.tileType}
-                                    variation={rowTile.variation}
-                                    explored={rowTile.explored}
-                                    sightBox={props.sightBox}
-                                    location={rowTile.location}
-                                    key={JSON.stringify(rowTile.location)}
-                                />
-                            );
-                        })}
-                    </div>
-                );
-            });
+        paddingTiles[direction as keyof Padding] = tiles.map((row: Tile[], index: number) => {
+            return (
+                <div className="row" style={{ height: SPRITE_SIZE }} key={`${direction}-${index}`}>
+                    {row.map((rowTile) => {
+                        return (
+                            <BoundaryTile
+                                tileType={props.tileType}
+                                variation={rowTile.variation}
+                                explored={rowTile.explored}
+                                sightBox={props.sightBox}
+                                location={rowTile.location}
+                                key={JSON.stringify(rowTile.location)}
+                            />
+                        );
+                    })}
+                </div>
+            );
+        });
     });
 
     // we need to mirror the top rows for them to

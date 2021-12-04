@@ -75,7 +75,6 @@ interface AppProps {
 }
 
 const App: FunctionComponent<AppProps> = (props: AppProps) => {
-    const [library, setLibrary] = useState<typeof import("wave")>();
     useViewportScaling();
 
     // Disable scrolling of the page
@@ -98,17 +97,10 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
         return clearAllBodyScrollLocks;
     }, []);
 
-    if (!library) {
-        // If we don't do this here, we'd have to do it everywhere we want to
-        // load the library. So, may as well do so here and pass it around.
-	import("wave").then(setLibrary);
-        return null;
-    }
-
     return (
         <>
             <Viewport>
-                <World library={library} />
+                <World />
                 <FloorCounter floorNumber={props.world.floorNumber} />
                 <DialogManager />
                 <TutorialButton />
