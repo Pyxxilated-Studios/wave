@@ -251,7 +251,7 @@ fn yard(infix: &[Token]) -> Vec<Token> {
             match token {
                 Operator(op) => {
                     reorder(&mut stack, *op, &mut output);
-                    stack.push(token.clone())
+                    stack.push(token.clone());
                 }
                 LeftParen => stack.push(token.clone()),
                 RightParen => {

@@ -56,9 +56,9 @@ const SettingsDialog: FunctionComponent<SettingsDialogProps> = (props: SettingsD
         const blob = new Blob([JSON.stringify(state)]);
         const filename = "wave.json";
 
-        if (window.navigator.msSaveBlob) {
+        if ((window.navigator as any).msSaveBlob) {
             // Internet Explorer/Edge
-            window.navigator.msSaveBlob(blob, filename);
+            (window.navigator as any).msSaveBlob(blob, filename);
         } else {
             // Chrome/Firefox
             const save = document.getElementById("save-game-dialog") as HTMLAnchorElement;

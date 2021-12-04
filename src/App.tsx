@@ -101,7 +101,7 @@ const App: FunctionComponent<AppProps> = (props: AppProps) => {
     if (!library) {
         // If we don't do this here, we'd have to do it everywhere we want to
         // load the library. So, may as well do so here and pass it around.
-        import("wave").then(setLibrary);
+	import("wave").then(setLibrary);
         return null;
     }
 

@@ -133,10 +133,10 @@ impl Tile {
 }
 
 fn apply_room_to_map(room: &Rect, map: &mut Vec<Vec<Tile>>) {
-    (room.top + 1..=room.bottom).for_each(|y| {
-        (room.left + 1..=room.right)
-            .for_each(|x| map[y as usize][x as usize].value = TileType::Floor as i32)
-    })
+    (room.top + 1..=min(room.bottom, crate::TILE_WIDTH - 1)).for_each(|y| {
+        (room.left + 1..=min(room.right, crate::TILE_WIDTH - 1))
+            .for_each(|x| map[y as usize][x as usize].value = TileType::Floor as i32);
+    });
 }
 
 fn apply_horizontal_tunnel(map: &mut Vec<Vec<Tile>>, x1: i32, x2: i32, y: i32, width: i32) {
@@ -144,7 +144,7 @@ fn apply_horizontal_tunnel(map: &mut Vec<Vec<Tile>>, x1: i32, x2: i32, y: i32, w
         if x > 0 && x < width {
             map[y as usize][x as usize].value = TileType::Floor as i32;
         }
-    })
+    });
 }
 
 fn apply_vertical_tunnel(map: &mut Vec<Vec<Tile>>, y1: i32, y2: i32, x: i32, height: i32) {
@@ -152,7 +152,7 @@ fn apply_vertical_tunnel(map: &mut Vec<Vec<Tile>>, y1: i32, y2: i32, x: i32, hei
         if y > 0 && y < height {
             map[y as usize][x as usize].value = TileType::Floor as i32;
         }
-    })
+    });
 }
 
 struct MapGenerator {
@@ -218,7 +218,7 @@ impl MapGenerator {
     ///
     /// This will also generate the tunnels between these rooms,
     /// and the stairs between the previous floor and the next.
-    fn generate_rooms(&mut self, mut map: &mut Vec<Vec<Tile>>) {
+    fn generate_rooms(&mut self, map: &mut Vec<Vec<Tile>>) {
         let mut rooms = Vec::with_capacity(crate::MAX_ROOMS as usize);
 
         let (w, h) = (
@@ -246,7 +246,7 @@ impl MapGenerator {
                 TileType::Downstairs as i32;
         }
 
-        apply_room_to_map(&starting_room, &mut map);
+        apply_room_to_map(&starting_room, map);
         rooms.push(starting_room);
 
         (1..crate::MAX_ROOMS).for_each(|_| {
@@ -258,17 +258,17 @@ impl MapGenerator {
             let new_room = Rect::new(x, y, w, h);
 
             if rooms.iter().all(|rm| !rm.intersect(&new_room)) {
-                apply_room_to_map(&new_room, &mut map);
+                apply_room_to_map(&new_room, map);
 
                 let (new_x, new_y) = new_room.center();
                 let (prev_x, prev_y) = rooms.last().unwrap().center();
 
                 if rand::random() {
-                    apply_horizontal_tunnel(&mut map, prev_x, new_x, prev_y, self.width);
-                    apply_vertical_tunnel(&mut map, prev_y, new_y, new_x, self.height);
+                    apply_horizontal_tunnel(map, prev_x, new_x, prev_y, self.width);
+                    apply_vertical_tunnel(map, prev_y, new_y, new_x, self.height);
                 } else {
-                    apply_vertical_tunnel(&mut map, prev_y, new_y, prev_x, self.height);
-                    apply_horizontal_tunnel(&mut map, prev_x, new_x, new_y, self.width);
+                    apply_vertical_tunnel(map, prev_y, new_y, prev_x, self.height);
+                    apply_horizontal_tunnel(map, prev_x, new_x, new_y, self.width);
                 }
 
                 // Add a random chest

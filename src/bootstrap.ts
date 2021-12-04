@@ -5,6 +5,14 @@
  * bootstrap/async splitpoint here so that we can simply import what
  * we want and use it.
  */
-import("./index").catch((err) => console.log(err));
 
-export {};
+import init from "wave";
+
+(async () => {
+    await init();
+    import("./index");
+})();
+
+export {
+    init
+};

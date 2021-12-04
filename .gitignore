@@ -10,8 +10,11 @@
 
 # production
 /build
-/lib/target
-/lib/Cargo.lock
+/wave/target
+/wave/Cargo.lock
+/dist
+workers-site/
+wrangler.toml
 
 # misc
 .DS_Store

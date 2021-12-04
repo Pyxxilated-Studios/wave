@@ -45,7 +45,7 @@ interface MapTileProps {
 
 const MapTile: FunctionComponent<MapTileProps> = (props: MapTileProps) => {
     // Load the tile directly from the public folder
-    const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tile.value, props.tile.variation)}.png`;
+    const tilesrc = `/wave/tiles/${getTileSprite(props.tile.value, props.tile.variation)}.png`;
 
     const inSight = arrayContainsPoint(props.sightBox, props.position);
 
@@ -105,7 +105,7 @@ interface GroundTileProps {
 
 const GroundTile: FunctionComponent<GroundTileProps> = (props: GroundTileProps) => {
     // Load the tile directly from the public folder
-    const tilesrc = `${process.env.PUBLIC_URL}/tiles/floor_${props.variation}.png`;
+    const tilesrc = `/wave/tiles/floor_${props.variation}.png`;
 
     return (
         <div

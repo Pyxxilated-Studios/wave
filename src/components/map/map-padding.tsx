@@ -28,11 +28,9 @@ const MapPadding: FunctionComponent<MapPaddingProps> = (props: MapPaddingProps) 
         right: [],
     };
 
-    Object.keys(props.tiles).forEach((direction: string) => {
-        Reflect.set(
-            paddingTiles,
-            direction,
-            Reflect.get(props.tiles, direction).map((row: Tile[], index: number) => {
+    Object.entries(props.tiles).forEach(([direction, tiles]) => {
+        paddingTiles[direction as keyof Padding] = 
+            tiles.map((row: Tile[], index: number) => {
                 return (
                     <div className="row" style={{ height: SPRITE_SIZE }} key={`${direction}-${index}`}>
                         {row.map((rowTile) => {
@@ -49,8 +47,7 @@ const MapPadding: FunctionComponent<MapPaddingProps> = (props: MapPaddingProps) 
                         })}
                     </div>
                 );
-            }),
-        );
+            });
     });
 
     // we need to mirror the top rows for them to
@@ -77,7 +74,7 @@ interface BoundaryTileProps {
 
 const BoundaryTile: FunctionComponent<BoundaryTileProps> = (props: BoundaryTileProps) => {
     // Load the tile directly from the public folder
-    const tilesrc = `${process.env.PUBLIC_URL}/tiles/${getTileSprite(props.tileType, props.variation)}.png`;
+    const tilesrc = `/wave/tiles/${getTileSprite(props.tileType, props.variation)}.png`;
 
     // Check the sight box tiles
     const inSight = arrayContainsPoint(props.sightBox, props.location);
